@@ -1,18 +1,24 @@
 import axios from "axios";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import UseInput from "../hooks/UseInput";
 
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
+
+import { emailCheck } from "../shared/SignUpCheck";
+import { nicknameCheck } from "../shared/SignUpCheck";
 
 const SignUp = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [email, setEmail] = UseInput(null);
   const [nickname, setNickname] = UseInput(null);
   const [password, setPassword] = UseInput(null);
   const [confirmPassword, setConfirmPassword] = UseInput(null);
+
+  const [EmailCheck, setEmailCheck] = useState(false);
+  const [NickNameCheck, setNickNameCheck] = useState(false);
 
   const passwordCheck = useRef();
 
@@ -22,13 +28,53 @@ const SignUp = () => {
     passwordCheck.current.innerText = "❌";
   }
 
-  const getemailCheck = () => {
-    return axios.get(`http://15.164.50.132/user/idcheck/${email}`);
+  const getEmailCheck = async () => {
+    if (!emailCheck(email)) {
+      return null;
+    } else {
+      const data = await axios.post(
+        `http://15.164.50.132/user/idcheck/${email}`
+      );
+      return data;
+    }
   };
 
-  const dupCheck = useQuery("DUP_CHECK", getemailCheck, {
+  const { mutate: dupEmail } = useMutation(getEmailCheck, {
     onSuccess: (data) => {
-      console.log("중복체크!", data);
+      if (data === null) {
+        window.alert("아이디 형식을 지켜주세요");
+      } else {
+        window.alert("사용가능한 아이디 입니다");
+      }
+    },
+    onError: (data) => {
+      console.log(data);
+      window.alert("이미 사용중인 아이디입니다.");
+    },
+  });
+
+  const getNickCheck = async () => {
+    if (!nicknameCheck(email)) {
+      window.alert("올바른 닉네임 형식을 작성해주세요");
+      return;
+    }
+
+    const data = await axios.post(
+      `http://15.164.50.132/user/idcheck/${nickname}`
+    );
+    return data;
+  };
+
+  const { mutate: dupnick } = useMutation(getNickCheck, {
+    onSuccess: (data) => {
+      console.log(data);
+      setNickNameCheck(true);
+      console.log(EmailCheck);
+      window.alert("사용가능!");
+    },
+    onError: (data) => {
+      console.log(data);
+      window.alert("사용불가능!");
     },
   });
 
@@ -48,23 +94,29 @@ const SignUp = () => {
       return;
     }
 
-    // await axios
-    //   .post("http://15.164.50.132/api/signup", {
-    //     email,
-    //     nickname,
-    //     password,
-    //     confirmPassword,
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     window.alert("회원가입을 축하합니다!");
-    //     navigate("/Login");
-    //   })
-    //   .catch((error) => {
-    //     window.alert("아이디, 닉네임 또는 비밀번호를 확인해주세요.");
-    //     console.log("회원가입 DB Error", error);
-    //   });
+    const data = axios.post("http://15.164.50.132/user/signup", {
+      email,
+      nickname,
+      password,
+      confirmPassword,
+    });
+    return data;
   };
+
+  const { mutate: onsubmit } = useMutation(Submit, {
+    onSuccess: (data) => {
+      if (data.data.result == true) {
+        window.alert("가입성공!!!");
+        navigate("/");
+      } else {
+        window.alert("중복!!!");
+      }
+    },
+    onError: (data) => {
+      console.log(data);
+      window.alert("ㅠㅠ실패!!");
+    },
+  });
 
   return (
     <>
@@ -77,7 +129,7 @@ const SignUp = () => {
             value={email || ""}
             onChange={setEmail}
           />
-          <button onClick={getemailCheck}>중복확인</button>
+          <button onClick={dupEmail}>중복확인</button>
         </div>
         <div>
           <input
@@ -87,7 +139,7 @@ const SignUp = () => {
             value={nickname || ""}
             onChange={setNickname}
           />
-          <button>중복확인</button>
+          <button onClick={dupnick}>중복확인</button>
         </div>
         <div>
           <input
@@ -108,7 +160,17 @@ const SignUp = () => {
             onChange={setConfirmPassword}
           />
         </div>
-        <button onClick={Submit}>회원가입</button>
+        {EmailCheck === true && NickNameCheck === true ? (
+          <button onClick={onsubmit}>회원가입</button>
+        ) : (
+          <button
+            onClick={() => {
+              window.alert("중복체크후 사용해주세요!!");
+            }}
+          >
+            회원가입
+          </button>
+        )}
       </div>
     </>
   );
