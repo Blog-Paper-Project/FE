@@ -12,6 +12,8 @@ import { nicknameCheck } from "../shared/SignUpCheck";
 import SignUpModal from "../components/user_components/SignUpModal";
 
 const SignUp = () => {
+
+  console.log(process.env.REACT_APP_API_URL)
   const navigate = useNavigate();
 
   const [email, setEmail] = UseInput(null);
