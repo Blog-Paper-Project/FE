@@ -1,19 +1,20 @@
-import axios from "axios";
 import React, { useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import UseInput from "../hooks/UseInput";
 
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 
 import { emailCheck } from "../shared/SignUpCheck";
 import { nicknameCheck } from "../shared/SignUpCheck";
 
+import axios from "axios";
+
 import SignUpModal from "../components/user_components/SignUpModal";
 
 const SignUp = () => {
+  const queryClient = useQueryClient();
 
-  console.log(process.env.REACT_APP_API_URL)
   const navigate = useNavigate();
 
   const [email, setEmail] = UseInput(null);
@@ -48,13 +49,16 @@ const SignUp = () => {
     if (!emailCheck(email)) {
       return null;
     } else {
-      const data = await axios.post(`${process.env.REACT_APP_API_URL}/user/idcheck/${email}`);
+      const data = await axios.post(
+        `${process.env.REACT_APP_API_URL}/user/idcheck/${email}`
+      );
       return data;
     }
   };
 
   const { mutate: dupEmail } = useMutation(getEmailCheck, {
     onSuccess: (data) => {
+      queryClient.invalidateQueries();
       if (data === null) {
         window.alert("아이디 형식을 지켜주세요");
       } else {
@@ -70,13 +74,16 @@ const SignUp = () => {
     if (!nicknameCheck(nickname)) {
       return null;
     } else {
-      const data = await axios.post(`${process.env.REACT_APP_API_URL}/user/idcheck/${nickname}`);
+      const data = await axios.post(
+        `${process.env.REACT_APP_API_URL}/user/idcheck/${nickname}`
+      );
       return data;
     }
   };
 
   const { mutate: dupnick } = useMutation(getNickCheck, {
     onSuccess: (data) => {
+      queryClient.invalidateQueries();
       if (data === null) {
         window.alert("닉네임 형식을 지켜주세요");
       } else {
@@ -104,17 +111,21 @@ const SignUp = () => {
       return;
     }
 
-    const data = axios.post(`${process.env.REACT_APP_API_URL}/user/signup`, {
-      email,
-      nickname,
-      password,
-      confirmPassword,
-    });
+    const data = await axios.post(
+      `${process.env.REACT_APP_API_URL}/user/signup`,
+      {
+        email,
+        nickname,
+        password,
+        confirmPassword,
+      }
+    );
     return data;
   };
 
   const { mutate: onsubmit } = useMutation(Submit, {
     onSuccess: (data) => {
+      queryClient.invalidateQueries();
       if (data.data.result == true) {
         window.alert("가입성공!!!");
         navigate("/");
@@ -127,6 +138,10 @@ const SignUp = () => {
       return;
     },
   });
+
+  if (SignUp.isLoading) {
+    return null;
+  }
 
   return (
     <>
@@ -176,6 +191,7 @@ const SignUp = () => {
             onChange={setPassword}
           />
           <span ref={passwordChecked} />
+          {}
         </div>
         <div>
           <input
