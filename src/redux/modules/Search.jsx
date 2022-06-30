@@ -17,7 +17,6 @@ export const __searchPost = (payload) => async (dispatch) => {
     const response = await api.get(
       `/api/paper?keyword=${payload}`
     );
-    console.log(payload)
     dispatch(loadSearch(response.data));
   } catch (error) {
     window.alert("검색오류!");

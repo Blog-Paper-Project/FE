@@ -25,27 +25,27 @@ const Main = () => {
 
   return (
     <>
+      <Header />
       <MainBox>
-        <Header />
-        {paper_query && paper_query?.data?.data?.papers?.map((item, paper_list) => {
-          return (
-            <BestPaper key={paper_list}>
-              <div>글제목 = {item.title}</div>
-              <div>글쓴이 = {item.userId}</div>
-              <div>추천수 = {item.likes}</div>
-            </BestPaper>
-          )
-        })
-        }
-        {paper_query && paper_query?.data?.data?.popularUsers?.map((item, index) => {
-          return (
-            <Popular key={index}>
-              <div>닉네임 = {item.nickname}</div>
-              <div>인기도 = {item.popularity}</div>
-            </Popular>
-          )
-        })
-        }
+        <Wrap>
+          {paper_query && paper_query?.data?.data?.papers?.map((item, paper_list) => {
+            return (
+              <BestPaper key={paper_list}>
+                <div>글제목 = {item.title}</div>
+                <div>글쓴이 = {item.userId}</div>
+                <div>추천수 = {item.likes}</div>
+              </BestPaper>
+            )
+          })}
+          {paper_query && paper_query?.data?.data?.popularUsers?.map((item, paper_list) => {
+            return (
+              <Popular key={paper_list}>
+                <div>닉네임 = {item.nickname}</div>
+                <div>인기도 = {item.popularity}</div>
+              </Popular>
+            )
+          })}
+        </Wrap>
       </MainBox>
 
     </>
@@ -53,26 +53,33 @@ const Main = () => {
 };
 
 const MainBox = styled.div`
-background: none;
-  width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: 3em;
-  margin: 150px auto;
-  @media screen and (max-width: 1000px) {
-    width: 100%;
-    grid-template-columns: repeat(2, 2fr);
-  }
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    grid-template-columns: repeat(1, 3fr);
-  }
+  padding-top: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+`
+const Wrap = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 980px;
+  margin: 0 auto;
+  gap: 30px;
 `;
-const BestPaper = styled.div`
 
+const BestPaper = styled.div`
+  background-color: green;
+  width: calc(25% - 44px);
+  margin-bottom: 56px;
+  display: block;
 `
 const Popular = styled.div`
-
+background-color: pink;
+  width: calc(25% - 44px);
+  margin-bottom: 56px;
+  display: block;
 `
 
 export default Main;

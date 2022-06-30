@@ -5,7 +5,6 @@ import styled from "styled-components";
 
 import Header from '../components/main_components/Header';
 import { __searchPost } from '../redux/modules/Search';
-import { getValue } from '@testing-library/user-event/dist/utils';
 
 
 const Search = () => {
@@ -32,12 +31,9 @@ const Search = () => {
               navigate("/");
             }}>
               <Title>{data.title}</Title>
-              <Price>{data.contents}</Price>
-              <Location>{data.createdAt}</Location>
-              <Time>{data.updatedAt}</Time>
-              
-              
-
+              <Contents>{data.contents}</Contents>
+              <Create>{data.createdAt}</Create>
+              <Update>{data.updatedAt}</Update>
             </Post>
           ))}
         </Wrap>
@@ -73,6 +69,7 @@ const Wrap = styled.div`
 `;
 
 const Post = styled.div`
+background-color: gray;
   width: calc(25% - 44px);
   margin-bottom: 56px;
   display: block;
@@ -102,14 +99,14 @@ const Title = styled.p`
   font-weight: normal;
 `;
 
-const Price = styled.p`
+const Contents = styled.p`
   font-size: 15px;
   font-weight: 700;
   margin-bottom: 4px;
   line-height: 1.5;
 `;
 
-const Location = styled.p`
+const Create = styled.p`
   font-size: 16px;
   letter-spacing: -0.02px;
   overflow: hidden;
@@ -119,7 +116,7 @@ const Location = styled.p`
   font-weight: normal;
 `;
 
-const Time = styled.p`
+const Update = styled.p`
   font-size: 16px;
   letter-spacing: -0.02px;
   overflow: hidden;
