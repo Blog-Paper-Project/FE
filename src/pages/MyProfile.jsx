@@ -29,7 +29,14 @@ const MyProfile = () => {
   return (
     <>
       <div>
-        <div>프로필 이미지 {res?.data.myprofile.profileImage}</div>
+        <img
+          src={
+            res?.data.myprofile.profileImage
+              ? res?.data.myprofile.profileImage
+              : "https://www.snsboom.co.kr/common/img/default_profile.png"
+          }
+          alt="profile"
+        />
         <div>내 소개 {res?.data.myprofile.introduction}</div>
         <div>포인트 {res?.data.myprofile.point}</div>
         <div>인기도 {res?.data.myprofile.popularity}</div>

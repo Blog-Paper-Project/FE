@@ -4,6 +4,7 @@ import "./modal.css";
 import { useMutation, useQueryClient } from "react-query";
 
 import api from "../../shared/apis/Apis";
+import apih from "../../shared/apis/Apis";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -38,13 +39,9 @@ const MyProfileModal = (props) => {
     formData.append("introduction", CHGintroduction);
     formData.append("nickname", CHGnickname);
 
-    const data = await api.patch(
-      "/user/myprofile",
-      { headers: { "content-type": "multipart/form-data" } },
-      {
-        formData,
-      }
-    );
+    console.log(formData);
+
+    const data = await apih.patch("/user/myprofile", formData);
 
     return data;
   };

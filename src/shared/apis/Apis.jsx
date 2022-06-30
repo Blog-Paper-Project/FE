@@ -12,9 +12,24 @@ api.interceptors.request.use(
     config.headers.Authorization = `Bearer ${authorization}`;
     return config;
   },
-  (error) => {
+  (error) => {}
+);
 
-  }
+const apih = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+apih.interceptors.request.use(
+  (config) => {
+    const authorization = getCookie("token");
+    config.headers.Authorization = `Bearer ${authorization}`;
+    config.headers = {
+      "content-type": "multipart/form-data",
+      accept: "apllication/json",
+    };
+    return config;
+  },
+  (error) => {}
 );
 
 export default api;
