@@ -1,2 +1,10 @@
-// 1. 깃헙에 올릴 때 api key 안 올라가게 유의 할 것.
-// 2. 아직 정확히 어떻게 올려야하는지 모름 ( 깃헙 push 할 시 일단 팀원에게 먼저 얘기하자.)
+import axios from "axios";
+/* axios instance */
+const api = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+});
+/*아래 예시 */
+// const apis = {
+//  login : (data) => api.post('/api/login', data),
+// };
+export default api;
