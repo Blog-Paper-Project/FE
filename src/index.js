@@ -16,7 +16,12 @@ import { BrowserRouter } from "react-router-dom";
 /* Cookies settings */
 import { CookiesProvider } from "react-cookie";
 
+/* redux */
+import store from "./redux/configStore";
+import { Provider } from "react-redux";
+
 const queryClient = new QueryClient();
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +29,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <GlobalStyle />
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
