@@ -3,9 +3,9 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import { Viewer } from "@toast-ui/react-editor";
 
 import { useQuery } from "react-query";
-import api from "../../shared/apis/Apis";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import { api } from "../../shared/apis/Apis";
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
 const ViewEdit = ({ userid }) => {

@@ -9,8 +9,8 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import api from "../../shared/apis/Apis";
 import { useMutation } from "react-query";
+import { api } from "../../shared/apis/Apis";
 
 //1. 여기에 임시글 저장 버튼도 필요함.
 //2. 해시태그도

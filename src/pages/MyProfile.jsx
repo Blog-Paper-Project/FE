@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import { useQuery } from "react-query";
 
-import MyProfileModal from "../components/user_components/MyProfileModal";
+import MyProfileModal from "../components/user/MyProfileModal";
 
-import api from "../shared/apis/Apis";
+import { apiToken } from "../shared/apis/Apis";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ const MyProfile = () => {
   };
 
   const getMyProfile = async () => {
-    const res = await api.get("/user/myprofile");
+    const res = await apiToken.get("/user/myprofile");
     return res;
   };
 
