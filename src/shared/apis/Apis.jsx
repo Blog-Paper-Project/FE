@@ -15,17 +15,16 @@ api.interceptors.request.use(
   (error) => {}
 );
 
-const apih = axios.create({
+const apif = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-apih.interceptors.request.use(
+apif.interceptors.request.use(
   (config) => {
     const authorization = getCookie("token");
     config.headers.Authorization = `Bearer ${authorization}`;
     config.headers = {
       "content-type": "multipart/form-data",
-      accept: "apllication/json",
     };
     return config;
   },

@@ -24,18 +24,16 @@ const MyProfile = () => {
 
   const { data: res } = useQuery("MY_PROFILE", getMyProfile);
 
-  console.log(res?.data.myprofile);
-
   return (
     <>
       <div>
         <img
           src={
-            res?.data.myprofile.profileImage
-              ? res?.data.myprofile.profileImage
+            `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`
+              ? `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`
               : "https://www.snsboom.co.kr/common/img/default_profile.png"
           }
-          alt="profile"
+          alt="profileImg"
         />
         <div>내 소개 {res?.data.myprofile.introduction}</div>
         <div>포인트 {res?.data.myprofile.point}</div>
@@ -55,7 +53,7 @@ const MyProfile = () => {
           <MyProfileModal
             open={openModal}
             close={closeModal}
-            profileImage={res?.data.myprofile.profileImage}
+            profileImage={`https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`}
             introduction={res?.data.myprofile.introduction}
             nickname={res?.data.myprofile.nickname}
             email={res?.data.myprofile.email}

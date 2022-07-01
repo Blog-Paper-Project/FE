@@ -3,45 +3,71 @@ import "./modal.css";
 
 import { useMutation, useQueryClient } from "react-query";
 
-import api from "../../shared/apis/Apis";
-import apih from "../../shared/apis/Apis";
+import { nicknameCheck } from "../../shared/SignUpCheck";
+
+import axios from "axios";
+
+import apif from "../../shared/apis/Apis";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
 
-  const { open, close, header, profileImage, introduction, nickname, email } =
-    props;
+  const { open, close, header, profileImage, introduction, nickname } = props;
 
-  // const [CHGprofileImg, setCHGprofileImg] = useState();
-  const [CHGintroduction, setCHGIntroduction] = useState();
-  const [CHGnickname, setCHGnickname] = useState();
-  // const [CHGemail, setCHGemail] = useState();
-  // const [imgBase64, setImgBase64] = useState("");
+  const [CHGintroduction, setCHGIntroduction] = useState(introduction);
+  const [CHGnickname, setCHGnickname] = useState(nickname);
+  const [previewImg, setpreviewImg] = useState(profileImage);
+  const [CHGprofileImg, setCHGprofileImg] = useState();
 
-  // const handleChangeFile = (event) => {
-  //   let reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     const base64 = reader.result;
-  //     if (base64) {
-  //       setImgBase64(base64.toString());
-  //     }
-  //   };
+  //닉네임 중복체크
+  const getNickCheck = async () => {
+    if (!nicknameCheck(CHGnickname)) {
+      return null;
+    } else {
+      const data = await axios.post(
+        `${process.env.REACT_APP_API_URL}/user/idcheck/${CHGnickname}`
+      );
+      return data;
+    }
+  };
 
-  //   if (event.target.files[0]) {
-  //     reader.readAsDataURL(event.target.files[0]); // 1. 파일을 읽어 버퍼에 저장합니다.
-  //     setCHGprofileImg(event.target.files[0]);
-  //   }
-  // };
+  const { mutate: dupnick } = useMutation(getNickCheck, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("닉네임 형식을 지켜주세요");
+      } else {
+        window.alert("사용가능한 닉네임 입니다");
+      }
+    },
+    onError: () => {
+      window.alert("이미 사용중인 닉네임입니다");
+    },
+  });
 
+  //이미지 미리보기
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileBlob);
+
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setpreviewImg(reader.result);
+        resolve();
+      };
+    });
+  };
+
+  //프로필 변경
   const useProfile = async () => {
     const formData = new FormData();
 
     formData.append("introduction", CHGintroduction);
     formData.append("nickname", CHGnickname);
+    formData.append("image", CHGprofileImg);
 
-    console.log(formData);
-
-    const data = await apih.patch("/user/myprofile", formData);
+    const data = await apif.patch("/user/myprofile", formData);
 
     return data;
   };
@@ -74,14 +100,22 @@ const MyProfileModal = (props) => {
 
             <div>
               프로필 이미지
-              {/* <input type="file" onchange={handleChangeFile} /> */}
               <img
                 src={
-                  profileImage
-                    ? profileImage
+                  previewImg
+                    ? previewImg
                     : "https://www.snsboom.co.kr/common/img/default_profile.png"
                 }
                 alt="profile"
+              />
+              <input
+                type="file"
+                id="file"
+                accept={"image/*"}
+                onChange={(e) => {
+                  encodeFileToBase64(e.target.files[0]);
+                  setCHGprofileImg(e.target.files[0]);
+                }}
               />
             </div>
 
@@ -103,17 +137,8 @@ const MyProfileModal = (props) => {
                   setCHGnickname(e.target.value);
                 }}
               />
+              <button onClick={dupnick}>중복확인</button>
             </div>
-
-            {/* <div>
-              이메일
-              <input
-                defaultValue={email}
-                onchange={(e) => {
-                  setCHGemail(e.target.value);
-                }}
-              />
-            </div> */}
 
             <footer>
               <button onClick={onsubmit}>수정</button>
