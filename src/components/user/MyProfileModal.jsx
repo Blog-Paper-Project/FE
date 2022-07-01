@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import { nicknameCheck } from "../../shared/SignUpCheck";
 
-import { api, apiForm } from "../../shared/apis/Apis";
+import { api, apiToken } from "../../shared/apis/Apis";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -63,7 +63,7 @@ const MyProfileModal = (props) => {
     formData.append("nickname", CHGnickname);
     formData.append("image", CHGprofileImg);
 
-    const data = await apiForm.patch("/user/myprofile", formData);
+    const data = await apiToken.patch("/user/myprofile", formData);
 
     return data;
   };
