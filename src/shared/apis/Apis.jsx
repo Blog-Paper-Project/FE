@@ -1,10 +1,33 @@
 import axios from "axios";
-/* axios instance */
+import { getCookie } from "../Cookie";
+
 const api = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
-/*아래 예시 */
-// const apis = {
-//  login : (data) => api.post('/api/login', data),
-// };
+
+api.interceptors.request.use(
+  (config) => {
+    const authorization = getCookie("token");
+    config.headers.Authorization = `Bearer ${authorization}`;
+    return config;
+  },
+  (error) => {}
+);
+
+const apif = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+apif.interceptors.request.use(
+  (config) => {
+    const authorization = getCookie("token");
+    config.headers.Authorization = `Bearer ${authorization}`;
+    config.headers = {
+      "content-type": "multipart/form-data",
+    };
+    return config;
+  },
+  (error) => {}
+);
+
 export default api;
