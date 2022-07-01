@@ -66,7 +66,7 @@ const Header = () => {
 
           <button
             onClick={() => {
-              navigate(`/myblog/:userId`);
+              navigate("/myblog");
             }}
           >
             내 블로그로 가기
@@ -81,8 +81,15 @@ const Header = () => {
               nickname={nickname}
             />
           </ProfileImgBox>
-
-          <div>유저닉네임</div>
+          <Link to="/login">
+            <div>로그인</div>
+          </Link>
+          <Link to="/myprofile">
+            <div>마이프로필</div>
+          </Link>
+          <Link to="/mywrite">
+            <div>글작성</div>
+          </Link>
         </Svg>
       </HeaderBox>
     </>

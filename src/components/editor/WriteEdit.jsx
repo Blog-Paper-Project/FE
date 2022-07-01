@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
+import { useNavigate } from "react-router";
 
 /*Editor*/
 import { Editor } from "@toast-ui/react-editor";
@@ -19,6 +20,7 @@ const WriteEdit = () => {
   const [markdown_data, setData] = useState(null);
   const [head_data, setHead] = useState(null);
   const editorRef = useRef();
+  const navigate = useNavigate();
   // console.log(markdown_data);
 
   // useEffect(() => {
@@ -49,6 +51,7 @@ const WriteEdit = () => {
   const { mutate: onPost } = useMutation(postfecher, {
     onSuccess: () => {
       alert("post 성공!");
+      navigate("/myblog");
     },
     onError: () => {
       alert("post 실패!");
