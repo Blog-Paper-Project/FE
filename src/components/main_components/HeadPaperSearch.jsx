@@ -17,7 +17,7 @@ const HeadPaperSearch = () => {
 
   return (
     <>
-      <form onSubmit="return false">
+      <form>
         <Search1
           value={search}
           placeholder="원하시는 paper를 검색해주세요"

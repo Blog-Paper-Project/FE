@@ -12,21 +12,22 @@ const Search = () => {
   const dispatch = useDispatch();
   const datas = useSelector((state) => state.searchReducer.data);
   const { payload } = useParams();
+  
 
   useEffect(() => {
     dispatch(__searchPost(payload));
   }, [dispatch]);
-  console.log(datas)
+  // console.log(datas)
   return (
     <>
       <Header />
       <PostBox>
         <HeadTitle>"{payload}"로 검색</HeadTitle>
         <Wrap>
-          {datas?.papers?.map((data, idx) => (
+          {datas?.papers?.map((data) => (
 
             <Post 
-            key={idx}
+            key={data}
             onClick={() => {
               navigate("/");
             }}>
@@ -125,8 +126,5 @@ const Update = styled.p`
   line-height: 1.5;
   font-weight: normal;
 `;
-
-
-
 
 export default Search

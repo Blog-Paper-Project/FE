@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 import { getCookie } from '../../shared/Cookie';
 import api from '../../shared/apis/Apis';
@@ -14,6 +14,7 @@ import HeadPaperSearch from './HeadPaperSearch';
 const Header = () => {
   const navigate = useNavigate();
 
+  /* 유저정보 모달창 */
   const username = getCookie("username")
   const nickname = getCookie("nickname")
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -23,6 +24,22 @@ const Header = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+  /* 유저정보 모달창 */
+
+  /* 개인페이지 이동 */
+  const useGetMyPaper = () => {
+    return api.get(`/api/paper/users/1`)
+  }
+  const userpaper_query = useQuery("userpaper_list", useGetMyPaper, {
+    onSuccess: (data) => {
+      // console.log(data)
+    }
+  })
+  if (userpaper_query.isLoading) {
+    return null
+  }
+  /* 개인페이지 이동 */
+
 
   // const userMiniProfile = () => {
   //   return api.get("/api/paper/miniprofile");
@@ -33,12 +50,6 @@ const Header = () => {
   //     console.log(data)
   //   }
   // })
-
-
-
-  //`/paper/${userId}` - 블로그 개인 페이지 이동
-
-
   return (
     <>
       <HeaderBox>
@@ -56,9 +67,9 @@ const Header = () => {
           <HeadPaperSearch />
 
 
-          <button onClick={() => { navigate("/myblog") }}>내 블로그로 가기</button>
-          <ProfileImgBox onClick={openModal}>
-            <button>유저이미지(모달오픈)</button>
+          <button onClick={() => { navigate(`/myblog/:userId`) }}>내 블로그로 가기</button>
+          <ProfileImgBox>
+            <button onClick={openModal}>유저이미지(모달오픈)</button>
             <HeaderProfile open={modalOpen} close={closeModal} header="프로필" username={username} nickname={nickname} />
           </ProfileImgBox>
 

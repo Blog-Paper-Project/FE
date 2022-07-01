@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 /* 컴포넌트 */
 import Login from "./pages/Login";
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/myblog" element={<MyBlog />} />
+        <Route path="/myblog/:userId" element={<MyBlog />} />
         <Route path="/paper/search/:payload" element={<Search />} />
       </Routes>
     </>
