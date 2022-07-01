@@ -6,6 +6,8 @@ import MyProfileModal from "../components/user/MyProfileModal";
 
 import { apiToken } from "../shared/apis/Apis";
 
+import Header from "../components/main/Header";
+
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,6 +28,7 @@ const MyProfile = () => {
 
   return (
     <>
+      <Header />
       <div>
         <img
           src={

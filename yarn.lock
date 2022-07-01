@@ -9098,7 +9098,8 @@ tsutils@^3.21.0:
 
 tui-color-picker@^2.2.6:
   version "2.2.8"
-  resolved "https://registry.yarnpkg.com/tui-color-picker/-/tui-color-picker-2.2.8.tgz#8e140ab04066dbdb2353c4a1f434ad7d8d7b0d73"
+  resolved "https://registry.npmjs.org/tui-color-picker/-/tui-color-picker-2.2.8.tgz"
+
   integrity sha512-q5sE9NQ5NR9lYpilYjcI7Sdv0KCogo+W8fZY+AYTj/HYg+9fscYy3UuJ6UQiV1bF+ARCLwFRWC8UcOt9kuUctQ==
 
 type-check@^0.4.0, type-check@~0.4.0:

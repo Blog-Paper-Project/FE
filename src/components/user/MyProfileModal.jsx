@@ -72,6 +72,7 @@ const MyProfileModal = (props) => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
+      window.location.replace("/myprofile");
     },
     onError: () => {
       window.alert("에러!!");
