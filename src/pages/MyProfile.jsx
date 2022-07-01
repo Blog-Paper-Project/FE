@@ -29,7 +29,7 @@ const MyProfile = () => {
       <div>
         <img
           src={
-            `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`
+            res?.data.myprofile.profileImage
               ? `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`
               : "https://www.snsboom.co.kr/common/img/default_profile.png"
           }
