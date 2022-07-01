@@ -1,16 +1,14 @@
 import React, { useRef, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "react-query";
 
 import UseInput from "../hooks/UseInput";
 
-import { useMutation, useQueryClient } from "react-query";
-
+/* 컴포넌트 */
 import { emailCheck } from "../shared/SignUpCheck";
 import { nicknameCheck } from "../shared/SignUpCheck";
-
-import axios from "axios";
-
-import SignUpModal from "../components/user_components/SignUpModal";
+import SignUpModal from "../components/user/SignUpModal";
+import { api } from "../shared/apis/Apis";
 
 const SignUp = () => {
   const queryClient = useQueryClient();
@@ -49,9 +47,7 @@ const SignUp = () => {
     if (!emailCheck(email)) {
       return null;
     } else {
-      const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/idcheck/${email}`
-      );
+      const data = await api.post(`/user/idcheck/${email}`);
       return data;
     }
   };
@@ -74,9 +70,7 @@ const SignUp = () => {
     if (!nicknameCheck(nickname)) {
       return null;
     } else {
-      const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/idcheck/${nickname}`
-      );
+      const data = await api.post(`/user/idcheck/${nickname}`);
       return data;
     }
   };
@@ -111,15 +105,12 @@ const SignUp = () => {
       return;
     }
 
-    const data = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/signup`,
-      {
-        email,
-        nickname,
-        password,
-        confirmPassword,
-      }
-    );
+    const data = await api.post(`/user/signup`, {
+      email,
+      nickname,
+      password,
+      confirmPassword,
+    });
     return data;
   };
 

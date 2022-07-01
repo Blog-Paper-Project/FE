@@ -5,9 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 import { nicknameCheck } from "../../shared/SignUpCheck";
 
-import axios from "axios";
-
-import apif from "../../shared/apis/Apis";
+import { api, apiForm } from "../../shared/apis/Apis";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -24,9 +22,7 @@ const MyProfileModal = (props) => {
     if (!nicknameCheck(CHGnickname)) {
       return null;
     } else {
-      const data = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/idcheck/${CHGnickname}`
-      );
+      const data = await api.post(`/user/idcheck/${CHGnickname}`);
       return data;
     }
   };
@@ -67,7 +63,7 @@ const MyProfileModal = (props) => {
     formData.append("nickname", CHGnickname);
     formData.append("image", CHGprofileImg);
 
-    const data = await apif.patch("/user/myprofile", formData);
+    const data = await apiForm.patch("/user/myprofile", formData);
 
     return data;
   };
@@ -75,9 +71,10 @@ const MyProfileModal = (props) => {
   const { mutate: onsubmit } = useMutation(useProfile, {
     onSuccess: () => {
       queryClient.invalidateQueries();
+      window.alert("수정성공!!");
     },
     onError: () => {
-      window.alert("엥?더 찾아봐!!");
+      window.alert("에러!!");
       return;
     },
   });

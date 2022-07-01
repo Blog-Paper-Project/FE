@@ -1,11 +1,17 @@
 import axios from "axios";
 import { getCookie } from "../Cookie";
 
-const api = axios.create({
+/* 기본 api */
+export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-api.interceptors.request.use(
+/* token이 들어간 api */
+export const apiToken = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+apiToken.interceptors.request.use(
   (config) => {
     const authorization = getCookie("token");
     config.headers.Authorization = `Bearer ${authorization}`;
@@ -14,11 +20,12 @@ api.interceptors.request.use(
   (error) => {}
 );
 
-const apif = axios.create({
+/* formData용 api */
+export const apiForm = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-apif.interceptors.request.use(
+apiForm.interceptors.request.use(
   (config) => {
     const authorization = getCookie("token");
     config.headers.Authorization = `Bearer ${authorization}`;
@@ -29,5 +36,3 @@ apif.interceptors.request.use(
   },
   (error) => {}
 );
-
-export default api;

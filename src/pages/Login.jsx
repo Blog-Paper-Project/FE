@@ -3,9 +3,8 @@ import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 
 import UseInput from "../hooks/UseInput";
+import { api } from "../shared/apis/Apis";
 import { setCookie } from "../shared/Cookie";
-
-import axios from "axios";
 
 const Login = () => {
   const queryClient = useQueryClient();
@@ -14,13 +13,10 @@ const Login = () => {
   const [password, setPassword] = UseInput(null);
 
   const onLogin = async () => {
-    const data = await axios.post(
-      `${process.env.REACT_APP_API_URL}/user/login`,
-      {
-        email,
-        password,
-      }
-    );
+    const data = await api.post("/user/login", {
+      email,
+      password,
+    });
     return data;
   };
 

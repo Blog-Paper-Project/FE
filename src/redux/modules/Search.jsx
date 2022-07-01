@@ -1,4 +1,5 @@
-import api from "../../shared/apis/Apis";
+import { api } from "../../shared/apis/Apis";
+
 //액션타입
 const LOAD_SEARCH = "LOAD_SEARCH";
 
@@ -14,9 +15,7 @@ const initialState = {
 //청크
 export const __searchPost = (payload) => async (dispatch) => {
   try {
-    const response = await api.get(
-      `/api/paper?keyword=${payload}`
-    );
+    const response = await api.get(`/api/paper?keyword=${payload}`);
     dispatch(loadSearch(response.data));
   } catch (error) {
     window.alert("검색오류!");
@@ -27,7 +26,6 @@ const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SEARCH:
       return { data: action.payload };
-      
 
     default:
       return state;

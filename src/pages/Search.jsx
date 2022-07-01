@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import Header from '../components/main_components/Header';
-import { __searchPost } from '../redux/modules/Search';
-
+import Header from "../components/main/Header";
+import { __searchPost } from "../redux/modules/Search";
 
 const Search = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const datas = useSelector((state) => state.searchReducer.data);
   const { payload } = useParams();
-  
 
   useEffect(() => {
     dispatch(__searchPost(payload));
@@ -25,12 +23,12 @@ const Search = () => {
         <HeadTitle>"{payload}"로 검색</HeadTitle>
         <Wrap>
           {datas?.papers?.map((data) => (
-
-            <Post 
-            key={data}
-            onClick={() => {
-              navigate("/");
-            }}>
+            <Post
+              key={data}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               <Title>{data.title}</Title>
               <Contents>{data.contents}</Contents>
               <Create>{data.createdAt}</Create>
@@ -42,7 +40,6 @@ const Search = () => {
     </>
   );
 };
-
 
 const PostBox = styled.div`
   padding-top: 72px;
@@ -70,7 +67,7 @@ const Wrap = styled.div`
 `;
 
 const Post = styled.div`
-background-color: gray;
+  background-color: gray;
   width: calc(25% - 44px);
   margin-bottom: 56px;
   display: block;
@@ -127,4 +124,4 @@ const Update = styled.p`
   font-weight: normal;
 `;
 
-export default Search
+export default Search;
