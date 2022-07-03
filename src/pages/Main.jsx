@@ -27,7 +27,7 @@ const Main = () => {
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      // console.log(data)
+       console.log(data)
     },
   });
   // console.log(paper_query)
@@ -36,12 +36,12 @@ const Main = () => {
       <Header />
 
       {paper_query &&
-        paper_query?.data.papers.map((item) => {
+        paper_query?.data.papers.map((papers) => {
           return (
-            <BestPaper key={item.postId}>
-              <div>글제목 = {item.title}</div>
-              <div>글쓴이 = {item.userId}</div>
-              <div>추천수 = {item.likes}</div>
+            <BestPaper key={papers.postId}>
+              <div>글제목 = {papers.title}</div>
+              <div>글쓴이 = {papers.userId}</div>
+              <div>추천수 = {papers.likes}</div>
             </BestPaper>
           );
         })}
@@ -69,7 +69,7 @@ const Main = () => {
         className="mySwiper"
       >
         {paper_query &&
-          paper_query?.data.popularUsers.map((item) => {
+          paper_query?.data.popularUsers.map((popularUsers) => {
             return (
               <div
                 onClick={() => {
@@ -77,9 +77,9 @@ const Main = () => {
                 }}
               >
                 <SwiperSlide>
-                  <Popular key={item.userId} className="box">
-                    <div>닉네임 = {item.nickname}</div>
-                    <div>인기도 = {item.popularity}</div>
+                  <Popular key={popularUsers.userId} className="box">
+                    <div>닉네임 = {popularUsers.nickname}</div>
+                    <div>인기도 = {popularUsers.popularity}</div>
                   </Popular>
                 </SwiperSlide>
               </div>

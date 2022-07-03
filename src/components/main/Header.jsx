@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
@@ -15,11 +15,21 @@ import HeadPaperSearch from "./HeadPaperSearch";
 
 const Header = () => {
   const navigate = useNavigate();
+  /* 쿠키 */
+  const cookie = getCookie("token");
+  const [is_cookie, setCookie] = React.useState(false);
+  React.useEffect(() => {
+    if (cookie !== undefined) {
+      return setCookie(true);
+    }
+  }, []);
+  /* 쿠키 */
 
   /* 유저정보 모달창 */
   const username = getCookie("username");
   const nickname = getCookie("nickname");
   const [modalOpen, setModalOpen] = React.useState(false);
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -41,6 +51,12 @@ const Header = () => {
     return null;
   }
   /* 개인페이지 이동 */
+
+
+
+
+
+
 
   // const userMiniProfile = () => {
   //   return api.get("/api/paper/miniprofile");
@@ -64,32 +80,39 @@ const Header = () => {
 
           <HeadPaperSearch />
 
-          <button
-            onClick={() => {
-              navigate("/myblog");
-            }}
-          >
-            내 블로그로 가기
-          </button>
-          <ProfileImgBox>
-            <button onClick={openModal}>유저이미지(모달오픈)</button>
-            <HeaderProfile
-              open={modalOpen}
-              close={closeModal}
-              header="프로필"
-              username={username}
-              nickname={nickname}
-            />
-          </ProfileImgBox>
-          <Link to="/login">
-            <div>로그인</div>
-          </Link>
-          <Link to="/myprofile">
-            <div>마이프로필</div>
-          </Link>
-          <Link to="/mywrite">
-            <div>글작성</div>
-          </Link>
+          {is_cookie ? (
+            <>
+              <button
+                onClick={() => {
+                  navigate("/myblog");
+                }}
+              >
+                내 블로그로 가기
+              </button>
+              <ProfileImgBox>
+                <button onClick={openModal}>유저이미지(모달오픈)</button>
+                <HeaderProfile
+                  open={modalOpen}
+                  close={closeModal}
+                  header="프로필"
+                  username={username}
+                  nickname={nickname}
+                />
+              </ProfileImgBox>
+              <Link to="/myprofile">
+                <div>마이프로필</div>
+              </Link>
+              <Link to="/mywrite">
+                <div>글작성</div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <div>로그인</div>
+              </Link>
+            </>
+          )}
         </Svg>
       </HeaderBox>
     </>
