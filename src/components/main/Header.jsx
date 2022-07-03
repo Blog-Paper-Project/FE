@@ -14,10 +14,12 @@ import HeaderProfile from "./HeaderProfile";
 import HeadPaperSearch from "./HeadPaperSearch";
 
 const Header = () => {
+  const [modalOpen, setModalOpen] = React.useState(false);
   const navigate = useNavigate();
   /* 쿠키 */
   const cookie = getCookie("token");
   const [is_cookie, setCookie] = React.useState(false);
+
   React.useEffect(() => {
     if (cookie !== undefined) {
       return setCookie(true);
@@ -28,7 +30,8 @@ const Header = () => {
   /* 유저정보 모달창 */
   const username = getCookie("username");
   const nickname = getCookie("nickname");
-  const [modalOpen, setModalOpen] = React.useState(false);
+ 
+  
 
   const openModal = () => {
     setModalOpen(true);
@@ -44,7 +47,6 @@ const Header = () => {
   };
   const userpaper_query = useQuery("userpaper_list", useGetMyPaper, {
     onSuccess: (data) => {
-      // console.log(data)
     },
   });
   if (userpaper_query.isLoading) {
@@ -97,6 +99,7 @@ const Header = () => {
                   header="프로필"
                   username={username}
                   nickname={nickname}
+                  login={setCookie}
                 />
               </ProfileImgBox>
               <Link to="/myprofile">
