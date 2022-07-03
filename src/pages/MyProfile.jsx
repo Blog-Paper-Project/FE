@@ -28,8 +28,6 @@ const MyProfile = () => {
 
   const S3 = process.env.REACT_APP_S3_URL+`/${res?.data.myprofile.profileImage}`
 
-  console.log(S3)
-
   return (
     <>
       {/* <Header /> */}

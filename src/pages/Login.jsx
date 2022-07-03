@@ -60,6 +60,12 @@ const Login = () => {
           value={password || ""}
           placeholder="🔒    영어, 숫자, 특수문자(최소 4자)"
           onChange={setPassword}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              onsubmit();
+            }
+          }}
         />
       </div>
       <button onClick={onsubmit}>로그인</button>
