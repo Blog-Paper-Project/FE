@@ -35,16 +35,15 @@ const Main = () => {
     <>
       <Header />
 
-      {paper_query &&
-        paper_query?.data.papers.map((item) => {
-          return (
-            <BestPaper key={item.postId}>
-              <div>글제목 = {item.title}</div>
-              <div>글쓴이 = {item.userId}</div>
-              <div>추천수 = {item.likes}</div>
-            </BestPaper>
-          );
-        })}
+      {paper_query?.data.papers.map((item, idx) => {
+        return (
+          <BestPaper key={idx}>
+            <div key={item.title}>글제목 = {item.title}</div>
+            <div key={item.userId}>글쓴이 = {item.userId}</div>
+            <div key={item.likes}>추천수 = {item.likes}</div>
+          </BestPaper>
+        );
+      })}
       <Swiper
         slidesPerView={5}
         spaceBetween={10}
@@ -68,23 +67,16 @@ const Main = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        {paper_query &&
-          paper_query?.data.popularUsers.map((item) => {
-            return (
-              <div
-                onClick={() => {
-                  navigate(``);
-                }}
-              >
-                <SwiperSlide>
-                  <Popular key={item.userId} className="box">
-                    <div>닉네임 = {item.nickname}</div>
-                    <div>인기도 = {item.popularity}</div>
-                  </Popular>
-                </SwiperSlide>
-              </div>
-            );
-          })}
+        {paper_query?.data.popularUsers.map((item, idx) => {
+          return (
+            <SwiperSlide key={idx}>
+              <Popular className="box">
+                <div>닉네임 = {item.nickname}</div>
+                <div>인기도 = {item.popularity}</div>
+              </Popular>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </>
   );

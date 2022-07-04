@@ -23,8 +23,15 @@ const MyProfile = () => {
     const res = await apiToken.get("/user/myprofile");
     return res;
   };
-
-  const { data: res } = useQuery("MY_PROFILE", getMyProfile);
+  const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
+    onSuccess: (data) => {
+      return data;
+    },
+  });
+  if (status === "loading") {
+    return <div>loading...</div>;
+  }
+  console.log(res);
 
   return (
     <>

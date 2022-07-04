@@ -8,6 +8,7 @@ import MyWrite from "./pages/MyWrite";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
+import PostDetail from "./pages/PostDetail";
 
 function App() {
   return (
@@ -16,8 +17,9 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/myblog" element={<MyBlog />} />
+        <Route path="/myblog/:userId" element={<MyBlog />} />
         <Route path="/mywrite" element={<MyWrite />} />
+        <Route path="/detail/:userId/:postId" element={<PostDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
       </Routes>
