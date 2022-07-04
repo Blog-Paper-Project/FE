@@ -12,16 +12,22 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { useMutation } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
+import styled from "styled-components";
 
 //1. 여기에 임시글 저장 버튼도 필요함.
 //2. 해시태그도
 
 const WriteEdit = () => {
+  /*글 작성 데이터 관련 state*/
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
-  const [OpenModal, setOpenModal] = useState(false);
-  const editorRef = useRef();
   const [thumbImage, setImage] = useState(null);
+  const [hashtag, setHashtag] = useState("");
+  console.log(hashtag);
+  /*글 작성 관련 state*/
+  const [OpenModal, setOpenModal] = useState(false);
+
+  const editorRef = useRef();
   const navigate = useNavigate();
   // console.log(markdown_data);
 
@@ -39,31 +45,32 @@ const WriteEdit = () => {
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
-
+    // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data);
+    console.log(image_data?.imageUrl);
 
     const postData = await apiToken.post("/api/paper", {
       contents: markdown_data,
       title: head_data,
-      thumbnail: image_data,
+      thumbnail: image_data?.data.imageUrl,
     });
-    // console.log(postData?.data);
+    console.log(postData?.data);
     return postData;
   };
 
   const { mutate: onPost } = useMutation(postfecher, {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: (res) => {
+      console.log(res?.data.paper.userId);
+
+      navigate(`/myblog/${res?.data.paper.userId}`);
       alert("post 성공!");
-      navigate(`/myblog/${data.paper.userId}`);
     },
-    onError: () => {
-      alert("post 실패!");
-    },
+    // onError: (data === null) => {
+    //   alert("post 실패!");
+    // },
   });
 
-  const keyDown = (e) => {
+  const onKeyDown = (e) => {
     window.onkeydown = (e) => {
       // console.log(e.key);
       if (e.key === "Control") {
@@ -72,6 +79,15 @@ const WriteEdit = () => {
     };
   };
 
+  const onKeyUp = (e) => {
+    console.log(process.browser);
+    if (process.browser) {
+      /* 요소 불러오기, 만들기*/
+      const $HashWrapOuter = document.querySelector("HashWrapOuter");
+      const $HashWrapInner = document.createElement("HashWrapInner");
+      $HashWrapInner.className = "HashWrapInner";
+    }
+  };
   return (
     <>
       {OpenModal ? (
@@ -113,6 +129,17 @@ const WriteEdit = () => {
               setHead(e.target.value);
             }}
           ></textarea>
+          <HashWrapOuter>
+            <HashInput
+              type="text"
+              value={hashtag}
+              placeholder="해시태그를 써주세요."
+              onChange={(e) => {
+                setHashtag(e.target.value);
+              }}
+              onKeyUp={onKeyUp}
+            ></HashInput>
+          </HashWrapOuter>
           <Editor
             previewStyle="vertical"
             placeholder="Paper에 자신의 생각을 적어주세요..."
@@ -123,11 +150,11 @@ const WriteEdit = () => {
             ref={editorRef}
             onChange={onchange}
             useCommandShortcut={false}
-            onKeydown={keyDown}
+            onKeydown={onKeyDown}
             usageStatistics={false}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
-                // console.log(blob.name.split(".")[0]); // File {name: '카레유.png', ... }
+                // console.log(blob.name.split(".")[0]); // File {name: '.png', ... }
 
                 // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
                 let formData = new FormData();
@@ -173,5 +200,36 @@ const WriteEdit = () => {
     </>
   );
 };
+
+const HashWrapOuter = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+const HashWrapInner = styled.div`
+  margin-top: 5px;
+  background: #ffeee7;
+  border-radius: 56px;
+  padding: 8px 12px;
+  color: #ff6e35;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+`;
+const HashInput = styled.input`
+  width: auto;
+  margin: 10px;
+  display: inline-flex;
+  outline: none;
+  cursor: text;
+  line-height: 2rem;
+  margin-bottom: 0.75rem;
+  min-width: 8rem;
+  border: none;
+`;
 
 export default WriteEdit;

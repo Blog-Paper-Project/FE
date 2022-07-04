@@ -37,14 +37,14 @@ const Header = () => {
     useGetMyPaper,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
     }
   );
   if (status === "Loading") {
     return <div>loading...</div>;
   }
-  console.log(userpaper_query?.data.myprofile.userId);
+  // console.log(userpaper_query?.data.myprofile.userId);
 
   return (
     <>

@@ -33,14 +33,16 @@ const MyProfile = () => {
   }
   console.log(res);
 
+  const S3 = process.env.REACT_APP_S3_URL+`/${res?.data.myprofile.profileImage}`
+
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div>
         <img
           src={
             res?.data.myprofile.profileImage
-              ? `https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`
+              ? S3
               : "https://www.snsboom.co.kr/common/img/default_profile.png"
           }
           alt="profileImg"
@@ -63,7 +65,7 @@ const MyProfile = () => {
           <MyProfileModal
             open={openModal}
             close={closeModal}
-            profileImage={`https://hanghae-mini-project.s3.ap-northeast-2.amazonaws.com/${res?.data.myprofile.profileImage}`}
+            profileImage={S3}
             introduction={res?.data.myprofile.introduction}
             nickname={res?.data.myprofile.nickname}
             email={res?.data.myprofile.email}

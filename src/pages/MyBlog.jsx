@@ -16,7 +16,7 @@ const MyBlog = () => {
     console.log(getData);
     return getData.data;
   };
-  console.log(userId);
+  // console.log(userId);
   const { data: myblog_data, status } = useQuery("myblog_data", GetMyBlogData, {
     onSuccess: (data) => {
       console.log(data);
@@ -31,7 +31,7 @@ const MyBlog = () => {
     return alert("error");
   }
 
-  console.log(myblog_data);
+  // console.log(myblog_data);
 
   // const ToPostDetail () => {
 
@@ -44,7 +44,14 @@ const MyBlog = () => {
        */}
       <div>
         {myblog_data?.user.Papers.map((value, idx) => {
-          return <div key={idx}>{value.title}</div>;
+          return (
+            <>
+              <div key={idx}>{value.title}</div>
+              <div key={value.title}>
+                {process.env.REACT_APP_S3_URL + `/${value.thumbnail}`}
+              </div>
+            </>
+          );
         })}
       </div>
     </>

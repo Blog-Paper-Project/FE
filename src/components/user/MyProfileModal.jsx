@@ -27,23 +27,19 @@ const MyProfileModal = (props) => {
     }
   };
 
-  const { data: nickdata, mutate: dupnick } = useMutation(
-    "nickdata",
-    getNickCheck,
-    {
-      onSuccess: (nickdata) => {
-        queryClient.invalidateQueries();
-        if (nickdata === null) {
-          window.alert("닉네임 형식을 지켜주세요");
-        } else {
-          window.alert("사용가능한 닉네임 입니다");
-        }
-      },
-      onError: () => {
-        window.alert("이미 사용중인 닉네임입니다");
-      },
-    }
-  );
+  const { mutate: dupnick } = useMutation(getNickCheck, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("닉네임 형식을 지켜주세요");
+      } else {
+        window.alert("사용가능한 닉네임 입니다");
+      }
+    },
+    onError: () => {
+      window.alert("이미 사용중인 닉네임입니다");
+    },
+  });
 
   //이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
@@ -66,21 +62,17 @@ const MyProfileModal = (props) => {
     formData.append("introduction", CHGintroduction);
     formData.append("nickname", CHGnickname);
     formData.append("image", CHGprofileImg);
-    console.log(formData.get("image"));
 
     const data = await apiToken.patch("/user/myprofile", formData);
-    console.log(data);
+
     return data;
   };
 
   const { mutate: onsubmit } = useMutation(useProfile, {
     onSuccess: () => {
       queryClient.invalidateQueries();
-      console.log();
       window.alert("수정성공!!");
-
-      window.location.replace("/myprofile");
-      // 이게 아닌 모달 끄기가 와야한다. 아니면 react의 의도에 안 맞게 또 한 번의 렌더링을 주는 것임.
+      close();
     },
     onError: () => {
       window.alert("에러!!");
@@ -108,9 +100,9 @@ const MyProfileModal = (props) => {
               프로필 이미지
               <img
                 src={
-                  previewImg
-                    ? previewImg
-                    : "https://www.snsboom.co.kr/common/img/default_profile.png"
+                  previewImg.split("/")[3] === "null"
+                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                    : previewImg
                 }
                 alt="profile"
               />
