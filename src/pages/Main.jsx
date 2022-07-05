@@ -41,6 +41,7 @@ const Main = () => {
                 <div>글제목 = {papers.title}</div>
                 <div>글쓴이 = {papers.userId}</div>
                 <div>추천수 = {papers.likes}</div>
+                <div>태그 = {papers.thumbnail}</div>
               </BestPaper>
             );
           })}
@@ -79,6 +80,7 @@ const Main = () => {
                   }}
                 >
                   <Popular className="box">
+                    <div>{popularUsers.profileImage}</div>
                     <div>닉네임 = {popularUsers.nickname}</div>
                     <div>인기도 = {popularUsers.popularity}</div>
                   </Popular>
