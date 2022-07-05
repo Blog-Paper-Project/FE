@@ -5,7 +5,7 @@ import { deleteCookie } from "../../shared/Cookie"
 import { useNavigate } from 'react-router-dom';
 
 const HeaderProfile = (props) => {
-  const { open, close, header, username, nickname } = props;
+  const { open, close, header, username, nickname, login } = props;
   const navigate = useNavigate()
 
   const onLogout = (e) => {
@@ -13,7 +13,8 @@ const HeaderProfile = (props) => {
     //deleteCookie("profileUrl");
     deleteCookie("username");
     deleteCookie("nickname")
-    navigate("/")
+    close()
+    login(false)
   };
 
   return (
@@ -53,7 +54,7 @@ export default HeaderProfile
 //   margin: 0 0 20px 55px;
 //   border-radius: 34px;
 //   align-items: center;
-  
+
 // `
 const Nick = styled.div`
   text-align: center;

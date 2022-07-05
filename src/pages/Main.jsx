@@ -20,31 +20,33 @@ import { api } from "../shared/apis/Apis";
 
 const Main = () => {
   const navigate = useNavigate;
-
   const paperList = () => {
     return api.get("/api/paper/");
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      // console.log(data)
+      console.log(data);
     },
   });
-  // console.log(paper_query)
+
   return (
     <>
       <Header />
+      <PostBox>
+        {paper_query &&
+          paper_query?.data.papers.map((papers) => {
+            return (
+              <BestPaper key={papers.postId}>
+                <div>글제목 = {papers.title}</div>
+                <div>글쓴이 = {papers.userId}</div>
+                <div>추천수 = {papers.likes}</div>
+                <div>태그 = {papers.thumbnail}</div>
+              </BestPaper>
+            );
+          })}
+      </PostBox>
 
-      {paper_query &&
-        paper_query?.data.papers.map((item) => {
-          return (
-            <BestPaper key={item.postId}>
-              <div>글제목 = {item.title}</div>
-              <div>글쓴이 = {item.userId}</div>
-              <div>추천수 = {item.likes}</div>
-            </BestPaper>
-          );
-        })}
       <Swiper
         slidesPerView={5}
         spaceBetween={10}
@@ -69,20 +71,21 @@ const Main = () => {
         className="mySwiper"
       >
         {paper_query &&
-          paper_query?.data.popularUsers.map((item) => {
+          paper_query?.data.popularUsers.map((popularUsers) => {
             return (
-              <div
-                onClick={() => {
-                  navigate(``);
-                }}
-              >
-                <SwiperSlide>
-                  <Popular key={item.userId} className="box">
-                    <div>닉네임 = {item.nickname}</div>
-                    <div>인기도 = {item.popularity}</div>
+              <SwiperSlide key={popularUsers.userId}>
+                <div
+                  onClick={() => {
+                    navigate(``);
+                  }}
+                >
+                  <Popular className="box">
+                    <div>{popularUsers.profileImage}</div>
+                    <div>닉네임 = {popularUsers.nickname}</div>
+                    <div>인기도 = {popularUsers.popularity}</div>
                   </Popular>
-                </SwiperSlide>
-              </div>
+                </div>
+              </SwiperSlide>
             );
           })}
       </Swiper>
@@ -90,9 +93,19 @@ const Main = () => {
   );
 };
 
+const PostBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: space-around;
+  align-content: center;
+  margin-top: 10px;
+  margin-left: 60px;
+  padding: 100px;
+`;
+
 const BestPaper = styled.div`
   background-color: green;
-  width: calc(25% - 44px);
+  width: 200px;
   margin-bottom: 56px;
   display: block;
 `;
