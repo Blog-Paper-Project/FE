@@ -8,8 +8,10 @@ import MyWrite from "./pages/MyWrite";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
+import Chat from "./pages/Chat";
 import PostDetail from "./pages/PostDetail";
 import Reservation from "./pages/Reservation";
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
         <Route path="/detail/:userId/:postId" element={<PostDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/reservation" element={<Reservation />} />
       </Routes>
     </>

@@ -8,6 +8,12 @@ import { apiToken } from "../shared/apis/Apis";
 
 import Header from "../components/main/Header";
 
+//임시
+import io from "socket.io-client";
+import { getCookie } from "../shared/Cookie";
+import { useNavigate } from "react-router";
+//임시
+
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,7 +39,28 @@ const MyProfile = () => {
   }
   console.log(res);
 
-  const S3 = process.env.REACT_APP_S3_URL+`/${res?.data.myprofile.profileImage}`
+  const S3 =
+    process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
+
+  //임시
+  const socket = io.connect(process.env.REACT_APP_API_URL);
+  const nickname = getCookie("nickname");
+  const navigate = useNavigate();
+
+  const enterChat = async () => {
+    const roomData = {
+      roomId: 1,
+      nick: nickname,
+    };
+
+    await socket.emit("join-room", roomData);
+    navigate("/chat");
+    console.log(roomData);
+  };
+  socket.on("user-connected", (msg) => {
+    console.log(msg);
+  });
+  //임시
 
   return (
     <>
@@ -73,6 +100,10 @@ const MyProfile = () => {
           />
         ) : null}
       </div>
+
+      {/* 임시 */}
+      <button onClick={enterChat}>채팅하기</button>
+      {/* 임시 */}
     </>
   );
 };
