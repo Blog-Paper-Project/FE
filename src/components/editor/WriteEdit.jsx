@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 /*Editor*/
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import "./WriteEdit.css";
 
 /* Toast ColorSyntax 플러그인 */
 import "tui-color-picker/dist/tui-color-picker.css";
@@ -23,7 +24,7 @@ const WriteEdit = () => {
   const [head_data, setHead] = useState(null);
   const [thumbImage, setImage] = useState(null);
   const [hashtag, setHashtag] = useState("");
-  console.log(hashtag);
+  // console.log(hashtag);
   /*글 작성 관련 state*/
   const [OpenModal, setOpenModal] = useState(false);
 
@@ -47,7 +48,7 @@ const WriteEdit = () => {
     formData.append("image", thumbImage);
     // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data?.imageUrl);
+    console.log(image_data?.data.imageUrl);
 
     const postData = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -55,14 +56,14 @@ const WriteEdit = () => {
       thumbnail: image_data?.data.imageUrl,
     });
     console.log(postData?.data);
-    return postData;
+    return postData.data.paper;
   };
 
-  const { mutate: onPost } = useMutation(postfecher, {
+  const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
-      console.log(res?.data.paper.userId);
+      console.log(res?.userId);
 
-      navigate(`/myblog/${res?.data.paper.userId}`);
+      navigate(`/myblog/${res?.userId}`);
       alert("post 성공!");
     },
     // onError: (data === null) => {
@@ -80,14 +81,16 @@ const WriteEdit = () => {
   };
 
   const onKeyUp = (e) => {
-    console.log(process.browser);
-    if (process.browser) {
-      /* 요소 불러오기, 만들기*/
-      const $HashWrapOuter = document.querySelector("HashWrapOuter");
-      const $HashWrapInner = document.createElement("HashWrapInner");
-      $HashWrapInner.className = "HashWrapInner";
+    console.log(e.keyCode);
+    const $HashWrapOuter = document.querySelector(".HashWrapOuter");
+    const $HashWrapInner = document.createElement("div");
+    $HashWrapInner.className = "HashWrapInner";
+    if (e.keyCode === 13) {
+      $HashWrapInner.innerHTML = "#" + hashtag;
+      $HashWrapOuter?.appendChild($HashWrapInner);
     }
   };
+
   return (
     <>
       {OpenModal ? (
@@ -106,7 +109,7 @@ const WriteEdit = () => {
           ></input>
           <button
             onClick={() => {
-              setOpenModal(false);
+              setOpenModal(!OpenModal);
             }}
           >
             x
@@ -165,7 +168,7 @@ const WriteEdit = () => {
                   formData
                 );
                 console.log(image_data?.data.imageUrl);
-                console.log(process.env.REACT_APP_S3_URL);
+                // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
                 callback(
@@ -189,8 +192,7 @@ const WriteEdit = () => {
           <button onClick={onModal}>Click!</button>
           <button
             onClick={() => {
-              // setOpenModal(false);
-              navigate(-1);
+              navigate(`/myblog/${res?.userId}`);
             }}
           >
             나가기!
@@ -205,21 +207,7 @@ const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-const HashWrapInner = styled.div`
-  margin-top: 5px;
-  background: #ffeee7;
-  border-radius: 56px;
-  padding: 8px 12px;
-  color: #ff6e35;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 1.4rem;
-  line-height: 20px;
-  margin-right: 5px;
-  cursor: pointer;
-`;
+
 const HashInput = styled.input`
   width: auto;
   margin: 10px;

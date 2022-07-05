@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
@@ -14,12 +14,23 @@ import HeaderProfile from "./HeaderProfile";
 import HeadPaperSearch from "./HeadPaperSearch";
 
 const Header = () => {
+  const [modalOpen, setModalOpen] = React.useState(false);
   const navigate = useNavigate();
+  /* 쿠키 */
+  const cookie = getCookie("token");
+  const [is_cookie, setCookie] = React.useState(false);
+
+  React.useEffect(() => {
+    if (cookie !== undefined) {
+      return setCookie(true);
+    }
+  }, []);
+  /* 쿠키 */
 
   /* 유저정보 모달창 */
   const username = getCookie("username");
   const nickname = getCookie("nickname");
-  const [modalOpen, setModalOpen] = React.useState(false);
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -30,14 +41,16 @@ const Header = () => {
 
   /* 개인페이지 이동 */
   const useGetMyPaper = async () => {
-    return await apiToken.get("/user/myprofile");
+    const userData = await apiToken.get("/user/myprofile");
+    // console.log(userData);
+    return userData.data.myprofile;
   };
   const { data: userpaper_query, status } = useQuery(
     "userpaper_query",
     useGetMyPaper,
     {
-      onSuccess: (data) => {
-        // console.log(data);
+      onSuccess: (userpaper_query) => {
+        // console.log(userpaper_query);
       },
     }
   );
@@ -45,7 +58,6 @@ const Header = () => {
     return <div>loading...</div>;
   }
   // console.log(userpaper_query?.data.myprofile.userId);
-
   return (
     <>
       <HeaderBox>
@@ -59,32 +71,40 @@ const Header = () => {
 
           <HeadPaperSearch />
 
-          <button
-            onClick={() => {
-              navigate(`/myblog/${userpaper_query?.data.myprofile.userId}`);
-            }}
-          >
-            내 블로그로 가기
-          </button>
-          <ProfileImgBox>
-            <button onClick={openModal}>유저이미지(모달오픈)</button>
-            <HeaderProfile
-              open={modalOpen}
-              close={closeModal}
-              header="프로필"
-              username={username}
-              nickname={nickname}
-            />
-          </ProfileImgBox>
-          <Link to="/login">
-            <div>로그인</div>
-          </Link>
-          <Link to="/myprofile">
-            <div>마이프로필</div>
-          </Link>
-          <Link to="/mywrite">
-            <div>글작성</div>
-          </Link>
+          {is_cookie ? (
+            <>
+              <button
+                onClick={() => {
+                  navigate(`/myblog/${userpaper_query.userId}`);
+                }}
+              >
+                내 블로그로 가기
+              </button>
+              <ProfileImgBox>
+                <button onClick={openModal}>유저이미지(모달오픈)</button>
+                <HeaderProfile
+                  open={modalOpen}
+                  close={closeModal}
+                  header="프로필"
+                  username={username}
+                  nickname={nickname}
+                  login={setCookie}
+                />
+              </ProfileImgBox>
+              <Link to="/myprofile">
+                <div>마이프로필</div>
+              </Link>
+              <Link to="/mywrite">
+                <div>글작성</div>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <div>로그인</div>
+              </Link>
+            </>
+          )}
         </Svg>
       </HeaderBox>
     </>
