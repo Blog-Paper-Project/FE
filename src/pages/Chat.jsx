@@ -9,15 +9,17 @@ const Chat = () => {
   const inputRef = useRef();
   const nickname = getCookie("nickname");
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     const messageData = {
+      // roomId: 1,
+      // nick: nickname,
       message: currentMessage,
-      time:
-        new Date(Date.now()).getHours() +
-        ":" +
-        new Date(Date.now()).getMinutes(),
+      // time:
+      //   new Date(Date.now()).getHours() +
+      //   ":" +
+      //   new Date(Date.now()).getMinutes(),
     };
-    await socket.emit("message", messageData);
+    socket.emit("message", messageData);
     setMessageList((list) => [...list, messageData]);
     inputRef.current.value = "";
   };
