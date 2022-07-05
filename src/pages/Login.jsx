@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useMutation, useQueryClient } from "react-query";
 
@@ -8,7 +8,8 @@ import { api } from "../shared/apis/Apis";
 import { setCookie } from "../shared/Cookie";
 
 const Login = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient(); // app에 있는데 각 페이지마다 필요한가? 26번이 있을 땐 필요한 건가?
+  const navigate = useNavigate();
 
   const [email, setEmail] = UseInput(null);
   const [password, setPassword] = UseInput(null);
@@ -31,6 +32,7 @@ const Login = () => {
       setCookie("token", AccessToken, 10);
       setCookie("nickname", Accessnickname, 10);
       window.alert("로그인성공!!!!");
+      navigate("/");
     },
     onError: () => {
       window.alert("엥?아이디, 비번 확인해라잉!");
@@ -60,6 +62,12 @@ const Login = () => {
           value={password || ""}
           placeholder="🔒    영어, 숫자, 특수문자(최소 4자)"
           onChange={setPassword}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              onsubmit();
+            }
+          }}
         />
       </div>
       <button onClick={onsubmit}>로그인</button>

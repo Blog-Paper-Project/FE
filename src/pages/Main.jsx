@@ -26,7 +26,7 @@ const Main = () => {
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      console.log(data)
+      console.log(data);
     },
   });
 
@@ -72,19 +72,20 @@ const Main = () => {
       >
         {paper_query &&
           paper_query?.data.popularUsers.map((popularUsers) => {
-            return (<SwiperSlide key={popularUsers.userId}>
-              <div
-                onClick={() => {
-                  navigate(``);
-                }}
-              >
-                <Popular className="box">
-                  <div>{popularUsers.profileImage}</div>
-                  <div>닉네임 = {popularUsers.nickname}</div>
-                  <div>인기도 = {popularUsers.popularity}</div>
-                </Popular>
-              </div>
-            </SwiperSlide>
+            return (
+              <SwiperSlide key={popularUsers.userId}>
+                <div
+                  onClick={() => {
+                    navigate(``);
+                  }}
+                >
+                  <Popular className="box">
+                    <div>{popularUsers.profileImage}</div>
+                    <div>닉네임 = {popularUsers.nickname}</div>
+                    <div>인기도 = {popularUsers.popularity}</div>
+                  </Popular>
+                </div>
+              </SwiperSlide>
             );
           })}
       </Swiper>

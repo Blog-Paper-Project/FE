@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 /* api */
-import { api } from "../../shared/apis/Apis";
+import { api, apiToken } from "../../shared/apis/Apis";
 
 /* 컴포넌트 */
 import HeaderProfile from "./HeaderProfile";
@@ -30,8 +30,6 @@ const Header = () => {
   /* 유저정보 모달창 */
   const username = getCookie("username");
   const nickname = getCookie("nickname");
- 
-  
 
   const openModal = () => {
     setModalOpen(true);
@@ -42,33 +40,24 @@ const Header = () => {
   /* 유저정보 모달창 */
 
   /* 개인페이지 이동 */
-  const useGetMyPaper = () => {
-    return api.get(`/api/paper/users/1`);
+  const useGetMyPaper = async () => {
+    const userData = await apiToken.get("/user/myprofile");
+    // console.log(userData);
+    return userData.data.myprofile;
   };
-  const userpaper_query = useQuery("userpaper_list", useGetMyPaper, {
-    onSuccess: (data) => {
-    },
-  });
-  if (userpaper_query.isLoading) {
-    return null;
+  const { data: userpaper_query, status } = useQuery(
+    "userpaper_query",
+    useGetMyPaper,
+    {
+      onSuccess: (userpaper_query) => {
+        // console.log(userpaper_query);
+      },
+    }
+  );
+  if (status === "Loading") {
+    return <div>loading...</div>;
   }
-  /* 개인페이지 이동 */
-
-
-
-
-
-
-
-  // const userMiniProfile = () => {
-  //   return api.get("/api/paper/miniprofile");
-  // }
-
-  // const miniProfile_query = useQuery("pofile_list", userMiniProfile, {
-  //   onSuccess: (data) => {
-  //     console.log(data)
-  //   }
-  // })
+  // console.log(userpaper_query?.data.myprofile.userId);
   return (
     <>
       <HeaderBox>
@@ -86,7 +75,7 @@ const Header = () => {
             <>
               <button
                 onClick={() => {
-                  navigate("/myblog");
+                  navigate(`/myblog/${userpaper_query.userId}`);
                 }}
               >
                 내 블로그로 가기

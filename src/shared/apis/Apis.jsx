@@ -17,7 +17,9 @@ apiToken.interceptors.request.use(
     config.headers.Authorization = `Bearer ${authorization}`;
     return config;
   },
-  (error) => {}
+  (error) => {
+    alert("apiToken 에러입니다.");
+  }
 );
 
 /* formData용 api */

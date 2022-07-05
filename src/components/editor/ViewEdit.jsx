@@ -21,7 +21,7 @@ const ViewEdit = ({ userid }) => {
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   //3. 왜 아래 error가 안 쓰이고 있다고 뜨는 거지?
-  const { data: view_data, status, error } = useQuery("write_data", WriteData);
+  const { data: view_data, status } = useQuery("write_data", WriteData);
 
   if (status === "loading") {
     return <div>로딩중...</div>;
@@ -34,7 +34,6 @@ const ViewEdit = ({ userid }) => {
   // console.log("view_data?.papers.contents", view_data?.papers.contents);
   const markdown = view_data?.paper.contents;
   const head = view_data?.paper.title;
-  // const head = `<h1>${view_data?.paper.title}</h1>`;
 
   // console.log("markdown", markdown);
   // console.log("markdown", view_data?.paper.contents);

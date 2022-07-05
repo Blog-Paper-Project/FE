@@ -72,7 +72,7 @@ const MyProfileModal = (props) => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
-      window.location.replace("/myprofile");
+      close();
     },
     onError: () => {
       window.alert("에러!!");
@@ -100,9 +100,9 @@ const MyProfileModal = (props) => {
               프로필 이미지
               <img
                 src={
-                  previewImg
-                    ? previewImg
-                    : "https://www.snsboom.co.kr/common/img/default_profile.png"
+                  previewImg.split("/")[3] === "null"
+                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                    : previewImg
                 }
                 alt="profile"
               />
