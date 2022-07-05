@@ -16,6 +16,7 @@ import { useNavigate } from "react-router";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -45,7 +46,6 @@ const MyProfile = () => {
   //임시
   const socket = io.connect(process.env.REACT_APP_API_URL);
   const nickname = getCookie("nickname");
-  const navigate = useNavigate();
 
   const enterChat = async () => {
     const roomData = {

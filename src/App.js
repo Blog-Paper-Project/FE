@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router-dom";
 /* 컴포넌트 */
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import MyBlog from "./pages/MyBlog";
 import MyWrite from "./pages/MyWrite";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
@@ -11,7 +10,7 @@ import Search from "./pages/Search";
 import Chat from "./pages/Chat";
 import PostDetail from "./pages/PostDetail";
 import Reservation from "./pages/Reservation";
-
+import MyPaper from "./pages/MyPaper";
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/myblog/:userId" element={<MyBlog />} />
+        <Route path="/mypaper/:userId" element={<MyPaper />} />
         <Route path="/mywrite" element={<MyWrite />} />
         <Route path="/detail/:userId/:postId" element={<PostDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />

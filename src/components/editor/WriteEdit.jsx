@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
-
 /*Editor*/
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
-import "./WriteEdit.css";
-
 /* Toast ColorSyntax 플러그인 */
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
@@ -15,27 +12,27 @@ import { useMutation } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
 
+/*해야 할 것*/
 //1. 여기에 임시글 저장 버튼도 필요함.
-//2. 해시태그도
+//2. 해시태그 post data 안에 key 값 찾아서 넣기
 
 const WriteEdit = () => {
-  /*글 작성 데이터 관련 state*/
+  //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
   const [thumbImage, setImage] = useState(null);
-  const [hashtag, setHashtag] = useState("");
-  // console.log(hashtag);
-  /*글 작성 관련 state*/
-  const [OpenModal, setOpenModal] = useState(false);
+  const [tag, setTag] = useState("");
+  const [tagList, setTagList] = useState([]);
+  const [OpenModal, setOpenModal] = useState(false); // # 모달
 
   const editorRef = useRef();
   const navigate = useNavigate();
   // console.log(markdown_data);
-
+  //# modal 이벤트
   const onModal = () => {
     setOpenModal(true);
   };
-
+  //## writeEdit의 데이터(text->markdown) 이벤트
   const onchange = (e) => {
     const abc = editorRef.current?.getInstance().getMarkdown();
     // console.log("25", abc);
@@ -43,6 +40,38 @@ const WriteEdit = () => {
     // console.log("27", markdown_data);
   };
 
+  //## 붙혀넣기 금지 이벤트 (ctnrl 키 금지)
+  const onKeyDown = (e) => {
+    window.onkeydown = (e) => {
+      // console.log(e.key);
+      if (e.key === "Control") {
+        alert("붙혀넣기 금지");
+      }
+    };
+  };
+  //## 'Enter'시 태그 추가 이벤트
+  const onKeyUp = (e) => {
+    if (
+      e.target.value.length !== 0 &&
+      e.keyCode === 13 &&
+      tagList.length < 10
+    ) {
+      // 새 태그 배열(array) 안에 넣기 < 그래야 map으로 돌릴 수 있음 >
+      setTagList([...tagList, tag]);
+      setTag(""); // input에 value는 enter 후에 input 창 글 없애기 위함
+    }
+  };
+  //## 'Click'시 태그 삭제 이벤트
+  const onClcik_tag = (e) => {
+    console.log(e.target.id);
+    setTagList(
+      tagList.filter((tag, index) => {
+        return index !== +e.target.id; // + 대신 Number(  )해도 숫자형으로 바꿀 수 있다.
+      })
+    );
+  };
+
+  //## useMutation write 데이터 post의 함수
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
@@ -58,7 +87,7 @@ const WriteEdit = () => {
     console.log(postData?.data);
     return postData.data.paper;
   };
-
+  //## useMutation write 데이터 post
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       console.log(res?.userId);
@@ -70,26 +99,6 @@ const WriteEdit = () => {
     //   alert("post 실패!");
     // },
   });
-
-  const onKeyDown = (e) => {
-    window.onkeydown = (e) => {
-      // console.log(e.key);
-      if (e.key === "Control") {
-        alert("붙혀넣기 금지");
-      }
-    };
-  };
-
-  const onKeyUp = (e) => {
-    console.log(e.keyCode);
-    const $HashWrapOuter = document.querySelector(".HashWrapOuter");
-    const $HashWrapInner = document.createElement("div");
-    $HashWrapInner.className = "HashWrapInner";
-    if (e.keyCode === 13) {
-      $HashWrapInner.innerHTML = "#" + hashtag;
-      $HashWrapOuter?.appendChild($HashWrapInner);
-    }
-  };
 
   return (
     <>
@@ -118,9 +127,7 @@ const WriteEdit = () => {
         </div>
       ) : (
         <div
-          // onMouseDown={(e) => {
-          //   console.log(e);
-          // }}
+          //## 마우스 오른쪽 클릭 이벤트
           onContextMenu={(e) => {
             e.preventDefault();
             alert("붙혀넣기 금지");
@@ -132,16 +139,29 @@ const WriteEdit = () => {
               setHead(e.target.value);
             }}
           ></textarea>
+          <input
+            name="HashTagInput"
+            type="text"
+            value={tag}
+            placeholder="Enter를 누르시면 태그가 추가됩니다!"
+            maxLength="10"
+            onKeyUp={onKeyUp}
+            onChange={(e) => {
+              setTag(e.target.value);
+            }}
+          />
           <HashWrapOuter>
-            <HashInput
-              type="text"
-              value={hashtag}
-              placeholder="해시태그를 써주세요."
-              onChange={(e) => {
-                setHashtag(e.target.value);
-              }}
-              onKeyUp={onKeyUp}
-            ></HashInput>
+            {tagList.length > 0 ? (
+              tagList.map((value, index) => {
+                return (
+                  <div key={value + index} onClick={onClcik_tag}>
+                    <p id={index}>{value}</p>
+                  </div>
+                );
+              })
+            ) : (
+              <div>태그를 추가하실 수 있습니다.</div>
+            )}
           </HashWrapOuter>
           <Editor
             previewStyle="vertical"
@@ -208,16 +228,16 @@ const HashWrapOuter = styled.div`
   flex-wrap: wrap;
 `;
 
-const HashInput = styled.input`
-  width: auto;
-  margin: 10px;
-  display: inline-flex;
-  outline: none;
-  cursor: text;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
-  border: none;
-`;
+// const HashInput = styled.input`
+//   width: auto;
+//   margin: 10px;
+//   display: inline-flex;
+//   outline: none;
+//   cursor: text;
+//   line-height: 2rem;
+//   margin-bottom: 0.75rem;
+//   min-width: 8rem;
+//   border: none;
+// `;
 
 export default WriteEdit;
