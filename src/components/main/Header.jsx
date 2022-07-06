@@ -75,7 +75,7 @@ const Header = () => {
             <>
               <button
                 onClick={() => {
-                  navigate(`/myblog/${userpaper_query.userId}`);
+                  navigate(`/paper/${userpaper_query.userId}`);
                 }}
               >
                 내 블로그로 가기
