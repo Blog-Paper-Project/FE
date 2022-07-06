@@ -9,9 +9,18 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
 import Chat from "./pages/Chat";
-import Chatin from "./pages/Chatin";
 import PostDetail from "./pages/PostDetail";
 import Reservation from "./pages/Reservation";
+
+//임시
+import io from "socket.io-client";
+
+export const socket = io.connect(process.env.REACT_APP_API_URL);
+export const initSocketConnection = () => {
+  if (socket) return;
+  socket.connect();
+};
+//임시
 
 function App() {
   return (
@@ -26,7 +35,6 @@ function App() {
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/chatin" element={<Chatin />} />
         <Route path="/reservation" element={<Reservation />} />
       </Routes>
     </>

@@ -1,65 +1,68 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { getCookie } from "../shared/Cookie";
-import io from "socket.io-client";
+import { useNavigate } from "react-router";
+import { socket } from "../App";
 
 const Chat = () => {
-  const socket = io.connect(process.env.REACT_APP_API_URL);
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const inputRef = useRef();
   const nickname = getCookie("nickname");
+  const navigate = useNavigate();
 
-  const sendMessage = () => {
-    const messageData = {
-      // roomId: 1,
-      // nick: nickname,
-      message: currentMessage,
-      // time:
-      //   new Date(Date.now()).getHours() +
-      //   ":" +
-      //   new Date(Date.now()).getMinutes(),
-    };
-    socket.emit("message", messageData);
-    setMessageList((list) => [...list, messageData]);
-    inputRef.current.value = "";
+  const sendMessage = async () => {
+    if (currentMessage !== "") {
+      const messageData = {
+        message: currentMessage,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+      await socket.emit("message", messageData);
+      setMessageList((list) => [...list, messageData]);
+      inputRef.current.value = "";
+    }
   };
 
-  useEffect(() => {
-    socket.on("message", (data) => {
-      setMessageList((list) => [...list, data]);
-      console.log(data);
-    });
-  }, [socket]);
+  socket.on("update", (data) => {
+    console.log(data);
+    setMessageList((list) => [...list, data]);
+  });
+
+  const leaveChat = (event) => {
+    socket.disconnect("disconnect");
+    navigate("/");
+  };
 
   return (
-    <div className="chat-window">
-      <div className="chat-header">
+    <div>
+      <div style={{ color: "red" }}>
         <p>paper</p>
       </div>
-      <div className="chat-body">
-        <button className="message-container">
-          {messageList.map((messageContent, i) => {
-            return (
-              <div
-                className="message"
-                id={nickname === messageContent.nickname ? "other" : "you"}
-                key={i}
-              >
+      <div>
+        {messageList.map((messageContent, i) => {
+          return (
+            <div
+              className="message"
+              id={nickname === messageContent.nick ? "other" : "you"}
+              key={i}
+            >
+              <div>
                 <div>
-                  <div className="message-content">
-                    <p>{messageContent.message}</p>
-                  </div>
-                  <div className="message-meta">
-                    <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
-                  </div>
+                  <p>{messageContent.message}</p>
+                </div>
+                <div>
+                  <p id="time">{messageContent.time}</p>
+                  <p id="author">{messageContent.author}</p>
                 </div>
               </div>
-            );
-          })}
-        </button>
+            </div>
+          );
+        })}
       </div>
-      <div className="chat-footer">
+
+      <div>
         <input
           type="text"
           placeholder="대화를 입력하세요."
@@ -70,6 +73,7 @@ const Chat = () => {
           ref={inputRef}
         />
         <button onClick={sendMessage}>보내기</button>
+        <button onClick={leaveChat}>나가기</button>
       </div>
     </div>
   );

@@ -6,10 +6,16 @@ import MyProfileModal from "../components/user/MyProfileModal";
 
 import { apiToken } from "../shared/apis/Apis";
 
+import { getCookie } from "../shared/Cookie";
+import { useNavigate } from "react-router";
+
 import Header from "../components/main/Header";
+import { socket } from "../App";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const nickname = getCookie("nickname");
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -36,9 +42,19 @@ const MyProfile = () => {
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
+  const enterChat = () => {
+    const roomData = {
+      room: "광민2",
+      name: nickname,
+    };
+    socket.emit("newUser", roomData);
+    console.log(roomData);
+    navigate("/chat");
+  };
+
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div>
         <img
           src={
@@ -73,6 +89,7 @@ const MyProfile = () => {
             header="개인정보 수정"
           />
         ) : null}
+        <button onClick={enterChat}>채팅시작!</button>
       </div>
     </>
   );
