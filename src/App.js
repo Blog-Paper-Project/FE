@@ -12,6 +12,16 @@ import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
 import Paper from "./pages/Paper";
 
+//임시
+import io from "socket.io-client";
+
+export const socket = io.connect(process.env.REACT_APP_API_URL);
+export const initSocketConnection = () => {
+  if (socket) return;
+  socket.connect();
+};
+//임시
+
 function App() {
   return (
     <>
@@ -25,7 +35,7 @@ function App() {
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/myblog/:userId/reservation" element={<Reservation />} />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
       </Routes>
     </>

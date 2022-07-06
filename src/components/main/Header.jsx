@@ -116,9 +116,9 @@ const HeaderBox = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
   width: 100%;
 `;
+
 const Svg = styled.div`
   margin: 20px 0;
   display: flex;
@@ -128,10 +128,12 @@ const Svg = styled.div`
   width: 80%;
   padding: 0 20%;
 `;
+
 const Logo = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const MainTitle = styled.div`
   background-color: #fff;
   line-height: 2.3;
