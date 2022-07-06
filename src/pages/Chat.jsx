@@ -12,10 +12,10 @@ const Chat = () => {
   const sendMessage = async () => {
     const messageData = {
       message: currentMessage,
-      time:
-        new Date(Date.now()).getHours() +
-        ":" +
-        new Date(Date.now()).getMinutes(),
+      // time:
+      //   new Date(Date.now()).getHours() +
+      //   ":" +
+      //   new Date(Date.now()).getMinutes(),
     };
     await socket.emit("message", messageData);
     setMessageList((list) => [...list, messageData]);

@@ -26,7 +26,7 @@ function App() {
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/reservation" element={<Reservation />} />
+        <Route path="/myblog/:userId/reservation" element={<Reservation />} />
       </Routes>
     </>
   );
