@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
 import { socket } from "../App";
@@ -10,7 +10,7 @@ const Chat = () => {
   const nickname = getCookie("nickname");
   const navigate = useNavigate();
 
-  const sendMessage = async () => {
+  const sendMessage = () => {
     if (currentMessage !== "") {
       const messageData = {
         message: currentMessage,
@@ -19,21 +19,28 @@ const Chat = () => {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-      await socket.emit("message", messageData);
+      socket.emit("message", messageData);
       setMessageList((list) => [...list, messageData]);
       inputRef.current.value = "";
     }
   };
 
-  socket.on("update", (data) => {
-    console.log(data);
-    setMessageList((list) => [...list, data]);
-  });
+  useEffect(() => {
+    socket.on("update", (data) => {
+      console.log(data);
+      setMessageList((list) => [...list, data]);
+    });
 
-  const leaveChat = (event) => {
-    socket.disconnect("disconnect");
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const leaveChat = () => {
     navigate("/");
   };
+
+  console.log(messageList);
 
   return (
     <div>
