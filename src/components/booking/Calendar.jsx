@@ -603,10 +603,11 @@ const CalendarTemplate = ({
             setSaving(true);
             let onePick1 = [];
             let onePick2 = [];
-
+            console.log(isLogin)
             if (
                 (isLogin === null && activeDay === null) ||
                 (activeDay && isLogin === null)
+
             ) {
                 Swal.fire({
                     title: '로그인 하셧나요??',
