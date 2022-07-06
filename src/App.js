@@ -8,9 +8,9 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
 import Chat from "./pages/Chat";
-import PostDetail from "./pages/PostDetail";
+import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
-import MyPaper from "./pages/MyPaper";
+import Paper from "./pages/Paper";
 
 function App() {
   return (
@@ -19,13 +19,14 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/mypaper/:userId" element={<MyPaper />} />
+        <Route path="/paper/:userId" element={<Paper />} />
         <Route path="/mywrite" element={<MyWrite />} />
-        <Route path="/detail/:userId/:postId" element={<PostDetail />} />
+        <Route path="/paper/:userId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/reservation" element={<Reservation />} />
+        <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
       </Routes>
     </>
   );

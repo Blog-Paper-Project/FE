@@ -11,27 +11,44 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
-
+// import Meiyou2 from "../../public/images/Meiyou.";
 /*해야 할 것*/
 //1. 여기에 임시글 저장 버튼도 필요함.
 //2. 해시태그 post data 안에 key 값 찾아서 넣기
+//3. 상세페이지 post로 보낼 때 배열로 보내드릴 것 ( 배열로가 정확히 무슨 뜻일까?)
 
 const WriteEdit = () => {
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
-  const [thumbImage, setImage] = useState(null);
+  const [thumbImage, setImage] = useState("");
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState([]);
-  const [OpenModal, setOpenModal] = useState(false); // # 모달
+  const [openModal, setOpenModal] = useState(false); // # 모달
+  const [previewImg, setPreviewImg] = useState(thumbImage);
 
   const editorRef = useRef();
   const navigate = useNavigate();
-  // console.log(markdown_data);
-  //# modal 이벤트
-  const onModal = () => {
-    setOpenModal(true);
+
+  //## 이미지 미리보기
+  const encodeFileToBase64 = (fileBlob) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(fileBlob);
+    // console.log(fileBlob); 이 매겨변수는 아래 사진의 onChange 해당
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setPreviewImg(reader.result);
+        resolve();
+      };
+    });
   };
+
+  //## modal 이벤트
+  const onModal = () => {
+    setOpenModal(!openModal);
+  };
+
   //## writeEdit의 데이터(text->markdown) 이벤트
   const onchange = (e) => {
     const abc = editorRef.current?.getInstance().getMarkdown();
@@ -85,14 +102,14 @@ const WriteEdit = () => {
       thumbnail: image_data?.data.imageUrl,
     });
     console.log(postData?.data);
-    return postData.data.paper;
+    return postData?.data.paper;
   };
   //## useMutation write 데이터 post
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       console.log(res?.userId);
 
-      navigate(`/myblog/${res?.userId}`);
+      navigate(`/paper/${res?.userId}`);
       alert("post 성공!");
     },
     // onError: (data === null) => {
@@ -102,7 +119,7 @@ const WriteEdit = () => {
 
   return (
     <>
-      {OpenModal ? (
+      {openModal ? (
         <div
           style={{
             box_sizing: "border-box",
@@ -110,15 +127,17 @@ const WriteEdit = () => {
             height: "800px",
           }}
         >
+          <img src={previewImg !== null ? previewImg : null} alt="썸네일" />
           <input
             type="file"
             onChange={(e) => {
               setImage(e.target.files[0]);
+              encodeFileToBase64(e.target.files[0]);
             }}
           ></input>
           <button
             onClick={() => {
-              setOpenModal(!OpenModal);
+              setOpenModal(!openModal);
             }}
           >
             x
@@ -142,14 +161,14 @@ const WriteEdit = () => {
           <input
             name="HashTagInput"
             type="text"
-            value={tag}
+            value={tag || ""}
             placeholder="Enter를 누르시면 태그가 추가됩니다!"
             maxLength="10"
             onKeyUp={onKeyUp}
             onChange={(e) => {
               setTag(e.target.value);
             }}
-          />
+          ></input>
           <HashWrapOuter>
             {tagList.length > 0 ? (
               tagList.map((value, index) => {
@@ -212,7 +231,7 @@ const WriteEdit = () => {
           <button onClick={onModal}>Click!</button>
           <button
             onClick={() => {
-              navigate(`/myblog/${res?.userId}`);
+              navigate(`/paper/${res?.userId}`);
             }}
           >
             나가기!
