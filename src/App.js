@@ -12,6 +12,15 @@ import Chat from "./pages/Chat";
 import PostDetail from "./pages/PostDetail";
 import Reservation from "./pages/Reservation";
 
+//임시
+import io from "socket.io-client";
+
+export const socket = io.connect(process.env.REACT_APP_API_URL);
+export const initSocketConnection = () => {
+  if (socket) return;
+  socket.connect();
+};
+//임시
 
 function App() {
   return (

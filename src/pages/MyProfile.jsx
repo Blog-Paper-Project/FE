@@ -6,16 +6,16 @@ import MyProfileModal from "../components/user/MyProfileModal";
 
 import { apiToken } from "../shared/apis/Apis";
 
-import Header from "../components/main/Header";
-
-//임시
-import io from "socket.io-client";
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
-//임시
+
+import Header from "../components/main/Header";
+import { socket } from "../App";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const nickname = getCookie("nickname");
+  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -42,29 +42,19 @@ const MyProfile = () => {
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
-  //임시
-  const socket = io.connect(process.env.REACT_APP_API_URL);
-  const nickname = getCookie("nickname");
-  const navigate = useNavigate();
-
-  const enterChat = async () => {
+  const enterChat = () => {
     const roomData = {
-      roomId: 1,
-      nick: nickname,
+      room: "광민2",
+      name: nickname,
     };
-
-    await socket.emit("join-room", roomData);
-    navigate("/chat");
+    socket.emit("newUser", roomData);
     console.log(roomData);
+    navigate("/chat");
   };
-  socket.on("user-connected", (msg) => {
-    console.log(msg);
-  });
-  //임시
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <div>
         <img
           src={
@@ -99,11 +89,8 @@ const MyProfile = () => {
             header="개인정보 수정"
           />
         ) : null}
+        <button onClick={enterChat}>채팅시작!</button>
       </div>
-
-      {/* 임시 */}
-      <button onClick={enterChat}>채팅하기</button>
-      {/* 임시 */}
     </>
   );
 };
