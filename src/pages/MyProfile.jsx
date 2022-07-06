@@ -14,6 +14,7 @@ import { socket } from "../App";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const nickname = getCookie("nickname");
   const navigate = useNavigate();
 
