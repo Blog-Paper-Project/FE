@@ -25,7 +25,7 @@ const initialState = {
 export const setBookingDB = (data, tutorName) => {
     return function (dispatch, getState) {
         
-        let userId = getCookie('nickname')
+        let userId = getCookie('userId')
         let isTutor = getCookie('nickname')
         console.log(userId);
         console.log('DB 저장으로 가는 데이터 : ', { data, tutorName });

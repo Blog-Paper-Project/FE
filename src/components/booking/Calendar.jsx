@@ -35,7 +35,7 @@ const CalendarTemplate = ({
 }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const isLogin = getCookie('nickname');
+    const isLogin = getCookie('userId');
     const saveDataCount = availability.length + 1;
 
     // 스타일

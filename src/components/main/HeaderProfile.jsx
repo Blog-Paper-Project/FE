@@ -13,13 +13,14 @@ const HeaderProfile = (props) => {
     //deleteCookie("profileUrl");
     deleteCookie("username");
     deleteCookie("nickname")
+    deleteCookie("userId")
     close()
     login(false)
   };
 
   return (
     <>
-      <div className={open ? 'openModal modal' : 'modal'}>
+      <div className={open ? 'openModal modal' : 'modal'} >
         {open ? (
           <section>
             <header>
