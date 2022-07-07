@@ -100,6 +100,7 @@ const WriteEdit = () => {
       contents: markdown_data,
       title: head_data,
       thumbnail: image_data?.data.imageUrl,
+      tags: tagList,
     });
     console.log(postData?.data);
     return postData?.data.paper;

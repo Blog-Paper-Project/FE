@@ -3,6 +3,8 @@ import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
 import { socket } from "../App";
 
+/* emit 보내기 on 받기 */
+
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);

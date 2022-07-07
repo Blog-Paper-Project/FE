@@ -45,7 +45,7 @@ const MyProfile = () => {
 
   const enterChat = () => {
     const roomData = {
-      room: "광민2",
+      room: "123",
       name: nickname,
     };
     socket.emit("newUser", roomData);

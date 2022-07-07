@@ -20,8 +20,8 @@ import { apiToken } from "../shared/apis/Apis";
 const PaperDetail = () => {
   const { userId } = useParams();
   const { postId } = useParams();
-  console.log(userId);
-  console.log(postId);
+  // console.log(userId);
+  // console.log(postId);
 
   const GetDetailtData = async () => {
     const getData = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
@@ -31,12 +31,20 @@ const PaperDetail = () => {
 
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
-  //3. 왜 아래 error가 안 쓰이고 있다고 뜨는 거지?
   const { data: detail_data, status } = useQuery("detail_data", GetDetailtData);
-  console.log(detail_data);
+  if (status === "loading") {
+    return <>loading...</>;
+  }
+
+  if (status === "error") {
+    return alert("error");
+  }
+
+  // console.log(detail_data);
   return (
     <div>
       <div>{detail_data?.title}</div>
+      <div>{detail_data?.createdAt}</div>
       <ViewEdit contents={detail_data?.contents} />
     </div>
   );
