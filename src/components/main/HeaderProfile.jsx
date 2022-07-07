@@ -12,6 +12,7 @@ const HeaderProfile = (props) => {
     deleteCookie("token");
     //deleteCookie("profileUrl");
     deleteCookie("username");
+
     deleteCookie("nickname");
     deleteCookie("userId");
     close();
@@ -21,6 +22,7 @@ const HeaderProfile = (props) => {
 
   return (
     <>
+
       <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <section>

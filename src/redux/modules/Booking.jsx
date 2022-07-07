@@ -22,14 +22,16 @@ const initialState = {
 
 //---------청크--------------//
 // 예약하기
-export const setBookingDB = (data, tutorName) => {
-    return function (dispatch, getState) {
+export const setBookingDB = (data, userId) => {
+    return function (dispatch, getCookie) {
         
-        let userId = getCookie('nickname')
-        let isTutor = getCookie('nickname')
-        console.log(userId);
-        console.log('DB 저장으로 가는 데이터 : ', { data, tutorName });
-        if (!userId) {
+        
+        let userName = getCookie('userId')
+        // let isTutor = getCookie('nickname')
+        console.log(userId)
+        console.log(userName);
+        console.log('DB 저장으로 가는 데이터 : ', { data, userId });
+        if (!userName) {
             Swal.fire({
                 icon: 'error',
                 text: `로그인후 예약해주세요~!`,
@@ -40,16 +42,16 @@ export const setBookingDB = (data, tutorName) => {
             return;
         }
 
-        if (isTutor === 1) {
-            Swal.fire({
-                icon: 'error',
-                text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
-                showConfirmButton: true,
-                confirmButtonColor: '#3085d6',
-                timer: 2000,
-            });
-            return;
-        }
+        // if (isTutor === 1) {
+        //     Swal.fire({
+        //         icon: 'error',
+        //         text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
+        //         showConfirmButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         timer: 2000,
+        //     });
+        //     return;
+        // }
 
         if (data.length === 0) {
             Swal.fire({
@@ -72,7 +74,7 @@ export const setBookingDB = (data, tutorName) => {
             data: {
                 start: data[0]?.start,
                 end: data[0]?.end,
-                userName: userId,
+                userName: userName,
             },
         })
             .then((doc) => {
