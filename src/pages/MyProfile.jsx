@@ -35,9 +35,11 @@ const MyProfile = () => {
       return data;
     },
   });
+  
   if (status === "loading") {
     return <div>loading...</div>;
   }
+  console.log(socket.id);
   console.log(res);
 
   const S3 =
@@ -45,11 +47,12 @@ const MyProfile = () => {
 
   const enterChat = () => {
     const roomData = {
-      room: "123",
+      room: "광민1",
       name: nickname,
     };
     socket.emit("newUser", roomData);
     console.log(roomData);
+    console.log(socket.id);
     navigate("/chat");
   };
 

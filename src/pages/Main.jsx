@@ -17,6 +17,7 @@ import Header from "../components/main/Header";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
+import { socket } from "../App";
 
 const Main = () => {
   const navigate = useNavigate;
@@ -29,6 +30,7 @@ const Main = () => {
       console.log(data);
     },
   });
+  console.log(socket.id)
 
   return (
     <>
