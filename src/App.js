@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 /* 컴포넌트 */
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import MyWrite from "./pages/MyWrite";
+import Write from "./pages/Write";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
@@ -29,7 +29,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/paper/:userId" element={<Paper />} />
-        <Route path="/mywrite" element={<MyWrite />} />
+        <Route path="/write" element={<Write />} />
         <Route path="/paper/:userId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
