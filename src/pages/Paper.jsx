@@ -30,7 +30,7 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
     }
   );
@@ -59,12 +59,13 @@ const Paper = () => {
       <p
         style={{ cursor: "pointer" }}
         onClick={() => {
+          setTagSort(!tagSort);
           if (tagSort === false) {
-            setTagSort(!tagSort);
+            setTagSort(true);
             setBasicSort(false);
             setAllSort(false);
           } else {
-            setTagSort(!tagSort);
+            setTagSort(false);
             setBasicSort(true);
             setAllSort(false);
           }
@@ -76,32 +77,51 @@ const Paper = () => {
         style={{ cursor: "pointer" }}
         onClick={() => {
           setAllSort(!allSort);
-          setBasicSort(false);
-          setTagSort(false);
+          if (allSort === false) {
+            setAllSort(true);
+            setBasicSort(false);
+            setTagSort(false);
+          } else {
+            setAllSort(false);
+            setBasicSort(true);
+            setTagSort(false);
+          }
         }}
       >
         전체 정렬
       </p>
       {basicSort ? <div> 기본 카테고리 정렬이 보일 예정</div> : null}
-      {allSort ? (
-        <div>
-          {mypaper_data?.user.Papers.map((value, idx) => {
-            console.log(mypaper_data);
+      {tagSort ? (
+        <>
+          <div> 태그 정렬이 보일 예정</div>
 
-            return (
-              <ContentBox
-                key={idx}
-                title={value.title}
-                thumbnail={value.thumbnail}
-                createdAt={value.createdAt}
-                userId={value.userId}
-                postId={value.postId}
-              />
-            );
+          {mypaper_data?.tags.map((value, index) => {
+            return <div key={index}>{value}</div>;
           })}
-        </div>
+        </>
       ) : null}
-      {tagSort ? <div> 태그 정렬이 보일 예정</div> : null}
+      {allSort ? (
+        <>
+          <div> 전체 정렬이 보일 예정</div>
+          <div>
+            {mypaper_data?.user.Papers.map((value, idx) => {
+              console.log(mypaper_data);
+
+              return (
+                <ContentBox
+                  key={idx}
+                  title={value.title}
+                  thumbnail={value.thumbnail}
+                  tags={value.tags}
+                  createdAt={value.createdAt}
+                  userId={value.userId}
+                  postId={value.postId}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : null}
     </>
   );
 };

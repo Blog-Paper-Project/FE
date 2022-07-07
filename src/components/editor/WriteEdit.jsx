@@ -21,7 +21,7 @@ const WriteEdit = () => {
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
-  const [thumbImage, setImage] = useState("");
+  const [thumbImage, setImage] = useState(null);
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState([]);
   const [openModal, setOpenModal] = useState(false); // # 모달

@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import ViewEdit from "../components/editor/ViewEdit";
 import Header from "../components/main/Header";
+import CommentBox from "../components/paper/CommentBox";
 import { apiToken } from "../shared/apis/Apis";
 
 /*해야할 것*/
@@ -46,6 +47,12 @@ const PaperDetail = () => {
       <div>{detail_data?.title}</div>
       <div>{detail_data?.createdAt}</div>
       <ViewEdit contents={detail_data?.contents} />
+      <div>
+        {detail_data?.Tags.map((value, index) => {
+          return <div key={index}>{value?.name}</div>;
+        })}
+      </div>
+      <CommentBox postId={postId} />
     </div>
   );
 };
