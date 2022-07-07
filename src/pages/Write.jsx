@@ -1,7 +1,7 @@
 import React from "react";
 import WriteEdit from "../components/editor/WriteEdit";
 
-const MyWrite = () => {
+const Write = () => {
   return (
     <>
       <WriteEdit />
@@ -9,4 +9,4 @@ const MyWrite = () => {
   );
 };
 
-export default MyWrite;
+export default Write;

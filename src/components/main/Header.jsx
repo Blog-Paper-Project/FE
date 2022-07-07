@@ -94,7 +94,7 @@ const Header = () => {
               <Link to="/myprofile">
                 <div>마이프로필</div>
               </Link>
-              <Link to="/mywrite">
+              <Link to="/write">
                 <div>글작성</div>
               </Link>
             </>
