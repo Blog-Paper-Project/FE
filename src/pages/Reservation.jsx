@@ -15,6 +15,7 @@ const Reservation = () => {
 
   const [availability, setAvailability] = useState([])
   const Calendar = CalendarTemplate({
+    userId,
     availability,
     setAvailability,
   })
