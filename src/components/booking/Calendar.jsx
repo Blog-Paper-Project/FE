@@ -19,7 +19,7 @@ import { getCookie } from "../../shared/Cookie";
 
 
 const CalendarTemplate = ({
-    tutorName,
+    userId,
     availability,
     setAvailability,
     primaryColor = "#DF1B1B",
@@ -664,7 +664,8 @@ const CalendarTemplate = ({
                 );
                 console.log('goDB : ', { goDB });
                 console.log({ data });
-                dispatch(setBookingDB(goDB, tutorName));
+                dispatch(setBookingDB(goDB, userId));
+                console.log(userId)
                 setAvailability(data);
             }
         };

@@ -57,14 +57,14 @@ const BookingItem = (props) => {
             >
              '시작하기'
             </button>
-            <button
+            {/* <button
               className="delBtn"
               onClick={() => {
                 dispatch(delBookingNotiDB(timeId));
               }}
             >
              '예약 취소'
-            </button>
+            </button> */}
           </li>
         )}
         {(TuteeDel === 1 || TutorDel === 1) && (
@@ -81,14 +81,14 @@ const BookingItem = (props) => {
                 </span>
               </div>
             </div>
-            <button
+            {/* <button
               className="deleteBtn"
               onClick={() => {
-                TuteeDel === 1 && dispatch(notiActions.delCheckNotiDB(timeId));
+                TuteeDel === 1 && dispatch(delCheckNotiDB(timeId));
               }}
             >
              '예약 취소'
-            </button>
+            </button> */}
           </li>
         )}
       </>
