@@ -1,25 +1,27 @@
-import React from 'react'
-import "../../css/modal.css"
-import styled from 'styled-components';
-import { deleteCookie } from "../../shared/Cookie"
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import "../../css/modal.css";
+import styled from "styled-components";
+import { deleteCookie } from "../../shared/Cookie";
+import { useNavigate } from "react-router-dom";
 
 const HeaderProfile = (props) => {
   const { open, close, header, username, nickname, login } = props;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onLogout = (e) => {
     deleteCookie("token");
     //deleteCookie("profileUrl");
     deleteCookie("username");
-    deleteCookie("nickname")
-    close()
-    login(false)
+    deleteCookie("nickname");
+    deleteCookie("userId");
+    close();
+    login(false);
+    navigate("/");
   };
 
   return (
     <>
-      <div className={open ? 'openModal modal' : 'modal'}>
+      <div className={open ? "openModal modal" : "modal"}>
         {open ? (
           <section>
             <header>
@@ -30,23 +32,27 @@ const HeaderProfile = (props) => {
             </header>
             <main>
               {/* <ProfileImg src={profileImg} /> */}
-              <Nick style={{ fontWeight: "bolder", marginBottom: "10px" }}>{nickname}</Nick>
+              <Nick style={{ fontWeight: "bolder", marginBottom: "10px" }}>
+                {nickname}
+              </Nick>
               <Nick>{username}</Nick>
             </main>
             <footer>
-              <button className="close" onClick={onLogout} style={{ backgroundColor: "rgb(74,21,75)" }}>
+              <button
+                className="close"
+                onClick={onLogout}
+                style={{ backgroundColor: "rgb(74,21,75)" }}
+              >
                 로그아웃
               </button>
             </footer>
           </section>
         ) : null}
-
       </div>
     </>
-  )
-}
-export default HeaderProfile
-
+  );
+};
+export default HeaderProfile;
 
 // const ProfileImg = styled.img`
 //   width: 300px;
@@ -59,4 +65,4 @@ export default HeaderProfile
 const Nick = styled.div`
   text-align: center;
   font-size: 20px;
-`
+`;
