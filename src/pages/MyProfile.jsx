@@ -35,7 +35,7 @@ const MyProfile = () => {
       return data;
     },
   });
-  
+
   if (status === "loading") {
     return <div>loading...</div>;
   }
