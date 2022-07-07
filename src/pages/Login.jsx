@@ -31,9 +31,11 @@ const Login = () => {
       const AccessToken = data.data.token;
       const Accessnickname = data.data.nickname;
       const AccessUseId = data.data.userId;
+
       setCookie("token", AccessToken, 10);
       setCookie("nickname", Accessnickname, 10);
       setCookie("userId", AccessUseId, 10);
+      
       window.alert("로그인성공!!!!");
       navigate("/");
     },

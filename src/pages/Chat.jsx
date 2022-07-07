@@ -23,6 +23,7 @@ const Chat = () => {
       };
       socket.emit("message", messageData);
       setMessageList((list) => [...list, messageData]);
+      console.log(messageList);
       inputRef.current.value = "";
     }
   };
@@ -30,16 +31,14 @@ const Chat = () => {
   useEffect(() => {
     socket.on("update", (data) => {
       console.log(data);
+      console.log(messageList);
       setMessageList((list) => [...list, data]);
     });
 
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   const leaveChat = () => {
-    navigate("/");
+    navigate("/myprofile");
   };
 
   console.log(messageList);
@@ -52,19 +51,12 @@ const Chat = () => {
       <div>
         {messageList.map((messageContent, i) => {
           return (
-            <div
-              className="message"
-              id={nickname === messageContent.nick ? "other" : "you"}
-              key={i}
-            >
+            <div className="message" key={i}>
               <div>
-                <div>
-                  <p>{messageContent.message}</p>
-                </div>
-                <div>
-                  <p id="time">{messageContent.time}</p>
-                  <p id="author">{messageContent.author}</p>
-                </div>
+                <p>{messageContent.message}</p>
+              </div>
+              <div>
+                <p id="time">{messageContent.time}</p>
               </div>
             </div>
           );
