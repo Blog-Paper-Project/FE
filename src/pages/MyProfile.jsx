@@ -45,7 +45,7 @@ const MyProfile = () => {
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
-  const enterChat = () => {
+    const enterChat = () => {
     const roomData = {
       room: "광민1",
       name: nickname,

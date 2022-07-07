@@ -182,7 +182,6 @@ const SignUp = () => {
             onChange={setPassword}
           />
           <span ref={passwordChecked} />
-          {}
         </div>
         <div>
           <input
