@@ -3,12 +3,13 @@ import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import ViewEdit from "../components/editor/ViewEdit";
 import Header from "../components/main/Header";
-import CommentBox from "../components/paper/CommentBox";
+import CommentContainer from "../components/paper/CommentContainer";
+import Like from "../components/paper/Like";
 import { apiToken } from "../shared/apis/Apis";
 
 /*해야할 것*/
 // Comments: []
-// Likes: []
+// Likes: []  // 아마 이 LIkes가 내가 좋아요한 목록 보는 거겠지?
 // Users: {nickname: '감자입니다', profileImage: null}
 // category: ""
 // contents: "## 큰글시2"
@@ -25,14 +26,18 @@ const PaperDetail = () => {
   // console.log(postId);
 
   const GetDetailtData = async () => {
-    const getData = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
-    // console.log(getData);
-    return getData?.data.paper;
+    const response = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
+    // console.log("PaperDetail page", response);
+    return response?.data.paper;
   };
 
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
-  const { data: detail_data, status } = useQuery("detail_data", GetDetailtData);
+  const { data: detail_data, status } = useQuery(
+    "detail_data",
+    GetDetailtData,
+    { staleTime: Infinity }
+  );
   if (status === "loading") {
     return <>loading...</>;
   }
@@ -41,7 +46,7 @@ const PaperDetail = () => {
     return alert("error");
   }
 
-  // console.log(detail_data);
+  console.log("PaperDeTail", detail_data);
   return (
     <div>
       <div>{detail_data?.title}</div>
@@ -52,7 +57,12 @@ const PaperDetail = () => {
           return <div key={index}>{value?.name}</div>;
         })}
       </div>
-      <CommentBox postId={postId} />
+      <div>
+        <CommentContainer postId={postId} Comments={detail_data.Comments} />
+      </div>
+      <div>
+        <Like postId={postId} Likes={detail_data.Likes} />
+      </div>
     </div>
   );
 };

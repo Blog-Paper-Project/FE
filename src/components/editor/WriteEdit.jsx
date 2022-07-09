@@ -11,6 +11,7 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
+import { setCookie } from "../../shared/Cookie";
 // import Meiyou2 from "../../public/images/Meiyou.";
 /*해야 할 것*/
 //1. 여기에 임시글 저장 버튼도 필요함.
@@ -51,9 +52,9 @@ const WriteEdit = () => {
 
   //## writeEdit의 데이터(text->markdown) 이벤트
   const onchange = (e) => {
-    const abc = editorRef.current?.getInstance().getMarkdown();
+    const write_data = editorRef.current?.getInstance().getMarkdown();
     // console.log("25", abc);
-    setData(abc); // 이는 위의 head_data 값
+    setData(write_data); // 이는 위의 head_data 값
     // console.log("27", markdown_data);
   };
 
@@ -87,6 +88,10 @@ const WriteEdit = () => {
       })
     );
   };
+  //## 임시저장 이벤트
+  const onTemporary = () => {
+    setCookie("Temporary_Content", markdown_data, 10);
+  };
 
   //## useMutation write 데이터 post의 함수
   const postfecher = async () => {
@@ -96,14 +101,14 @@ const WriteEdit = () => {
     const image_data = await apiToken.post("/api/paper/image", formData);
     console.log(image_data?.data.imageUrl);
 
-    const postData = await apiToken.post("/api/paper", {
+    const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
       title: head_data,
       thumbnail: image_data?.data.imageUrl,
       tags: tagList,
     });
-    console.log(postData?.data);
-    return postData?.data.paper;
+    console.log(response?.data);
+    return response?.data.paper;
   };
   //## useMutation write 데이터 post
   const { data: res, mutate: onPost } = useMutation(postfecher, {
@@ -203,17 +208,16 @@ const WriteEdit = () => {
                 let formData = new FormData();
                 formData.append("image", blob);
 
-                const image_data = await apiToken.post(
+                const response = await apiToken.post(
                   "/api/paper/image",
                   formData
                 );
-                console.log(image_data?.data.imageUrl);
+                console.log(response?.data.imageUrl);
                 // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
                 callback(
-                  process.env.REACT_APP_S3_URL +
-                    `/${image_data?.data.imageUrl}`,
+                  process.env.REACT_APP_S3_URL + `/${response?.data.imageUrl}`,
                   `${blob.name.split(".")[0]}`
                 );
               },
@@ -237,6 +241,7 @@ const WriteEdit = () => {
           >
             나가기!
           </button>
+          <button onClick={onTemporary}>임시저장!</button>
         </div>
       )}
     </>
