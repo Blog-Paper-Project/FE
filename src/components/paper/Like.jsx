@@ -2,11 +2,15 @@ import React, { useCallback, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 
-const Like = ({ postId }) => {
+const Like = ({ postId, Likes, LoginId }) => {
   console.log(postId);
   const [like, setLike] = useState(false);
-  // console.log(like);
+  // console.log(Likes);
 
+  const LikesCheck = Likes?.find((value) => {
+    return value.userId === LoginId;
+  });
+  console.log(LikesCheck);
   // ## useMutation 좋아요 post 함수
   const queryClient = useQueryClient();
 
@@ -32,7 +36,7 @@ const Like = ({ postId }) => {
 
   return (
     <>
-      {like ? <p>❤</p> : <p>🤍</p>}
+      {LikesCheck === undefined ? <p>🤍</p> : <p>❤</p>}
       <button
         // onClick={() => {
         //   onPost();

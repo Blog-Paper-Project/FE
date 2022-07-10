@@ -30,7 +30,7 @@ const Main = () => {
       console.log(data);
     },
   });
-  console.log(socket.id)
+  // console.log(socket.id)
 
   return (
     <>

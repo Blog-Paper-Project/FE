@@ -15,6 +15,7 @@ const Paper = () => {
   const [basicSort, setBasicSort] = useState(true);
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(false);
+  const [categoty_Toggle, setCategoty_Toggle] = useState(false);
 
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -90,7 +91,38 @@ const Paper = () => {
       <p style={{ cursor: "pointer" }} onClick={onAll}>
         전체 정렬
       </p>
-      {basicSort ? <div> 기본 카테고리 정렬이 보일 예정</div> : null}
+      {basicSort ? (
+        <>
+          {categoty_Toggle ? (
+            <>
+              <div>카테고리 입니다</div>
+              <button
+                onClick={() => {
+                  setCategoty_Toggle(!categoty_Toggle);
+                }}
+              >
+                카테고리 토글 버튼
+              </button>
+              <div>카테고리1</div>
+              <div>카테고리2</div>
+              <div>카테고리3</div>
+              <div>카테고리4</div>
+              <div>카테고리5</div>
+            </>
+          ) : (
+            <>
+              <div>카테고리 입니다</div>
+              <button
+                onClick={() => {
+                  setCategoty_Toggle(!categoty_Toggle);
+                }}
+              >
+                카테고리 토글 버튼
+              </button>
+            </>
+          )}
+        </>
+      ) : null}
       {tagSort ? (
         <>
           <div> 태그 정렬이 보일 예정</div>

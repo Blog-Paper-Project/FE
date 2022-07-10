@@ -73,7 +73,7 @@ const CommentList = (props) => {
                 maxLength="40"
               />
             ) : (
-              <div>댓글 내용 {props.text}</div>
+              <div>댓글 내용 {text}</div>
             )}
           </div>
           <div>{createdAt}</div>
