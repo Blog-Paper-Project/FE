@@ -19,6 +19,7 @@ import { getCookie } from "../../shared/Cookie";
 
 
 const CalendarTemplate = ({
+    LeafCount,
     userId,
     availability,
     setAvailability,
@@ -31,13 +32,13 @@ const CalendarTemplate = ({
     // 예약 가능 시간 범위 설정
     // 8시간
     startTime = "8:00",
-    endTime = "22:00",
+    endTime = "20:00",
 }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isLogin = getCookie('userId');
     const saveDataCount = availability.length + 1;
-    
+    console.log(LeafCount)
     // 스타일
     const theme = createTheme({
         typography: {
@@ -664,7 +665,7 @@ const CalendarTemplate = ({
                 );
                 console.log('goDB : ', { goDB });
                 console.log({ data });
-                dispatch(setBookingDB(goDB, userId));
+                dispatch(setBookingDB(goDB, userId, LeafCount));
                 console.log(userId)
                 setAvailability(data);
             }

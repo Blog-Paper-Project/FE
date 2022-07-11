@@ -1,18 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { history } from '../redux/configureStore';
+import { useNavigate } from "react-router";
+import { getCookie } from '../../shared/Cookie';
 
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
 // import { actionCreators as notiActions } from '../redux/modules/booking';
 
 const BookingItem = (props) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { item, userInfo } = props;
-
+  const { item, userName, userId } = props;
+console.log(item)
   // 조건에 필요한 정보
-  const isTutor = userInfo.isTutor;
+  const User = getCookie('userId');
+  const Host = userId;
+  const Guest = userName;
   const TutorDel = item.TutorDel;
   const TuteeDel = item.TuteeDel;
   const timeId = item.timeId;
@@ -22,36 +26,36 @@ const BookingItem = (props) => {
   let endTime = item.end;
 
   if (!item) return null;
-  let [week, month, day, year, sTime] = startTime.split(' ');
-  let start = sTime.substr(0, 5);
-  let end = endTime.substr(-17, 5);
+  // let [week, month, day, year, sTime] = startTime.split(' ');
+  // let start = sTime.substr(0, 5);
+  // let end = endTime.substr(-17, 5);
 
   // 학생일때
-  if (isTutor === 0) {
+  if (Guest === User) {
     return (
-      <>
-        {TuteeDel === 0 && TutorDel === 0 && (
+      <div>
+        {(
           <li className="booking" key={`booking${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.Tutor_userName}</div>
+              <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                  {item.date}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {item.time}
                 </span>
               </div>
             </div>
             <button
               className="videoBtn"
               onClick={() => {
-                history.push({
+                navigate({
                   pathname: `/videochat/${
-                    item.Tutor_userName + item.Tutee_userName
+                    item.hostId + item.guestId
                   }`,
-                  state: item.Tutor_userName,
+                  state: item.hostId,
                 });
               }}
             >
@@ -67,17 +71,17 @@ const BookingItem = (props) => {
             </button> */}
           </li>
         )}
-        {(TuteeDel === 1 || TutorDel === 1) && (
+        {(
           <li className="booking" key={`booking${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.Tutor_userName}</div>
+              <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                  {item.date}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {item.time}
                 </span>
               </div>
             </div>
@@ -91,69 +95,69 @@ const BookingItem = (props) => {
             </button> */}
           </li>
         )}
-      </>
+      </div>
     );
 
     // 선생님일때
-  } else if (isTutor === 1) {
+  } else if (Host === User) {
     return (
       <>
-        {TuteeDel === 0 && TutorDel === 0 && (
+        {(
           <li className="booking" key={`booking${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.Tutee_userName}</div>
+              <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                  {item.date}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {item.time}
                 </span>
               </div>
             </div>
             <button
               className="videoBtn"
               onClick={() => {
-                history.push(
-                  `/videochat/${item.Tutor_userName + item.Tutee_userName}`,
+                navigate(
+                  `/videochat/${item.hostId + item.guestId}`,
                 );
               }}
             >
             '시작하기'
             </button>
-            <button
+            {/* <button
               className="delBtn"
               onClick={() => {
-                dispatch(bookingAction.delBookingNotiDB(timeId));
+                dispatch(delBookingNotiDB(timeId));
               }}
             >
            '예약 취소'
-            </button>
+            </button> */}
           </li>
         )}
-        {(TuteeDel === 1 || TutorDel === 1) && (
+        {(
           <li className="booking" key={`booking${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.Tutee_userName}</div>
+              <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                  {item.date}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {item.time}
                 </span>
               </div>
             </div>
-            <button
+            {/* <button
               className="deleteBtn"
               onClick={() => {
                 TutorDel === 1 && dispatch(notiActions.delCheckNotiDB(timeId));
               }}
             >
             '예약 취소'
-            </button>
+            </button> */}
           </li>
         )}
       </>

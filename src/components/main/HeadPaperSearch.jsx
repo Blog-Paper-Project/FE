@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import React, { useState } from 'react'
+import styled from 'styled-components';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
+import { BiSearchAlt2 } from "react-icons/bi"
 
 /* 컴포넌트 */
 import { __searchPost } from "../../redux/modules/Search";
@@ -14,36 +15,45 @@ const HeadPaperSearch = () => {
   return (
     <>
       <form>
-        <Search1
-          value={search}
-          placeholder="원하시는 paper를 검색해주세요"
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              dispatch(__searchPost(search));
-              setSearch("");
-              navigate(`/paper/search/${e.target.value}`);
-            }
-          }}
-        />
+        <SearchBox>
+          <BiSearchAlt2 color="black" size="25px" />
+          <Search1
+            value={search}
+            placeholder="검색하기"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                dispatch(__searchPost(search));
+                setSearch("");
+                navigate(`/paper/search/${e.target.value}`);
+              }
+            }}
+          />
+        </SearchBox>
       </form>
     </>
   );
 };
 
+const SearchBox = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding-left: 4%;
+  
+`
+
 const Search1 = styled.input`
-  line-height: 1.4;
-  font-size: 20px;
-  background-color: #f2f3f6;
+  
+  background-color: #E5E2DB;
   box-sizing: border-box;
-  height: 40px;
   padding: 16px 23px;
   border: none;
-  border-radius: 15px;
-  width: 360px;
+  width: 46vw;
+  height: 80px;
   color: #212124;
 `;
 
