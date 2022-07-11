@@ -32,10 +32,10 @@ const Login = () => {
       const Accessnickname = data.data.nickname;
       const AccessUseId = data.data.userId;
 
-      setCookie("token", AccessToken, 10);
-      setCookie("nickname", Accessnickname, 10);
-      setCookie("userId", AccessUseId, 10);
-      
+      setCookie("token", AccessToken, 2);
+      setCookie("nickname", Accessnickname, 2);
+      setCookie("userId", AccessUseId, 2);
+
       window.alert("로그인성공!!!!");
       navigate("/");
     },
