@@ -40,21 +40,26 @@ const MyProfile = () => {
   if (status === "loading") {
     return <div>loading...</div>;
   }
-  console.log(socket.id);
-  console.log(res);
 
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
-  const enterChat = () => {
+  const enterChat = async () => {
     const roomData = {
       room: "광민1",
       name: nickname,
     };
+    await socket.emit("user-connected", (data) => {
+      console.log(data);
+    });
     socket.emit("newUser", roomData);
-    console.log(roomData);
-    console.log(socket.id);
     navigate("/chat");
+
+    socket.on("roomfull", (data) => {
+      console.log(data);
+      window.alert("방꽉참");
+      navigate("/myprofile");
+    });
   };
 
   return (
