@@ -8,7 +8,7 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
 import { getCookie, setCookie } from "../../shared/Cookie";
@@ -18,7 +18,10 @@ import { getCookie, setCookie } from "../../shared/Cookie";
 //2. 해시태그 post data 안에 key 값 찾아서 넣기
 //3. 상세페이지 post로 보낼 때 배열로 보내드릴 것 ( 배열로가 정확히 무슨 뜻일까?)
 
-const WriteEdit = () => {
+const ModifyEdit = (props) => {
+  const { postId, userId } = props;
+  console.log(postId);
+  console.log(props.postId);
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
@@ -28,9 +31,11 @@ const WriteEdit = () => {
   const [openModal, setOpenModal] = useState(false); // # 모달
   const [previewImg, setPreviewImg] = useState(thumbImage);
 
+  const hostId = getCookie("userId");
   const editorRef = useRef();
   const navigate = useNavigate();
-  const HostId = getCookie("userId");
+  // const BeforeTags = detail_data?.Tags;
+  // console.log(detail_data?.Tags);
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -50,7 +55,7 @@ const WriteEdit = () => {
     setOpenModal(!openModal);
   };
 
-  //## writeEdit의 데이터(text->markdown) 이벤트
+  //## ModifyEdit의 데이터(text->markdown) 이벤트
   const onchange = (e) => {
     const write_data = editorRef.current?.getInstance().getMarkdown();
     // console.log("25", abc);
@@ -93,58 +98,19 @@ const WriteEdit = () => {
     setCookie("Temporary_Content", markdown_data, 10);
   };
 
-  //## useMutation write 데이터 post의 함수
-  const postfecher = async () => {
-    let formData = new FormData();
-    formData.append("image", thumbImage);
-    // console.log(formData.get("image"));
-    const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data?.data.imageUrl);
-
-    const response = await apiToken.post("/api/paper", {
-      contents: markdown_data,
-      title: head_data,
-      thumbnail: image_data?.data.imageUrl,
-      tags: tagList,
-    });
-    setTag("");
-    setTagList([]);
-    console.log(response?.data);
+  const GetDetailtData = async () => {
+    const response = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
+    // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
-  //## useMutation write 데이터 post
-  const queryClient = useQueryClient();
-  const { data: res, mutate: onPost } = useMutation(postfecher, {
-    onSuccess: (res) => {
-      queryClient.invalidateQueries("paper_data", "detail_data");
-      console.log(res?.userId);
 
-      navigate(`/paper/${res?.userId}`);
-      alert("post 성공!");
-    },
-    // onError: (data === null) => {
-    //   alert("post 실패!");
-    // },
-  });
-  // ## useQuery 카테고리 데이터 get 함수
-  const GetMyPaperData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${HostId}`);
-    // console.log(response);
-    return response?.data;
-  };
-  // ## useQuery 카테고리 데이터 get
-  const { data: mypaper_data, status } = useQuery(
-    "paper_data",
-    GetMyPaperData,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-        return data;
-      },
-      staleTime: Infinity,
-    }
+  //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
+  //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
+  const { data: detail_data, status } = useQuery(
+    "detail_data",
+    GetDetailtData
+    // { staleTime: Infinity }
   );
-
   if (status === "loading") {
     return <>loading...</>;
   }
@@ -152,6 +118,42 @@ const WriteEdit = () => {
   if (status === "error") {
     return alert("error");
   }
+  if (hostId !== userId) {
+    navigate("/");
+    alert("블로거 주인만 수정할 수 있습니다.");
+  }
+
+  console.log("Modify", detail_data.Tags);
+
+  //   //## useMutation write 데이터 post의 함수
+  //   const postfecher = async () => {
+  //     let formData = new FormData();
+  //     formData.append("image", thumbImage);
+  //     // console.log(formData.get("image"));
+  //     const image_data = await apiToken.post("/api/paper/image", formData);
+  //     console.log(image_data?.data.imageUrl);
+
+  //     const response = await apiToken.post("/api/paper", {
+  //       contents: markdown_data,
+  //       title: head_data,
+  //       thumbnail: image_data?.data.imageUrl,
+  //       tags: tagList,
+  //     });
+  //     console.log(response?.data);
+  //     return response?.data.paper;
+  //   };
+  //   //## useMutation write 데이터 post
+  //   const { data: res, mutate: onPost } = useMutation(postfecher, {
+  //     onSuccess: (res) => {
+  //       console.log(res?.userId);
+
+  //       navigate(`/paper/${res?.userId}`);
+  //       alert("post 성공!");
+  //     },
+  //     // onError: (data === null) => {
+  //     //   alert("post 실패!");
+  //     // },
+  //   });
 
   return (
     <>
@@ -171,16 +173,6 @@ const WriteEdit = () => {
               encodeFileToBase64(e.target.files[0]);
             }}
           ></input>
-          <div>카테고리</div>
-          <select>
-            {mypaper_data?.categories.map((value, index) => {
-              return (
-                <option key={index} value={value}>
-                  {value}
-                </option>
-              );
-            })}
-          </select>
           <button
             onClick={() => {
               setOpenModal(!openModal);
@@ -188,7 +180,7 @@ const WriteEdit = () => {
           >
             x
           </button>
-          <button onClick={onPost}>click</button>
+          {/* <button onClick={onPost}>click</button> */}
         </div>
       ) : (
         <div
@@ -198,12 +190,14 @@ const WriteEdit = () => {
             alert("붙혀넣기 금지");
           }}
         >
+          {/* 아래 글 제목 */}
           <textarea
-            placeholder="제목 쓰는 곳이야"
+            placeholder={detail_data.title}
             onChange={(e) => {
               setHead(e.target.value);
             }}
           ></textarea>
+          {/* 아래 해시태그 */}
           <input
             name="HashTagInput"
             type="text"
@@ -216,6 +210,16 @@ const WriteEdit = () => {
             }}
           ></input>
           <HashWrapOuter>
+            {/* 바로 아래 해시태그 get 기존 것들 넣을 계획이었으나 실패 */}
+            {/* {detail_data.Tags.length > 0
+              ? detail_data.Tags.map((value, idx) => {
+                  return (
+                    <div key={value.length} onClick={onClcik_tag}>
+                      <p id={idx}>{value}</p>
+                    </div>
+                  );
+                })
+              : null} */}
             {tagList.length > 0 ? (
               tagList.map((value, index) => {
                 return (
@@ -234,7 +238,7 @@ const WriteEdit = () => {
             height="900px"
             minHeight="600px"
             initialEditType="markdown"
-            initialValue={markdown_data}
+            initialValue={detail_data.contents}
             ref={editorRef}
             onChange={onchange}
             useCommandShortcut={false}
@@ -276,7 +280,7 @@ const WriteEdit = () => {
           <button onClick={onModal}>Click!</button>
           <button
             onClick={() => {
-              navigate(`/paper/${res?.userId}`);
+              navigate(`/paper/${props.userId}`);
             }}
           >
             나가기!
@@ -305,4 +309,4 @@ const HashWrapOuter = styled.div`
 //   border: none;
 // `;
 
-export default WriteEdit;
+export default ModifyEdit;
