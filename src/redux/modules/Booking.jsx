@@ -1,4 +1,4 @@
-import { api } from "../../shared/apis/Apis";
+import { api, apiToken } from "../../shared/apis/Apis";
 import { getCookie } from "../../shared/Cookie";
 import Swal from 'sweetalert2';
 
@@ -9,6 +9,7 @@ const GET_NOTI = 'GET_NOTI';
 
 //액션 크리에이터
 const getBooking = (data) => {
+    console.log(data)
     return { type: GET_BOOKING, data };
 };
 const getNoti = (data) => {
@@ -21,16 +22,17 @@ const initialState = {
 };
 
 //---------청크--------------//
-// 예약하기
-export const setBookingDB = (data, userId) => {
+// 예약하기 
+let userName = getCookie('userId')
+console.log(userName);
+export const setBookingDB = (data, userId, LeafCount) => {
     return function (dispatch, getCookie) {
         
         
-        let userName = getCookie('userId')
         // let isTutor = getCookie('nickname')
         console.log(userId)
         console.log(userName);
-        console.log('DB 저장으로 가는 데이터 : ', { data, userId });
+        console.log('DB 저장으로 가는 데이터 : ', { data, userId, LeafCount });
         if (!userName) {
             Swal.fire({
                 icon: 'error',
@@ -42,16 +44,16 @@ export const setBookingDB = (data, userId) => {
             return;
         }
 
-        // if (isTutor === 1) {
-        //     Swal.fire({
-        //         icon: 'error',
-        //         text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
-        //         showConfirmButton: true,
-        //         confirmButtonColor: '#3085d6',
-        //         timer: 2000,
-        //     });
-        //     return;
-        // }
+        if (userId === userName) {
+            Swal.fire({
+                icon: 'error',
+                text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
+                showConfirmButton: true,
+                confirmButtonColor: '#3085d6',
+                timer: 2000,
+            });
+            return;
+        }
 
         if (data.length === 0) {
             Swal.fire({
@@ -68,20 +70,21 @@ export const setBookingDB = (data, userId) => {
 
         console.log(data);
 
-        api({
+        apiToken({
             method: 'post',
             url: `/api/booking/${userId}`,
             data: {
-                start: data[0]?.start,
-                end: data[0]?.end,
-                userName: userName,
+                // time: `${data[0]?.start}-${data[0]?.end}`,
+                guestId: userName,
+                leaf: Number(LeafCount),
+                date: `${data[0]?.start}-${data[0]?.end}`,
             },
         })
             .then((doc) => {
                 const startTime = data[0].start;
                 const endTime = data[0].end;
 
-                let [week, month, day, year, sTime] = startTime.toString().split(' ');
+                let [month, day, sTime] = startTime.toString().split(' ');
                 let start = sTime.substr(0, 5);
                 let end = endTime.toString().substr(-17, 5);
 
@@ -117,14 +120,15 @@ export const setBookingDB = (data, userId) => {
 }
 
 // 예약리스트 불러오기
-export const getBookingDB = ({ userId, isTutor }) => {
-    return function (dispatch, getState) {
-      api({
+export const getBookingDB = () => {
+    return function (dispatch) {
+      apiToken({
         method: 'get',
-        url: `/api/booking/${userId}&isTutor=${isTutor}`, // 학생 또는 선생님
+        url: `/api/booking`, // 학생 또는 선생님
       })
         .then((doc) => {
-          dispatch(getBooking(doc.data));
+            console.log(doc.data.inquireResult)
+          dispatch(getBooking(doc.data.inquireResult));
         })
         .catch((err) => {
           console.log(err);
@@ -154,9 +158,10 @@ export const getBookingNotiDB = (userId) => {
 const bookingReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKING:
-            return { data: action.payload };
+            console.log(action.data)
+            return { data: action.data };
         case GET_NOTI:
-            return { data: action.payload };
+            return { data: action.data };
         default:
             return state;        
     }

@@ -63,85 +63,93 @@ const Header = () => {
       <HeaderBox>
         <Svg>
           <Logo>
-            <Link to="/">
-              <div>logo</div>
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Paper
             </Link>
-            <MainTitle>Paper</MainTitle>
           </Logo>
+          <Search>
+            <HeadPaperSearch />
+          </Search>
+          <Login>
+            {is_cookie ? (
+              <>
+                <button
+                  onClick={() => {
+                    navigate(`/paper/${userpaper_query.userId}`);
+                  }}
+                >
+                  내 블로그로 가기
+                </button>
+                <ProfileImgBox>
+                  <button onClick={openModal}>유저이미지(모달오픈)</button>
+                  <HeaderProfile
+                    open={modalOpen}
+                    close={closeModal}
+                    header="프로필"
+                    username={username}
+                    nickname={nickname}
+                    login={setCookie}
+                  />
+                </ProfileImgBox>
+                <Link to="/myprofile">
+                  <div>마이프로필</div>
+                </Link>
+                <Link to="/write">
+                  <div>글작성</div>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  <button>로그인</button>
+                </Link>
+              </>
+            )}
+          </Login>
 
-          <HeadPaperSearch />
 
-          {is_cookie ? (
-            <>
-              <button
-                onClick={() => {
-                  navigate(`/paper/${userpaper_query.userId}`);
-                }}
-              >
-                내 블로그로 가기
-              </button>
-              <ProfileImgBox>
-                <button onClick={openModal}>유저이미지(모달오픈)</button>
-                <HeaderProfile
-                  open={modalOpen}
-                  close={closeModal}
-                  header="프로필"
-                  username={username}
-                  nickname={nickname}
-                  login={setCookie}
-                />
-              </ProfileImgBox>
-              <Link to="/myprofile">
-                <div>마이프로필</div>
-              </Link>
-              <Link to="/write">
-                <div>글작성</div>
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <div>로그인</div>
-              </Link>
-            </>
-          )}
         </Svg>
       </HeaderBox>
     </>
   );
 };
 const HeaderBox = styled.div`
-  background-color: gray;
+  background-color: #E5E2DB;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
+height: 80px;  
 `;
 
 const Svg = styled.div`
-  margin: 20px 0;
+ 
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  width: 80%;
-  padding: 0 20%;
+  margin: auto;
 `;
 
 const Logo = styled.div`
+padding-left: 2%;
+width: 27vw;
+height: 80px;
+border: 1px solid #ACACAC;
   display: flex;
   align-items: center;
 `;
 
-const MainTitle = styled.div`
-  background-color: #fff;
-  line-height: 2.3;
-  display: block;
-  color: green;
-  margin: 0 0 0 20px;
-  border-radius: 10px;
-`;
+const Search = styled.div`
+  width: 46vw;
+height: 80px;
+border: 1px solid #ACACAC;
+`
+const Login = styled.div`
+  width: 27vw;
+height: 80px;
+border: 1px solid #ACACAC;
+align-items: center;
+`
 
 const ProfileImgBox = styled.div`
   display: flex;

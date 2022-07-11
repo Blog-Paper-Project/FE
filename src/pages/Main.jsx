@@ -7,10 +7,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/grid";
 import "swiper/css/pagination";
 
+
 // import required modules
-import { Pagination } from "swiper";
+import { Grid, Pagination } from "swiper";
 
 /* 컴포넌트 */
 import Header from "../components/main/Header";
@@ -50,47 +52,41 @@ const Main = () => {
       </PostBox>
 
       <Swiper
-        slidesPerView={5}
-        spaceBetween={10}
+        slidesPerView={3}
+        grid={{
+          rows: 2,
+        }}
+        spaceBetween={0}
         pagination={{
           clickable: true,
         }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 40,
-          },
-          1024: {
-            slidesPerView: 5,
-            spaceBetween: 50,
-          },
-        }}
-        modules={[Pagination]}
+        modules={[Grid, Pagination]}
         className="mySwiper"
       >
-        {paper_query &&
-          paper_query?.data.popularUsers.map((popularUsers) => {
-            return (
-              <SwiperSlide key={popularUsers.userId}>
+        
+          {paper_query &&
+            paper_query?.data.popularUsers.map((popularUsers) => {
+              return (
+                <SwiperSlide key={popularUsers.userId}>
+
                 <div
+                  
                   onClick={() => {
                     navigate(``);
                   }}
                 >
-                  <Popular className="box">
+                  <Popular>
                     <div>{popularUsers.profileImage}</div>
                     <div>닉네임 = {popularUsers.nickname}</div>
                     <div>인기도 = {popularUsers.popularity}</div>
                   </Popular>
                 </div>
-              </SwiperSlide>
-            );
-          })}
+                </SwiperSlide>
+
+              );
+            })}
       </Swiper>
+
     </>
   );
 };
