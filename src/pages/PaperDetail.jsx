@@ -60,8 +60,14 @@ const PaperDetail = () => {
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
     "detail_data",
-    GetDetailtData
-    // { staleTime: Infinity }
+    GetDetailtData,
+    { staleTime: 0, cacheTime: 0 },
+    {
+      onSuccess: (data) => {
+        // console.log(data);
+        return data;
+      },
+    }
   );
   if (status === "loading") {
     return <>loading...</>;
@@ -71,7 +77,7 @@ const PaperDetail = () => {
     return alert("error");
   }
 
-  console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data);
   return (
     <div>
       {LoginId === userId ? (
@@ -104,17 +110,17 @@ const PaperDetail = () => {
       <ViewEdit contents={detail_data?.contents} />
       {/* 아래 해시태그 */}
       <div>
-        {detail_data?.Tags?.map((value, index) => {
-          return <div key={index}>{value?.name}</div>;
+        {detail_data?.Tags.map((value, index) => {
+          return <div key={index}>{value.name}</div>;
         })}
       </div>
       {/* 아래 댓글 */}
       <div>
-        <CommentContainer postId={postId} Comments={detail_data.Comments} />
+        <CommentContainer postId={postId} Comments={detail_data?.Comments} />
       </div>
       {/* 아래 좋아요 */}
       <div>
-        <Like postId={postId} Likes={detail_data.Likes} LoginId={LoginId} />
+        <Like postId={postId} Likes={detail_data?.Likes} LoginId={LoginId} />
       </div>
     </div>
   );

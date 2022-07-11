@@ -8,10 +8,10 @@ import "@toast-ui/editor/dist/toastui-editor.css";
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
-import { setCookie } from "../../shared/Cookie";
+import { getCookie, setCookie } from "../../shared/Cookie";
 // import Meiyou2 from "../../public/images/Meiyou.";
 /*해야 할 것*/
 //1. 여기에 임시글 저장 버튼도 필요함.
@@ -30,7 +30,7 @@ const WriteEdit = () => {
 
   const editorRef = useRef();
   const navigate = useNavigate();
-
+  const HostId = getCookie("userId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -116,7 +116,7 @@ const WriteEdit = () => {
   const queryClient = useQueryClient();
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
-      queryClient.invalidateQueries("paper_data");
+      queryClient.invalidateQueries("paper_data", "detail_data");
       console.log(res?.userId);
 
       navigate(`/paper/${res?.userId}`);
@@ -126,6 +126,32 @@ const WriteEdit = () => {
     //   alert("post 실패!");
     // },
   });
+  // ## useQuery 카테고리 데이터 get 함수
+  const GetMyPaperData = async () => {
+    const response = await apiToken.get(`/api/paper/users/${HostId}`);
+    // console.log(response);
+    return response?.data;
+  };
+  // ## useQuery 카테고리 데이터 get
+  const { data: mypaper_data, status } = useQuery(
+    "paper_data",
+    GetMyPaperData,
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        return data;
+      },
+      staleTime: Infinity,
+    }
+  );
+
+  if (status === "loading") {
+    return <>loading...</>;
+  }
+
+  if (status === "error") {
+    return alert("error");
+  }
 
   return (
     <>
@@ -145,6 +171,16 @@ const WriteEdit = () => {
               encodeFileToBase64(e.target.files[0]);
             }}
           ></input>
+          <div>카테고리</div>
+          <select>
+            {mypaper_data?.categories.map((value, index) => {
+              return (
+                <option key={index} value={value}>
+                  {value}
+                </option>
+              );
+            })}
+          </select>
           <button
             onClick={() => {
               setOpenModal(!openModal);

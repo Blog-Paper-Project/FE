@@ -31,6 +31,7 @@ const MyProfile = () => {
     return res;
   };
   const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
+    staleTime: 0,
     onSuccess: (data) => {
       return data;
     },
@@ -45,7 +46,7 @@ const MyProfile = () => {
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
-    const enterChat = () => {
+  const enterChat = () => {
     const roomData = {
       room: "광민1",
       name: nickname,

@@ -11,7 +11,7 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation, useQuery } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
-import { setCookie } from "../../shared/Cookie";
+import { getCookie, setCookie } from "../../shared/Cookie";
 // import Meiyou2 from "../../public/images/Meiyou.";
 /*해야 할 것*/
 //1. 여기에 임시글 저장 버튼도 필요함.
@@ -31,6 +31,7 @@ const ModifyEdit = (props) => {
   const [openModal, setOpenModal] = useState(false); // # 모달
   const [previewImg, setPreviewImg] = useState(thumbImage);
 
+  const hostId = getCookie("userId");
   const editorRef = useRef();
   const navigate = useNavigate();
   // const BeforeTags = detail_data?.Tags;
@@ -116,6 +117,10 @@ const ModifyEdit = (props) => {
 
   if (status === "error") {
     return alert("error");
+  }
+  if (hostId !== userId) {
+    navigate("/");
+    alert("블로거 주인만 수정할 수 있습니다.");
   }
 
   console.log("Modify", detail_data.Tags);
@@ -205,15 +210,16 @@ const ModifyEdit = (props) => {
             }}
           ></input>
           <HashWrapOuter>
-            {detail_data.Tags.length > 0
+            {/* 바로 아래 해시태그 get 기존 것들 넣을 계획이었으나 실패 */}
+            {/* {detail_data.Tags.length > 0
               ? detail_data.Tags.map((value, idx) => {
                   return (
                     <div key={value.length} onClick={onClcik_tag}>
-                      <p>{value}</p>
+                      <p id={idx}>{value}</p>
                     </div>
                   );
                 })
-              : null}
+              : null} */}
             {tagList.length > 0 ? (
               tagList.map((value, index) => {
                 return (
