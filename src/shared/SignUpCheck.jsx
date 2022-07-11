@@ -5,7 +5,7 @@ export const emailCheck = (email) => {
 }
 
 export const nicknameCheck = (nickname) => {
-    let SignUpCheck = /^[0-9a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]{4,8}$/;
+    let SignUpCheck = /^[0-9a-zA-Zㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,15}$/;
 
     return SignUpCheck.test(nickname)
 }
