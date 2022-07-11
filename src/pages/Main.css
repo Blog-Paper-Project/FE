@@ -1,3 +1,7 @@
+#Main {
+  height: 100%
+}
+
 html,
 body {
   position: relative;
@@ -16,12 +20,18 @@ body {
 .swiper {
   width: 100%;
   height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
-
+.swiper-grid-column>.swiper-wrapper {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
+  height: calc((100% - 30px) / 2) !important;
 
   /* Center slide text vertically */
   display: -webkit-box;
@@ -36,11 +46,4 @@ body {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }

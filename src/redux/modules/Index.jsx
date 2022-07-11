@@ -5,6 +5,7 @@ import bookingReducer from "./Booking";
 const rootReducer = combineReducers({
   bookingReducer,
   searchReducer,
+  
 });
 
 export default rootReducer;
