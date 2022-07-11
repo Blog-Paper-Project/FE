@@ -6,6 +6,9 @@ import { useMutation, useQueryClient } from "react-query";
 import { nicknameCheck } from "../../shared/SignUpCheck";
 
 import { api, apiToken } from "../../shared/apis/Apis";
+import { deleteCookie, setCookie } from "../../shared/Cookie";
+import { useRef } from "react";
+import styled from "styled-components";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -16,6 +19,7 @@ const MyProfileModal = (props) => {
   const [CHGnickname, setCHGnickname] = useState(nickname);
   const [previewImg, setpreviewImg] = useState(profileImage);
   const [CHGprofileImg, setCHGprofileImg] = useState();
+  const fileInputRef = useRef();
 
   //닉네임 중복체크
   const getNickCheck = async () => {
@@ -72,6 +76,8 @@ const MyProfileModal = (props) => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
+      deleteCookie("nickname");
+      setCookie("nickname", CHGnickname);
       close();
     },
     onError: () => {
@@ -83,6 +89,11 @@ const MyProfileModal = (props) => {
   if (MyProfileModal.isLoading) {
     return null;
   }
+
+  //input창 숨기고 사진 넣기
+  const onClickImageUpload = () => {
+    fileInputRef.current.click();
+  };
 
   return (
     <>
@@ -97,45 +108,49 @@ const MyProfileModal = (props) => {
             </header>
 
             <div>
-              프로필 이미지
-              <img
-                src={
-                  previewImg.split("/")[3] === "null"
-                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                    : previewImg
-                }
-                alt="profile"
-              />
+              <div>
+                <img
+                  src={
+                    previewImg.split("/")[3] === "null"
+                      ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                      : previewImg
+                  }
+                  alt="profile"
+                  onClick={onClickImageUpload}
+                />
+              </div>
               <input
                 type="file"
                 id="file"
                 accept={"image/*"}
+                style={{ display: "none" }}
+                ref={fileInputRef}
                 onChange={(e) => {
                   encodeFileToBase64(e.target.files[0]);
                   setCHGprofileImg(e.target.files[0]);
                 }}
               />
-            </div>
 
-            <div>
-              내 소개
-              <input
-                defaultValue={introduction}
-                onChange={(e) => {
-                  setCHGIntroduction(e.target.value);
-                }}
-              />
-            </div>
+              <div>
+                내 소개
+                <textarea
+                  defaultValue={introduction}
+                  onChange={(e) => {
+                    setCHGIntroduction(e.target.value);
+                  }}
+                />
+              </div>
 
-            <div>
-              닉네임
-              <input
-                defaultValue={nickname}
-                onChange={(e) => {
-                  setCHGnickname(e.target.value);
-                }}
-              />
-              <button onClick={dupnick}>중복확인</button>
+              <div>
+                닉네임
+                <input
+                  defaultValue={nickname}
+                  onChange={(e) => {
+                    setCHGnickname(e.target.value);
+                  }}
+                />
+                <button onClick={dupnick}>중복확인</button>
+              </div>
             </div>
 
             <footer>
@@ -147,5 +162,11 @@ const MyProfileModal = (props) => {
     </>
   );
 };
+
+const ProfileImg = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+`;
 
 export default MyProfileModal;

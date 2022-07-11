@@ -4,18 +4,13 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { BiSearchAlt2 } from "react-icons/bi"
 
-
 /* 컴포넌트 */
-import { __searchPost } from '../../redux/modules/Search';
-
+import { __searchPost } from "../../redux/modules/Search";
 
 const HeadPaperSearch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [search, setSearch] = useState("")
-
-
-
+  const [search, setSearch] = useState("");
 
   return (
     <>
@@ -62,4 +57,4 @@ const Search1 = styled.input`
   color: #212124;
 `;
 
-export default HeadPaperSearch
+export default HeadPaperSearch;

@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
 import Write from "./pages/Write";
+import Modify from "./pages/Modify";
 import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp";
 import Search from "./pages/Search";
@@ -21,6 +22,8 @@ export const initSocketConnection = () => {
 };
 //임시
 
+
+
 function App() {
   return (
     <>
@@ -30,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/paper/:userId" element={<Paper />} />
         <Route path="/write" element={<Write />} />
+        <Route path="/modify/:userId/:postId" element={<Modify />} />
         <Route path="/paper/:userId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
