@@ -10,7 +10,6 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
 
-
 // import required modules
 import { Grid, Pagination } from "swiper";
 
@@ -30,7 +29,7 @@ const Main = () => {
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
     },
   });
   // console.log(socket.id)
@@ -161,6 +160,7 @@ const Main = () => {
         </EndBox>
         <Footer />
       </MainBox>
+
     </>
   );
 };

@@ -63,7 +63,7 @@ const Header = () => {
       <HeaderBox>
         <Svg>
           <Logo>
-            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
               Paper
             </Link>
           </Logo>
@@ -100,14 +100,15 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <Link
+                  to="/login"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
                   <button>로그인</button>
                 </Link>
               </>
             )}
           </Login>
-
-
         </Svg>
       </HeaderBox>
     </>
@@ -121,24 +122,21 @@ const HeaderBox = styled.div`
   width: 100%;
 height: 80px;  
 `;
-
 const Svg = styled.div`
- 
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: auto;
 `;
-
 const Logo = styled.div`
 padding-left: 2%;
 width: 27%;
 height: 80px;
 border: 1px solid #ACACAC;
+
   display: flex;
   align-items: center;
 `;
-
 const Search = styled.div`
   width: 46%;
 height: 80px;
@@ -150,7 +148,6 @@ height: 80px;
 border: 1px solid #ACACAC;
 align-items: center;
 `
-
 const ProfileImgBox = styled.div`
   display: flex;
 `;

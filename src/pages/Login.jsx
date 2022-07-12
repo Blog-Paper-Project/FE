@@ -9,7 +9,9 @@ import { setCookie } from "../shared/Cookie";
 import styled from "styled-components";
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
-import { ContactSupportOutlined } from "@material-ui/icons";
+
+import kakao from "../public/images/kakao.svg";
+import google from "../public/images/google.svg";
 
 const Login = () => {
   const queryClient = useQueryClient(); // app에 있는데 각 페이지마다 필요한가? 26번이 있을 땐 필요한 건가?
@@ -54,16 +56,19 @@ const Login = () => {
     <LoginContainer>
       <Header />
       <LoginBox>
-        <p>로그인</p>
+        <Top>
+          <h2>로그인</h2>
+          <p>Login</p>
+        </Top>
         <InputBox>
-          <SignInInput
+          <LoginInput
             type="email"
             label="이메일"
             placeholder="아이디"
             value={email || ""}
             onChange={setEmail}
           />
-          <SignInInput
+          <LoginInput
             type="password"
             label="비밀번호"
             value={password || ""}
@@ -77,11 +82,46 @@ const Login = () => {
             }}
           />
         </InputBox>
-        <p>아이디 및 비밀번호 찾기</p>
-        <button onClick={onsubmit}>로그인</button>
-        <Link to="/signup">
-          <button>회원가입</button>
-        </Link>
+        <div
+          style={{
+            marginTop: "16px",
+            marginBottom: "34px",
+            textAlign: "right",
+            fontSize: "14px",
+          }}
+        >
+          <Link to="/">
+            <p>아이디 및 비밀번호 찾기</p>
+          </Link>
+        </div>
+
+        <LoginButton onClick={onsubmit}>로그인하기</LoginButton>
+        <div
+          style={{
+            marginTop: "32px",
+            marginBottom: "20px",
+            textAlign: "center",
+            fontSize: "14px",
+          }}
+        >
+          <p>SNS계정으로 로그인</p>
+        </div>
+        <SocialLogin>
+          <img src={google} alt="kakao" />
+          <img src={kakao} alt="kakao" />
+          <img src={kakao} alt="kakao" />
+        </SocialLogin>
+        <div
+          style={{
+            marginTop: "58px",
+            textAlign: "center",
+            fontSize: "14px",
+          }}
+        >
+          <Link to="/signup">
+            <p>아직 회원이 아니신가요? 회원가입</p>
+          </Link>
+        </div>
       </LoginBox>
       <Footer />
     </LoginContainer>
@@ -91,30 +131,66 @@ const Login = () => {
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  height: 100vh;
+  background-color: #e5e2db;
 `;
 
 const LoginBox = styled.div`
-  width: 385px;
-  height: 584px;
-  background-color: gray;
-  display: flex;
+  width: 386px;
+  height: 708px;
+  /* background-color: gray; */
   flex-direction: column;
   justify-content: center;
+`;
+
+const Top = styled.div`
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  width: 386px;
+  border-bottom: solid 1px gray;
+  margin: 160px auto 32px auto;
+  padding-bottom: 25px;
+  > h2 {
+    font-size: 30px;
+  }
+  > p {
+    font-size: 20px;
+  }
 `;
 
 const InputBox = styled.div`
-  display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
 `;
 
-const SignInInput = styled.input`
-  width: 95%;
+const LoginInput = styled.input`
+  width: 100%;
   height: 50px;
+  margin: 8px 0 8px 0;
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  color: white;
+  border: 1px solid #e5e2db;
+  font-family: Gmarket Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  text-align: center;
+`;
+
+const SocialLogin = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
 `;
 
 export default Login;

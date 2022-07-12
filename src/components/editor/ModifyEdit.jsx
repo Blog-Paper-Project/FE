@@ -20,8 +20,8 @@ import { getCookie, setCookie } from "../../shared/Cookie";
 
 const ModifyEdit = (props) => {
   const { postId, userId } = props;
-  console.log(postId);
-  console.log(props.postId);
+  // console.log(postId);
+  // console.log(props.postId);
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
@@ -86,7 +86,7 @@ const ModifyEdit = (props) => {
   };
   //## 'Click'시 태그 삭제 이벤트
   const onClcik_tag = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     setTagList(
       tagList.filter((tag, index) => {
         return index !== +e.target.id; // + 대신 Number(  )해도 숫자형으로 바꿀 수 있다.
@@ -123,7 +123,7 @@ const ModifyEdit = (props) => {
     alert("블로거 주인만 수정할 수 있습니다.");
   }
 
-  console.log("Modify", detail_data.Tags);
+  // console.log("Modify", detail_data.Tags);
 
   //   //## useMutation write 데이터 post의 함수
   //   const postfecher = async () => {

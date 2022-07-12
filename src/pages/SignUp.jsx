@@ -9,6 +9,10 @@ import { emailCheck } from "../shared/SignUpCheck";
 import { nicknameCheck } from "../shared/SignUpCheck";
 import SignUpModal from "../components/user/SignUpModal";
 import { api } from "../shared/apis/Apis";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
+
+import styled from "styled-components";
 
 const SignUp = () => {
   const queryClient = useQueryClient();
@@ -21,15 +25,9 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = UseInput(null);
 
   const [term, setTerm] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const passwordChecked = useRef();
-
-  if (password && confirmPassword && password === confirmPassword) {
-    passwordChecked.current.innerText = "✔️";
-  } else if (password !== confirmPassword) {
-    passwordChecked.current.innerText = "❌";
-  }
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -39,15 +37,17 @@ const SignUp = () => {
     if (isModalOpen === true) return setIsModalOpen(false);
   };
 
-  const onChangeTerm = useCallback((e) => {
+  const onChangeTerm = (e) => {
     setTerm(e.target.checked);
-  });
+  };
 
   const getEmailCheck = async () => {
     if (!emailCheck(email)) {
       return null;
     } else {
-      const data = await api.post(`/user/idcheck/${email}`);
+      const data = await api.post("/user/idcheck", {
+        email,
+      });
       return data;
     }
   };
@@ -70,7 +70,9 @@ const SignUp = () => {
     if (!nicknameCheck(nickname)) {
       return null;
     } else {
-      const data = await api.post(`/user/idcheck/${nickname}`);
+      const data = await api.post("/user/idcheck", {
+        nickname,
+      });
       return data;
     }
   };
@@ -119,7 +121,7 @@ const SignUp = () => {
       queryClient.invalidateQueries();
       if (data.data.result == true) {
         window.alert("가입성공!!!");
-        navigate("/");
+        navigate("/login");
       } else {
         window.alert("아이디, 닉네임 중복체크 후 가입해 주세요");
       }
@@ -135,8 +137,24 @@ const SignUp = () => {
   }
 
   return (
-    <>
-      <div>
+    <SignUpContainer>
+      <Header />
+      <SignUpBox>
+        <Top>
+          <h2>회원가입</h2>
+          <p>Sign Up</p>
+        </Top>
+
+        {isModalOpen === true ? (
+          <SignUpModal
+            term={term}
+            onChangeTerm={onChangeTerm}
+            open={openModal}
+            close={closeModal}
+            header="이용약관"
+          />
+        ) : null}
+
         <button
           onClick={() => {
             setIsModalOpen(true);
@@ -145,67 +163,158 @@ const SignUp = () => {
           약관보기
         </button>
 
-        {isModalOpen === true ? (
-          <SignUpModal open={openModal} close={closeModal} header="이용약관" />
-        ) : null}
+        <InputBox>
+          <div
+            style={{
+              width: "100%",
+              backgroundColor: "white",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "8px 0 16px 0",
+              height: "50px",
+            }}
+          >
+            <SignUpDupInput
+              type="email"
+              id="email"
+              placeholder="이메일 : "
+              value={email || ""}
+              onChange={setEmail}
+            />
+            <DupButton onClick={dupEmail}>중복 확인</DupButton>
+          </div>
 
-        <div>
-          약관동의
-          <input type="checkbox" value={term} onChange={onChangeTerm} />
-        </div>
-        <div>
-          <input
-            type="email"
-            label="이메일"
-            placeholder="🔑  이메일 형식으로 작성"
-            value={email || ""}
-            onChange={setEmail}
-          />
-          <button onClick={dupEmail}>중복확인</button>
-        </div>
-        <div>
-          <input
-            type="text"
-            label="닉네임"
-            placeholder="🙋   영어 or 한글만 가능(4~8자)"
-            value={nickname || ""}
-            onChange={setNickname}
-          />
-          <button onClick={dupnick}>중복확인</button>
-        </div>
-        <div>
-          <input
+          <div
+            style={{
+              width: "100%",
+              backgroundColor: "white",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "8px 0 8px 0",
+              height: "50px",
+            }}
+          >
+            <SignUpDupInput
+              type="text"
+              label="닉네임"
+              placeholder="닉네임 :       영어/한글/숫자 3~15자"
+              value={nickname || ""}
+              onChange={setNickname}
+            />
+            <DupButton onClick={dupnick}>중복 확인</DupButton>
+          </div>
+          <SignUpInput
             type="password"
             label="비밀번호"
             value={password || ""}
-            placeholder="🔒    영어, 숫자, 특수문자(최소 4자)"
+            placeholder="비밀번호 :   영어/숫자/특수문자 8자 이상 "
             onChange={setPassword}
           />
-          <span ref={passwordChecked} />
-        </div>
-        <div>
-          <input
+          <SignUpCheckInput
             type="password"
             label="비밀번호 확인"
             value={confirmPassword || ""}
-            placeholder="🔒    영어, 숫자, 특수문자(최소 4자)"
+            placeholder="비밀번호 확인 :"
             onChange={setConfirmPassword}
+            password={password}
+            confirmPassword={confirmPassword}
           />
-        </div>
+        </InputBox>
         {term === false ? (
-          <button
+          <SignUpButton
             onClick={() => {
               window.alert("약관동의 후 가입해주세요");
             }}
           >
             회원가입
-          </button>
+          </SignUpButton>
         ) : (
-          <button onClick={onsubmit}>회원가입</button>
+          <SignUpButton onClick={onsubmit}>회원가입</SignUpButton>
         )}
-      </div>
-    </>
+      </SignUpBox>
+      <Footer />
+    </SignUpContainer>
   );
 };
+
+const SignUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e5e2db;
+`;
+
+const SignUpBox = styled.div`
+  width: 386px;
+  height: 708px;
+  /* background-color: gray; */
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Top = styled.div`
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  width: 386px;
+  border-bottom: solid 1px black;
+  margin: 160px auto 32px auto;
+  padding-bottom: 25px;
+  > h2 {
+    font-size: 30px;
+  }
+  > p {
+    font-size: 20px;
+  }
+`;
+
+const InputBox = styled.div`
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const SignUpDupInput = styled.input`
+  width: 70%;
+  height: 100%;
+`;
+
+const SignUpInput = styled.input`
+  width: 100%;
+  height: 50px;
+  margin: 8px 0 8px 0;
+`;
+
+const SignUpCheckInput = styled.input`
+  width: 100%;
+  height: 50px;
+  margin: 8px 0 8px 0;
+  border: ${(props) =>
+    props.confirmPassword && props.password !== props.confirmPassword
+      ? "1px solid red"
+      : ""}!important;
+`;
+
+const DupButton = styled.button`
+  margin: 8px 8px 8px;
+  width: 96px;
+  height: 30px;
+`;
+
+const SignUpButton = styled.button`
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  color: white;
+  border: 1px solid #e5e2db;
+  font-family: Gmarket Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin-top: 41px;
+`;
 
 export default SignUp;

@@ -18,15 +18,19 @@ const GlobalStyle = createGlobalStyle`
         user-select: none; */
     };
     button{
-        display: flex;
+        /* display: flex; */
         cursor: pointer;
-        outline: none;
+        border: none;
         border-radius: 3px;
     };
     input{
-        display: flex;
+        /* display: flex; */
         outline: none;
         padding-left: 10px;
+        padding-right: 10px;
+        box-sizing : border-box;
+        border-width: 0;
+        margin: 0;
     }
 `;
 

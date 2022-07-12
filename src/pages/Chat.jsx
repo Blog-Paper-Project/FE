@@ -38,12 +38,14 @@ const Chat = () => {
         socket.on("user joined", (nickname) => {
           otherUser.current = nickname;
         });
+
         socket.on("offer", handleRecieveCall);
 
         socket.on("answer", handleAnswer);
 
         socket.on("ice-candidate", handleNewICECandidateMsg);
       });
+      
   }, []);
 
   function callUser(nickname) {
@@ -94,6 +96,7 @@ const Chat = () => {
   function handleRecieveCall(incoming) {
     peerRef.current = createPeer();
     const desc = new RTCSessionDescription(incoming.sdp);
+    console.log("hh")
     peerRef.current
       .setRemoteDescription(desc)
       .then(() => {
@@ -102,6 +105,7 @@ const Chat = () => {
           .forEach((track) =>
             peerRef.current.addTrack(track, userStream.current)
           );
+
       })
       .then(() => {
         return peerRef.current.createAnswer();

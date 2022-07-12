@@ -9,16 +9,6 @@ import { apiToken } from "../shared/apis/Apis";
 import { getCookie } from "../shared/Cookie";
 
 /*해야할 것*/
-// Comments: []
-// Likes: []  // 아마 이 LIkes가 내가 좋아요한 목록 보는 거겠지?
-// Users: {nickname: '감자입니다', profileImage: null}
-// category: ""
-// contents: "## 큰글시2"
-// createdAt: "2022-07-06 23:44:43"
-// postId: 2
-// title: "제목입니다2"
-// updatedAt: "2022-07-06 23:44:43"
-// userId: 4
 
 const PaperDetail = () => {
   const navigate = useNavigate();
