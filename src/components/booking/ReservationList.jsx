@@ -37,7 +37,7 @@ const ReservationList = (props) => {
                   userName={userName}
                   item={item}
                   // userInfo={userInfo}
-                  key={`mypage_${idx}`}
+                  key={bookingList.bookingId}
                 />
               );
             })}
