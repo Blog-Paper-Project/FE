@@ -37,10 +37,9 @@ const SignUp = () => {
     if (isModalOpen === true) return setIsModalOpen(false);
   };
 
-  const onChangeTerm = useCallback((e) => {
+  const onChangeTerm = (e) => {
     setTerm(e.target.checked);
-    console.log(term);
-  });
+  };
 
   const getEmailCheck = async () => {
     if (!emailCheck(email)) {

@@ -50,13 +50,13 @@ const MyProfile = () => {
       name: nickname,
     };
     await socket.emit("user-connected", (data) => {
-      console.log(data);
+      // console.log(data);
     });
     socket.emit("newUser", roomData);
     navigate("/chat");
 
     socket.on("roomfull", (data) => {
-      console.log(data);
+      // console.log(data);
       window.alert("방꽉참");
       navigate("/myprofile");
     });
