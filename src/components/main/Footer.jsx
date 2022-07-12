@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
 
 const Footer = () => {
   return (
-    <div>Footer</div>
-  )
-}
+    <>
+      <FooterBox>Footer</FooterBox>
+    </>
+  );
+};
 
-export default Footer
+const FooterBox = styled.div`
+  height: 313px;
+`;
+
+export default Footer;
