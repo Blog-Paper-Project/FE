@@ -63,7 +63,7 @@ const Header = () => {
       <HeaderBox>
         <Svg>
           <Logo>
-            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
               Paper
             </Link>
           </Logo>
@@ -100,30 +100,30 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
+                <Link
+                  to="/login"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
                   <button>로그인</button>
                 </Link>
               </>
             )}
           </Login>
-
-
         </Svg>
       </HeaderBox>
     </>
   );
 };
 const HeaderBox = styled.div`
-  background-color: #E5E2DB;
+  background-color: #e5e2db;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-height: 80px;  
+  height: 80px;
 `;
 
 const Svg = styled.div`
- 
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -131,25 +131,25 @@ const Svg = styled.div`
 `;
 
 const Logo = styled.div`
-padding-left: 2%;
-width: 27vw;
-height: 80px;
-border: 1px solid #ACACAC;
+  padding-left: 2%;
+  width: 27vw;
+  height: 80px;
+  border: 1px solid #acacac;
   display: flex;
   align-items: center;
 `;
 
 const Search = styled.div`
   width: 46vw;
-height: 80px;
-border: 1px solid #ACACAC;
-`
+  height: 80px;
+  border: 1px solid #acacac;
+`;
 const Login = styled.div`
   width: 27vw;
-height: 80px;
-border: 1px solid #ACACAC;
-align-items: center;
-`
+  height: 80px;
+  border: 1px solid #acacac;
+  align-items: center;
+`;
 
 const ProfileImgBox = styled.div`
   display: flex;
