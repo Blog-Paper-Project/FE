@@ -26,7 +26,9 @@ const MyProfileModal = (props) => {
     if (!nicknameCheck(CHGnickname)) {
       return null;
     } else {
-      const data = await api.post(`/user/idcheck/${CHGnickname}`);
+      const data = await api.post("/user/idcheck", {
+        nickname: CHGnickname,
+      });
       return data;
     }
   };
@@ -81,7 +83,7 @@ const MyProfileModal = (props) => {
       close();
     },
     onError: () => {
-      window.alert("에러!!");
+      window.alert("닉네임중복임!!!");
       return;
     },
   });

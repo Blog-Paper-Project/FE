@@ -2,7 +2,7 @@ import React from "react";
 import "./modal.css";
 
 const SignUpModal = (props) => {
-  const { open, close, header } = props;
+  const { term, onChangeTerm, open, close, header } = props;
 
   return (
     <>
@@ -16,6 +16,10 @@ const SignUpModal = (props) => {
               </button>
             </header>
             <div>hi!</div>
+            <div>
+              약관동의
+              <input type="checkbox" value={term} onChange={onChangeTerm} />
+            </div>
             <footer>
               <button className="close" onClick={close}>
                 close
