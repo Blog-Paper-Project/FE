@@ -10,7 +10,6 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
 
-
 // import required modules
 import { Grid, Pagination } from "swiper";
 
@@ -29,7 +28,7 @@ const Main = () => {
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
     },
   });
   // console.log(socket.id)
@@ -63,14 +62,11 @@ const Main = () => {
         modules={[Grid, Pagination]}
         className="mySwiper"
       >
-        
-          {paper_query &&
-            paper_query?.data.popularUsers.map((popularUsers) => {
-              return (
-                <SwiperSlide key={popularUsers.userId}>
-
+        {paper_query &&
+          paper_query?.data.popularUsers.map((popularUsers) => {
+            return (
+              <SwiperSlide key={popularUsers.userId}>
                 <div
-                  
                   onClick={() => {
                     navigate(``);
                   }}
@@ -81,12 +77,10 @@ const Main = () => {
                     <div>인기도 = {popularUsers.popularity}</div>
                   </Popular>
                 </div>
-                </SwiperSlide>
-
-              );
-            })}
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
-
     </>
   );
 };

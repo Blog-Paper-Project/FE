@@ -96,7 +96,6 @@ const Paper = () => {
         <>
           {categoty_Toggle ? (
             <>
-              <div>카테고리 입니다</div>
               <button
                 onClick={() => {
                   setCategoty_Toggle(!categoty_Toggle);
@@ -104,15 +103,16 @@ const Paper = () => {
               >
                 카테고리 토글 버튼
               </button>
-              <div>카테고리1</div>
-              <div>카테고리2</div>
-              <div>카테고리3</div>
-              <div>카테고리4</div>
-              <div>카테고리5</div>
+              {mypaper_data?.categories.map((value, index) => {
+                return (
+                  <>
+                    <div key={index}>{value}</div>
+                  </>
+                );
+              })}
             </>
           ) : (
             <>
-              <div>카테고리 입니다</div>
               <button
                 onClick={() => {
                   setCategoty_Toggle(!categoty_Toggle);
@@ -138,7 +138,7 @@ const Paper = () => {
           <div> 전체 정렬이 보일 예정</div>
           <div>
             {mypaper_data?.user.Papers.map((value, idx) => {
-              console.log(mypaper_data);
+              // console.log(mypaper_data);
 
               return (
                 <ContentBox

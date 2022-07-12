@@ -31,8 +31,8 @@ const WriteEdit = () => {
   const [category, setCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState(null);
-  console.log(selectOption);
-  console.log(categoryList);
+  // console.log(selectOption);
+  // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
   const HostId = getCookie("userId");
@@ -115,7 +115,7 @@ const WriteEdit = () => {
     });
     setTag("");
     setTagList([]);
-    console.log(response?.data);
+    // console.log(response?.data);
     return response?.data.paper;
   };
   //## useMutation write 데이터 post
@@ -123,7 +123,7 @@ const WriteEdit = () => {
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       queryClient.invalidateQueries("paper_data", "detail_data");
-      console.log(res?.userId);
+      // console.log(res?.userId);
 
       navigate(`/paper/${res?.userId}`);
       alert("post 성공!");
@@ -144,7 +144,7 @@ const WriteEdit = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: Infinity,
@@ -321,7 +321,7 @@ const WriteEdit = () => {
                   "/api/paper/image",
                   formData
                 );
-                console.log(response?.data.imageUrl);
+                // console.log(response?.data.imageUrl);
                 // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
