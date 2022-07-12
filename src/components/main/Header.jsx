@@ -115,10 +115,10 @@ const Header = () => {
 };
 const HeaderBox = styled.div`
   background-color: #E5E2DB;
-  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
 height: 80px;  
 `;
 
@@ -132,7 +132,7 @@ const Svg = styled.div`
 
 const Logo = styled.div`
 padding-left: 2%;
-width: 27vw;
+width: 27%;
 height: 80px;
 border: 1px solid #ACACAC;
   display: flex;
@@ -140,12 +140,12 @@ border: 1px solid #ACACAC;
 `;
 
 const Search = styled.div`
-  width: 46vw;
+  width: 46%;
 height: 80px;
 border: 1px solid #ACACAC;
 `
 const Login = styled.div`
-  width: 27vw;
+  width: 27%;
 height: 80px;
 border: 1px solid #ACACAC;
 align-items: center;
