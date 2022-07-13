@@ -90,6 +90,7 @@ export const setBookingDB = (data, userId, LeafCount) => {
                 let Month = (month) => {
                     console.log(month);
                     console.log(start)
+                    console.log(sTime)
                     if (month === 'Jan') return '1';
                     if (month === 'Feb') return '2';
                     if (month === 'Mar') return '3';
