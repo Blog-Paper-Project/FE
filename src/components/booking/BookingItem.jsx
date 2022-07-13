@@ -1,7 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router";
-import { getCookie } from "../../shared/Cookie";
+import { getCookie } from '../../shared/Cookie';
 
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
@@ -12,14 +12,15 @@ const BookingItem = (props) => {
   const navigate = useNavigate();
 
   const { item, userName, userId } = props;
-  // console.log(item)
+console.log(item)
   // 조건에 필요한 정보
-  const User = getCookie("userId");
+  const User = getCookie('userId');
   const Host = userId;
   const Guest = userName;
   const TutorDel = item.TutorDel;
   const TuteeDel = item.TuteeDel;
-  const timeId = item.timeId;
+  const timeId = item.bokingId;
+  console.log(item)
 
   // 예약 정보
   let startTime = item.start;
@@ -34,26 +35,32 @@ const BookingItem = (props) => {
   if (Guest === User) {
     return (
       <div>
-        {
-          <li className="booking" key={`booking${timeId}`}>
+        {(
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {item.date}
+                </span>
+                <span className="timeInfo">
+                  {item.time}
+                </span>
               </div>
             </div>
             <button
               className="videoBtn"
               onClick={() => {
                 navigate({
-                  pathname: `/videochat/${item.hostId + item.guestId}`,
+                  pathname: `/videochat/${
+                    item.hostId + item.guestId
+                  }`,
                   state: item.hostId,
                 });
               }}
             >
-              '시작하기'
+             '시작하기'
             </button>
             {/* <button
               className="delBtn"
@@ -64,15 +71,19 @@ const BookingItem = (props) => {
              '예약 취소'
             </button> */}
           </li>
-        }
-        {
-          <li className="booking" key={`booking${timeId}`}>
+        )}
+        {(
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {item.date}
+                </span>
+                <span className="timeInfo">
+                  {item.time}
+                </span>
               </div>
             </div>
             {/* <button
@@ -84,7 +95,7 @@ const BookingItem = (props) => {
              '예약 취소'
             </button> */}
           </li>
-        }
+        )}
       </div>
     );
 
@@ -92,23 +103,29 @@ const BookingItem = (props) => {
   } else if (Host === User) {
     return (
       <>
-        {
-          <li className="booking" key={`booking${timeId}`}>
+        {(
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {item.date}
+                </span>
+                <span className="timeInfo">
+                  {item.time}
+                </span>
               </div>
             </div>
             <button
               className="videoBtn"
               onClick={() => {
-                navigate(`/videochat/${item.hostId + item.guestId}`);
+                navigate(
+                  `/videochat/${item.hostId + item.guestId}`,
+                );
               }}
             >
-              '시작하기'
+            '시작하기'
             </button>
             {/* <button
               className="delBtn"
@@ -119,15 +136,19 @@ const BookingItem = (props) => {
            '예약 취소'
             </button> */}
           </li>
-        }
-        {
-          <li className="booking" key={`booking${timeId}`}>
+        )}
+        {(
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {item.date}
+                </span>
+                <span className="timeInfo">
+                  {item.time}
+                </span>
               </div>
             </div>
             {/* <button
@@ -139,7 +160,7 @@ const BookingItem = (props) => {
             '예약 취소'
             </button> */}
           </li>
-        }
+        )}
       </>
     );
   }

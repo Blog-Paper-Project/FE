@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
-import { socket } from "../App";
 import styled from "styled-components";
+import { socket } from "../App";
+import Peer from "simple-peer";
+
+import TextField from "@material-ui/core/TextField";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import PhoneIcon from "@material-ui/icons/Phone";
 
 /* emit 보내기 on 받기 */
 
@@ -15,142 +23,93 @@ const Chat = () => {
   const navigate = useNavigate();
 
   //화상관련
-  const userVideo = useRef();
-  const partnerVideo = useRef();
-  const peerRef = useRef();
-  const otherUser = useRef();
-  const userStream = useRef();
+  const [me, setMe] = useState("");
+  const [stream, setStream] = useState();
+  const [receivingCall, setReceivingCall] = useState(false);
+  const [caller, setCaller] = useState("");
+  const [callerSignal, setCallerSignal] = useState();
+  const [callAccepted, setCallAccepted] = useState(false);
+  const [idToCall, setIdToCall] = useState("");
+  const [callEnded, setCallEnded] = useState(false);
+  const [name, setName] = useState("");
   const [videoOn, setVideoOn] = useState(true);
   const [audioOn, setAudioOn] = useState(true);
 
+  const myVideo = useRef();
+  const userVideo = useRef();
+  const connectionRef = useRef();
+
   useEffect(() => {
     navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
+      .getUserMedia({ video: true, audio: true })
       .then((stream) => {
-        userVideo.current.srcObject = stream;
-        userStream.current = stream;
-
-        socket.on("other user", (nickname) => {
-          callUser(nickname);
-          otherUser.current = nickname;
-        });
-
-        socket.on("user joined", (nickname) => {
-          otherUser.current = nickname;
-        });
-
-        socket.on("offer", handleRecieveCall);
-
-        socket.on("answer", handleAnswer);
-
-        socket.on("ice-candidate", handleNewICECandidateMsg);
+        setStream(stream);
+        myVideo.current.srcObject = stream;
       });
-      
-  }, []);
-
-  function callUser(nickname) {
-    peerRef.current = createPeer(nickname);
-    userStream.current
-      .getTracks()
-      .forEach((track) => peerRef.current.addTrack(track, userStream.current));
-  }
-
-  function createPeer(nickname) {
-    const peer = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: "stun:stun.stunprotocol.org",
-        },
-        {
-          urls: "turn:numb.viagenie.ca",
-          credential: "credential",
-          username: nickname,
-        },
-      ],
+    console.log(socket.id);
+    socket.on("me", (id) => {
+      setMe(id);
     });
 
-    peer.onicecandidate = handleICECandidateEvent;
-    peer.ontrack = handleTrackEvent;
-    peer.onnegotiationneeded = () => handleNegotiationNeededEvent(nickname);
+    socket.on("callUser", (data) => {
+      setReceivingCall(true);
+      setCaller(data.from);
+      setName(data.name);
+      setCallerSignal(data.signal);
+    });
+  }, []);
 
-    return peer;
-  }
+  const callUser = (id) => {
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream: stream,
+    });
 
-  function handleNegotiationNeededEvent(nickname) {
-    peerRef.current
-      .createOffer()
-      .then((offer) => {
-        return peerRef.current.setLocalDescription(offer);
-      })
-      .then(() => {
-        const payload = {
-          target: nickname,
-          caller: socket.current.id,
-          sdp: peerRef.current.localDescription,
-        };
-        socket.emit("offer", payload);
-      })
-      .catch((e) => console.log(e));
-  }
-
-  function handleRecieveCall(incoming) {
-    peerRef.current = createPeer();
-    const desc = new RTCSessionDescription(incoming.sdp);
-    console.log("hh")
-    peerRef.current
-      .setRemoteDescription(desc)
-      .then(() => {
-        userStream.current
-          .getTracks()
-          .forEach((track) =>
-            peerRef.current.addTrack(track, userStream.current)
-          );
-
-      })
-      .then(() => {
-        return peerRef.current.createAnswer();
-      })
-      .then((answer) => {
-        return peerRef.current.setLocalDescription(answer);
-      })
-      .then(() => {
-        const payload = {
-          target: incoming.caller,
-          caller: socket.current.id,
-          sdp: peerRef.current.localDescription,
-        };
-        socket.current.emit("answer", payload);
+    peer.on("signal", (data) => {
+      socket.emit("callUser", {
+        userToCall: id,
+        signalData: data,
+        from: me,
+        name: name,
       });
-  }
+    });
 
-  function handleAnswer(message) {
-    const desc = new RTCSessionDescription(message.sdp);
-    peerRef.current.setRemoteDescription(desc).catch((e) => console.log(e));
-  }
+    peer.on("stream", (stream) => {
+      userVideo.current.srcObject = stream;
+    });
 
-  function handleICECandidateEvent(e) {
-    if (e.candidate) {
-      const payload = {
-        target: otherUser.current,
-        candidate: e.candidate,
-      };
-      socket.emit("ice-candidate", payload);
-    }
-  }
+    socket.on("callAccepted", (signal) => {
+      setCallAccepted(true);
+      peer.signal(signal);
+    });
 
-  function handleNewICECandidateMsg(incoming) {
-    const candidate = new RTCIceCandidate(incoming);
+    connectionRef.current = peer;
+  };
 
-    peerRef.current.addIceCandidate(candidate).catch((e) => console.log(e));
-  }
+  const answerCall = () => {
+    setCallAccepted(true);
+    const peer = new Peer({
+      initiator: true,
+      trickle: false,
+      stream: stream,
+    });
 
-  function handleTrackEvent(e) {
-    partnerVideo.current.srcObject = e.streams[0];
-  }
+    peer.on("signal", (data) => {
+      socket.emit("answerCall", { signal: data, to: caller });
+    });
+
+    peer.on("stream", (stream) => {
+      userVideo.current.srcObject = stream;
+    });
+
+    peer.signal(callerSignal);
+    connectionRef.current = peer;
+  };
 
   // 오디오 온오프
   const audioHandler = () => {
-    userVideo.current.srcObject
+    myVideo.current.srcObject
       .getAudioTracks()
       .forEach((track) => (track.enabled = !track.enabled));
     setAudioOn(!audioOn);
@@ -158,7 +117,7 @@ const Chat = () => {
 
   // 비디오 온오프
   const videoHandler = () => {
-    userVideo.current.srcObject
+    myVideo.current.srcObject
       .getVideoTracks()
       .forEach((track) => (track.enabled = !track.enabled));
     setVideoOn(!videoOn);
@@ -172,20 +131,20 @@ const Chat = () => {
         audio: { echoCancellation: true, noiseSuppression: true },
       })
       .then((stream) => {
-        userVideo.current.srcObject = stream; // 내 비디오 공유 화면으로 변경
+        myVideo.current.srcObject = stream; // 내 비디오 공유 화면으로 변경
         const videoTrack = stream.getVideoTracks()[0];
-        // connectionRef.current
-        //   .getSenders()
-        //   .find((sender) => sender.track.kind === videoTrack.kind)
-        //   .replaceTrack(videoTrack);
+        connectionRef.current
+          .getSenders()
+          .find((sender) => sender.track.kind === videoTrack.kind)
+          .replaceTrack(videoTrack);
         videoTrack.onended = function () {
-          // const screenTrack = userStream.current.getVideoTracks()[0];
-          // connectionRef.current
-          //   .getSenders()
-          //   .find((sender) => sender.track.kind === screenTrack.kind)
-          //   .replaceTrack(screenTrack);
+          const screenTrack = myVideo.current.getVideoTracks()[0];
+          connectionRef.current
+            .getSenders()
+            .find((sender) => sender.track.kind === screenTrack.kind)
+            .replaceTrack(screenTrack);
           stream.getTracks().forEach((track) => track.stop());
-          userVideo.current.srcObject = userStream.current; // 내 비디오로 변경
+          myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
         };
       });
   };
@@ -217,6 +176,8 @@ const Chat = () => {
   //채팅 나가기
   const leaveChat = () => {
     socket.emit("leaveRoom");
+    setCallEnded(true);
+    // connectionRef.current.destroy();
     navigate("/myprofile");
   };
 
@@ -227,47 +188,103 @@ const Chat = () => {
       </div>
       <Box>
         <div>가나다</div>
-        <div>
-          내 화면
-          <video
-            className="my-video"
-            ref={userVideo}
-            playsInline
-            muted
-            autoPlay
-            style={{ width: "400px", height: "400px" }}
-          />
-          {audioOn ? (
-            <button size={25} onClick={audioHandler}>
-              소리키기
-            </button>
-          ) : (
-            <button size={25} onClick={audioHandler}>
-              음소거
-            </button>
-          )}
-          {videoOn ? (
-            <button size={25} onClick={videoHandler}>
-              화면키기 기
-            </button>
-          ) : (
-            <button size={25} onClick={videoHandler}>
-              화면끄기
-            </button>
-          )}
-          <button size={25} onClick={shareScreen}>
-            화면공유
+        <div className="container">
+          <div className="video-container">
+            <div className="video">
+              <video
+                playsInline
+                muted
+                ref={myVideo}
+                autoPlay
+                style={{ width: "300px" }}
+              />
+            </div>
+            <div className="video">
+              {callAccepted && !callEnded ? (
+                <video
+                  playsInline
+                  ref={userVideo}
+                  autoPlay
+                  style={{ width: "300px" }}
+                />
+              ) : null}
+            </div>
+          </div>
+          <div className="myId">
+            <TextField
+              id="filled-basic"
+              label="Name"
+              variant="filled"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              style={{ marginBottom: "20px" }}
+            />
+            <TextField
+              id="filled-basic"
+              label="ID to call"
+              variant="filled"
+              value={idToCall}
+              onChange={(e) => setIdToCall(e.target.value)}
+            />
+            <div className="call-button">
+              {callAccepted && !callEnded ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={leaveChat}
+                >
+                  End Call
+                </Button>
+              ) : (
+                <IconButton
+                  color="primary"
+                  aria-label="call"
+                  onClick={() => callUser(idToCall)}
+                >
+                  <PhoneIcon fontSize="large" />
+                </IconButton>
+              )}
+              {idToCall}
+            </div>
+          </div>
+          <div>
+            {receivingCall && !callAccepted ? (
+              <div className="caller">
+                <h1>{name} is calling...</h1>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={answerCall}
+                >
+                  Answer
+                </Button>
+              </div>
+            ) : null}
+          </div>
+        </div>
+
+        {audioOn ? (
+          <button size={25} onClick={audioHandler}>
+            소리키기
           </button>
-        </div>
-        <div>
-          너 화면
-          <video
-            className="user-video"
-            ref={partnerVideo}
-            playsInline
-            autoPlay
-          />
-        </div>
+        ) : (
+          <button size={25} onClick={audioHandler}>
+            음소거
+          </button>
+        )}
+        {videoOn ? (
+          <button size={25} onClick={videoHandler}>
+            화면키기 기
+          </button>
+        ) : (
+          <button size={25} onClick={videoHandler}>
+            화면끄기
+          </button>
+        )}
+        <button size={25} onClick={shareScreen}>
+          화면공유
+        </button>
+
         <ChatBox>
           {messageList.map((messageContent, index) => {
             return (

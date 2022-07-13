@@ -49,14 +49,12 @@ const MyProfile = () => {
       room: "광민1",
       name: nickname,
     };
-    await socket.emit("user-connected", (data) => {
-      // console.log(data);
-    });
+    await socket.emit("user-connected");
+
     socket.emit("newUser", roomData);
     navigate("/chat");
 
     socket.on("roomfull", (data) => {
-      // console.log(data);
       window.alert("방꽉참");
       navigate("/myprofile");
     });

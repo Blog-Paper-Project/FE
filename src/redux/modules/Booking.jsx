@@ -84,12 +84,13 @@ export const setBookingDB = (data, userId, LeafCount) => {
                 const startTime = data[0].start;
                 const endTime = data[0].end;
 
-                let [month, day, sTime] = startTime.toString().split(' ');
+                let [week, month, day, year, sTime] = startTime.toString().split(' ');
                 let start = sTime.substr(0, 5);
                 let end = endTime.toString().substr(-17, 5);
-
                 let Month = (month) => {
                     console.log(month);
+                    console.log(start)
+                    console.log(sTime)
                     if (month === 'Jan') return '1';
                     if (month === 'Feb') return '2';
                     if (month === 'Mar') return '3';
