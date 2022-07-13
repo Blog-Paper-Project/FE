@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import { getBookingDB } from "../../redux/modules/Booking";
+import bookingReducer, { getBookingDB } from "../../redux/modules/Booking";
 import styled from "styled-components";
 
 import BookingItem from "./BookingItem";
@@ -18,7 +18,7 @@ const ReservationList = (props) => {
   useEffect(() => {
     dispatch(getBookingDB());
   }, []);
-  // console.log(bookingList)
+ console.log(bookingList)
   return (
     <Wrap>
       <div className="innerWrap">
