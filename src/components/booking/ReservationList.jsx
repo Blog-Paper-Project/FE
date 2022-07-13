@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux/es/exports';
-import { getBookingDB } from '../../redux/modules/Booking';
-import styled from 'styled-components';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux/es/exports";
+import { getBookingDB } from "../../redux/modules/Booking";
+import styled from "styled-components";
 
-import BookingItem from './BookingItem';
+import BookingItem from "./BookingItem";
 
 const ReservationList = (props) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const ReservationList = (props) => {
   useEffect(() => {
     dispatch(getBookingDB());
   }, []);
-console.log(bookingList)
+  // console.log(bookingList)
   return (
     <Wrap>
       <div className="innerWrap">
@@ -37,17 +37,16 @@ console.log(bookingList)
                   userName={userName}
                   item={item}
                   // userInfo={userInfo}
-                  key={`mypage_${idx}`}
+                  key={bookingList.bookingId}
                 />
               );
-              
             })}
           </ul>
         </div>
       </div>
     </Wrap>
-  )
-}
+  );
+};
 
 const Wrap = styled.div`
   width: 100%;
@@ -227,4 +226,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default ReservationList
+export default ReservationList;

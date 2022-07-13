@@ -19,7 +19,8 @@ console.log(item)
   const Guest = userName;
   const TutorDel = item.TutorDel;
   const TuteeDel = item.TuteeDel;
-  const timeId = item.timeId;
+  const timeId = item.bokingId;
+  console.log(item)
 
   // 예약 정보
   let startTime = item.start;
@@ -35,7 +36,7 @@ console.log(item)
     return (
       <div>
         {(
-          <li className="booking" key={`booking${timeId}`}>
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.hostId}</div>
@@ -72,7 +73,7 @@ console.log(item)
           </li>
         )}
         {(
-          <li className="booking" key={`booking${timeId}`}>
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.hostId}</div>
@@ -103,7 +104,7 @@ console.log(item)
     return (
       <>
         {(
-          <li className="booking" key={`booking${timeId}`}>
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>
@@ -137,7 +138,7 @@ console.log(item)
           </li>
         )}
         {(
-          <li className="booking" key={`booking${timeId}`}>
+          <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>

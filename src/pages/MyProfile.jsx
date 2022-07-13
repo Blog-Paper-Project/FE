@@ -50,6 +50,7 @@ const MyProfile = () => {
       name: nickname,
     };
     await socket.emit("user-connected");
+
     socket.emit("newUser", roomData);
     navigate("/chat");
 

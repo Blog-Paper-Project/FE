@@ -27,7 +27,12 @@ const WriteEdit = () => {
   const [tagList, setTagList] = useState([]);
   const [openModal, setOpenModal] = useState(false); // # 모달
   const [previewImg, setPreviewImg] = useState(thumbImage);
-
+  const [editCategory, setEditCategory] = useState(false);
+  const [category, setCategory] = useState("");
+  const [categoryList, setCategoryList] = useState([]);
+  const [selectOption, setSelectOption] = useState(null);
+  // console.log(selectOption);
+  // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
   const HostId = getCookie("userId");
@@ -106,10 +111,11 @@ const WriteEdit = () => {
       title: head_data,
       thumbnail: image_data?.data.imageUrl,
       tags: tagList,
+      category: selectOption,
     });
     setTag("");
     setTagList([]);
-    console.log(response?.data);
+    // console.log(response?.data);
     return response?.data.paper;
   };
   //## useMutation write 데이터 post
@@ -117,7 +123,7 @@ const WriteEdit = () => {
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       queryClient.invalidateQueries("paper_data", "detail_data");
-      console.log(res?.userId);
+      // console.log(res?.userId);
 
       navigate(`/paper/${res?.userId}`);
       alert("post 성공!");
@@ -138,7 +144,7 @@ const WriteEdit = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: Infinity,
@@ -171,15 +177,78 @@ const WriteEdit = () => {
               encodeFileToBase64(e.target.files[0]);
             }}
           ></input>
-          <div>카테고리</div>
-          <select>
-            {mypaper_data?.categories.map((value, index) => {
-              return (
-                <option key={index} value={value}>
-                  {value}
-                </option>
-              );
-            })}
+          {editCategory ? (
+            <>
+              <input
+                type="text"
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                value={category}
+              />
+              <button
+                onClick={() => {
+                  setCategoryList([...categoryList, category]);
+                  setCategory("");
+                  setEditCategory(!editCategory);
+                }}
+              >
+                추가
+              </button>
+              <button
+                onClick={() => {
+                  setEditCategory(!editCategory);
+                }}
+              >
+                취소
+              </button>
+            </>
+          ) : (
+            <>
+              <div>카테고리</div>
+              <button
+                onClick={() => {
+                  setEditCategory(!editCategory);
+                }}
+              >
+                카테고리 추가!
+              </button>
+            </>
+          )}
+          <select
+            onChange={(e) => {
+              setSelectOption(e.target.value);
+            }}
+            required
+          >
+            {categoryList ? (
+              <>
+                {categoryList?.map((value, idx) => {
+                  return (
+                    <option key={idx} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
+                {mypaper_data?.categories.map((value, index) => {
+                  return (
+                    <option key={index} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                {mypaper_data?.categories.map((value, index) => {
+                  return (
+                    <option key={index} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
+              </>
+            )}
           </select>
           <button
             onClick={() => {
@@ -252,7 +321,7 @@ const WriteEdit = () => {
                   "/api/paper/image",
                   formData
                 );
-                console.log(response?.data.imageUrl);
+                // console.log(response?.data.imageUrl);
                 // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)

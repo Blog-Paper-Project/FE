@@ -9,6 +9,7 @@ body {
 }
 
 body {
+  justify-content: center !important;
   background: #eee;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -18,9 +19,9 @@ body {
 }
 
 .swiper {
-  width: 100%;
+  width: 90%;
   height: 100%;
-  margin-left: auto;
+  margin-left: 10%;
   margin-right: auto;
 }
 .swiper-grid-column>.swiper-wrapper {
