@@ -21,21 +21,31 @@ import { api } from "../shared/apis/Apis";
 import { socket } from "../App";
 import Footer from "../components/main/Footer";
 
+
+
 const Main = () => {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const paperList = () => {
     return api.get("/api/paper/");
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     onSuccess: (data) => {
-      // console.log(data);
+      console.log(data);
     },
   });
-  // console.log(socket.id)
-
-
-
+  // // console.log(socket.id)
+  const aPapers = new Array(paper_query?.data.papers[0])
+  const bPapers = new Array(paper_query?.data.papers[1])
+  const cPapers = new Array(paper_query?.data.papers[2])
+  const dPapers = new Array(paper_query?.data.papers[3])
+  const ePapers = new Array(paper_query?.data.papers[4])
+  const fPapers = new Array(paper_query?.data.papers[5])
+  const gPapers = new Array(paper_query?.data.papers[6])
+  const hPapers = new Array(paper_query?.data.papers[7])
+  const iPapers = new Array(paper_query?.data.papers[8])
+  const jPapers = new Array(paper_query?.data.papers[9])
+  const kPapers = new Array(paper_query?.data.papers[10])
 
   return (
     <>
@@ -49,64 +59,214 @@ const Main = () => {
         <PostBox>
           {/* 왼쪽글 */}
           <Post1>
-            <Post11>
-              <div>1번글</div>
-            </Post11>
+            {aPapers.map((item, postId) => {
+              return (
+                <Post11
+                  onClick={() => {
+                    navigate(`/paper/${item.userId}/${item.postId}`);
+                  }}>
+                  <div>
+                    <div key={postId}>
+                      <p>유저아이디= {item?.userId}</p>
+                      <img src="" />
+                      <p>라이크={item?.likes}</p>
+                      <p>타이틀={item?.title}</p>
+                      <p>포스트번호={item?.postId}</p>                    </div>
+                  </div>
+                </Post11>
+              )
+            })}
             <Post12>
               <Post121>
-                <Post1211>
-                  <div>2번글</div>
-                </Post1211>
-                <Post1212>
-                  <div>3번글</div>
-                </Post1212>
+                {bPapers.map((item, postId) => {
+                  return (
+                    <Post1211
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post1211>
+                  )
+                })}
+                {cPapers.map((item, postId) => {
+                  return (
+                    <Post1212
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post1212>
+                  )
+                })}
               </Post121>
               <Post122>
-                <Post1221>
-                  <div>4번째글</div>
-                </Post1221>
-                <Post1222>
-                  <div>5번째글</div>
-                </Post1222>
+                {dPapers.map((item, postId) => {
+                  return (
+                    <Post1221
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post1221>
+                  )
+                })}
+                {ePapers.map((item, postId) => {
+                  return (
+                    <Post1222
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post1222>
+                  )
+                })}
               </Post122>
             </Post12>
           </Post1>
           {/* 오른쪽글 */}
           <Post2>
             <Post21>
-              <Post211>
-                <div>6번째글</div>
-              </Post211>
+              {fPapers.map((item, postId) => {
+                return (
+                  <Post211
+                    onClick={() => {
+                      navigate(`/paper/${item.userId}/${item.postId}`);
+                    }}>
+                    <div>
+                      <div key={postId}>
+                        <p>유저아이디= {item?.userId}</p>
+                        <img src="" />
+                        <p>라이크={item?.likes}</p>
+                        <p>타이틀={item?.title}</p>
+                        <p>포스트번호={item?.postId}</p>                      </div>
+                    </div>
+                  </Post211>
+                )
+              })}
               <Post212>
-                <Post2121>
-                  <div>7번째글</div>
-                </Post2121>
-                <Post2122>
-                  <div>8번째글</div>
-                </Post2122>
+                {gPapers.map((item, postId) => {
+                  return (
+                    <Post2121
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post2121>
+                  )
+                })}
+                {hPapers.map((item, postId) => {
+                  return (
+                    <Post2122
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post2122>
+                  )
+                })}
               </Post212>
             </Post21>
             <Post22>
-              <Post221>
-                <div>9번째글</div>
-              </Post221>
+              {iPapers.map((item, postId) => {
+                return (
+                  <Post221
+                    onClick={() => {
+                      navigate(`/paper/${item.userId}/${item.postId}`);
+                    }}>
+                    <div>
+                      <div key={postId}>
+                        <p>유저아이디= {item?.userId}</p>
+                        <img src="" />
+                        <p>라이크={item?.likes}</p>
+                        <p>타이틀={item?.title}</p>
+                        <p>포스트번호={item?.postId}</p>                      </div>
+                    </div>
+                  </Post221>
+                )
+              })}
               <Post222>
-                <Post2221>
-                  <div>10번째글</div>
-                </Post2221>
-                <Post2222>
-                  <div>11번째글</div>
-                </Post2222>
+                {jPapers.map((item, postId) => {
+                  return (
+                    <Post2221
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                          <p>포스트번호={item?.postId}</p>
+                        </div>
+                      </div>
+                    </Post2221>
+                  )
+                })}
+                {kPapers.map((item, postId) => {
+                  return (
+                    <Post2222
+                      onClick={() => {
+                        navigate(`/paper/${item.userId}/${item.postId}`);
+                      }}>
+                      <div>
+                        <div key={postId}>
+                          <p>유저아이디= {item?.userId}</p>
+                          <img src="" />
+                          <p>라이크={item?.likes}</p>
+                          <p>타이틀={item?.title}</p>
+                          <p>포스트번호={item?.postId}</p>                        </div>
+                      </div>
+                    </Post2222>
+                  )
+                })}
               </Post222>
             </Post22>
-
-
-
-
-
-
           </Post2>
-          {/* {paper_query &&
+        </PostBox>
+        {/* {paper_query &&
             paper_query?.data.papers.map((papers) => {
               return (
                 <BestPaper key={papers.postId}>
@@ -117,7 +277,7 @@ const Main = () => {
                 </BestPaper>
               );
             })} */}
-        </PostBox>
+
         <PopularBloger>
           <div>인기 블로거</div>
           <div>Popular Bloger</div>
