@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import styled from "styled-components";
 /* Editor */
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -10,7 +11,6 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 // import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
-import styled from "styled-components";
 import { getCookie, setCookie } from "../../shared/Cookie";
 // import Meiyou2 from "../../public/images/Meiyou.";
 /*해야 할 것*/
@@ -30,8 +30,8 @@ const WriteEdit = () => {
   const [editCategory, setEditCategory] = useState(false);
   const [category, setCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState(null);
-  // console.log(selectOption);
+  const [selectOption, setSelectOption] = useState("etc");
+  console.log(selectOption);
   // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
@@ -158,7 +158,7 @@ const WriteEdit = () => {
   if (status === "error") {
     return alert("error");
   }
-
+  console.log(mypaper_data);
   return (
     <>
       {openModal ? (
@@ -169,7 +169,10 @@ const WriteEdit = () => {
             height: "800px",
           }}
         >
-          <img src={previewImg !== null ? previewImg : null} alt="썸네일" />
+          <Thumbmail
+            src={previewImg !== null ? previewImg : null}
+            alt="썸네일"
+          />
           <input
             type="file"
             onChange={(e) => {
@@ -230,13 +233,21 @@ const WriteEdit = () => {
                     </option>
                   );
                 })}
-                {mypaper_data?.categories.map((value, index) => {
-                  return (
-                    <option key={index} value={value}>
-                      {value}
-                    </option>
-                  );
-                })}
+                {mypaper_data?.categories.length === 0 ? (
+                  <>
+                    <option value="etc">etc</option>
+                  </>
+                ) : (
+                  <>
+                    {mypaper_data?.categories.map((value, index) => {
+                      return (
+                        <option key={index} value={value}>
+                          {value}
+                        </option>
+                      );
+                    })}
+                  </>
+                )}
               </>
             ) : (
               <>
@@ -360,6 +371,11 @@ const WriteEdit = () => {
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const Thumbmail = styled.img`
+  width: 15vw;
+  height: 100px;
 `;
 
 // const HashInput = styled.input`

@@ -16,6 +16,7 @@ const Paper = () => {
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(false);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
+  const [CategoryEdit, setCategoryEdit] = useState(false);
 
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
         return data;
       },
       staleTime: Infinity,
@@ -92,6 +93,8 @@ const Paper = () => {
       <p style={{ cursor: "pointer" }} onClick={onAll}>
         전체 정렬
       </p>
+
+      {/* 아래 카테고리 ( 기본) 정렬 렌더링 */}
       {basicSort ? (
         <>
           {categoty_Toggle ? (
@@ -103,15 +106,18 @@ const Paper = () => {
               >
                 카테고리 토글 버튼
               </button>
-              {mypaper_data?.categories.map((value, index) => {
-                return (
-                  <>
-                    <div key={index}>{value}</div>
-                  </>
-                );
-              })}
+              <button
+                onClick={() => {
+                  setCategoryEdit(!CategoryEdit);
+                }}
+              >
+                수정
+              </button>
             </>
           ) : (
+            //1. 여기에 이제 카테고리 map 돌리면 되겠다.
+            //2. 수정을 눌렀을 때 map 돌린 것들 옆에 수정, 삭제 뜨게 하기
+            //3. 수정, 삭제 둘 다 패치
             <>
               <button
                 onClick={() => {
@@ -124,6 +130,8 @@ const Paper = () => {
           )}
         </>
       ) : null}
+
+      {/* 아래 태그 정렬 렌더링*/}
       {tagSort ? (
         <>
           <div> 태그 정렬이 보일 예정</div>
@@ -133,6 +141,8 @@ const Paper = () => {
           })}
         </>
       ) : null}
+
+      {/* 아래 전체 정렬 렌더링*/}
       {allSort ? (
         <>
           <div> 전체 정렬이 보일 예정</div>
