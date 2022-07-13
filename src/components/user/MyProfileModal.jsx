@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { nicknameCheck } from "../../shared/SignUpCheck";
 
 import { api, apiToken } from "../../shared/apis/Apis";
-import { deleteCookie, setCookie } from "../../shared/Cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import { useRef } from "react";
 import styled from "styled-components";
 
@@ -20,7 +20,9 @@ const MyProfileModal = (props) => {
   const [previewImg, setpreviewImg] = useState(profileImage);
   const [CHGprofileImg, setCHGprofileImg] = useState();
   const fileInputRef = useRef();
+  const PreNickname = getCookie("nickname");
 
+  console.log(PreNickname);
   //닉네임 중복체크
   const getNickCheck = async () => {
     if (!nicknameCheck(CHGnickname)) {
@@ -75,6 +77,32 @@ const MyProfileModal = (props) => {
   };
 
   const { mutate: onsubmit } = useMutation(useProfile, {
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+      window.alert("수정성공!!");
+      deleteCookie("nickname");
+      setCookie("nickname", CHGnickname);
+      close();
+    },
+    onError: () => {
+      window.alert("읭??에러!!!");
+      return;
+    },
+  });
+
+  //프로필 변경
+  const useProfile1 = async () => {
+    const formData = new FormData();
+
+    formData.append("introduction", CHGintroduction);
+    formData.append("image", CHGprofileImg);
+
+    const data = await apiToken.patch("/user/myprofile", formData);
+
+    return data;
+  };
+
+  const { mutate: onsubmit1 } = useMutation(useProfile1, {
     onSuccess: () => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
@@ -156,7 +184,11 @@ const MyProfileModal = (props) => {
             </div>
 
             <footer>
-              <button onClick={onsubmit}>수정</button>
+              {PreNickname === CHGnickname ? (
+                <button onClick={onsubmit1}>닉네임빼고수정</button>
+              ) : (
+                <button onClick={onsubmit}>수정</button>
+              )}
             </footer>
           </section>
         ) : null}
