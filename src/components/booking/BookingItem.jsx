@@ -2,29 +2,34 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router";
 import { getCookie } from '../../shared/Cookie';
+import { patchBookingDB } from '../../redux/modules/Booking';
 
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
 // import { actionCreators as notiActions } from '../redux/modules/booking';
 
 const BookingItem = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { item, userName, userId } = props;
-console.log(item)
+  const { item } = props;
   // 조건에 필요한 정보
-  const User = getCookie('userId');
-  const Host = userId;
-  const Guest = userName;
-  const TutorDel = item.TutorDel;
-  const TuteeDel = item.TuteeDel;
+  const User = Number(getCookie('userId'));
+  const Host = Number(item?.hostId);
+  const Guest = Number(item?.guestId);
+  const hostId = Number(item?.hostId);
+  const bookingId = Number(item?.bookingId);
+  // const TutorDel = item.TutorDel;
+  // const TuteeDel = item.TuteeDel;
   const timeId = item.bokingId;
-  console.log(item)
+  // console.log(item)
+  console.log(hostId,bookingId)
+
+
 
   // 예약 정보
-  let startTime = item.start;
-  let endTime = item.end;
+  // let startTime = item.start;
+  // let endTime = item.end;
 
   if (!item) return null;
   // let [week, month, day, year, sTime] = startTime.split(' ');
@@ -39,13 +44,13 @@ console.log(item)
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.hostId}</div>
+              <div className="userName">{item?.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {item.date}
+                  {item?.date}
                 </span>
                 <span className="timeInfo">
-                  {item.time}
+                  {item?.time}
                 </span>
               </div>
             </div>
@@ -53,14 +58,13 @@ console.log(item)
               className="videoBtn"
               onClick={() => {
                 navigate({
-                  pathname: `/videochat/${
-                    item.hostId + item.guestId
-                  }`,
+                  pathname: `/videochat/${item.hostId + item.guestId
+                    }`,
                   state: item.hostId,
                 });
               }}
             >
-             '시작하기'
+              '시작하기'
             </button>
             {/* <button
               className="delBtn"
@@ -72,10 +76,10 @@ console.log(item)
             </button> */}
           </li>
         )}
-        {(
+        {/* {(
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              선생인지 학생인지에 따라서 userName 다르게 보이게 함
               <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
@@ -86,16 +90,16 @@ console.log(item)
                 </span>
               </div>
             </div>
-            {/* <button
+            <button
               className="deleteBtn"
               onClick={() => {
                 TuteeDel === 1 && dispatch(delCheckNotiDB(timeId));
               }}
             >
              '예약 취소'
-            </button> */}
+            </button>
           </li>
-        )}
+        )} */}
       </div>
     );
 
@@ -117,6 +121,16 @@ console.log(item)
                 </span>
               </div>
             </div>
+
+            <button
+              className="videoBtn"
+              onClick={() => {
+                dispatch(patchBookingDB({ hostId, bookingId }))
+              }}
+            >
+              '수락하기'
+            </button>
+
             <button
               className="videoBtn"
               onClick={() => {
@@ -125,7 +139,7 @@ console.log(item)
                 );
               }}
             >
-            '시작하기'
+              '시작하기'
             </button>
             {/* <button
               className="delBtn"
@@ -137,10 +151,10 @@ console.log(item)
             </button> */}
           </li>
         )}
-        {(
+        {/* {(
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              선생인지 학생인지에 따라서 userName 다르게 보이게 함
               <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
@@ -151,16 +165,16 @@ console.log(item)
                 </span>
               </div>
             </div>
-            {/* <button
+            <button
               className="deleteBtn"
               onClick={() => {
                 TutorDel === 1 && dispatch(notiActions.delCheckNotiDB(timeId));
               }}
             >
             '예약 취소'
-            </button> */}
+            </button>
           </li>
-        )}
+        )} */}
       </>
     );
   }
