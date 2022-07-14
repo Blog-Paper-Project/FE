@@ -21,8 +21,6 @@ import { api } from "../shared/apis/Apis";
 import { socket } from "../App";
 import Footer from "../components/main/Footer";
 
-
-
 const Main = () => {
   const navigate = useNavigate();
   const paperList = () => {
