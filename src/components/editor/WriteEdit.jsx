@@ -66,7 +66,7 @@ const WriteEdit = () => {
   //## 붙혀넣기 금지 이벤트 (ctnrl 키 금지)
   const onKeyDown = (e) => {
     window.onkeydown = (e) => {
-      // console.log(e.key);
+      console.log(e.key);
       if (e.key === "Control") {
         alert("붙혀넣기 금지");
       }
@@ -311,7 +311,7 @@ const WriteEdit = () => {
           <Editor
             previewStyle="vertical"
             placeholder="Paper에 자신의 생각을 적어주세요..."
-            height="900px"
+            height="700px"
             minHeight="600px"
             initialEditType="markdown"
             initialValue={markdown_data}

@@ -70,6 +70,7 @@ const PaperDetail = () => {
   // console.log("PaperDeTail", detail_data);
   return (
     <div>
+      <Header />
       {LoginId === userId ? (
         <>
           {/* 아래 글 삭제 버튼*/}
