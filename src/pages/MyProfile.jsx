@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 
 import Header from "../components/main/Header";
 import { socket } from "../App";
+import ReservationList from "../components/booking/ReservationList";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -99,6 +100,7 @@ const MyProfile = () => {
         ) : null}
         <button onClick={enterChat}>채팅시작!</button>
       </div>
+      <ReservationList/>
     </>
   );
 };

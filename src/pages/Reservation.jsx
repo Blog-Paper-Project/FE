@@ -32,7 +32,6 @@ const Reservation = () => {
   });
   return (
     <div>
-      <ReservationList userId={userId} userName={userName} />
       <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
       <Calendar userId={userId} LeafCount={LeafCount} />
     </div>
