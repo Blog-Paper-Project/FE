@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 
@@ -67,8 +67,8 @@ const Main = () => {
                 >
                   <div>
                     <div key={postId}>
+                      {/* <p>썸네일={item.thumbnail}</p> */}
                       <p>유저아이디= {item?.userId}</p>
-                      <img src="" />
                       <p>라이크={item?.likes}</p>
                       <p>타이틀={item?.title}</p>
                       <p>포스트번호={item?.postId}</p>
@@ -88,8 +88,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -107,8 +107,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -128,11 +128,11 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+                                                   <p>포스트번호={item?.postId}</p>{" "}
                         </div>
                       </div>
                     </Post1221>
@@ -147,11 +147,11 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+<p>포스트번호={item?.postId}</p>{" "}
                         </div>
                       </div>
                     </Post1222>
@@ -172,8 +172,8 @@ const Main = () => {
                   >
                     <div>
                       <div key={postId}>
+                        {/* <p>썸네일={item.thumbnail}</p> */}
                         <p>유저아이디= {item?.userId}</p>
-                        <img src="" />
                         <p>라이크={item?.likes}</p>
                         <p>타이틀={item?.title}</p>
                         <p>포스트번호={item?.postId}</p>{" "}
@@ -192,8 +192,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -211,8 +211,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -233,8 +233,8 @@ const Main = () => {
                   >
                     <div>
                       <div key={postId}>
+                        {/* <p>썸네일={item.thumbnail}</p> */}
                         <p>유저아이디= {item?.userId}</p>
-                        <img src="" />
                         <p>라이크={item?.likes}</p>
                         <p>타이틀={item?.title}</p>
                         <p>포스트번호={item?.postId}</p>{" "}
@@ -253,8 +253,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -273,8 +273,8 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
+                          {/* <p>썸네일={item.thumbnail}</p> */}
                           <p>유저아이디= {item?.userId}</p>
-                          <img src="" />
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
                           <p>포스트번호={item?.postId}</p>{" "}
@@ -480,12 +480,6 @@ const PopularBox = styled.div`
   height: 20%;
 `;
 
-const BestPaper = styled.div`
-  background-color: green;
-  width: 200px;
-  margin-bottom: 56px;
-  display: block;
-`;
 const Popular = styled.div`
   background-color: pink;
   width: 200px;
