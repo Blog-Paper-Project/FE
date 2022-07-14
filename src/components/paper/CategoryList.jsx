@@ -9,7 +9,7 @@ const CategoryList = (props) => {
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-  // console.log("category", categories);
+  console.log("category", categories);
   // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
@@ -34,7 +34,10 @@ const CategoryList = (props) => {
   // ## useMutation 카테고리 patch(delete 역할) 함수
   const DeleteCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/users/${userId}/categories/${categories}`
+      `/api/paper/users/${userId}/categories/${categories}`,
+      {
+        newCategory: "etc",
+      }
     );
     // console.log(response);
     return response?.data;
