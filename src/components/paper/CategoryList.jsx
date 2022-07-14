@@ -9,7 +9,8 @@ const CategoryList = (props) => {
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-  console.log("category", categories);
+  // console.log("category", categories);
+  // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
     const response = await apiToken.patch(
@@ -89,7 +90,13 @@ const CategoryList = (props) => {
         </>
       )}
       {/* 위 Edit 변경하기 클릭시 변경완료로 버튼 변경 (여기 patch 기능) */}
-      <button onClick={() => {}}>삭제하기</button>
+      <button
+        onClick={() => {
+          onDelete();
+        }}
+      >
+        삭제하기
+      </button>
     </Wrap>
   );
 };
