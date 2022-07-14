@@ -13,6 +13,7 @@ import Header from "../components/main/Header";
 import { socket } from "../App";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
+import ReservationList from "../components/booking/ReservationList";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +34,7 @@ const MyProfile = () => {
     return res;
   };
   const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
-    staleTime: 0,
+    // staleTime: Infinity,
     onSuccess: (data) => {
       return data;
     },
@@ -125,6 +126,8 @@ const MyProfile = () => {
           header="마이페이지 수정"
         />
       ) : null}
+
+      <ReservationList />
       <Footer />
     </MyProfileContainer>
   );

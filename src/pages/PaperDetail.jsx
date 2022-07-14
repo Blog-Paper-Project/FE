@@ -29,7 +29,7 @@ const PaperDetail = () => {
   // ## useMutation 글 delete
   const { mutate: onDelete } = useMutation(DeleteDetail, {
     onSuccess: () => {
-      queryClient.invalidateQueries("paper_data");
+      queryClient.invalidateQueries("paper_data", "detail_data");
       navigate(`/paper/${userId}`);
       // console.log();
     },
@@ -70,6 +70,7 @@ const PaperDetail = () => {
   // console.log("PaperDeTail", detail_data);
   return (
     <div>
+      <Header />
       {LoginId === userId ? (
         <>
           {/* 아래 글 삭제 버튼*/}

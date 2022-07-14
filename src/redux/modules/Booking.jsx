@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 
 //액션타입
 const GET_BOOKING = 'GET_BOOKING';
+const PATCH_BOOKING = 'PATCH_BOOKING';
 const GET_NOTI = 'GET_NOTI';
 
 //액션 크리에이터
@@ -12,8 +13,11 @@ const getBooking = (data) => {
     console.log(data)
     return { type: GET_BOOKING, data };
 };
+const patchBooking = (data) => {
+    return { type: PATCH_BOOKING, data };
+};
 const getNoti = (data) => {
-    return { type: GET_NOTI, data }
+    return { type: GET_NOTI, data };
 };
 
 const initialState = {
@@ -27,8 +31,8 @@ let userName = getCookie('userId')
 console.log(userName);
 export const setBookingDB = (data, userId, LeafCount) => {
     return function (dispatch, getCookie) {
-        
-        
+
+
         // let isTutor = getCookie('nickname')
         console.log(userId)
         console.log(userName);
@@ -88,9 +92,6 @@ export const setBookingDB = (data, userId, LeafCount) => {
                 let start = sTime.substr(0, 5);
                 let end = endTime.toString().substr(-17, 5);
                 let Month = (month) => {
-                    console.log(month);
-                    console.log(start)
-                    console.log(sTime)
                     if (month === 'Jan') return '1';
                     if (month === 'Feb') return '2';
                     if (month === 'Mar') return '3';
@@ -123,48 +124,67 @@ export const setBookingDB = (data, userId, LeafCount) => {
 // 예약리스트 불러오기
 export const getBookingDB = () => {
     return function (dispatch) {
-      apiToken({
-        method: 'get',
-        url: `/api/booking`, // 학생 또는 선생님
-      })
-        .then((doc) => {
-            console.log(doc.data.inquireResult)
-          dispatch(getBooking(doc.data.inquireResult));
+        apiToken({
+            method: 'get',
+            url: `/api/booking`, // 학생 또는 선생님
+        })
+            .then((doc) => {
+                console.log(doc.data.totalList)
+                dispatch(getBooking(doc.data.totalList));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+};
+
+// 예약 수락하기
+export const patchBookingDB = (hostId) => {
+    console.log(hostId)
+    return function (dispatch) {
+        apiToken({
+            method: 'patch',
+            url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`
+        })
+        .then(() => {
+                    
         })
         .catch((err) => {
-          console.log(err);
+            console.log(err);
         });
+       
     };
-  };
+};
 
-  // 알림 예약 불러오기
+// 알림 예약 불러오기
 export const getBookingNotiDB = (userId) => {
     return function (dispatch, getState) {
-      api({
-        method: 'get',
-        url: `/api/booking/${userId}`,
-        headers: { token: `${getCookie('token')}` },
-      })
-        .then((doc) => {
-          dispatch(getNoti(doc.data));
+        api({
+            method: 'get',
+            url: `/api/booking/${userId}`,
+            headers: { token: `${getCookie('token')}` },
         })
-        .catch((err) => {
-          console.log(err);
-        });
+            .then((doc) => {
+                dispatch(getNoti(doc.data));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
-  };
+};
 
 
 //리듀서
 const bookingReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_BOOKING:
-            console.log(action.data)
+            return { data: action.data };
+        case PATCH_BOOKING:
             return { data: action.data };
         case GET_NOTI:
             return { data: action.data };
         default:
-            return state;        
+            return state;
     }
 };
 

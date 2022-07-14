@@ -6,6 +6,7 @@ import { apiToken } from "../shared/apis/Apis";
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
+import CategoryList from "../components/paper/CategoryList";
 /* 해야 할 것 */
 //1. 블로그 글 눌러서 들어갔을 때 주소 맨 뒤 params의 postId를 얻어 내야한다.
 //2. 아래 map 돌린 거 array 정확히 다 받으면 그거 돌리자
@@ -17,7 +18,7 @@ const Paper = () => {
   const [allSort, setAllSort] = useState(false);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
-
+  const [EditButton, setEditButton] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -69,7 +70,8 @@ const Paper = () => {
         console.log(data);
         return data;
       },
-      staleTime: Infinity,
+      staleTime: 0,
+      cacheTime: 0,
     }
   );
 
@@ -80,7 +82,7 @@ const Paper = () => {
   if (status === "error") {
     return alert("error");
   }
-
+  console.log(mypaper_data.categories);
   return (
     <>
       <Header />
@@ -113,11 +115,19 @@ const Paper = () => {
               >
                 수정
               </button>
+              <div>
+                {mypaper_data?.categories.map((value, index) => {
+                  return (
+                    <CategoryList
+                      key={index}
+                      categories={value}
+                      userId={userId}
+                    />
+                  );
+                })}
+              </div>
             </>
           ) : (
-            //1. 여기에 이제 카테고리 map 돌리면 되겠다.
-            //2. 수정을 눌렀을 때 map 돌린 것들 옆에 수정, 삭제 뜨게 하기
-            //3. 수정, 삭제 둘 다 패치
             <>
               <button
                 onClick={() => {

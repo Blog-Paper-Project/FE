@@ -7,7 +7,14 @@ const ContentBox = (props) => {
   const navigate = useNavigate();
   return (
     <div>
-      <div>{title}</div>
+      <div
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate(`/paper/${userId}/${postId}`);
+        }}
+      >
+        {title}
+      </div>
       <img
         style={{ cursor: "pointer" }}
         src={

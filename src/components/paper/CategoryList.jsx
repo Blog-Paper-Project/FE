@@ -1,19 +1,20 @@
-import { styled } from "@material-ui/styles";
 import React from "react";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
 
-const Category = (props) => {
-  const { category, userId } = props;
+const CategoryList = (props) => {
+  const { categories, userId } = props;
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-
+  // console.log("category", categories);
+  // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/users/${userId}/categories/${category}`,
+      `/api/paper/users/${props.userId}/categories/${categories}`,
       {
         newCategory: CategoryInput,
       }
@@ -33,10 +34,7 @@ const Category = (props) => {
   // ## useMutation 카테고리 patch(delete 역할) 함수
   const DeleteCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/users/${userId}/categories/${category}`,
-      {
-        newCategory,
-      }
+      `/api/paper/users/${userId}/categories/${categories}`
     );
     // console.log(response);
     return response?.data;
@@ -63,7 +61,7 @@ const Category = (props) => {
         </>
       ) : (
         <>
-          <div>{props.category}</div>
+          <div>{categories}</div>
         </>
       )}
       {/* 위 Edit 변경하기 끝 */}
@@ -92,11 +90,17 @@ const Category = (props) => {
         </>
       )}
       {/* 위 Edit 변경하기 클릭시 변경완료로 버튼 변경 (여기 patch 기능) */}
-      <button onClick={() => {}}>삭제하기</button>
+      <button
+        onClick={() => {
+          onDelete();
+        }}
+      >
+        삭제하기
+      </button>
     </Wrap>
   );
 };
 
 const Wrap = styled.div``;
 
-export default Category;
+export default CategoryList;
