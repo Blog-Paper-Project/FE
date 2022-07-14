@@ -18,7 +18,7 @@ const Paper = () => {
   const [allSort, setAllSort] = useState(false);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
-
+  const [EditButton, setEditButton] = useState(false);
   const { userId } = useParams();
   const navigate = useNavigate();
 
@@ -117,7 +117,13 @@ const Paper = () => {
               </button>
               <div>
                 {mypaper_data?.categories.map((value, index) => {
-                  return <CategoryList key={index} categories={value} />;
+                  return (
+                    <CategoryList
+                      key={index}
+                      categories={value}
+                      userId={userId}
+                    />
+                  );
                 })}
               </div>
             </>

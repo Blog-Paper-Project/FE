@@ -52,7 +52,7 @@ const Header = () => {
       onSuccess: (userpaper_query) => {
         // console.log(userpaper_query);
       },
-      staleTime: 100000,
+      staleTime: 50000,
     }
   );
   if (status === "Loading") {
