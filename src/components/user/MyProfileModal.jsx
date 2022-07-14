@@ -9,6 +9,7 @@ import { api, apiToken } from "../../shared/apis/Apis";
 import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import { useRef } from "react";
 import styled from "styled-components";
+import chgImg from "../../public/images/chgImg.svg";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -138,17 +139,15 @@ const MyProfileModal = (props) => {
             </header>
 
             <div>
-              <div>
-                <img
-                  src={
-                    previewImg.split("/")[3] === "null"
-                      ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                      : previewImg
-                  }
-                  alt="profile"
-                  onClick={onClickImageUpload}
-                />
-              </div>
+              <ProfileImg
+                src={
+                  previewImg.split("/")[3] === "null"
+                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                    : previewImg
+                }
+                alt="profile"
+                onClick={onClickImageUpload}
+              />
               <input
                 type="file"
                 id="file"
@@ -160,27 +159,46 @@ const MyProfileModal = (props) => {
                   setCHGprofileImg(e.target.files[0]);
                 }}
               />
-
-              <div>
-                내 소개
-                <textarea
-                  defaultValue={introduction}
-                  onChange={(e) => {
-                    setCHGIntroduction(e.target.value);
+              <ChgProfile>
+                <img src={chgImg} alt="img" onClick={onClickImageUpload} />
+              </ChgProfile>
+              <InputBox>
+                <div
+                  style={{
+                    width: "40%",
+                    backgroundColor: "white",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    margin: "8px 0 16px 0",
+                    height: "40px",
                   }}
-                />
-              </div>
+                >
+                  <SignUpDupInput
+                    defaultValue={nickname}
+                    onChange={(e) => {
+                      setCHGnickname(e.target.value);
+                    }}
+                  />
+                  <DupButton onClick={dupnick}>중복 확인</DupButton>
+                </div>
 
-              <div>
-                닉네임
-                <input
-                  defaultValue={nickname}
-                  onChange={(e) => {
-                    setCHGnickname(e.target.value);
-                  }}
-                />
-                <button onClick={dupnick}>중복확인</button>
-              </div>
+                <div>
+                  내 소개
+                  <textarea
+                    style={{
+                      width: "80%",
+                      height: "6.25em",
+                      border: "none",
+                      resize: "none",
+                      border: "1px solid black",
+                    }}
+                    defaultValue={introduction}
+                    onChange={(e) => {
+                      setCHGIntroduction(e.target.value);
+                    }}
+                  />
+                </div>
+              </InputBox>
             </div>
 
             <footer>
@@ -197,10 +215,44 @@ const MyProfileModal = (props) => {
   );
 };
 
-const ProfileImg = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+const ProfileImg = styled.img`
+  width: 154px;
+  height: 154px;
+  border-radius: 154px;
+  display: block;
+  margin: 0px auto;
+`;
+
+const ChgProfile = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  border: 1px solid gray;
+  justify-content: center;
+  display: table;
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: -56%;
+  bottom: 30px;
+  background-color: white;
+`;
+
+const InputBox = styled.div`
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+`;
+
+const SignUpDupInput = styled.input`
+  width: 70%;
+  height: 100%;
+`;
+
+const DupButton = styled.button`
+  margin: 8px 8px 8px;
+  width: 56px;
+  height: 20px;
 `;
 
 export default MyProfileModal;

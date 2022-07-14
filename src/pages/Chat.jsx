@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PhoneIcon from "@material-ui/icons/Phone";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 
 /* emit 보내기 on 받기 */
 
@@ -107,47 +109,47 @@ const Chat = () => {
     connectionRef.current = peer;
   };
 
-  // // 오디오 온오프
-  // const audioHandler = () => {
-  //   myVideo.current.srcObject
-  //     .getAudioTracks()
-  //     .forEach((track) => (track.enabled = !track.enabled));
-  //   setAudioOn(!audioOn);
-  // };
+  // 오디오 온오프
+  const audioHandler = () => {
+    myVideo.current.srcObject
+      .getAudioTracks()
+      .forEach((track) => (track.enabled = !track.enabled));
+    setAudioOn(!audioOn);
+  };
 
-  // // 비디오 온오프
-  // const videoHandler = () => {
-  //   myVideo.current.srcObject
-  //     .getVideoTracks()
-  //     .forEach((track) => (track.enabled = !track.enabled));
-  //   setVideoOn(!videoOn);
-  // };
+  // 비디오 온오프
+  const videoHandler = () => {
+    myVideo.current.srcObject
+      .getVideoTracks()
+      .forEach((track) => (track.enabled = !track.enabled));
+    setVideoOn(!videoOn);
+  };
 
-  // // 화면 공유
-  // const shareScreen = () => {
-  //   navigator.mediaDevices
-  //     .getDisplayMedia({
-  //       video: { cursor: "always" },
-  //       audio: { echoCancellation: true, noiseSuppression: true },
-  //     })
-  //     .then((stream) => {
-  //       myVideo.current.srcObject = stream; // 내 비디오 공유 화면으로 변경
-  //       const videoTrack = stream.getVideoTracks()[0];
-  //       connectionRef.current
-  //         .getSenders()
-  //         .find((sender) => sender.track.kind === videoTrack.kind)
-  //         .replaceTrack(videoTrack);
-  //       videoTrack.onended = function () {
-  //         const screenTrack = myVideo.current.getVideoTracks()[0];
-  //         connectionRef.current
-  //           .getSenders()
-  //           .find((sender) => sender.track.kind === screenTrack.kind)
-  //           .replaceTrack(screenTrack);
-  //         stream.getTracks().forEach((track) => track.stop());
-  //         myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
-  //       };
-  //     });
-  // };
+  // 화면 공유
+  const shareScreen = () => {
+    navigator.mediaDevices
+      .getDisplayMedia({
+        video: { cursor: "always" },
+        audio: { echoCancellation: true, noiseSuppression: true },
+      })
+      .then((stream) => {
+        myVideo.current.srcObject = stream; // 내 비디오 공유 화면으로 변경
+        const videoTrack = stream.getVideoTracks()[0];
+        connectionRef.current
+          .getSenders()
+          .find((sender) => sender.track.kind === videoTrack.kind)
+          .replaceTrack(videoTrack);
+        videoTrack.onended = function () {
+          const screenTrack = myVideo.current.getVideoTracks()[0];
+          connectionRef.current
+            .getSenders()
+            .find((sender) => sender.track.kind === screenTrack.kind)
+            .replaceTrack(screenTrack);
+          stream.getTracks().forEach((track) => track.stop());
+          myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
+        };
+      });
+  };
 
   //채팅보내기
   const sendMessage = () => {
@@ -182,110 +184,58 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <div style={{ color: "red", fontSize: "20px" }}>
-        <h3>paper</h3>
-      </div>
-      <Box>
-        <div>가나다</div>
-        <div className="container">
-          <div className="video-container">
-            <div className="video">
-              <video
-                playsInline
-                muted
-                ref={myVideo}
-                autoPlay
-                style={{ width: "300px" }}
-              />
-            </div>
-            <div className="video">
-              {callAccepted && !callEnded ? (
-                <video
-                  playsInline
-                  ref={userVideo}
-                  autoPlay
-                  style={{ width: "300px" }}
-                />
-              ) : null}
-            </div>
-          </div>
-          <div className="myId">
-            <TextField
-              id="filled-basic"
-              label="Name"
-              variant="filled"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{ marginBottom: "20px" }}
-            />
-            <TextField
-              id="filled-basic"
-              label="ID to call"
-              variant="filled"
-              value={idToCall}
-              onChange={(e) => setIdToCall(e.target.value)}
-            />
-            <div className="call-button">
-              {callAccepted && !callEnded ? (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={leaveChat}
-                >
-                  End Call
-                </Button>
-              ) : (
-                <IconButton
-                  color="primary"
-                  aria-label="call"
-                  onClick={() => callUser(idToCall)}
-                >
-                  <PhoneIcon fontSize="large" />
-                </IconButton>
-              )}
-              {idToCall}
-            </div>
-          </div>
+    <ChatContainer>
+      <Header />
+      <ChatBox>
+        <MyCam>
+          <video
+            playsInline
+            muted
+            ref={myVideo}
+            autoPlay
+            style={{ width: "300px" }}
+          />
           <div>
-            {receivingCall && !callAccepted ? (
-              <div className="caller">
-                <h1>{name} is calling...</h1>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={answerCall}
-                >
-                  Answer
-                </Button>
-              </div>
-            ) : null}
+            {audioOn ? (
+              <button size={25} onClick={audioHandler}>
+                소리끄기!!
+              </button>
+            ) : (
+              <button size={25} onClick={audioHandler}>
+                소키키기!!
+              </button>
+            )}
+            {videoOn ? (
+              <button size={25} onClick={videoHandler}>
+                화면끄기
+              </button>
+            ) : (
+              <button size={25} onClick={videoHandler}>
+                화면키키
+              </button>
+            )}
+            <button size={25} onClick={shareScreen}>
+              화면공유
+            </button>
           </div>
-        </div>
+        </MyCam>
+        <UserCam>
+          {callAccepted && !callEnded ? (
+            <video
+              playsInline
+              ref={userVideo}
+              autoPlay
+              style={{ width: "100%" }}
+            />
+          ) : (
+            <img
+              alt=""
+              src={"https://www.snsboom.co.kr/common/img/default_profile.png"}
+            />
+          )}
+        </UserCam>
 
-        {/* {audioOn ? (
-          <button size={25} onClick={audioHandler}>
-            소리키기
-          </button>
-        ) : (
-          <button size={25} onClick={audioHandler}>
-            음소거
-          </button>
-        )}
-        {videoOn ? (
-          <button size={25} onClick={videoHandler}>
-            화면키기 기
-          </button>
-        ) : (
-          <button size={25} onClick={videoHandler}>
-            화면끄기
-          </button>
-        )}
-        <button size={25} onClick={shareScreen}>
-          화면공유
-        </button> */}
-
-        <ChatBox>
+        <ChatList>
           {messageList.map((messageContent, index) => {
             return (
               <div key={index}>
@@ -311,7 +261,6 @@ const Chat = () => {
               </div>
             );
           })}
-
           <div>
             <input
               type="text"
@@ -325,22 +274,94 @@ const Chat = () => {
             <button onClick={sendMessage}>보내기</button>
             <button onClick={leaveChat}>나가기</button>
           </div>
-        </ChatBox>
-      </Box>
-    </div>
+        </ChatList>
+      </ChatBox>
+
+      {/* <div className="myId">
+        <TextField
+          id="filled-basic"
+          label="Name"
+          variant="filled"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{ marginBottom: "20px" }}
+        />
+        <TextField
+          id="filled-basic"
+          label="ID to call"
+          variant="filled"
+          value={idToCall}
+          onChange={(e) => setIdToCall(e.target.value)}
+        />
+        <div className="call-button">
+          {callAccepted && !callEnded ? (
+            <Button variant="contained" color="secondary" onClick={leaveChat}>
+              End Call
+            </Button>
+          ) : (
+            <IconButton
+              color="primary"
+              aria-label="call"
+              onClick={() => callUser(idToCall)}
+            >
+              <PhoneIcon fontSize="large" />
+            </IconButton>
+          )}
+          {idToCall}
+        </div>
+      </div>
+      <div>
+        {receivingCall && !callAccepted ? (
+          <div className="caller">
+            <h1>{name} is calling...</h1>
+            <Button variant="contained" color="primary" onClick={answerCall}>
+              Answer
+            </Button>
+          </div>
+        ) : null}
+      </div> */}
+      <Footer />
+    </ChatContainer>
   );
 };
 
-const Box = styled.div`
+const ChatContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e5e2db;
 `;
 
 const ChatBox = styled.div`
-  background-color: gray;
-  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const ChatList = styled.div`
+  background-color: #d9d9d9;
   height: 300px;
+  flex-direction: column;
+`;
+
+const MyCam = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
+  > button {
+
+  }
+`;
+
+
+const UserCam = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
 `;
 
 export default Chat;
