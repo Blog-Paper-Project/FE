@@ -66,9 +66,6 @@ const Main = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onClick={() => {
-                navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
-              }}
             >
               <img
                 src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
@@ -82,6 +79,10 @@ const Main = () => {
                   left: "10%",
                   backgroundColor: "rgba(255, 255, 255, 0.8)",
                   width: "347px",
+                  height: "274px",
+                }}
+                onClick={() => {
+                  navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
                 }}
               >
                 <h2>{aPapers?.title}</h2>
@@ -178,9 +179,19 @@ const Main = () => {
                   navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
                 }}
               >
-                <div>
-                  <p>{bPapers?.thumbnail}</p>
-                  <p>타이틀={bPapers?.title}</p>
+                <div
+                  style={{
+                    width: "698px",
+                    height: "300px",
+                    paddingLeft: "30px",
+                    paddingTop: "30px",
+                  }}
+                >
+                  <h2>{bPapers?.title}</h2>
+                  <ViewEdit
+                    contents={bPapers?.contents}
+                    style={{ height: "200px" }}
+                  />
                   <p>유저아이디= {bPapers?.userId}</p>
                   <p>
                     <FaHeart size="12px" />
@@ -190,32 +201,47 @@ const Main = () => {
               </Post211>
               <Post212>
                 <Post2121
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  <Box
+                  <img
+                    src={
+                      process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
+                    }
+                    alt="img"
+                    style={{ width:"100%", height: "100%", padding: "5px" }}
+                  />
+                  <div
                     style={{
-                      backgroundImage:
-                        "src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}",
+                      position: "absolute",
+                      bottom: "10%",
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      width: "382px",
+                      height: "281px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
                     }}
                   >
-                    <img
-                      src={
-                        process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
-                      }
-                      alt=""
-                    />
-                    <Content>
-                      <h2>{cPapers?.title}</h2>
-                      <p>
-                        {cPapers?.userId}
-                        <br />
-                        <FaHeart size="12px" />
-                        {cPapers?.likes}
-                      </p>
-                    </Content>
-                  </Box>
+                    <h2>{cPapers?.title}</h2>
+                    <br />
+                    {cPapers?.contents && (
+                      <ViewEdit
+                        contents={cPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
+                    <p>by. {cPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {cPapers?.likes}
+                    </p>
+                  </div>
                 </Post2121>
 
                 <Post2122
@@ -286,7 +312,6 @@ const Main = () => {
           <div className="poText">Popular Bloger</div>
         </PopularBloger>
         <PopularBox>
-          
           <Swiper
             slidesPerView={3}
             grid={{
@@ -319,7 +344,9 @@ const Main = () => {
           </Swiper>
         </PopularBox>
         <EndBox>
-          <div className="enTitle">PAPER에 담긴 아름다운 작품을 감상해 보세요.</div>
+          <div className="enTitle">
+            PAPER에 담긴 아름다운 작품을 감상해 보세요.
+          </div>
           <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
         </EndBox>
         <Footer />
@@ -492,15 +519,15 @@ const EndBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
   outline: 1px solid #acacac;
- 
-  .enTitle{    
+
+  .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
   }
-  .enText{
+  .enText {
     font-weight: 600;
     font-size: 30px;
     line-height: 150%;

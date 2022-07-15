@@ -83,6 +83,8 @@ const MyProfileModal = (props) => {
       window.alert("수정성공!!");
       deleteCookie("nickname");
       setCookie("nickname", CHGnickname);
+      deleteCookie("profileImage");
+      setCookie("profileImage", CHGprofileImg);
       close();
     },
     onError: () => {
@@ -109,6 +111,8 @@ const MyProfileModal = (props) => {
       window.alert("수정성공!!");
       deleteCookie("nickname");
       setCookie("nickname", CHGnickname);
+      deleteCookie("profileImage");
+      setCookie("profileImage", CHGprofileImg);
       close();
     },
     onError: () => {
