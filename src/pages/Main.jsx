@@ -20,30 +20,37 @@ import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
 import Footer from "../components/main/Footer";
+import ViewEdit from "../components/editor/ViewEdit";
 
 const Main = () => {
   const navigate = useNavigate();
-  const paperList = () => {
-    return api.get("/api/paper/");
+
+  const paperList = async () => {
+    const res = await api.get("/api/paper/");
+    return res;
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
-    staleTime: 50000,
+    staleTime: Infinity,
     onSuccess: (data) => {
-      console.log(data);
+      return data;
     },
   });
-  // // console.log(socket.id)
-  const aPapers = new Array(paper_query?.data.papers[0]);
-  const bPapers = new Array(paper_query?.data.papers[1]);
-  const cPapers = new Array(paper_query?.data.papers[2]);
-  const dPapers = new Array(paper_query?.data.papers[3]);
-  const ePapers = new Array(paper_query?.data.papers[4]);
-  const fPapers = new Array(paper_query?.data.papers[5]);
-  const gPapers = new Array(paper_query?.data.papers[6]);
-  const hPapers = new Array(paper_query?.data.papers[7]);
-  const iPapers = new Array(paper_query?.data.papers[8]);
-  const jPapers = new Array(paper_query?.data.papers[9]);
+
+  console.log(paper_query);
+
+  const aPapers = paper_query?.data.papers[0];
+  const bPapers = paper_query?.data.papers[1];
+  const cPapers = paper_query?.data.papers[2];
+  const dPapers = paper_query?.data.papers[3];
+  const ePapers = paper_query?.data.papers[4];
+  const fPapers = paper_query?.data.papers[5];
+  const gPapers = paper_query?.data.papers[6];
+  const hPapers = paper_query?.data.papers[7];
+  const iPapers = paper_query?.data.papers[8];
+  const jPapers = paper_query?.data.papers[9];
+
+  console.log(aPapers?.contents);
 
   return (
     <>
@@ -55,166 +62,152 @@ const Main = () => {
         <PostBox>
           {/* 왼쪽글 */}
           <Post1>
-            {aPapers.map((item, postId) => {
-              return (
-                <Post11
+            <Post11
+              style={{
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
+              }}
+            >
+              <img
+                src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}
+                alt="img"
+                style={{ height: "100%" }}
+              />
+              <div style={{ position: "absolute", bottom: "10%", left: "10%" }}>
+                <h2>{aPapers?.title}</h2>
+                <br />
+                <ViewEdit contents={aPapers?.contents} />
+                <p>by. {aPapers?.userId}</p>
+                <p>
+                  <FaHeart size="12px" />
+                  {aPapers?.likes}
+                </p>
+              </div>
+            </Post11>
+
+            <Post12>
+              <Post121>
+                <Post1211
                   onClick={() => {
-                    navigate(`/paper/${item.userId}/${item?.postId}`);
+                    navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
                   }}
                 >
                   <div>
-                    <div key={postId}>
-                      <p>{item?.thumbnail}</p>
-                      <p>타이틀={item?.title}</p>
-                      <p>유저아이디= {item?.userId}</p>
-                      <p>
-                        <FaHeart size="12px" />
-                        {item?.likes}
-                      </p>
-                    </div>
+                    <p>{dPapers?.thumbnail}</p>
+                    <p>타이틀={dPapers?.title}</p>
+                    <p>유저아이디= {dPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {dPapers?.likes}
+                    </p>
                   </div>
-                </Post11>
-              );
-            })}
-            <Post12>
-              <Post121>
-                {dPapers.map((item, postId) => {
-                  return (
-                    <Post1211
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post1211>
-                  );
-                })}
-                {gPapers.map((item, postId) => {
-                  return (
-                    <Post1212
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post1212>
-                  );
-                })}
+                </Post1211>
+                <Post1212
+                  onClick={() => {
+                    navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
+                  }}
+                >
+                  <div>
+                    <p>{gPapers?.thumbnail}</p>
+                    <p>타이틀={gPapers?.title}</p>
+                    <p>유저아이디= {gPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {gPapers?.likes}
+                    </p>
+                  </div>
+                </Post1212>
               </Post121>
               <Post122>
-                {ePapers.map((item, postId) => {
-                  return (
-                    <Post1221
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
+                <Post1221
+                  onClick={() => {
+                    navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
+                  }}
+                >
+                  <div>
+                    <p>{ePapers?.thumbnail}</p>
+                    <p>타이틀={ePapers?.title}</p>
 
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post1221>
-                  );
-                })}
-                {hPapers.map((item, postId) => {
-                  return (
-                    <Post1222
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
+                    <p>유저아이디= {ePapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {ePapers?.likes}
+                    </p>
+                  </div>
+                </Post1221>
 
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post1222>
-                  );
-                })}
+                <Post1222
+                  onClick={() => {
+                    navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
+                  }}
+                >
+                  <div>
+                    <p>{hPapers?.thumbnail}</p>
+                    <p>타이틀={hPapers?.title}</p>
+
+                    <p>유저아이디= {hPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {hPapers?.likes}
+                    </p>
+                  </div>
+                </Post1222>
               </Post122>
             </Post12>
           </Post1>
           {/* 오른쪽글 */}
           <Post2>
             <Post21>
-              {bPapers.map((item, postId) => {
-                return (
-                  <Post211
-                    onClick={() => {
-                      navigate(`/paper/${item.userId}/${item.postId}`);
+              <Post211
+                onClick={() => {
+                  navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
+                }}
+              >
+                <div>
+                  <p>{bPapers?.thumbnail}</p>
+                  <p>타이틀={bPapers?.title}</p>
+                  <p>유저아이디= {bPapers?.userId}</p>
+                  <p>
+                    <FaHeart size="12px" />
+                    {bPapers?.likes}
+                  </p>
+                </div>
+              </Post211>
+              <Post212>
+                <Post2121
+                  onClick={() => {
+                    navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
+                  }}
+                >
+                  <Box
+                    style={{
+                      backgroundImage:
+                        "src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}",
                     }}
                   >
-                    <div>
-                      <div key={postId}>
-                        <p>{item?.thumbnail}</p>
-                        <p>타이틀={item?.title}</p>
-                        <p>유저아이디= {item?.userId}</p>
-                        <p>
-                          <FaHeart size="12px" />
-                          {item?.likes}
-                        </p>
-                      </div>
-                    </div>
-                  </Post211>
-                );
-              })}
-              <Post212>
-                {cPapers.map((item, postId) => {
-                  return (
-                    <Post2121
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post2121>
-                  );
-                })}
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
+                      }
+                      alt=""
+                    />
+                    <Content>
+                      <h2>{cPapers?.title}</h2>
+                      <p>
+                        {cPapers?.userId}
+                        <br />
+                        <FaHeart size="12px" />
+                        {cPapers?.likes}
+                      </p>
+                    </Content>
+                  </Box>
+                </Post2121>
 
                 <Post2122
                   onClick={() => {
@@ -228,70 +221,53 @@ const Main = () => {
               </Post212>
             </Post21>
             <Post22>
-              {fPapers.map((item, postId) => {
-                return (
-                  <Post221
-                    onClick={() => {
-                      navigate(`/paper/${item.userId}/${item.postId}`);
-                    }}
-                  >
-                    <div>
-                      <div key={postId}>
-                        <p>{item?.thumbnail}</p>
-                        <p>타이틀={item?.title}</p>
-                        <p>유저아이디= {item?.userId}</p>
-                        <p>
-                          <FaHeart size="12px" />
-                          {item?.likes}
-                        </p>
-                      </div>
-                    </div>
-                  </Post221>
-                );
-              })}
+              <Post221
+                onClick={() => {
+                  navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
+                }}
+              >
+                <div>
+                  <p>{fPapers?.thumbnail}</p>
+                  <p>타이틀={fPapers?.title}</p>
+                  <p>유저아이디= {fPapers?.userId}</p>
+                  <p>
+                    <FaHeart size="12px" />
+                    {fPapers?.likes}
+                  </p>
+                </div>
+              </Post221>
+
               <Post222>
-                {jPapers.map((item, postId) => {
-                  return (
-                    <Post2221
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post2221>
-                  );
-                })}
-                {iPapers.map((item, postId) => {
-                  return (
-                    <Post2222
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          <p>{item?.thumbnail}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>
-                            <FaHeart size="12px" />
-                            {item?.likes}
-                          </p>
-                        </div>
-                      </div>
-                    </Post2222>
-                  );
-                })}
+                <Post2221
+                  onClick={() => {
+                    navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
+                  }}
+                >
+                  <div>
+                    <p>{jPapers?.thumbnail}</p>
+                    <p>타이틀={jPapers?.title}</p>
+                    <p>유저아이디= {jPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {jPapers?.likes}
+                    </p>
+                  </div>
+                </Post2221>
+                <Post2222
+                  onClick={() => {
+                    navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
+                  }}
+                >
+                  <div>
+                    <p>{iPapers?.thumbnail}</p>
+                    <p>타이틀={iPapers?.title}</p>
+                    <p>유저아이디= {iPapers?.userId}</p>
+                    <p>
+                      <FaHeart size="12px" />
+                      {iPapers?.likes}
+                    </p>
+                  </div>
+                </Post2222>
               </Post222>
             </Post22>
           </Post2>
@@ -505,6 +481,28 @@ const EndBox = styled.div`
   border-bottom: 1px solid #acacac;
   text-align: center;
   outline: 1px solid #acacac;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+`;
+
+const Content = styled.div`
+  width: 80%;
+  height: 30%;
+  background-color: gray;
+  padding: 10px;
+  opacity: 0.5;
+  gap: 30px;
+  > h2 {
+    font-size: 40px;
+  }
+  > p {
+    font-size: 20px;
+    margin: 32px 0 20px 0;
+  }
 `;
 
 export default Main;
