@@ -31,13 +31,11 @@ const Main = () => {
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
-    staleTime: Infinity,
+    staleTime: 0,
     onSuccess: (data) => {
       return data;
     },
   });
-
-  console.log(paper_query);
 
   const aPapers = paper_query?.data.papers[0];
   const bPapers = paper_query?.data.papers[1];
@@ -49,8 +47,6 @@ const Main = () => {
   const hPapers = paper_query?.data.papers[7];
   const iPapers = paper_query?.data.papers[8];
   const jPapers = paper_query?.data.papers[9];
-
-  console.log(aPapers?.contents);
 
   return (
     <>
@@ -75,14 +71,27 @@ const Main = () => {
               }}
             >
               <img
-                src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}
+                src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
                 alt="img"
-                style={{ height: "100%" }}
+                style={{ height: "100%", padding: "5px" }}
               />
-              <div style={{ position: "absolute", bottom: "10%", left: "10%" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "10%",
+                  left: "10%",
+                  backgroundColor: "rgba(255, 255, 255, 0.8)",
+                  width: "347px",
+                }}
+              >
                 <h2>{aPapers?.title}</h2>
                 <br />
-                <ViewEdit contents={aPapers?.contents} />
+                {aPapers?.contents && (
+                  <ViewEdit
+                    contents={aPapers?.contents}
+                    style={{ height: "200px" }}
+                  />
+                )}
                 <p>by. {aPapers?.userId}</p>
                 <p>
                   <FaHeart size="12px" />
