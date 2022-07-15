@@ -24,10 +24,12 @@ body {
   margin-left: 10%;
   margin-right: auto;
 }
+
 .swiper-grid-column>.swiper-wrapper {
   flex-wrap: wrap;
   flex-direction: row;
 }
+
 .swiper-slide {
   text-align: center;
   font-size: 18px;

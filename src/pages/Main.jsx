@@ -85,7 +85,7 @@ const Main = () => {
                   navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
                 }}
               >
-                <h2>{aPapers?.title}</h2>
+                <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
                 <br />
                 {aPapers?.contents && (
                   <ViewEdit
@@ -93,7 +93,6 @@ const Main = () => {
                     style={{ height: "200px" }}
                   />
                 )}
-                <p>by. {aPapers?.userId}</p>
                 <p>
                   <FaHeart size="12px" />
                   {aPapers?.likes}
@@ -103,30 +102,61 @@ const Main = () => {
 
             <Post12>
               <Post121>
-                <Post1211
-                  onClick={() => {
-                    navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
-                  }}
-                >
-                  <div>
-                    <p>{dPapers?.thumbnail}</p>
-                    <p>타이틀={dPapers?.title}</p>
-                    <p>유저아이디= {dPapers?.userId}</p>
+                <Post1211>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{
+                        width: "413px",
+                        height: "108px",
+                        margin: "73px auto 41px auto",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: "20px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
+                    <br />
                     <p>
                       <FaHeart size="12px" />
                       {dPapers?.likes}
                     </p>
                   </div>
                 </Post1211>
-                <Post1212
-                  onClick={() => {
-                    navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
-                  }}
-                >
-                  <div>
-                    <p>{gPapers?.thumbnail}</p>
-                    <p>타이틀={gPapers?.title}</p>
-                    <p>유저아이디= {gPapers?.userId}</p>
+                <Post1212>
+                  <div
+                    style={{
+                      width: "70%",
+                      height: "300px",
+                      paddingLeft: "30px",
+                      paddingTop: "30px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
+                    {gPapers?.contents && (
+                      <ViewEdit
+                        contents={gPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
                     <p>
                       <FaHeart size="12px" />
                       {gPapers?.likes}
@@ -135,16 +165,36 @@ const Main = () => {
                 </Post1212>
               </Post121>
               <Post122>
-                <Post1221
-                  onClick={() => {
-                    navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
-                  }}
-                >
-                  <div>
-                    <p>{ePapers?.thumbnail}</p>
-                    <p>타이틀={ePapers?.title}</p>
-
-                    <p>유저아이디= {ePapers?.userId}</p>
+                <Post1221>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${ePapers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{
+                        width: "413px",
+                        height: "108px",
+                        margin: "73px auto 41px auto",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: "20px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                    <br />
                     <p>
                       <FaHeart size="12px" />
                       {ePapers?.likes}
@@ -153,15 +203,41 @@ const Main = () => {
                 </Post1221>
 
                 <Post1222
-                  onClick={() => {
-                    navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
+                  style={{
+                    position: "relative",
+                    overflow: "hidden",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  <div>
-                    <p>{hPapers?.thumbnail}</p>
-                    <p>타이틀={hPapers?.title}</p>
-
-                    <p>유저아이디= {hPapers?.userId}</p>
+                  <img
+                    src={
+                      process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`
+                    }
+                    alt="img"
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      bottom: "10%",
+                      backgroundColor: "rgba(255, 255, 255, 0.8)",
+                      width: "382px",
+                      height: "281px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
+                    <br />
+                    {hPapers?.contents && (
+                      <ViewEdit
+                        contents={hPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
                     <p>
                       <FaHeart size="12px" />
                       {hPapers?.likes}
@@ -174,11 +250,7 @@ const Main = () => {
           {/* 오른쪽글 */}
           <Post2>
             <Post21>
-              <Post211
-                onClick={() => {
-                  navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
-                }}
-              >
+              <Post211>
                 <div
                   style={{
                     width: "698px",
@@ -186,13 +258,17 @@ const Main = () => {
                     paddingLeft: "30px",
                     paddingTop: "30px",
                   }}
+                  onClick={() => {
+                    navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
+                  }}
                 >
-                  <h2>{bPapers?.title}</h2>
-                  <ViewEdit
-                    contents={bPapers?.contents}
-                    style={{ height: "200px" }}
-                  />
-                  <p>유저아이디= {bPapers?.userId}</p>
+                  <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
+                  {bPapers?.contents && (
+                    <ViewEdit
+                      contents={bPapers?.contents}
+                      style={{ height: "200px" }}
+                    />
+                  )}
                   <p>
                     <FaHeart size="12px" />
                     {bPapers?.likes}
@@ -214,7 +290,7 @@ const Main = () => {
                       process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
                     }
                     alt="img"
-                    style={{ width:"100%", height: "100%", padding: "5px" }}
+                    style={{ width: "100%", height: "100%" }}
                   />
                   <div
                     style={{
@@ -228,7 +304,7 @@ const Main = () => {
                       navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
                     }}
                   >
-                    <h2>{cPapers?.title}</h2>
+                    <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
                     <br />
                     {cPapers?.contents && (
                       <ViewEdit
@@ -236,7 +312,6 @@ const Main = () => {
                         style={{ height: "200px" }}
                       />
                     )}
-                    <p>by. {cPapers?.userId}</p>
                     <p>
                       <FaHeart size="12px" />
                       {cPapers?.likes}
@@ -256,15 +331,25 @@ const Main = () => {
               </Post212>
             </Post21>
             <Post22>
-              <Post221
-                onClick={() => {
-                  navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
-                }}
-              >
-                <div>
-                  <p>{fPapers?.thumbnail}</p>
-                  <p>타이틀={fPapers?.title}</p>
-                  <p>유저아이디= {fPapers?.userId}</p>
+              <Post221>
+                <div
+                  style={{
+                    width: "698px",
+                    height: "300px",
+                    paddingLeft: "30px",
+                    paddingTop: "30px",
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
+                  }}
+                >
+                  <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
+                  {fPapers?.contents && (
+                    <ViewEdit
+                      contents={fPapers?.contents}
+                      style={{ height: "200px" }}
+                    />
+                  )}
                   <p>
                     <FaHeart size="12px" />
                     {fPapers?.likes}
@@ -273,30 +358,61 @@ const Main = () => {
               </Post221>
 
               <Post222>
-                <Post2221
-                  onClick={() => {
-                    navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
-                  }}
-                >
-                  <div>
-                    <p>{jPapers?.thumbnail}</p>
-                    <p>타이틀={jPapers?.title}</p>
-                    <p>유저아이디= {jPapers?.userId}</p>
+                <Post2221>
+                  <div
+                    style={{
+                      width: "70%",
+                      height: "300px",
+                      paddingLeft: "30px",
+                      paddingTop: "30px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
+                    {jPapers?.contents && (
+                      <ViewEdit
+                        contents={jPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
                     <p>
                       <FaHeart size="12px" />
                       {jPapers?.likes}
                     </p>
                   </div>
                 </Post2221>
-                <Post2222
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
-                  }}
-                >
-                  <div>
-                    <p>{iPapers?.thumbnail}</p>
-                    <p>타이틀={iPapers?.title}</p>
-                    <p>유저아이디= {iPapers?.userId}</p>
+                <Post2222>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{
+                        width: "413px",
+                        height: "108px",
+                        margin: "73px auto 41px auto",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: "20px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
+                    <br />
                     <p>
                       <FaHeart size="12px" />
                       {iPapers?.likes}
@@ -531,28 +647,6 @@ const EndBox = styled.div`
     font-weight: 600;
     font-size: 30px;
     line-height: 150%;
-  }
-`;
-
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-`;
-
-const Content = styled.div`
-  width: 80%;
-  height: 30%;
-  background-color: gray;
-  padding: 10px;
-  opacity: 0.5;
-  gap: 30px;
-  > h2 {
-    font-size: 40px;
-  }
-  > p {
-    font-size: 20px;
-    margin: 32px 0 20px 0;
   }
 `;
 

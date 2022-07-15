@@ -34,15 +34,10 @@ const Login = () => {
       const AccessToken = data.data.token;
       const Accessnickname = data.data.nickname;
       const AccessUseId = data.data.userId;
-      const AccessProfileImage = data.data.profileImage;
 
       setCookie("token", AccessToken, 2);
       setCookie("nickname", Accessnickname, 2);
       setCookie("userId", AccessUseId, 2);
-      setCookie("profileImage", AccessProfileImage, 2);
-
-      console.log(data);
-
       window.alert("로그인성공!!!!");
       navigate("/");
     },
