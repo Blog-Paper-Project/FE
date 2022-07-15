@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
+import { FaHeart } from "react-icons/fa";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,7 +19,6 @@ import Header from "../components/main/Header";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
-import { socket } from "../App";
 import Footer from "../components/main/Footer";
 
 const Main = () => {
@@ -44,14 +44,13 @@ const Main = () => {
   const hPapers = new Array(paper_query?.data.papers[7]);
   const iPapers = new Array(paper_query?.data.papers[8]);
   const jPapers = new Array(paper_query?.data.papers[9]);
-  const kPapers = new Array(paper_query?.data.papers[10]);
 
   return (
     <>
       <MainBox>
         <Header />
         <MainTop>
-          <div>PAPER</div>
+          <div>The PAPER</div>
         </MainTop>
         <PostBox>
           {/* 왼쪽글 */}
@@ -65,11 +64,13 @@ const Main = () => {
                 >
                   <div>
                     <div key={postId}>
-                      {/* <p>썸네일={item.thumbnail}</p> */}
-                      <p>유저아이디= {item?.userId}</p>
-                      <p>라이크={item?.likes}</p>
+                      <p>{item?.thumbnail}</p>
                       <p>타이틀={item?.title}</p>
-                      <p>포스트번호={item?.postId}</p>
+                      <p>유저아이디= {item?.userId}</p>
+                      <p>
+                        <FaHeart size="12px" />
+                        {item?.likes}
+                      </p>
                     </div>
                   </div>
                 </Post11>
@@ -77,7 +78,7 @@ const Main = () => {
             })}
             <Post12>
               <Post121>
-                {bPapers.map((item, postId) => {
+                {dPapers.map((item, postId) => {
                   return (
                     <Post1211
                       onClick={() => {
@@ -86,17 +87,19 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1211>
                   );
                 })}
-                {cPapers.map((item, postId) => {
+                {gPapers.map((item, postId) => {
                   return (
                     <Post1212
                       onClick={() => {
@@ -105,11 +108,13 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1212>
@@ -117,7 +122,7 @@ const Main = () => {
                 })}
               </Post121>
               <Post122>
-                {dPapers.map((item, postId) => {
+                {ePapers.map((item, postId) => {
                   return (
                     <Post1221
                       onClick={() => {
@@ -126,17 +131,20 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1221>
                   );
                 })}
-                {ePapers.map((item, postId) => {
+                {hPapers.map((item, postId) => {
                   return (
                     <Post1222
                       onClick={() => {
@@ -145,11 +153,14 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1222>
@@ -161,7 +172,7 @@ const Main = () => {
           {/* 오른쪽글 */}
           <Post2>
             <Post21>
-              {fPapers.map((item, postId) => {
+              {bPapers.map((item, postId) => {
                 return (
                   <Post211
                     onClick={() => {
@@ -170,18 +181,20 @@ const Main = () => {
                   >
                     <div>
                       <div key={postId}>
-                        {/* <p>썸네일={item.thumbnail}</p> */}
-                        <p>유저아이디= {item?.userId}</p>
-                        <p>라이크={item?.likes}</p>
+                        <p>{item?.thumbnail}</p>
                         <p>타이틀={item?.title}</p>
-                        <p>포스트번호={item?.postId}</p>{" "}
+                        <p>유저아이디= {item?.userId}</p>
+                        <p>
+                          <FaHeart size="12px" />
+                          {item?.likes}
+                        </p>
                       </div>
                     </div>
                   </Post211>
                 );
               })}
               <Post212>
-                {gPapers.map((item, postId) => {
+                {cPapers.map((item, postId) => {
                   return (
                     <Post2121
                       onClick={() => {
@@ -190,39 +203,32 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2121>
                   );
                 })}
-                {hPapers.map((item, postId) => {
-                  return (
-                    <Post2122
-                      onClick={() => {
-                        navigate(`/paper/${item.userId}/${item.postId}`);
-                      }}
-                    >
-                      <div>
-                        <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
-                          <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
-                        </div>
-                      </div>
-                    </Post2122>
-                  );
-                })}
+
+                <Post2122
+                  onClick={() => {
+                    navigate(`/paper/`);
+                  }}
+                >
+                  <div>
+                    <div>설명</div>
+                  </div>
+                </Post2122>
               </Post212>
             </Post21>
             <Post22>
-              {iPapers.map((item, postId) => {
+              {fPapers.map((item, postId) => {
                 return (
                   <Post221
                     onClick={() => {
@@ -231,11 +237,13 @@ const Main = () => {
                   >
                     <div>
                       <div key={postId}>
-                        {/* <p>썸네일={item.thumbnail}</p> */}
-                        <p>유저아이디= {item?.userId}</p>
-                        <p>라이크={item?.likes}</p>
+                        <p>{item?.thumbnail}</p>
                         <p>타이틀={item?.title}</p>
-                        <p>포스트번호={item?.postId}</p>{" "}
+                        <p>유저아이디= {item?.userId}</p>
+                        <p>
+                          <FaHeart size="12px" />
+                          {item?.likes}
+                        </p>
                       </div>
                     </div>
                   </Post221>
@@ -251,18 +259,19 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
-                          <p>포스트번호={item?.postId}</p>
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2221>
                   );
                 })}
-                {kPapers.map((item, postId) => {
+                {iPapers.map((item, postId) => {
                   return (
                     <Post2222
                       onClick={() => {
@@ -271,11 +280,13 @@ const Main = () => {
                     >
                       <div>
                         <div key={postId}>
-                          {/* <p>썸네일={item.thumbnail}</p> */}
-                          <p>유저아이디= {item?.userId}</p>
-                          <p>라이크={item?.likes}</p>
+                          <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
-                          <p>포스트번호={item?.postId}</p>{" "}
+                          <p>유저아이디= {item?.userId}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2222>
@@ -285,21 +296,9 @@ const Main = () => {
             </Post22>
           </Post2>
         </PostBox>
-        {/* {paper_query &&
-            paper_query?.data.papers.map((papers) => {
-              return (
-                <BestPaper key={papers.postId}>
-                  <div>글제목 = {papers.title}</div>
-                  <div>글쓴이 = {papers.userId}</div>
-                  <div>추천수 = {papers.likes}</div>
-                  <div>태그 = {papers.thumbnail}</div>
-                </BestPaper>
-              );
-            })} */}
-
         <PopularBloger>
-          <div>인기 블로거</div>
-          <div>Popular Bloger</div>
+          <div className="poTitle">인기 블로거</div>
+          <div className="poText">Popular Bloger</div>
         </PopularBloger>
         <PopularBox>
           <Swiper
@@ -353,12 +352,13 @@ const MainTop = styled.div`
   align-items: center;
   width: 100%;
   height: 9%;
-  border-bottom: 1px solid black;
-  text-align: center;
-  > div {
-    font-weight: bolder;
-    font-size: 175px;
-  }
+  outline: 1px solid #acacac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 90px;
+  font-weight: 400;
+  line-height: 90px;
 `;
 const PostBox = styled.div`
   width: 100%;
@@ -367,129 +367,135 @@ const PostBox = styled.div`
 const Post1 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: black;
   float: left;
 `;
 const Post11 = styled.div`
   width: 100%;
   height: 54%;
-  background-color: yellow;
+  outline: 1px solid #acacac;
 `;
 const Post12 = styled.div`
   width: 100%;
   height: 46%;
-  background-color: blue;
 `;
 const Post121 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: white;
   float: left;
 `;
 const Post1211 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: green;
+  outline: 1px solid #acacac;
 `;
 const Post1212 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: purple;
+  outline: 1px solid #acacac;
 `;
 const Post122 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: brown;
   float: right;
 `;
 const Post1221 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: blue;
+  outline: 1px solid #acacac;
 `;
 const Post1222 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: red;
+  outline: 1px solid #acacac;
 `;
 const Post2 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: black;
   float: left;
 `;
 const Post21 = styled.div`
   width: 100%;
   height: 54%;
-  background-color: gray;
 `;
 const Post211 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: blue;
+  outline: 1px solid #acacac;
 `;
 const Post212 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: purple;
   float: left;
 `;
 const Post2121 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: brown;
   float: right;
+  outline: 1px solid #acacac;
 `;
 const Post2122 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: white;
+  outline: 1px solid #acacac;
 `;
 const Post22 = styled.div`
   width: 100%;
   height: 46%;
-  background-color: lime;
 `;
 const Post221 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: #1db6ca;
+  outline: 1px solid #acacac;
 `;
 const Post222 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: #829629;
 `;
 const Post2221 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: #c21f7e;
   float: right;
+  outline: 1px solid #acacac;
 `;
 const Post2222 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: #7c24b6;
+  outline: 1px solid #acacac;
 `;
 
 const PopularBloger = styled.div`
   width: 100%;
-  height: 5%;
-  border-top: 1px solid #acacac;
-  border-bottom: 1px solid #acacac;
-  text-align: center;
+  height: 3%;
+  outline: 1px solid #acacac;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3%;
+  .poTitle {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+  }
+  .poText {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 150%;
+  }
 `;
 
 const PopularBox = styled.div`
-  width: 90vw;
+  width: 90%;
   height: 20%;
+  padding: 20px 0 0 0;
 `;
 
 const Popular = styled.div`
   background-color: pink;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 56px;
+  width: 524px;
+  height: 410px;
+  margin-bottom: px;
+  outline: 1px solid;
   display: block;
 `;
 const EndBox = styled.div`
@@ -498,6 +504,7 @@ const EndBox = styled.div`
   border-top: 1px solid #acacac;
   border-bottom: 1px solid #acacac;
   text-align: center;
+  outline: 1px solid #acacac;
 `;
 
 export default Main;

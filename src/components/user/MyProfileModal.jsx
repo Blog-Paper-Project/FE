@@ -181,16 +181,15 @@ const MyProfileModal = (props) => {
                   />
                   <DupButton onClick={dupnick}>중복 확인</DupButton>
                 </div>
-
                 <div>
-                  내 소개
                   <textarea
                     style={{
-                      width: "80%",
+                      width: "500px",
                       height: "6.25em",
                       border: "none",
                       resize: "none",
                       border: "1px solid black",
+                      padding: "10px",
                     }}
                     defaultValue={introduction}
                     onChange={(e) => {
@@ -229,7 +228,6 @@ const ChgProfile = styled.div`
   border-radius: 30px;
   border: 1px solid gray;
   justify-content: center;
-  display: table;
   display: flex;
   align-items: center;
   position: relative;
@@ -242,6 +240,7 @@ const InputBox = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const SignUpDupInput = styled.input`
