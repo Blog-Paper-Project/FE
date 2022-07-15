@@ -49,16 +49,15 @@ const Header = () => {
       onSuccess: (data) => {
         // console.log(data);
       },
-      onError: (e) => {
-        alert(e.message);
-      },
+      // onError: (e) => {
+      //   alert(e.message);
+      // },
       staleTime: 50000,
     }
   );
-  const nickname = userpaper_query?.nickname
-  const profileImage = userpaper_query?.profileImage
-  console.log(profileImage)
-  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`
+  const nickname = userpaper_query?.nickname;
+  const profileImage = userpaper_query?.profileImage;
+  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`;
   if (status === "Loading") {
     return <div>loading...</div>;
   }
@@ -79,9 +78,10 @@ const Header = () => {
             {is_cookie ? (
               <>
                 <ProfileImgBox
-                  src={(profileImage === null)
-                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                    : profileButton
+                  src={
+                    profileImage === null
+                      ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                      : profileButton
                   }
                   onClick={openModal}
                 />

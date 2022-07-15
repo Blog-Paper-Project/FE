@@ -67,7 +67,7 @@ const PaperDetail = () => {
     return alert("error");
   }
 
-  console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data);
   return (
     <div>
       <Header />
