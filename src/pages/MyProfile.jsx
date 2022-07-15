@@ -34,7 +34,7 @@ const MyProfile = () => {
     return res;
   };
   const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
-    // staleTime: Infinity,
+    staleTime: Infinity,
     onSuccess: (data) => {
       return data;
     },
@@ -43,7 +43,7 @@ const MyProfile = () => {
   if (status === "loading") {
     return <div>loading...</div>;
   }
-
+  console.log(res);
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 
@@ -110,7 +110,7 @@ const MyProfile = () => {
             setIsModalOpen(true);
           }}
         >
-          개인정보 변경
+          마이페이지 수정
         </ProfileButton>
         <button onClick={enterChat}>채팅시작!</button>
       </ProfileBox>

@@ -1,21 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 /*해야할 것 */
 //1. 크레에잇 날짜, 시간 보이기 별로 -> 보이기 좋게 변환
 const ContentBox = (props) => {
   const { title, thumbnail, userId, postId, createdAt } = props;
   const navigate = useNavigate();
   return (
-    <div>
-      <div
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          navigate(`/paper/${userId}/${postId}`);
-        }}
-      >
-        {title}
-      </div>
-      <img
+    <Container>
+      <Thumbnail
         style={{ cursor: "pointer" }}
         src={
           process.env.REACT_APP_S3_URL + `/${thumbnail}` || "images/Meiyou2.png"
@@ -25,9 +18,34 @@ const ContentBox = (props) => {
           navigate(`/paper/${userId}/${postId}`);
         }}
       />
+      <Title
+        style={{ cursor: "pointer" }}
+        onClick={() => {
+          navigate(`/paper/${userId}/${postId}`);
+        }}
+      >
+        {title}
+      </Title>
       <div>{createdAt}</div>
-    </div>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 7%;
+  height: 400px;
+  /* width: 100vw; */
+  /* margin-bottom: 50px; */
+`;
+const Thumbnail = styled.img`
+  height: 25vh;
+  width: 25vw;
+`;
+
+const Title = styled.div`
+  font-weight: 600;
+  font-size: large;
+`;
 export default ContentBox;

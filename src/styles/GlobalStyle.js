@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
+        background-color: #fffdf7;
         /* 글로벌로 우클릭 안 되게 css 넣은 건데 안 됌...
          -webkit-user-select: none;
         -moz-user-select: none;
@@ -18,13 +19,11 @@ const GlobalStyle = createGlobalStyle`
         user-select: none; */
     };
     button{
-        /* display: flex; */
         cursor: pointer;
         border: none;
         border-radius: 3px;
     };
     input{
-        /* display: flex; */
         outline: none;
         padding-left: 10px;
         padding-right: 10px;
