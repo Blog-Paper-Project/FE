@@ -30,6 +30,7 @@ const Header = () => {
   /* 유저정보 모달창 */
   const username = getCookie("username");
   const nickname = getCookie("nickname");
+  
 
   const openModal = () => {
     setModalOpen(true);
@@ -146,7 +147,9 @@ const Login = styled.div`
   width: 27%;
   height: 80px;
   outline: 1px solid #acacac;
+  display: flex;
   align-items: center;
+  justify-content: center;
 `;
 const ProfileImgBox = styled.div`
   display: flex;
