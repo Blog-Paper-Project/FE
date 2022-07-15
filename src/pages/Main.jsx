@@ -561,7 +561,7 @@ const Post2121 = styled.div`
   height: 100%;
   outline: 1px solid;
   float: right;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post2122 = styled.div`
   width: 50%;
@@ -586,7 +586,7 @@ const Post2221 = styled.div`
   height: 100%;
   outline: 1px solid;
   float: right;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post2222 = styled.div`
   width: 50%;
@@ -622,10 +622,9 @@ const PopularBox = styled.div`
 `;
 
 const Popular = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   width: 500px;
   height: 395px;
-  margin-bottom: px;
   outline: 1px solid;
   display: block;
 `;
@@ -647,26 +646,6 @@ const EndBox = styled.div`
     font-weight: 600;
     font-size: 30px;
     line-height: 150%;
-  }
-`;
-const Box = styled.div`
-  width: 95%;
-  height: 100%;
-  padding: 10px;
-`;
-const Content = styled.div`
-  width: 80%;
-  height: 30%;
-  background-color: gray;
-  padding: 10px;
-  opacity: 0.5;
-  gap: 30px;
-  > h2 {
-    font-size: 40px;
-  }
-  > p {
-    font-size: 20px;
-    margin: 32px 0 20px 0;
   }
 `;
 
