@@ -131,7 +131,7 @@ const HeaderBox = styled.div`
 const Svg = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   /* margin: auto; */
 `;
 const Logo = styled.div`
@@ -139,11 +139,13 @@ const Logo = styled.div`
   width: 27%;
   height: 60px;
   border: 1px solid black;
-
+  padding-left: 2%;
   display: flex;
   align-items: center;
 `;
 const Search = styled.div`
+  display: flex;
+  align-items: center !important;
   width: 46%;
   height: 60px;
   border: 1px solid black;
@@ -151,8 +153,8 @@ const Search = styled.div`
 const Login = styled.div`
   width: 27%;
   height: 60px;
-  border: 1px solid black;
-
+  outline: 1px solid black;
+  display: flex;
   align-items: center;
   justify-content: center;
 `;

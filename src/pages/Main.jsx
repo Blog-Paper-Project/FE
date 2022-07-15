@@ -187,10 +187,7 @@ const Main = () => {
                   }}
                 >
                   <Box
-                    style={{
-                      backgroundImage:
-                        src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`},
-                    }}
+                    
                   >
                     <img
                       src={
@@ -198,7 +195,7 @@ const Main = () => {
                       }
                       alt=""
                     />
-                    <Content>
+                    <Content>                  
                       <h2>{cPapers?.title}</h2>
                       <p>
                         {cPapers?.userId}
@@ -344,117 +341,122 @@ const PostBox = styled.div`
 const Post1 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: black;
   float: left;
 `;
 const Post11 = styled.div`
   width: 100%;
   height: 54%;
-  background-color: yellow;
+  outline: 1px solid;
 `;
 const Post12 = styled.div`
   width: 100%;
   height: 46%;
-  background-color: blue;
 `;
 const Post121 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: white;
   float: left;
 `;
 const Post1211 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: green;
+  outline: 1px solid;
 `;
 const Post1212 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: purple;
+  outline: 1px solid;
 `;
 const Post122 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: brown;
   float: right;
 `;
 const Post1221 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: blue;
+  outline: 1px solid;
 `;
 const Post1222 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: red;
+  outline: 1px solid;
 `;
 const Post2 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: black;
   float: left;
 `;
 const Post21 = styled.div`
   width: 100%;
   height: 54%;
-  background-color: gray;
 `;
 const Post211 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: blue;
+  outline: 1px solid;
 `;
 const Post212 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: purple;
   float: left;
 `;
 const Post2121 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: brown;
+  outline: 1px solid;
   float: right;
 `;
 const Post2122 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: white;
+  outline: 1px solid;
 `;
 const Post22 = styled.div`
   width: 100%;
   height: 46%;
-  background-color: lime;
+  
 `;
 const Post221 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: #1db6ca;
+  outline: 1px solid;
 `;
 const Post222 = styled.div`
   width: 100%;
   height: 50%;
-  background-color: #829629;
 `;
 const Post2221 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: #c21f7e;
+  outline: 1px solid;
   float: right;
 `;
 const Post2222 = styled.div`
   width: 50%;
   height: 100%;
-  background-color: #7c24b6;
+  outline: 1px solid;
 `;
 
 const PopularBloger = styled.div`
   width: 100%;
-  height: 5%;
-  border-top: 1px solid #acacac;
-  border-bottom: 1px solid #acacac;
-  text-align: center;
+  height: 3%;
+  outline: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4%;
+  .poTitle {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+  }
+  .poText {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 150%;
+  }
 `;
 
 const PopularBox = styled.div`
@@ -475,13 +477,11 @@ const Popular = styled.div`
 const EndBox = styled.div`
   width: 100%;
   height: 8%;
-  border-top: 1px solid #acacac;
-  border-bottom: 1px solid #acacac;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;  
-  outline: 1px solid #acacac;
+  outline: 1px solid black;
  
   .enTitle{    
     font-weight: 300;
@@ -496,7 +496,7 @@ const EndBox = styled.div`
 `;
 
 const Box = styled.div`
-  width: 100%;
+  width: 95%;
   height: 100%;
   padding: 10px;
 `;
