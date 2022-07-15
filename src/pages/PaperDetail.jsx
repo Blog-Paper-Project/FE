@@ -54,7 +54,7 @@ const PaperDetail = () => {
     { staleTime: 0, cacheTime: 0 },
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
         return data;
       },
     }
@@ -67,7 +67,7 @@ const PaperDetail = () => {
     return alert("error");
   }
 
-  // console.log("PaperDeTail", detail_data);
+  console.log("PaperDeTail", detail_data);
   return (
     <div>
       <Header />

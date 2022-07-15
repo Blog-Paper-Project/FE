@@ -184,6 +184,7 @@ const Chat = () => {
     navigate("/myprofile");
   };
 
+  //스크롤 하단고정
   const scrollToBottom = () => {
     if (boxRef.current) {
       boxRef.current.scrollTop = boxRef.current.scrollHeight;

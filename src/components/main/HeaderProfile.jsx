@@ -8,26 +8,22 @@ const HeaderProfile = (props) => {
   const { open, close, header, username, nickname, login } = props;
   const navigate = useNavigate();
 
-  const onLogout = (e) => {
+  const onLogout = () => {
     deleteCookie("token");
-    //deleteCookie("profileUrl");
-    deleteCookie("username");
-
     deleteCookie("nickname");
     deleteCookie("userId");
-    close();
     login(false);
+    close();
     navigate("/");
   };
 
   return (
     <>
-
       <div className={open ? "openModal headmodal" : "headmodal"}>
         {open ? (
           <section>
             <header>
-              <p style={{fontsize:"40px"}}>{header}</p>
+              <p style={{ fontsize: "40px" }}>{header}</p>
               <button className="close" onClick={close}>
                 &times;
               </button>
@@ -41,23 +37,23 @@ const HeaderProfile = (props) => {
             </main>
             <footer>
               <buttonbox>
-              <button
-                className="close"
-                onClick={() => {
-                  navigate(`/myprofile/`);
-                }}
-                style={{ backgroundColor: "#D9D9D9" }}
-              >
-                회원정보
-              </button>
-              <button
-                className="close"
-                onClick={onLogout}
-                style={{ backgroundColor: "#D9D9D9" }}
-              >
-                로그아웃
-              </button>
-              </buttonbox>            
+                <button
+                  className="close"
+                  onClick={() => {
+                    navigate(`/myprofile/`);
+                  }}
+                  style={{ backgroundColor: "#D9D9D9" }}
+                >
+                  회원정보
+                </button>
+                <button
+                  className="close"
+                  onClick={onLogout}
+                  style={{ backgroundColor: "#D9D9D9" }}
+                >
+                  로그아웃
+                </button>
+              </buttonbox>
             </footer>
           </section>
         ) : null}

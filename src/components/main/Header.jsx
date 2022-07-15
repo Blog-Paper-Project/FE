@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 /* api */
-import { api, apiToken } from "../../shared/apis/Apis";
+import { apiToken } from "../../shared/apis/Apis";
 
 /* 컴포넌트 */
 import HeaderProfile from "./HeaderProfile";
@@ -147,7 +147,9 @@ const Login = styled.div`
   width: 27%;
   height: 60px;
   border: 1px solid black;
+
   align-items: center;
+  justify-content: center;
 `;
 const ProfileImgBox = styled.div`
   display: flex;

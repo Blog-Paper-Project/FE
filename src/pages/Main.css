@@ -19,9 +19,9 @@ body {
 }
 
 .swiper {
-  width: 92%;
+  width: 90%;
   height: 100%;
-  margin-left: 9%;
+  margin-left: 10%;
   margin-right: auto;
 }
 .swiper-grid-column>.swiper-wrapper {
@@ -33,7 +33,6 @@ body {
   font-size: 18px;
   background: #e5e2db;
   height: calc((100% - 30px) / 2) !important;
-
 
   /* Center slide text vertically */
   display: -webkit-box;
