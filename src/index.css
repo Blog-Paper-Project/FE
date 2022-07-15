@@ -1,0 +1,5 @@
+@font-face {
+    font-family: "#{$name}";
+    src: url("#{$asset-path}fonts/#{$file}.otf") format("otf"),
+      url("#{$asset-path}fonts/#{$file}.ttf") format("truetype");
+}
