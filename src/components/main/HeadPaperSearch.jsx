@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router'
-import { BiSearchAlt2 } from "react-icons/bi"
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { BiSearchAlt2 } from "react-icons/bi";
 
 /* 컴포넌트 */
 import { __searchPost } from "../../redux/modules/Search";
@@ -46,10 +46,10 @@ const SearchBox = styled.div`
 `;
 
 const Search1 = styled.input`
-  background-color: #E5E2DB;  
+  background-color: #e5e2db;
   width: 46%;
   height: 100%;
-  color: #212124; 
+  color: #212124;
 `;
 
 export default HeadPaperSearch;

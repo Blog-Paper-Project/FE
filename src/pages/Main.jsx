@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { FaHeart } from "react-icons/fa"
+import { FaHeart } from "react-icons/fa";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +19,6 @@ import Header from "../components/main/Header";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
-import { socket } from "../App";
 import Footer from "../components/main/Footer";
 
 const Main = () => {
@@ -68,7 +67,10 @@ const Main = () => {
                       <p>{item?.thumbnail}</p>
                       <p>타이틀={item?.title}</p>
                       <p>유저아이디= {item?.userId}</p>
-                      <p><FaHeart size="12px" />{item?.likes}</p>
+                      <p>
+                        <FaHeart size="12px" />
+                        {item?.likes}
+                      </p>
                     </div>
                   </div>
                 </Post11>
@@ -88,7 +90,10 @@ const Main = () => {
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1211>
@@ -106,7 +111,10 @@ const Main = () => {
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1212>
@@ -125,8 +133,12 @@ const Main = () => {
                         <div key={postId}>
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
+
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1221>
@@ -143,8 +155,12 @@ const Main = () => {
                         <div key={postId}>
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
+
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post1222>
@@ -168,7 +184,10 @@ const Main = () => {
                         <p>{item?.thumbnail}</p>
                         <p>타이틀={item?.title}</p>
                         <p>유저아이디= {item?.userId}</p>
-                        <p><FaHeart size="12px" />{item?.likes}</p>
+                        <p>
+                          <FaHeart size="12px" />
+                          {item?.likes}
+                        </p>
                       </div>
                     </div>
                   </Post211>
@@ -187,7 +206,10 @@ const Main = () => {
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2121>
@@ -200,13 +222,9 @@ const Main = () => {
                   }}
                 >
                   <div>
-                    <div>
-                      설명
-
-                    </div>
+                    <div>설명</div>
                   </div>
                 </Post2122>
-
               </Post212>
             </Post21>
             <Post22>
@@ -222,7 +240,10 @@ const Main = () => {
                         <p>{item?.thumbnail}</p>
                         <p>타이틀={item?.title}</p>
                         <p>유저아이디= {item?.userId}</p>
-                        <p><FaHeart size="12px" />{item?.likes}</p>
+                        <p>
+                          <FaHeart size="12px" />
+                          {item?.likes}
+                        </p>
                       </div>
                     </div>
                   </Post221>
@@ -241,7 +262,10 @@ const Main = () => {
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2221>
@@ -259,7 +283,10 @@ const Main = () => {
                           <p>{item?.thumbnail}</p>
                           <p>타이틀={item?.title}</p>
                           <p>유저아이디= {item?.userId}</p>
-                          <p><FaHeart size="12px" />{item?.likes}</p>
+                          <p>
+                            <FaHeart size="12px" />
+                            {item?.likes}
+                          </p>
                         </div>
                       </div>
                     </Post2222>
@@ -297,7 +324,7 @@ const Main = () => {
                   >
                     <Popular>
                       <div>{popularUsers.profileImage}</div>
-                      <div >닉네임 = {popularUsers.nickname}</div>
+                      <div>닉네임 = {popularUsers.nickname}</div>
                       <div>인기도 = {popularUsers.popularity}</div>
                     </Popular>
                   </SwiperSlide>
@@ -316,10 +343,13 @@ const Main = () => {
 };
 
 const MainBox = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   height: 4096px;
 `;
 const MainTop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 9%;
   outline: 1px solid #acacac;
@@ -355,7 +385,7 @@ const Post121 = styled.div`
 `;
 const Post1211 = styled.div`
   width: 100%;
-  height: 50%; 
+  height: 50%;
   outline: 1px solid #acacac;
 `;
 const Post1212 = styled.div`
@@ -442,12 +472,12 @@ const PopularBloger = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 3%;
-  .poTitle{    
+  .poTitle {
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
   }
-  .poText{
+  .poText {
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;

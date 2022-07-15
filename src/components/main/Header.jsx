@@ -113,19 +113,18 @@ const Header = () => {
   );
 };
 const HeaderBox = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 80px;
-
 `;
 const Svg = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: auto;
+  /* margin: auto; */
 `;
 const Logo = styled.div`
   width: 25%;
