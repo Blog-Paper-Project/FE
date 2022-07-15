@@ -107,8 +107,6 @@ const MyProfileModal = (props) => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
-      deleteCookie("nickname");
-      setCookie("nickname", CHGnickname);
       close();
     },
     onError: () => {

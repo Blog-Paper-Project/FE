@@ -31,7 +31,7 @@ body {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #e5e2db;
+  background: #fffdf7;
   height: calc((100% - 30px) / 2) !important;
 
   /* Center slide text vertically */

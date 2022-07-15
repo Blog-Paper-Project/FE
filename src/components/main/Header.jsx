@@ -28,9 +28,6 @@ const Header = () => {
   /* 쿠키 */
 
   /* 유저정보 모달창 */
-  const username = getCookie("username");
-  const nickname = getCookie("nickname");
-  
 
   const openModal = () => {
     setModalOpen(true);
@@ -51,11 +48,15 @@ const Header = () => {
     useGetMyPaper,
     {
       onSuccess: (userpaper_query) => {
-        // console.log(userpaper_query);
+        console.log(userpaper_query);
       },
       staleTime: 50000,
     }
   );
+  const nickname = userpaper_query?.nickname
+  const profileImage = userpaper_query?.profileImage
+  console.log(profileImage)
+  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`
   if (status === "Loading") {
     return <div>loading...</div>;
   }
@@ -75,6 +76,21 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
+                <ProfileImgBox
+                  src={(profileImage === null)
+                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                    : profileButton
+                  }
+                  onClick={openModal}
+                />
+                <HeaderProfile
+                  open={modalOpen}
+                  close={closeModal}
+                  header="프로필"
+                  nickname={nickname}
+                  login={setCookie}
+                  profileImage={profileImage}
+                />
                 <button
                   onClick={() => {
                     navigate(`/paper/${userpaper_query.userId}`);
@@ -82,17 +98,6 @@ const Header = () => {
                 >
                   내 블로그로 가기
                 </button>
-                <ProfileImgBox>
-                  <button onClick={openModal}>유저이미지(모달오픈)</button>
-                  <HeaderProfile
-                    open={modalOpen}
-                    close={closeModal}
-                    header="프로필"
-                    username={username}
-                    nickname={nickname}
-                    login={setCookie}
-                  />
-                </ProfileImgBox>
                 <Link to="/write">
                   <div>글작성</div>
                 </Link>
@@ -150,8 +155,13 @@ const Login = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const ProfileImgBox = styled.div`
-  display: flex;
+const ProfileImgBox = styled.img`
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 0;
+  border-radius: 50px;
+  border: 1px solid;
+  align-items: center;
 `;
 
 export default Header;
