@@ -126,7 +126,7 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80px;
+  height: 60px;
 `;
 const Svg = styled.div`
   display: flex;
