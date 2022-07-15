@@ -32,18 +32,18 @@ const Footer = () => {
             <div>푸터 4</div>
           </Footer4T>
         </Footer4>
-        <FooterEnd>
-          <div>
-            Copyright PAPER.All Rights Reserved
-          </div>
-        </FooterEnd>
       </FooterBox>
+      <FooterEnd>
+        <div>
+          Copyright PAPER.All Rights Reserved
+        </div>
+      </FooterEnd>
     </>
   )
 }
 const FooterBox = styled.div`
   width: 100%;
-  height: 313px;
+  height: 240px;
   border-top: 1px solid #ACACAC;
   padding-top: 60px;
 `
@@ -59,8 +59,6 @@ const Footer1 = styled.div`
 const Footer1T = styled.div`
 width: 70%;
 height: 55%;
-outline: 1px solid #acacac;
-background-color: yellow;
 `
 const Footer2 = styled.div`
   width: 25%;
@@ -74,8 +72,6 @@ const Footer2 = styled.div`
 const Footer2T = styled.div`
 width: 70%;
 height: 55%;
-outline: 1px solid #acacac;
-background-color: yellow;
 `
 const Footer3 = styled.div`
   width: 25%;
@@ -89,8 +85,6 @@ const Footer3 = styled.div`
 const Footer3T = styled.div`
 width: 70%;
 height: 55%;
-outline: 1px solid #acacac;
-background-color: yellow;
 `
 const Footer4 = styled.div`
   width: 25%;
@@ -104,11 +98,9 @@ const Footer4 = styled.div`
 const Footer4T = styled.div`
 width: 70%;
 height: 55%;
-outline: 1px solid #acacac;
-background-color: yellow;
 `
 const FooterEnd = styled.div`
-  
+  display: flex;
   align-items: center;
   justify-content: center;
 `

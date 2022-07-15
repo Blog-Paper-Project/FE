@@ -501,7 +501,7 @@ const Post1 = styled.div`
 const Post11 = styled.div`
   width: 100%;
   height: 54%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post12 = styled.div`
   width: 100%;
@@ -515,12 +515,12 @@ const Post121 = styled.div`
 const Post1211 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post1212 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post122 = styled.div`
   width: 50%;
@@ -530,12 +530,12 @@ const Post122 = styled.div`
 const Post1221 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post1222 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post2 = styled.div`
   width: 50%;
@@ -549,7 +549,7 @@ const Post21 = styled.div`
 const Post211 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post212 = styled.div`
   width: 100%;
@@ -559,13 +559,14 @@ const Post212 = styled.div`
 const Post2121 = styled.div`
   width: 50%;
   height: 100%;
+  outline: 1px solid;
   float: right;
   outline: 1px solid #acacac;
 `;
 const Post2122 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post22 = styled.div`
   width: 100%;
@@ -574,7 +575,7 @@ const Post22 = styled.div`
 const Post221 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 const Post222 = styled.div`
   width: 100%;
@@ -583,24 +584,25 @@ const Post222 = styled.div`
 const Post2221 = styled.div`
   width: 50%;
   height: 100%;
+  outline: 1px solid;
   float: right;
   outline: 1px solid #acacac;
 `;
 const Post2222 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid #acacac;
+  outline: 1px solid;
 `;
 
 const PopularBloger = styled.div`
   width: 100%;
   height: 3%;
-  outline: 1px solid #acacac;
+  outline: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 3%;
+  padding-top: 4%;
   .poTitle {
     font-weight: 400;
     font-size: 30px;
@@ -630,15 +632,13 @@ const Popular = styled.div`
 const EndBox = styled.div`
   width: 100%;
   height: 8%;
-  border-top: 1px solid #acacac;
-  border-bottom: 1px solid #acacac;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  outline: 1px solid #acacac;
-
-  .enTitle {
+  justify-content: center;  
+  outline: 1px solid black;
+ 
+  .enTitle{    
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
@@ -647,6 +647,26 @@ const EndBox = styled.div`
     font-weight: 600;
     font-size: 30px;
     line-height: 150%;
+  }
+`;
+const Box = styled.div`
+  width: 95%;
+  height: 100%;
+  padding: 10px;
+`;
+const Content = styled.div`
+  width: 80%;
+  height: 30%;
+  background-color: gray;
+  padding: 10px;
+  opacity: 0.5;
+  gap: 30px;
+  > h2 {
+    font-size: 40px;
+  }
+  > p {
+    font-size: 20px;
+    margin: 32px 0 20px 0;
   }
 `;
 

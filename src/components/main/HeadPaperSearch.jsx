@@ -46,7 +46,7 @@ const SearchBox = styled.div`
 `;
 
 const Search1 = styled.input`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   width: 46%;
   height: 100%;
   color: #212124;
