@@ -5,15 +5,15 @@ import { apiToken } from "../../shared/apis/Apis";
 const Like = ({ postId, Likes, LoginId }) => {
   // console.log(postId);
   const [like, setLike] = useState(false);
-  console.log(Likes);
-  console.log(LoginId);
-  console.log(LoginId);
+  // console.log(Likes);
+  // console.log(LoginId);
+  // console.log(LoginId);
 
   const LikesCheck = Likes?.find((value) => {
     // console.log(value.likes.userId);
     return value.likes.userId == LoginId;
   });
-  console.log(LikesCheck);
+  // console.log(LikesCheck);
   // ## useMutation 좋아요 post 함수
   const queryClient = useQueryClient();
 

@@ -6,11 +6,11 @@ import { socket } from "../App";
 import Peer from "simple-peer";
 
 import TextField from "@material-ui/core/TextField";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import PhoneIcon from "@material-ui/icons/Phone";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 /* emit 보내기 on 받기 */
 
@@ -38,6 +38,7 @@ const Chat = () => {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
+  const boxRef = useRef();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -144,8 +145,8 @@ const Chat = () => {
             .find((sender) => sender.track.kind === screenTrack.kind)
             .replaceTrack(screenTrack);
           stream.getTracks().forEach((track) => track.stop());
-          myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
         };
+        myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
       });
   };
 
@@ -177,57 +178,53 @@ const Chat = () => {
   const leaveChat = () => {
     socket.emit("leaveRoom");
     setCallEnded(true);
-    // connectionRef.current.destroy();
+    stream.getTracks().forEach(function (track) {
+      track.stop();
+    });
     navigate("/myprofile");
   };
 
+  const scrollToBottom = () => {
+    if (boxRef.current) {
+      boxRef.current.scrollTop = boxRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  });
+
   return (
-    <div>
-      <Title>
-        <p>채팅</p>
-      </Title>
-      <Body>
+    <ChatContainer>
+      <ChatBox>
         <MyCam>
           <video
             playsInline
             muted
             ref={myVideo}
             autoPlay
-            style={{ width: "300px" }}
+            style={{ width: "100%" }}
           />
-          {audioOn ? (
-            <button size={25} onClick={audioHandler}>
-              소리키기
-            </button>
-          ) : (
-            <button size={25} onClick={audioHandler}>
-              음소거
-            </button>
-          )}
-          {videoOn ? (
-            <button size={25} onClick={videoHandler}>
-              화면키기 기
-            </button>
-          ) : (
-            <button size={25} onClick={videoHandler}>
-              화면끄기
-            </button>
-          )}
-          <button size={25} onClick={shareScreen}>
-            화면공유
-          </button>
-
+        </MyCam>
+        <UserCam>
           {callAccepted && !callEnded ? (
             <video
               playsInline
               ref={userVideo}
               autoPlay
-              style={{ width: "300px" }}
+              style={{ width: "100%" }}
             />
-          ) : null}
-        </MyCam>
-        <Box>
-          <ChatBox>
+          ) : (
+            <img
+              alt=""
+              src={"https://www.snsboom.co.kr/common/img/default_profile.png"}
+              style={{ width: "100%" }}
+            />
+          )}
+        </UserCam>
+
+        <ChatList>
+          <ChatChat ref={boxRef}>
             {messageList.map((messageContent, index) => {
               return (
                 <div key={index}>
@@ -240,8 +237,15 @@ const Chat = () => {
                   {messageContent.nick == nickname ? (
                     <div>
                       <p style={{ color: "blue" }}>{messageContent.nick}</p>
-                      <p>{messageContent.message}</p>
-                      <p id="time">{messageContent.time}</p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <p>{messageContent.message}</p>
+                        <p id="time">{messageContent.time}</p>
+                      </div>
                     </div>
                   ) : (
                     <div>
@@ -253,8 +257,9 @@ const Chat = () => {
                 </div>
               );
             })}
-          </ChatBox>
-          <div>
+          </ChatChat>
+
+          <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
             <input
               type="text"
               placeholder="대화를 입력하세요."
@@ -265,10 +270,41 @@ const Chat = () => {
               ref={inputRef}
             />
             <button onClick={sendMessage}>보내기</button>
-            <button onClick={leaveChat}>나가기</button>
           </div>
-        </Box>
-      </Body>
+        </ChatList>
+      </ChatBox>
+      <ButtonList>
+        <div>
+          {audioOn ? (
+            <button size={25} onClick={audioHandler}>
+              소리끄기!!
+            </button>
+          ) : (
+            <button size={25} onClick={audioHandler}>
+              소키키기!!
+            </button>
+          )}
+        </div>
+        <div>
+          {videoOn ? (
+            <button size={25} onClick={videoHandler}>
+              화면끄기
+            </button>
+          ) : (
+            <button size={25} onClick={videoHandler}>
+              화면키키
+            </button>
+          )}
+        </div>
+        <div>
+          <button size={25} onClick={shareScreen}>
+            화면공유
+          </button>
+        </div>
+        <div>
+          <button onClick={leaveChat}>나가기</button>
+        </div>
+      </ButtonList>
 
       <div className="myId">
         <TextField
@@ -313,31 +349,69 @@ const Chat = () => {
           </div>
         ) : null}
       </div>
-    </div>
+    </ChatContainer>
   );
 };
 
-const Title = styled.div`
-  width: 100%;
-  background-color: #e5e2db;
+const ChatContainer = styled.div`
   display: flex;
-  justify-content: center;
-`;
-
-const Body = styled.div`
-  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: #e5e2db;
-  justify-content: space-between;
+  height: 100vh;
+  padding-top: 50px;
 `;
-
-const MyCam = styled.div``;
-
-const Box = styled.div``;
 
 const ChatBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+`;
+
+const MyCam = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: gray;
-  width: 300px;
-  height: 300px;
+  > button {
+  }
+`;
+
+const UserCam = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: gray;
+`;
+
+const ChatList = styled.div`
+  background-color: #d9d9d9;
+  height: 480px;
+  flex-direction: column;
+  position: relative;
+  width: 283px;
+  padding: 10px;
+`;
+
+const ChatChat = styled.div`
+  background-color: white;
+  padding: 10px;
+  height: 450px;
+  overflow-y: auto;
+`;
+
+const ButtonList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px;
+  border-top: 1px solid gray;
+  gap: 50px;
+  padding-top: 30px;
 `;
 
 export default Chat;

@@ -67,7 +67,7 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -82,7 +82,7 @@ const Paper = () => {
   if (status === "error") {
     return alert("error");
   }
-  console.log(mypaper_data.categories);
+  // console.log(mypaper_data.categories);
   return (
     <>
       <Header />
