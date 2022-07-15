@@ -31,7 +31,7 @@ const WriteEdit = () => {
   const [category, setCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState("etc");
-  console.log(selectOption);
+  // console.log(selectOption);
   // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const WriteEdit = () => {
   //## 붙혀넣기 금지 이벤트 (ctnrl 키 금지)
   const onKeyDown = (e) => {
     window.onkeydown = (e) => {
-      console.log(e.key);
+      // console.log(e.key);
       if (e.key === "Control") {
         alert("붙혀넣기 금지");
       }
@@ -86,7 +86,7 @@ const WriteEdit = () => {
   };
   //## 'Click'시 태그 삭제 이벤트
   const onClcik_tag = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
     setTagList(
       tagList.filter((tag, index) => {
         return index !== +e.target.id; // + 대신 Number(  )해도 숫자형으로 바꿀 수 있다.
@@ -104,7 +104,7 @@ const WriteEdit = () => {
     formData.append("image", thumbImage);
     // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data?.data.imageUrl);
+    // console.log(image_data?.data.imageUrl);
 
     const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -158,7 +158,7 @@ const WriteEdit = () => {
   if (status === "error") {
     return alert("error");
   }
-  console.log(mypaper_data);
+  // console.log(mypaper_data);
   return (
     <>
       {openModal ? (
@@ -278,13 +278,13 @@ const WriteEdit = () => {
             alert("붙혀넣기 금지");
           }}
         >
-          <textarea
+          <Title
             placeholder="제목 쓰는 곳이야"
             onChange={(e) => {
               setHead(e.target.value);
             }}
-          ></textarea>
-          <input
+          ></Title>
+          <HashTagInput
             name="HashTagInput"
             type="text"
             value={tag || ""}
@@ -294,14 +294,14 @@ const WriteEdit = () => {
             onChange={(e) => {
               setTag(e.target.value);
             }}
-          ></input>
+          ></HashTagInput>
           <HashWrapOuter>
             {tagList.length > 0 ? (
               tagList.map((value, index) => {
                 return (
-                  <div key={value + index} onClick={onClcik_tag}>
+                  <Tag key={value + index} onClick={onClcik_tag}>
                     <p id={index}>{value}</p>
-                  </div>
+                  </Tag>
                 );
               })
             ) : (
@@ -371,11 +371,51 @@ const WriteEdit = () => {
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin: 10px;
 `;
 
 const Thumbmail = styled.img`
   width: 15vw;
   height: 100px;
+`;
+
+const Title = styled.input`
+  display: block;
+  height: 50px;
+  width: 500px;
+  margin: 10px;
+`;
+
+const HashTagInput = styled.input`
+  display: block;
+  width: auto;
+  margin: 10px;
+  display: inline-flex;
+  outline: none;
+  cursor: text;
+  line-height: 2rem;
+  margin-bottom: 0.75rem;
+  min-width: 8rem;
+  border: none;
+`;
+
+const Tag = styled.div`
+  height: 25px;
+  width: 90px;
+  box-sizing: border-box;
+  border: 2px solid #333333;
+  border-radius: 20px;
+  padding: 5px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 3px;
 `;
 
 // const HashInput = styled.input`

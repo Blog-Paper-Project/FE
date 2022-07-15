@@ -13,7 +13,7 @@
   font-family: 'bombaram', 'NotoSansKR', 굴림;
 }
 
-.modal {
+.headmodal {
   display: none;
   position: fixed;
   top: 0;
@@ -24,33 +24,50 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal button {
+.headmodal button {
   outline: none;
   cursor: pointer;
   border: 0;
-  background-color: rgb(74, 21, 75);
+  background-color: #D9D9D9;
   color: white;
 }
 
-.modal>section {
-  width: 90%;
-  max-width: 450px;
+.headmodal>section {
+  width: 100%;
+  height: 100%;
+  max-width: 460px;
+  max-height: 488px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #fff !important;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-show 0.3s;
+  animation: headmodal-show 0.3s;
   overflow: hidden;
 }
 
-.modal>section>header {
-  position: relative;
-  padding: 16px 64px 16px 16px;
-  background-color: rgb(74, 21, 75);
-  color: white;
+.headmodal>section>header {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: white;
+  color: black;
   font-weight: 700;
 }
 
-.modal>section>header button {
+.headmodal>section>header>p {
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  background-color: white !important;
+  color: black;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.headmodal>section>header button {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -62,33 +79,46 @@
   background-color: transparent;
 }
 
-.modal>section>main {
+.headmodal>section>main {
+  width: 100%;
+  height: 27%;
   padding: 16px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
 }
 
-.modal>section>footer {
+.headmodal>section>footer {
+  width: 100%;
+  height: 43%;
   padding: 12px 16px;
-  text-align: right;
+  text-align: center;
 }
 
-.modal>section>footer button {
+.headmodal>section>footer>buttonbox {
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+}
+
+.headmodal>section>footer>buttonbox>button {
+  width: 76%;
+  height: 50px;
   padding: 6px 12px;
-  color: #fff;
+  color: #000;
   background-color: #6c757d;
   border-radius: 5px;
   font-size: 13px;
 }
 
-.modal.openModal {
+.headmodal.openModal {
   display: flex;
   align-items: center;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-bg-show 0.3s;
+  animation: headmodal-bg-show 0.3s;
 }
 
-@keyframes modal-show {
+@keyframes headmodal-show {
   from {
     opacity: 0;
     margin-top: -50px;
@@ -100,7 +130,7 @@
   }
 }
 
-@keyframes modal-bg-show {
+@keyframes headmodal-bg-show {
   from {
     opacity: 0;
   }
