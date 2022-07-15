@@ -10,13 +10,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
+import "./Main.css";
 
 // import required modules
 import { Grid, Pagination } from "swiper";
 
 /* 컴포넌트 */
 import Header from "../components/main/Header";
-import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
 import Footer from "../components/main/Footer";
@@ -286,6 +286,7 @@ const Main = () => {
           <div className="poText">Popular Bloger</div>
         </PopularBloger>
         <PopularBox>
+          
           <Swiper
             slidesPerView={3}
             grid={{
@@ -318,8 +319,8 @@ const Main = () => {
           </Swiper>
         </PopularBox>
         <EndBox>
-          <div>PAPER에 담긴 아름다운 작품을 감상해 보세요.</div>
-          <div>글을 써서 나뭇잎을 모아 나무로 만드세요</div>
+          <div className="enTitle">PAPER에 담긴 아름다운 작품을 감상해 보세요.</div>
+          <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
         </EndBox>
         <Footer />
       </MainBox>
@@ -471,25 +472,39 @@ const PopularBloger = styled.div`
 
 const PopularBox = styled.div`
   width: 90%;
-  height: 20%;
+  height: 21%;
   padding: 20px 0 0 0;
 `;
 
 const Popular = styled.div`
-  background-color: pink;
-  width: 524px;
-  height: 410px;
+  background-color: #e5e2db;
+  width: 500px;
+  height: 395px;
   margin-bottom: px;
   outline: 1px solid;
   display: block;
 `;
 const EndBox = styled.div`
   width: 100%;
-  height: 9%;
+  height: 8%;
   border-top: 1px solid #acacac;
   border-bottom: 1px solid #acacac;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
   outline: 1px solid #acacac;
+ 
+  .enTitle{    
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 150%;
+  }
+  .enText{
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 150%;
+  }
 `;
 
 const Box = styled.div`
