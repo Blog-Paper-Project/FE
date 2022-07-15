@@ -6,13 +6,11 @@ import { socket } from "../App";
 import Peer from "simple-peer";
 
 import TextField from "@material-ui/core/TextField";
-import { CopyToClipboard } from "react-copy-to-clipboard";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import AssignmentIcon from "@material-ui/icons/Assignment";
 import PhoneIcon from "@material-ui/icons/Phone";
-import Header from "../components/main/Header";
-import Footer from "../components/main/Footer";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import AssignmentIcon from "@material-ui/icons/Assignment";
 
 /* emit 보내기 on 받기 */
 
@@ -40,6 +38,7 @@ const Chat = () => {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
+  const boxRef = useRef();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -146,8 +145,8 @@ const Chat = () => {
             .find((sender) => sender.track.kind === screenTrack.kind)
             .replaceTrack(screenTrack);
           stream.getTracks().forEach((track) => track.stop());
-          myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
         };
+        myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
       });
   };
 
@@ -179,13 +178,24 @@ const Chat = () => {
   const leaveChat = () => {
     socket.emit("leaveRoom");
     setCallEnded(true);
-    // connectionRef.current.destroy();
+    stream.getTracks().forEach(function (track) {
+      track.stop();
+    });
     navigate("/myprofile");
   };
 
+  const scrollToBottom = () => {
+    if (boxRef.current) {
+      boxRef.current.scrollTop = boxRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  });
+
   return (
     <ChatContainer>
-      <Header />
       <ChatBox>
         <MyCam>
           <video
@@ -193,31 +203,8 @@ const Chat = () => {
             muted
             ref={myVideo}
             autoPlay
-            style={{ width: "300px" }}
+            style={{ width: "100%" }}
           />
-          <div>
-            {audioOn ? (
-              <button size={25} onClick={audioHandler}>
-                소리끄기!!
-              </button>
-            ) : (
-              <button size={25} onClick={audioHandler}>
-                소키키기!!
-              </button>
-            )}
-            {videoOn ? (
-              <button size={25} onClick={videoHandler}>
-                화면끄기
-              </button>
-            ) : (
-              <button size={25} onClick={videoHandler}>
-                화면키키
-              </button>
-            )}
-            <button size={25} onClick={shareScreen}>
-              화면공유
-            </button>
-          </div>
         </MyCam>
         <UserCam>
           {callAccepted && !callEnded ? (
@@ -231,37 +218,48 @@ const Chat = () => {
             <img
               alt=""
               src={"https://www.snsboom.co.kr/common/img/default_profile.png"}
+              style={{ width: "100%" }}
             />
           )}
         </UserCam>
 
         <ChatList>
-          {messageList.map((messageContent, index) => {
-            return (
-              <div key={index}>
-                {messageContent.type === "connect" ? (
-                  <p>{messageContent.name} 님이 입장하였습니다</p>
-                ) : null}
-                {messageContent.type === "disconnect" ? (
-                  <p>{messageContent.name} 님이 퇴장하였습니다</p>
-                ) : null}
-                {messageContent.nick == nickname ? (
-                  <div>
-                    <p style={{ color: "blue" }}>{messageContent.nick}</p>
-                    <p>{messageContent.message}</p>
-                    <p id="time">{messageContent.time}</p>
-                  </div>
-                ) : (
-                  <div>
-                    <p style={{ color: "red" }}>{messageContent.nick}</p>
-                    <p>{messageContent.message}</p>
-                    <p id="time">{messageContent.time}</p>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-          <div>
+          <ChatChat ref={boxRef}>
+            {messageList.map((messageContent, index) => {
+              return (
+                <div key={index}>
+                  {messageContent.type === "connect" ? (
+                    <p>{messageContent.name} 님이 입장하였습니다</p>
+                  ) : null}
+                  {messageContent.type === "disconnect" ? (
+                    <p>{messageContent.name} 님이 퇴장하였습니다</p>
+                  ) : null}
+                  {messageContent.nick == nickname ? (
+                    <div>
+                      <p style={{ color: "blue" }}>{messageContent.nick}</p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <p>{messageContent.message}</p>
+                        <p id="time">{messageContent.time}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <p style={{ color: "red" }}>{messageContent.nick}</p>
+                      <p>{messageContent.message}</p>
+                      <p id="time">{messageContent.time}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </ChatChat>
+
+          <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
             <input
               type="text"
               placeholder="대화를 입력하세요."
@@ -272,12 +270,43 @@ const Chat = () => {
               ref={inputRef}
             />
             <button onClick={sendMessage}>보내기</button>
-            <button onClick={leaveChat}>나가기</button>
           </div>
         </ChatList>
       </ChatBox>
+      <ButtonList>
+        <div>
+          {audioOn ? (
+            <button size={25} onClick={audioHandler}>
+              소리끄기!!
+            </button>
+          ) : (
+            <button size={25} onClick={audioHandler}>
+              소키키기!!
+            </button>
+          )}
+        </div>
+        <div>
+          {videoOn ? (
+            <button size={25} onClick={videoHandler}>
+              화면끄기
+            </button>
+          ) : (
+            <button size={25} onClick={videoHandler}>
+              화면키키
+            </button>
+          )}
+        </div>
+        <div>
+          <button size={25} onClick={shareScreen}>
+            화면공유
+          </button>
+        </div>
+        <div>
+          <button onClick={leaveChat}>나가기</button>
+        </div>
+      </ButtonList>
 
-      {/* <div className="myId">
+      <div className="myId">
         <TextField
           id="filled-basic"
           label="Name"
@@ -319,8 +348,7 @@ const Chat = () => {
             </Button>
           </div>
         ) : null}
-      </div> */}
-      <Footer />
+      </div>
     </ChatContainer>
   );
 };
@@ -330,38 +358,60 @@ const ChatContainer = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #e5e2db;
+  height: 100vh;
+  padding-top: 50px;
 `;
 
 const ChatBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-`;
-
-const ChatList = styled.div`
-  background-color: #d9d9d9;
-  height: 300px;
-  flex-direction: column;
+  gap: 50px;
 `;
 
 const MyCam = styled.div`
-  width: 100%;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: gray;
   > button {
-
   }
 `;
 
-
 const UserCam = styled.div`
-  width: 100%;
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: gray;
+`;
+
+const ChatList = styled.div`
+  background-color: #d9d9d9;
+  height: 480px;
+  flex-direction: column;
+  position: relative;
+  width: 283px;
+  padding: 10px;
+`;
+
+const ChatChat = styled.div`
+  background-color: white;
+  padding: 10px;
+  height: 450px;
+  overflow-y: auto;
+`;
+
+const ButtonList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px;
+  border-top: 1px solid gray;
+  gap: 50px;
+  padding-top: 30px;
 `;
 
 export default Chat;
