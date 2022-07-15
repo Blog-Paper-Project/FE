@@ -28,7 +28,8 @@ const Main = () => {
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
-    staleTime: 50000,
+    staleTime: 0,
+    cacheTime: 0,
     onSuccess: (data) => {
       console.log(data);
     },
@@ -50,7 +51,7 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <div>The PAPER</div>
+          <div>PAPER</div>
         </MainTop>
         <PostBox>
           {/* 왼쪽글 */}
@@ -352,13 +353,12 @@ const MainTop = styled.div`
   align-items: center;
   width: 100%;
   height: 9%;
-  outline: 1px solid #acacac;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 90px;
-  font-weight: 400;
-  line-height: 90px;
+  border-bottom: 1px solid black;
+  text-align: center;
+  > div {
+    font-weight: bolder;
+    font-size: 175px;
+  }
 `;
 const PostBox = styled.div`
   width: 100%;
@@ -367,135 +367,129 @@ const PostBox = styled.div`
 const Post1 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: black;
   float: left;
 `;
 const Post11 = styled.div`
   width: 100%;
   height: 54%;
-  outline: 1px solid #acacac;
+  background-color: yellow;
 `;
 const Post12 = styled.div`
   width: 100%;
   height: 46%;
+  background-color: blue;
 `;
 const Post121 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: white;
   float: left;
 `;
 const Post1211 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: green;
 `;
 const Post1212 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: purple;
 `;
 const Post122 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: brown;
   float: right;
 `;
 const Post1221 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: blue;
 `;
 const Post1222 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: red;
 `;
 const Post2 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: black;
   float: left;
 `;
 const Post21 = styled.div`
   width: 100%;
   height: 54%;
+  background-color: gray;
 `;
 const Post211 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: blue;
 `;
 const Post212 = styled.div`
   width: 100%;
   height: 50%;
+  background-color: purple;
   float: left;
 `;
 const Post2121 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: brown;
   float: right;
-  outline: 1px solid #acacac;
 `;
 const Post2122 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid #acacac;
+  background-color: white;
 `;
 const Post22 = styled.div`
   width: 100%;
   height: 46%;
+  background-color: lime;
 `;
 const Post221 = styled.div`
   width: 100%;
   height: 50%;
-  outline: 1px solid #acacac;
+  background-color: #1db6ca;
 `;
 const Post222 = styled.div`
   width: 100%;
   height: 50%;
+  background-color: #829629;
 `;
 const Post2221 = styled.div`
   width: 50%;
   height: 100%;
+  background-color: #c21f7e;
   float: right;
-  outline: 1px solid #acacac;
 `;
 const Post2222 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid #acacac;
+  background-color: #7c24b6;
 `;
 
 const PopularBloger = styled.div`
   width: 100%;
-  height: 3%;
-  outline: 1px solid #acacac;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 3%;
-  .poTitle {
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 150%;
-  }
-  .poText {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 150%;
-  }
+  height: 5%;
+  border-top: 1px solid #acacac;
+  border-bottom: 1px solid #acacac;
+  text-align: center;
 `;
 
 const PopularBox = styled.div`
-  width: 90%;
+  width: 90vw;
   height: 20%;
-  padding: 20px 0 0 0;
 `;
 
 const Popular = styled.div`
   background-color: pink;
-  width: 524px;
-  height: 410px;
-  margin-bottom: px;
-  outline: 1px solid;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 56px;
   display: block;
 `;
 const EndBox = styled.div`
@@ -504,7 +498,6 @@ const EndBox = styled.div`
   border-top: 1px solid #acacac;
   border-bottom: 1px solid #acacac;
   text-align: center;
-  outline: 1px solid #acacac;
 `;
 
 export default Main;
