@@ -7,6 +7,7 @@ import { apiToken } from "../shared/apis/Apis";
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
+import styled from "styled-components";
 /* 해야 할 것 */
 //1. 블로그 글 눌러서 들어갔을 때 주소 맨 뒤 params의 postId를 얻어 내야한다.
 //2. 아래 map 돌린 거 array 정확히 다 받으면 그거 돌리자
@@ -84,17 +85,20 @@ const Paper = () => {
   }
   // console.log(mypaper_data.categories);
   return (
-    <>
+    <Container>
       <Header />
-      <p style={{ cursor: "pointer" }} onClick={onBasic}>
-        기본 정렬 (카테고리별){" "}
-      </p>
-      <p style={{ cursor: "pointer" }} onClick={onTag}>
-        태그 정렬
-      </p>
-      <p style={{ cursor: "pointer" }} onClick={onAll}>
-        전체 정렬
-      </p>
+      <MyProfile></MyProfile>
+      <SortType>
+        <p style={{ cursor: "pointer" }} onClick={onBasic}>
+          Basic
+        </p>
+        <p style={{ cursor: "pointer" }} onClick={onTag}>
+          Tag
+        </p>
+        <p style={{ cursor: "pointer" }} onClick={onAll}>
+          All
+        </p>
+      </SortType>
 
       {/* 아래 카테고리 ( 기본) 정렬 렌더링 */}
       {basicSort ? (
@@ -143,20 +147,19 @@ const Paper = () => {
 
       {/* 아래 태그 정렬 렌더링*/}
       {tagSort ? (
-        <>
-          <div> 태그 정렬이 보일 예정</div>
-
-          {mypaper_data?.tags.map((value, index) => {
-            return <div key={index}>{value}</div>;
-          })}
-        </>
+        <TagSortWrap>
+          <TagSort>
+            {mypaper_data?.tags.map((value, index) => {
+              return <Tag key={index}>{value}</Tag>;
+            })}
+          </TagSort>
+        </TagSortWrap>
       ) : null}
 
       {/* 아래 전체 정렬 렌더링*/}
       {allSort ? (
-        <>
-          <div> 전체 정렬이 보일 예정</div>
-          <div>
+        <AllSortWrap>
+          <AllSort>
             {mypaper_data?.user.Papers.map((value, idx) => {
               // console.log(mypaper_data);
 
@@ -172,11 +175,102 @@ const Paper = () => {
                 />
               );
             })}
-          </div>
-        </>
+          </AllSort>
+        </AllSortWrap>
       ) : null}
-    </>
+    </Container>
   );
 };
 
+// Container 이 페이지 전체 박스
+const Container = styled.div`
+  height: 500vh;
+`;
+// MyProfile 박스
+const MyProfile = styled.div`
+  height: 200px;
+  width: 30vw;
+`;
+
+// SortType 정렬들의 부모 박스
+const SortType = styled.div`
+  height: 100px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: x-large;
+  gap: 1%;
+
+  > p:hover {
+    position: relative;
+
+    text-decoration: underline;
+    text-underline-position: under;
+    text-decoration-thickness: 2px;
+  }
+`;
+
+// TagSortWrap wrap - 3
+const TagSortWrap = styled.div`
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+// TagSort box - 3
+const TagSort = styled.div`
+  height: 80vh;
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 110px;
+  gap: 1%;
+`;
+// Tag div - 3
+const Tag = styled.div`
+  height: 25px;
+  width: 90px;
+  box-sizing: border-box;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 5px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  :hover {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    transition: all 0.3s;
+  }
+`;
+// AllSortWrap wrap - 4
+const AllSortWrap = styled.div`
+  height: 2000px;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 120px;
+`;
+// AllSort box - 4
+const AllSort = styled.div`
+  height: 80vh;
+  width: 70vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12%;
+`;
 export default Paper;

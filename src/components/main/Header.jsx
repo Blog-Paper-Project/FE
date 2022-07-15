@@ -116,7 +116,7 @@ const Header = () => {
   );
 };
 const HeaderBox = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -127,13 +127,13 @@ const Svg = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: auto;
+  /* margin: auto; */
 `;
 const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
   height: 80px;
-  border: 1px solid #acacac;
+  border: 1px solid black;
 
   display: flex;
   align-items: center;
@@ -141,12 +141,12 @@ const Logo = styled.div`
 const Search = styled.div`
   width: 46%;
   height: 80px;
-  border: 1px solid #acacac;
+  border: 1px solid black;
 `;
 const Login = styled.div`
   width: 27%;
   height: 80px;
-  border: 1px solid #acacac;
+  border: 1px solid black;
   align-items: center;
 `;
 const ProfileImgBox = styled.div`

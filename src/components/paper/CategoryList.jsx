@@ -9,7 +9,7 @@ const CategoryList = (props) => {
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-  console.log("category", categories);
+  // console.log("category", categories);
   // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {

@@ -51,9 +51,7 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <div>The PAPER | write</div>
-          <div>PAPER에 담긴 아름다운 작품을 감상해 보세요.</div>
-          <div>글을 써서 나뭇잎을 모아 나무로 만드세요.</div>
+          <div>PAPER</div>
         </MainTop>
         <PostBox>
           {/* 왼쪽글 */}
@@ -132,7 +130,7 @@ const Main = () => {
                           <p>유저아이디= {item?.userId}</p>
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
-                                                   <p>포스트번호={item?.postId}</p>{" "}
+                          <p>포스트번호={item?.postId}</p>{" "}
                         </div>
                       </div>
                     </Post1221>
@@ -151,7 +149,7 @@ const Main = () => {
                           <p>유저아이디= {item?.userId}</p>
                           <p>라이크={item?.likes}</p>
                           <p>타이틀={item?.title}</p>
-<p>포스트번호={item?.postId}</p>{" "}
+                          <p>포스트번호={item?.postId}</p>{" "}
                         </div>
                       </div>
                     </Post1222>
@@ -346,14 +344,21 @@ const Main = () => {
 };
 
 const MainBox = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   height: 4096px;
 `;
 const MainTop = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 9%;
-  border-bottom: 1px solid #acacac;
+  border-bottom: 1px solid black;
   text-align: center;
+  > div {
+    font-weight: bolder;
+    font-size: 175px;
+  }
 `;
 const PostBox = styled.div`
   width: 100%;

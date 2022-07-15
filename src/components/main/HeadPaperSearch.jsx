@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import styled from 'styled-components';
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router'
-import { BiSearchAlt2 } from "react-icons/bi"
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { BiSearchAlt2 } from "react-icons/bi";
 
 /* 컴포넌트 */
 import { __searchPost } from "../../redux/modules/Search";
@@ -43,12 +43,10 @@ const SearchBox = styled.div`
   position: relative;
   align-items: center;
   padding-left: 4%;
-  
-`
+`;
 
 const Search1 = styled.input`
-  
-  background-color: #E5E2DB;
+  background-color: #fffdf7;
   box-sizing: border-box;
   padding: 16px 23px;
   border: none;
