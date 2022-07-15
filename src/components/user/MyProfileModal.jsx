@@ -131,7 +131,7 @@ const MyProfileModal = (props) => {
           <section>
             <header>
               {header}
-              <button className="open" onClick={close}>
+              <button className="close" onClick={close}>
                 닫기
               </button>
             </header>
@@ -177,7 +177,9 @@ const MyProfileModal = (props) => {
                       setCHGnickname(e.target.value);
                     }}
                   />
-                  <DupButton onClick={dupnick}>중복 확인</DupButton>
+                  <DupButton style={{ color: "white" }} onClick={dupnick}>
+                    중복 확인
+                  </DupButton>
                 </div>
                 <div>
                   <textarea
@@ -197,7 +199,6 @@ const MyProfileModal = (props) => {
                 </div>
               </InputBox>
             </div>
-
             <footer>
               {PreNickname === CHGnickname ? (
                 <button onClick={onsubmit1}>닉네임빼고수정</button>

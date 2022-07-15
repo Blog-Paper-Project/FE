@@ -29,6 +29,7 @@ const MyProfile = () => {
     if (isModalOpen === true) return setIsModalOpen(false);
   };
 
+  //로그인 상태일때만 get요청하는걸로 바꾸기
   const getMyProfile = async () => {
     const res = await apiToken.get("/user/myprofile");
     return res;
@@ -43,7 +44,7 @@ const MyProfile = () => {
   if (status === "loading") {
     return <div>loading...</div>;
   }
-  console.log(res);
+
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
 

@@ -38,9 +38,6 @@ const Login = () => {
       setCookie("token", AccessToken, 2);
       setCookie("nickname", Accessnickname, 2);
       setCookie("userId", AccessUseId, 2);
-
-      console.log(data);
-
       window.alert("로그인성공!!!!");
       navigate("/");
     },
