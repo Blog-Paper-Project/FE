@@ -7,7 +7,7 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 /* api */
-import { api, apiToken } from "../../shared/apis/Apis";
+import { apiToken } from "../../shared/apis/Apis";
 
 /* 컴포넌트 */
 import HeaderProfile from "./HeaderProfile";
@@ -28,10 +28,6 @@ const Header = () => {
   /* 쿠키 */
 
   /* 유저정보 모달창 */
-  const username = getCookie("username");
-  const nickname = getCookie("nickname");
-  
-
   const openModal = () => {
     setModalOpen(true);
   };
@@ -50,12 +46,19 @@ const Header = () => {
     "userpaper_query",
     useGetMyPaper,
     {
-      onSuccess: (userpaper_query) => {
-        // console.log(userpaper_query);
+      onSuccess: (data) => {
+        // console.log(data);
+      },
+      onError: (e) => {
+        alert(e.message);
       },
       staleTime: 50000,
     }
   );
+  const nickname = userpaper_query?.nickname
+  const profileImage = userpaper_query?.profileImage
+  console.log(profileImage)
+  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`
   if (status === "Loading") {
     return <div>loading...</div>;
   }
@@ -75,6 +78,21 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
+                <ProfileImgBox
+                  src={(profileImage === null)
+                    ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                    : profileButton
+                  }
+                  onClick={openModal}
+                />
+                <HeaderProfile
+                  open={modalOpen}
+                  close={closeModal}
+                  header="프로필"
+                  nickname={nickname}
+                  login={setCookie}
+                  profileImage={profileImage}
+                />
                 <button
                   onClick={() => {
                     navigate(`/paper/${userpaper_query.userId}`);
@@ -82,17 +100,6 @@ const Header = () => {
                 >
                   내 블로그로 가기
                 </button>
-                <ProfileImgBox>
-                  <button onClick={openModal}>유저이미지(모달오픈)</button>
-                  <HeaderProfile
-                    open={modalOpen}
-                    close={closeModal}
-                    header="프로필"
-                    username={username}
-                    nickname={nickname}
-                    login={setCookie}
-                  />
-                </ProfileImgBox>
                 <Link to="/write">
                   <div>글작성</div>
                 </Link>
@@ -124,34 +131,38 @@ const HeaderBox = styled.div`
 const Svg = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   /* margin: auto; */
 `;
 const Logo = styled.div`
-  width: 25%;
-  height: 80px;
-  outline: 1px solid #acacac;
   padding-left: 2%;
+  width: 27%;
+  height: 60px;
+  border: 1px solid black;
+
   display: flex;
   align-items: center;
 `;
 const Search = styled.div`
-  display: flex;
-  align-items: center !important;
   width: 46%;
-  height: 80px;
-  outline: 1px solid #acacac;
+  height: 60px;
+  border: 1px solid black;
 `;
 const Login = styled.div`
   width: 27%;
-  height: 80px;
-  outline: 1px solid #acacac;
-  display: flex;
+  height: 60px;
+  border: 1px solid black;
+
   align-items: center;
   justify-content: center;
 `;
-const ProfileImgBox = styled.div`
-  display: flex;
+const ProfileImgBox = styled.img`
+  width: 40px;
+  height: 40px;
+  margin: 0 0 0 0;
+  border-radius: 50px;
+  border: 1px solid;
+  align-items: center;
 `;
 
 export default Header;

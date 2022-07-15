@@ -5,7 +5,7 @@ import { deleteCookie } from "../../shared/Cookie";
 import { useNavigate } from "react-router-dom";
 
 const HeaderProfile = (props) => {
-  const { open, close, header, username, nickname, login } = props;
+  const { open, close, header, nickname, login, profileImage } = props;
   const navigate = useNavigate();
 
   const onLogout = () => {
@@ -16,6 +16,7 @@ const HeaderProfile = (props) => {
     close();
     navigate("/");
   };
+  const proImg = process.env.REACT_APP_S3_URL + `/${profileImage}`
 
   return (
     <>
@@ -29,15 +30,21 @@ const HeaderProfile = (props) => {
               </button>
             </header>
             <main>
-              {/* <ProfileImg src={profileImg} /> */}
-              <Nick style={{ fontWeight: "bolder", marginBottom: "10px" }}>
-                {nickname}
-              </Nick>
-              <Nick>{username}</Nick>
+              <MainBox>
+                <ProfileImg src={(profileImage === null)
+                  ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                  : proImg} />
+                <MainText>
+                  <Nick style={{ fontWeight: "bolder", marginBottom: "10px" }}>
+                    {nickname}
+                  </Nick>
+                </MainText>
+
+              </MainBox>
             </main>
             <footer>
-              <buttonbox>
-                <button
+              <ButtonBox>
+                <Button
                   className="close"
                   onClick={() => {
                     navigate(`/myprofile/`);
@@ -45,15 +52,15 @@ const HeaderProfile = (props) => {
                   style={{ backgroundColor: "#D9D9D9" }}
                 >
                   회원정보
-                </button>
-                <button
+                </Button>
+                <Button
                   className="close"
                   onClick={onLogout}
                   style={{ backgroundColor: "#D9D9D9" }}
                 >
                   로그아웃
-                </button>
-              </buttonbox>
+                </Button>
+              </ButtonBox>
             </footer>
           </section>
         ) : null}
@@ -63,15 +70,50 @@ const HeaderProfile = (props) => {
 };
 export default HeaderProfile;
 
-// const ProfileImg = styled.img`
-//   width: 300px;
-//   height: 300px;
-//   margin: 0 0 20px 55px;
-//   border-radius: 34px;
-//   align-items: center;
+const ProfileImg = styled.img`
+  width: 88px;
+  height: 88px;
+  margin: 0 0 20px 0;
+  border-radius: 50px;
+  border: 1px solid;
+  align-items: center;
 
-// `
+`
+const MainBox = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+`
+const MainText = styled.div`
+  padding-left:3%;
+  width: 72%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+ const Button= styled.div`
+    width: 79%;
+  height: 50px;
+  color: #000;
+  background-color: #6c757d;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 const Nick = styled.div`
-  text-align: center;
-  font-size: 20px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 32px;
 `;

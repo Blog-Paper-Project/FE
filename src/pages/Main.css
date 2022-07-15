@@ -10,12 +10,12 @@ body {
 
 body {
   justify-content: center !important;
-  background: #eee;
+  /* background: #eee; */
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
   margin: 0;
-  padding: 0;
+  padding: 400px;
 }
 
 .swiper {
@@ -33,7 +33,7 @@ body {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  background: #e5e2db;
+  background: #fffdf7;
   height: calc((100% - 30px) / 2) !important;
 
   /* Center slide text vertically */
