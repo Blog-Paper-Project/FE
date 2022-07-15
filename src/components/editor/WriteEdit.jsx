@@ -13,10 +13,6 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import { getCookie, setCookie } from "../../shared/Cookie";
 // import Meiyou2 from "../../public/images/Meiyou.";
-/*해야 할 것*/
-//1. 여기에 임시글 저장 버튼도 필요함.
-//2. 해시태그 post data 안에 key 값 찾아서 넣기
-//3. 상세페이지 post로 보낼 때 배열로 보내드릴 것 ( 배열로가 정확히 무슨 뜻일까?)
 
 const WriteEdit = () => {
   //## 글 작성 데이터 관련 state
@@ -122,15 +118,15 @@ const WriteEdit = () => {
   const queryClient = useQueryClient();
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
-      queryClient.invalidateQueries("paper_data", "detail_data");
+      queryClient.invalidateQueries("paper_data");
       // console.log(res?.userId);
 
       navigate(`/paper/${res?.userId}`);
       alert("post 성공!");
     },
-    // onError: (data === null) => {
-    //   alert("post 실패!");
-    // },
+    onError: (e) => {
+      alert(e.message);
+    },
   });
   // ## useQuery 카테고리 데이터 get 함수
   const GetMyPaperData = async () => {
