@@ -184,7 +184,8 @@ const Paper = () => {
 
 // Container 이 페이지 전체 박스
 const Container = styled.div`
-  height: 500vh;
+  height: 300vh;
+  overflow-x: hidden;
 `;
 // MyProfile 박스
 const MyProfile = styled.div`
@@ -255,20 +256,22 @@ const Tag = styled.div`
 `;
 // AllSortWrap wrap - 4
 const AllSortWrap = styled.div`
-  height: 2000px;
+  height: 2200px;
   width: 100vw;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
   top: 120px;
+  overflow: hidden;
+  overflow-x: hidden;
 `;
 // AllSort box - 4
 const AllSort = styled.div`
   height: 80vh;
   width: 70vw;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   gap: 12%;
