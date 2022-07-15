@@ -51,9 +51,6 @@ const Main = () => {
   const hPapers = paper_query?.data.papers[7];
   const iPapers = paper_query?.data.papers[8];
   const jPapers = paper_query?.data.papers[9];
-
-  console.log(aPapers?.contents);
-
   
 
   return (
@@ -468,7 +465,7 @@ const PopularBox = styled.div`
 `;
 
 const Popular = styled.div`
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   width: 500px;
   height: 395px;
   margin-bottom: px;
