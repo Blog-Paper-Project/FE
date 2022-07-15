@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/modal.css";
+import "../../css/headmodal.css";
 import styled from "styled-components";
 import { deleteCookie } from "../../shared/Cookie";
 import { useNavigate } from "react-router-dom";
@@ -23,11 +23,11 @@ const HeaderProfile = (props) => {
   return (
     <>
 
-      <div className={open ? "openModal modal" : "modal"}>
+      <div className={open ? "openModal headmodal" : "headmodal"}>
         {open ? (
           <section>
             <header>
-              {header}
+              <p style={{fontsize:"40px"}}>{header}</p>
               <button className="close" onClick={close}>
                 &times;
               </button>
@@ -40,13 +40,24 @@ const HeaderProfile = (props) => {
               <Nick>{username}</Nick>
             </main>
             <footer>
+              <buttonbox>
+              <button
+                className="close"
+                onClick={() => {
+                  navigate(`/myprofile/`);
+                }}
+                style={{ backgroundColor: "#D9D9D9" }}
+              >
+                회원정보
+              </button>
               <button
                 className="close"
                 onClick={onLogout}
-                style={{ backgroundColor: "rgb(74,21,75)" }}
+                style={{ backgroundColor: "#D9D9D9" }}
               >
                 로그아웃
               </button>
+              </buttonbox>            
             </footer>
           </section>
         ) : null}

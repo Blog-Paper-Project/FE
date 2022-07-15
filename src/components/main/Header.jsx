@@ -92,9 +92,6 @@ const Header = () => {
                     login={setCookie}
                   />
                 </ProfileImgBox>
-                <Link to="/myprofile">
-                  <div>마이프로필</div>
-                </Link>
                 <Link to="/write">
                   <div>글작성</div>
                 </Link>
@@ -122,6 +119,7 @@ const HeaderBox = styled.div`
   justify-content: center;
   width: 100%;
   height: 80px;
+
 `;
 const Svg = styled.div`
   display: flex;
@@ -130,23 +128,24 @@ const Svg = styled.div`
   margin: auto;
 `;
 const Logo = styled.div`
-  padding-left: 2%;
-  width: 27%;
+  width: 25%;
   height: 80px;
-  border: 1px solid #acacac;
-
+  outline: 1px solid #acacac;
+  padding-left: 2%;
   display: flex;
   align-items: center;
 `;
 const Search = styled.div`
+  display: flex;
+  align-items: center !important;
   width: 46%;
   height: 80px;
-  border: 1px solid #acacac;
+  outline: 1px solid #acacac;
 `;
 const Login = styled.div`
   width: 27%;
   height: 80px;
-  border: 1px solid #acacac;
+  outline: 1px solid #acacac;
   align-items: center;
 `;
 const ProfileImgBox = styled.div`

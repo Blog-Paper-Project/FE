@@ -38,7 +38,7 @@ function App() {
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/myblog/:userId/reservation" element={<Reservation />} />
+        <Route path="/paper/:userId/reservation" element={<Reservation />} />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
       </Routes>
     </>
