@@ -132,7 +132,7 @@ const Svg = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* margin: auto; */
+  margin: auto;
 `;
 const Logo = styled.div`
   padding-left: 2%;
@@ -165,6 +165,7 @@ const ProfileImgBox = styled.img`
   border-radius: 50px;
   outline: 1px solid black;
   align-items: center;
+  cursor: pointer;
 `;
 
 export default Header;

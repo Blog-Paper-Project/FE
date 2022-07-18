@@ -481,7 +481,6 @@ const MainTop = styled.div`
   align-items: center;
   width: 100%;
   height: 9%;
-  outline: 1px solid #acacac;
   display: flex;
   align-items: center;
   justify-content: center;

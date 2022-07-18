@@ -4,24 +4,15 @@ import Swal from "sweetalert2";
 
 //액션타입
 const GET_BOOKING = "GET_BOOKING";
-const PATCH_BOOKING = "PATCH_BOOKING";
-const GET_NOTI = "GET_NOTI";
 
 //액션 크리에이터
 const getBooking = (data) => {
   console.log(data);
   return { type: GET_BOOKING, data };
 };
-const patchBooking = (data) => {
-  return { type: PATCH_BOOKING, data };
-};
-const getNoti = (data) => {
-  return { type: GET_NOTI, data };
-};
 
 const initialState = {
   list: [],
-  noti: [],
 };
 
 //---------청크--------------//
@@ -30,7 +21,6 @@ let userName = getCookie("userId");
 // console.log(userName);
 export const setBookingDB = (data, userId, LeafCount) => {
   return function (dispatch, getCookie) {
-    // let isTutor = getCookie('nickname')
     console.log(userId);
     console.log(userName);
     console.log("DB 저장으로 가는 데이터 : ", { data, userId, LeafCount });
@@ -137,11 +127,10 @@ export const getBookingDB = () => {
 
 // 예약 수락하기
 export const patchBookingDB = (hostId) => {
-  console.log(hostId);
-  return function (dispatch) {
+    return function () {
     apiToken({
       method: "patch",
-      url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
+      url: `/api/booking/${hostId.userId}/${hostId.bookingId}`,
     })
       .then(() => {})
       .catch((err) => {
@@ -150,31 +139,41 @@ export const patchBookingDB = (hostId) => {
   };
 };
 
-// 알림 예약 불러오기
-export const getBookingNotiDB = (userId) => {
-  return function (dispatch, getState) {
-    api({
-      method: "get",
-      url: `/api/booking/${userId}`,
-      headers: { token: `${getCookie("token")}` },
+// 호스트 예약 취소
+export const deleteHostBookingDB = (hostId) => {
+  console.log(hostId)
+  return function () {
+    apiToken({
+      method: "delete",
+      url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
     })
-      .then((doc) => {
-        dispatch(getNoti(doc.data));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .then(() => {})
+    .catch((err) => {
+      console.log(err);
+    });
   };
 };
+
+// 게스트 예약 취소
+export const deleteGuestBookingDB = (User, bookingId) => {
+  return function () {
+    console.log(User, bookingId)
+    apiToken({
+      method: "delete",
+      url: `/api/booking/${User}/${bookingId}`,
+    })
+    .then(() => {})
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+};
+
 
 //리듀서
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKING:
-      return { data: action.data };
-    case PATCH_BOOKING:
-      return { data: action.data };
-    case GET_NOTI:
       return { data: action.data };
     default:
       return state;

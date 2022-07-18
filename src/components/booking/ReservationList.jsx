@@ -12,13 +12,13 @@ const ReservationList = () => {
   //마이페이지 유저정보
   // const userInfo = useSelector((state) => state.user.detailInfo);
   // 마이페이지 예약정보 불러오기 위한 값들
- 
+
   //  불러온 예약 정보
   const bookingList = useSelector((state) => state?.bookingReducer.data);
   useEffect(() => {
     dispatch(getBookingDB());
   }, []);
- console.log(bookingList)
+  console.log(bookingList)
 
   return (
     <Wrap>
@@ -34,13 +34,13 @@ const ReservationList = () => {
             {bookingList?.guestBookingList.map((item, idx) => {
               return (
                 <BookingItem
-                  
+
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
                 />
               );
-            })}            
+            })}
           </ul>
         </div>
       </div>
@@ -56,13 +56,13 @@ const ReservationList = () => {
             {bookingList?.hostBookingList.map((item, idx) => {
               return (
                 <BookingItem
-                 
+
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
                 />
               );
-            })}            
+            })}
           </ul>
         </div>
       </div>
@@ -212,6 +212,19 @@ const Wrap = styled.div`
             background-color: #153587;
           }
 
+          .waitBtn {
+            width: 15%;
+            max-width: 240px;
+            height: 50px;
+            border: none;
+            padding: 10px 8px 9px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bolder;
+            color: #fff;
+            background-color: #666666;
+          }
+
           .delBtn {
             width: 15%;
             max-width: 200px;
@@ -224,11 +237,10 @@ const Wrap = styled.div`
             color: #fff;
             margin-left: 5px;
             cursor: pointer;
-
             background-color: #981821;
           }
 
-          .deleteBtn {
+          /* .deleteBtn {
             width: 32%;
             max-width: 253px;
             height: 50px;
@@ -239,9 +251,8 @@ const Wrap = styled.div`
             font-weight: bolder;
             color: #fff;
             margin-left: 5px;
-
             background-color: #525252;
-          }
+          } */
         }
       }
     }
