@@ -645,4 +645,6 @@ const EndBox = styled.div`
     line-height: 150%;
   }
 `;
+
+
 export default Main;

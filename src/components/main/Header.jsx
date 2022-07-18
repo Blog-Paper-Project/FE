@@ -132,18 +132,18 @@ const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
   height: 60px;
+  padding-left: 2%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid black;
+  outline: 1px solid black;
+
 `;
 const Search = styled.div`
   display: flex;
   align-items: center !important;
   width: 46%;
   height: 60px;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  border-left: 1px solid black;
+  outline: 1px solid black;
 `;
 const Login = styled.div`
   width: 27%;
@@ -159,7 +159,7 @@ const ProfileImgBox = styled.img`
   height: 40px;
   margin: 0 0 0 0;
   border-radius: 50px;
-  border: 1px solid black;
+  outline: 1px solid black;
   align-items: center;
 `;
 export default Header;
