@@ -35,7 +35,8 @@ const MyProfile = () => {
     return res;
   };
   const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
-    staleTime: Infinity,
+    staleTime: 0,
+    cacheTime: 0,
     onSuccess: (data) => {
       return data;
     },
@@ -138,7 +139,7 @@ const MyProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e5e2db;
+  background-color: #fffdf7;
 `;
 
 const ProfileBox = styled.div`
@@ -188,6 +189,7 @@ const Intro = styled.div`
   height: 102px;
   padding: 10px;
   margin-top: 8px;
+  border: solid 1px;
 `;
 
 const PointWrap = styled.div`
@@ -209,6 +211,7 @@ const PointBox = styled.div`
   font-size: 14px;
   display: flex;
   align-items: center;
+  border: solid 1px;
 `;
 
 const ProfileButton = styled.button`

@@ -251,8 +251,15 @@ const Chat = () => {
                   ) : (
                     <div>
                       <p style={{ color: "red" }}>{messageContent.nick}</p>
-                      <p>{messageContent.message}</p>
-                      <p id="time">{messageContent.time}</p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <p>{messageContent.message}</p>
+                        <p id="time">{messageContent.time}</p>
+                      </div>
                     </div>
                   )}
                 </div>
