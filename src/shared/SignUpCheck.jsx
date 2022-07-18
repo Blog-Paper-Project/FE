@@ -10,6 +10,12 @@ export const nicknameCheck = (nickname) => {
     return SignUpCheck.test(nickname)
 }
 
+export const blogIdCheck = (blogId) => {
+    let SignUpCheck = /^[0-9a-zA-Z]{3,15}$/;
+
+    return SignUpCheck.test(blogId)
+}
+
 export const passwordCheck = (password) => {
     let SignUpCheck = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 

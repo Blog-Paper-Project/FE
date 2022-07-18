@@ -53,7 +53,7 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <div>The PAPER</div>
+          <div>PAPER</div>
         </MainTop>
         <PostBox>
           {/* 왼쪽글 */}
@@ -484,8 +484,8 @@ const MainTop = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 90px;
-  font-weight: 400;
+  font-size: 160px;
+  font-weight: 600;
   line-height: 90px;
 `;
 const PostBox = styled.div`
@@ -496,6 +496,8 @@ const Post1 = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  /* border: 1px solid black; */
+  /* padding: 20px; */
 `;
 const Post11 = styled.div`
   width: 100%;
@@ -592,7 +594,6 @@ const Post2222 = styled.div`
   height: 100%;
   outline: 1px solid;
 `;
-
 const PopularBloger = styled.div`
   width: 100%;
   height: 3%;
@@ -613,13 +614,11 @@ const PopularBloger = styled.div`
     line-height: 150%;
   }
 `;
-
 const PopularBox = styled.div`
   width: 90%;
   height: 21%;
   padding: 20px 0 0 0;
 `;
-
 const Popular = styled.div`
   background-color: #fffdf7;
   width: 500px;
@@ -633,10 +632,9 @@ const EndBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  
-  outline: 1px solid black;
- 
-  .enTitle{    
+  justify-content: center;
+  border-top: 1px solid black;
+  .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
@@ -647,5 +645,6 @@ const EndBox = styled.div`
     line-height: 150%;
   }
 `;
+
 
 export default Main;

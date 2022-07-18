@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCookie } from '../../shared/Cookie';
 import { deleteGuestBookingDB, deleteHostBookingDB, patchBookingDB } from '../../redux/modules/Booking';
@@ -14,7 +14,7 @@ const BookingItem = (props) => {
 
   const { item } = props;
   // 조건에 필요한 정보
-  const User = Number(getCookie('userId'));
+  const User = Number(getCookie("userId"));
   const Host = Number(item?.hostId);
   const Guest = Number(item?.guestId);
   const hostId = Number(item?.hostId);
@@ -23,14 +23,10 @@ const BookingItem = (props) => {
   // const TuteeDel = item.TuteeDel;
   const timeId = item.bokingId;
   // console.log(item)
-  console.log(hostId)
-
-
-
+  console.log(hostId, bookingId);
   // 예약 정보
   // let startTime = item.start;
   // let endTime = item.end;
-
   if (!item) return null;
   // let [week, month, day, year, sTime] = startTime.split(' ');
   // let start = sTime.substr(0, 5);
@@ -46,12 +42,8 @@ const BookingItem = (props) => {
               {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item?.hostId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">
-                  {item?.date}
-                </span>
-                <span className="timeInfo">
-                  {item?.time}
-                </span>
+                <span className="dayInfo">{item?.date}</span>
+                <span className="timeInfo">{item?.time}</span>
               </div>
             </div>
             <button
@@ -89,8 +81,7 @@ const BookingItem = (props) => {
               className="videoBtn"
               onClick={() => {
                 navigate({
-                  pathname: `/videochat/${item.hostId + item.guestId
-                    }`,
+                  pathname: `/chat/${item.hostId}/${item.guestId}`,
                   state: item.hostId,
                 });
               }}
@@ -111,19 +102,15 @@ const BookingItem = (props) => {
               {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">
-                  {item.date}
-                </span>
-                <span className="timeInfo">
-                  {item.time}
-                </span>
+                <span className="dayInfo">{item.date}</span>
+                <span className="timeInfo">{item.time}</span>
               </div>
             </div>
 
             <button
               className="videoBtn"
               onClick={() => {
-                dispatch(patchBookingDB({ hostId, bookingId }))
+                dispatch(patchBookingDB({ hostId, bookingId }));
               }}
             >
               '수락하기'

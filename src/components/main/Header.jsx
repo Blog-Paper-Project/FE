@@ -5,28 +5,23 @@ import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
-
 /* api */
 import { apiToken } from "../../shared/apis/Apis";
-
 /* 컴포넌트 */
 import HeaderProfile from "./HeaderProfile";
 import HeadPaperSearch from "./HeadPaperSearch";
-
 const Header = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
   const navigate = useNavigate();
   /* 쿠키 */
   const cookie = getCookie("token");
   const [is_cookie, setCookie] = React.useState(false);
-
   React.useEffect(() => {
     if (cookie !== undefined) {
       return setCookie(true);
     }
   }, []);
   /* 쿠키 */
-
   /* 유저정보 모달창 */
   const openModal = () => {
     setModalOpen(true);
@@ -35,7 +30,6 @@ const Header = () => {
     setModalOpen(false);
   };
   /* 유저정보 모달창 */
-
   /* 개인페이지 이동 */
   const useGetMyPaper = async () => {
     const userData = await apiToken.get("/user/myprofile");
@@ -121,7 +115,7 @@ const Header = () => {
   );
 };
 const HeaderBox = styled.div`
-  background-color: #fffdf7;
+  background-color: #FFFDF7;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -142,6 +136,7 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   outline: 1px solid black;
+
 `;
 const Search = styled.div`
   display: flex;
@@ -153,10 +148,11 @@ const Search = styled.div`
 const Login = styled.div`
   width: 27%;
   height: 60px;
-  outline: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
@@ -167,5 +163,4 @@ const ProfileImgBox = styled.img`
   align-items: center;
   cursor: pointer;
 `;
-
 export default Header;

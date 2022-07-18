@@ -5,8 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 import UseInput from "../hooks/UseInput";
 
 /* 컴포넌트 */
-import { emailCheck } from "../shared/SignUpCheck";
-import { nicknameCheck } from "../shared/SignUpCheck";
+import { emailCheck, nicknameCheck, blogIdCheck } from "../shared/SignUpCheck";
 import SignUpModal from "../components/user/SignUpModal";
 import { api } from "../shared/apis/Apis";
 import Header from "../components/main/Header";
@@ -21,13 +20,12 @@ const SignUp = () => {
 
   const [email, setEmail] = UseInput(null);
   const [nickname, setNickname] = UseInput(null);
+  const [blogId, setBlogId] = UseInput(null);
   const [password, setPassword] = UseInput(null);
   const [confirmPassword, setConfirmPassword] = UseInput(null);
 
   const [term, setTerm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
-
-  const passwordChecked = useRef();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -77,7 +75,7 @@ const SignUp = () => {
     }
   };
 
-  const { mutate: dupnick } = useMutation(getNickCheck, {
+  const { mutate: dupNick } = useMutation(getNickCheck, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data === null) {
@@ -91,14 +89,40 @@ const SignUp = () => {
     },
   });
 
+  const getBlogId = async () => {
+    if (!blogIdCheck(blogId)) {
+      return null;
+    } else {
+      const data = await api.post("/user/blogid", {
+        blogId,
+      });
+      return data;
+    }
+  };
+
+  const { mutate: dupBlogId } = useMutation(getBlogId, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("블로그주소 형식을 지켜주세요");
+      } else {
+        window.alert("사용가능한 블로그주소 입니다");
+      }
+    },
+    onError: () => {
+      window.alert("이미 사용중인 블로그주소 입니다");
+    },
+  });
+
   const Submit = async () => {
     if (
       email === "" ||
       nickname === "" ||
+      blogId === "" ||
       password === "" ||
       confirmPassword === ""
     ) {
-      window.alert("이메일, 닉네임, 비밀번호를 모두 입력해주세요!");
+      window.alert("이메일, 닉네임, 블로그주소, 비밀번호를 모두 입력해주세요!");
       return;
     }
     //비밀번호 일치
@@ -110,6 +134,7 @@ const SignUp = () => {
     const data = await api.post(`/user/signup`, {
       email,
       nickname,
+      blogId,
       password,
       confirmPassword,
     });
@@ -123,7 +148,7 @@ const SignUp = () => {
         window.alert("가입성공!!!");
         navigate("/login");
       } else {
-        window.alert("아이디, 닉네임 중복체크 후 가입해 주세요");
+        window.alert("아이디, 닉네임, 블로그주소 중복체크 후 가입해 주세요");
       }
     },
     onError: () => {
@@ -201,7 +226,27 @@ const SignUp = () => {
               value={nickname || ""}
               onChange={setNickname}
             />
-            <DupButton onClick={dupnick}>중복 확인</DupButton>
+            <DupButton onClick={dupNick}>중복 확인</DupButton>
+          </div>
+
+          <div
+            style={{
+              width: "100%",
+              backgroundColor: "white",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "16px 0 8px 0",
+              height: "50px",
+            }}
+          >
+            <SignUpDupInput
+              type="text"
+              label="블로그주소"
+              placeholder="블로그주소 :       영어/숫자 3~15자"
+              value={blogId || ""}
+              onChange={setBlogId}
+            />
+            <DupButton onClick={dupBlogId}>중복 확인</DupButton>
           </div>
           <SignUpInput
             type="password"
@@ -258,7 +303,7 @@ const Top = styled.div`
   flex-direction: column;
   width: 386px;
   border-bottom: solid 1px black;
-  margin: 160px auto 32px auto;
+  margin: 130px auto 32px auto;
   padding-bottom: 25px;
   > h2 {
     font-size: 30px;

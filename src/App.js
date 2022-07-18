@@ -3,7 +3,7 @@ import GlobalStyle from './styles/GlobalStyle';
 
 
 /* 컴포넌트 */
-import Login from "./pages/Login";
+import Login from "./pages/Login/Login";
 import Main from "./pages/Main";
 import Write from "./pages/Write";
 import Modify from "./pages/Modify";
@@ -14,6 +14,7 @@ import Chat from "./pages/Chat";
 import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
 import Paper from "./pages/Paper";
+import Kakao from "./pages/Login/Kakao"
 
 //임시
 import io from "socket.io-client";
@@ -23,7 +24,6 @@ export const initSocketConnection = () => {
   if (socket) return;
 };
 //임시
-
 
 
 function App() {
@@ -42,6 +42,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/paper/:userId/reservation" element={<Reservation />} />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
+        <Route path="/user/login/kakao/callback" element={<Kakao />} />
       </Routes>
     </>
   );
