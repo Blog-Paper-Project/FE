@@ -13,6 +13,7 @@ import Search from "./pages/Search";
 import Chat from "./pages/Chat";
 import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
+import ReservationList from "./pages/ReservationList";
 import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao"
 
@@ -33,14 +34,15 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/paper/:userId" element={<Paper />} />
+        <Route path="/paper/:blogId" element={<Paper />} />
         <Route path="/write" element={<Write />} />
-        <Route path="/modify/:userId/:postId" element={<Modify />} />
-        <Route path="/paper/:userId/:postId" element={<PaperDetail />} />
+        <Route path="/modify/:blogId/:postId" element={<Modify />} />
+        <Route path="/paper/:blogId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
-        <Route path="/paper/:userId/reservation" element={<Reservation />} />
+        <Route path="/paper/:blogId/reservation" element={<Reservation />} />
+        <Route path="/paper/:blogId/reservation" element={<ReservationList />} />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
         <Route path="/user/login/kakao/callback" element={<Kakao />} />
       </Routes>

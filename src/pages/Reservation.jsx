@@ -7,9 +7,11 @@ import { getBookingDB } from "../redux/modules/Booking";
 import { useParams } from "react-router-dom";
 
 import CalendarTemplate from "../components/booking/Calendar";
-import ReservationList from "../components/booking/ReservationList";
+import ReservationList from "./ReservationList";
 import { getCookie } from "../shared/Cookie";
 import LeafDrop from "../components/booking/LeafDrop";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 
 const Reservation = () => {
   const [LeafCount, setLeafCount] = useState("");
@@ -32,8 +34,10 @@ const Reservation = () => {
   });
   return (
     <div>
+      <Header/>
       <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
       <Calendar userId={userId} LeafCount={LeafCount} />
+      <Footer/>
     </div>
   );
 };

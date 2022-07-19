@@ -10,6 +10,10 @@ import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 import { useRef } from "react";
 import styled from "styled-components";
 import chgImg from "../../public/images/chgImg.svg";
+import LeafDrop from "../booking/LeafDrop";
+import { useDispatch } from "react-redux";
+import { patchLeafDB } from "../../redux/modules/Leaf";
+
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
@@ -22,6 +26,10 @@ const MyProfileModal = (props) => {
   const [CHGprofileImg, setCHGprofileImg] = useState();
   const fileInputRef = useRef();
   const PreNickname = getCookie("nickname");
+  const [LeafCount, setLeafCount] = useState();
+  const dispatch = useDispatch();
+  const userId = getCookie("userId");
+
 
   console.log(PreNickname);
   //닉네임 중복체크
@@ -93,6 +101,7 @@ const MyProfileModal = (props) => {
 
   //프로필 변경
   const useProfile1 = async () => {
+
     const formData = new FormData();
 
     formData.append("introduction", CHGintroduction);
@@ -123,6 +132,9 @@ const MyProfileModal = (props) => {
   const onClickImageUpload = () => {
     fileInputRef.current.click();
   };
+  const leafPatch = () => {
+    dispatch(patchLeafDB(userId, LeafCount))
+  }
 
   return (
     <>
@@ -180,6 +192,14 @@ const MyProfileModal = (props) => {
                   <DupButton style={{ color: "white" }} onClick={dupnick}>
                     중복 확인
                   </DupButton>
+                </div>
+                <div>
+                  <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
+                  <LeafChangeButton
+                    onClick={leafPatch}
+                  >설정하기</LeafChangeButton>
+
+
                 </div>
                 <div>
                   <textarea
@@ -252,5 +272,22 @@ const DupButton = styled.button`
   width: 56px;
   height: 20px;
 `;
+
+const LeafChangeButton = styled.button`
+  width: 25%;
+  height: 30px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid #e5e2db;
+  font-family: Gmarket Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  text-align: center;
+`
 
 export default MyProfileModal;

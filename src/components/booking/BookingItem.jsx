@@ -23,7 +23,7 @@ const BookingItem = (props) => {
   // const TuteeDel = item.TuteeDel;
   const timeId = item.bokingId;
   // console.log(item)
-  console.log(hostId, bookingId);
+  console.log(Guest, bookingId);
   // 예약 정보
   // let startTime = item.start;
   // let endTime = item.end;
@@ -40,7 +40,10 @@ const BookingItem = (props) => {
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item?.hostId}</div>
+              <div className="userName"
+              onClick={() => {
+                navigate(`/paper/${Host}`);
+              }}>{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">{item?.date}</span>
                 <span className="timeInfo">{item?.time}</span>
@@ -54,7 +57,7 @@ const BookingItem = (props) => {
             <button
               className="delBtn"
               onClick={() => {
-                dispatch(deleteGuestBookingDB({User, bookingId}))
+                dispatch(deleteGuestBookingDB(Guest, bookingId))
 
                 // dispatch(delBookingNotiDB(timeId));
               }}
@@ -67,7 +70,10 @@ const BookingItem = (props) => {
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.hostId}</div>
+              <div className="userName"
+              onClick={() => {
+                navigate(`/paper/${Host}`);
+              }}>{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
                   {item.date}
@@ -100,7 +106,10 @@ const BookingItem = (props) => {
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.guestId}</div>
+              <div className="userName"
+              onClick={() => {
+                navigate(`/paper/${Guest}`);
+              }}>{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">{item.date}</span>
                 <span className="timeInfo">{item.time}</span>
@@ -130,7 +139,10 @@ const BookingItem = (props) => {
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
               {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
-              <div className="userName">{item.guestId}</div>
+              <div className="userName"
+              onClick={() => {
+                navigate(`/paper/${Guest}`);
+              }}>{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
                   {item.date}

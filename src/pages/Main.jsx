@@ -33,6 +33,7 @@ const Main = () => {
   const { data: paper_query } = useQuery("paper_list", paperList, {
     staleTime: 0,
     onSuccess: (data) => {
+      console.log(data)
       return data;
     },
   });
@@ -47,6 +48,7 @@ const Main = () => {
   const hPapers = paper_query?.data.papers[7];
   const iPapers = paper_query?.data.papers[8];
   const jPapers = paper_query?.data.papers[9];
+  console.log(aPapers)
 
   return (
     <>
@@ -82,7 +84,7 @@ const Main = () => {
                   height: "274px",
                 }}
                 onClick={() => {
-                  navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
                 }}
               >
                 <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
@@ -127,7 +129,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
+                      navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
@@ -147,7 +149,7 @@ const Main = () => {
                       paddingTop: "30px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
+                      navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
@@ -190,7 +192,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
+                      navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
@@ -227,7 +229,7 @@ const Main = () => {
                       height: "281px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
+                      navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
@@ -259,7 +261,7 @@ const Main = () => {
                     paddingTop: "30px",
                   }}
                   onClick={() => {
-                    navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
+                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                   }}
                 >
                   <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
@@ -301,7 +303,7 @@ const Main = () => {
                       height: "281px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
+                      navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
@@ -340,7 +342,7 @@ const Main = () => {
                     paddingTop: "30px",
                   }}
                   onClick={() => {
-                    navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
+                    navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
                   }}
                 >
                   <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
@@ -367,7 +369,7 @@ const Main = () => {
                       paddingTop: "30px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
+                      navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
@@ -408,7 +410,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
+                      navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
@@ -444,9 +446,9 @@ const Main = () => {
               paper_query?.data.popularUsers.map((popularUsers) => {
                 return (
                   <SwiperSlide
-                    key={popularUsers.userId}
+                    key={popularUsers.blogId}
                     onClick={() => {
-                      navigate(`/paper/${popularUsers.userId}`);
+                      navigate(`/paper/${popularUsers.blogId}`);
                     }}
                   >
                     <Popular>

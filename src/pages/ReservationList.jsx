@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import bookingReducer, { getBookingDB } from "../../redux/modules/Booking";
+import bookingReducer, { getBookingDB } from "../redux/modules/Booking";
 import styled from "styled-components";
 
-import BookingItem from "./BookingItem";
+import BookingItem from "../components/booking/BookingItem";
 
 const ReservationList = () => {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ const ReservationList = () => {
               <li className="noBookingText">'예약된 내역이 없습니다!'</li>
             )}
             {bookingList?.guestBookingList.map((item, idx) => {
+              console.log(item)
               return (
                 <BookingItem
 
