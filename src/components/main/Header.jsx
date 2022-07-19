@@ -41,7 +41,7 @@ const Header = () => {
     useGetMyPaper,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
       // onError: (e) => {
       //   alert(e.message);
@@ -89,7 +89,7 @@ const Header = () => {
                 />
                 <button
                   onClick={() => {
-                    navigate(`/paper/${userpaper_query.userId}`);
+                    navigate(`/paper/${userpaper_query.blogId}`);
                   }}
                 >
                   내 블로그로 가기
@@ -130,8 +130,9 @@ const Svg = styled.div`
 `;
 const Logo = styled.div`
   padding-left: 2%;
-  width: 12%;
+  width: 27%;
   height: 60px;
+  padding-left: 2%;
   display: flex;
   align-items: center;
   outline: 1px solid black;
@@ -139,27 +140,25 @@ const Logo = styled.div`
 const Search = styled.div`
   display: flex;
   align-items: center !important;
-  width: 85%;
-  height: 20px;
-  /* border-left: 1px solid #7f8678;
-  border-bottom: 1px solid #7f8678;
-  border-left: 1px solid #7f8678; ; */
+  width: 46%;
+  height: 60px;
+  outline: 1px solid black;
 `;
 const Login = styled.div`
-  width: 19%;
+  width: 27%;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid #7f8678;
-  border-bottom: 1px solid #7f8678;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
   height: 40px;
   margin: 0 0 0 0;
   border-radius: 50px;
-  border: 1px solid #7f8678;
+  outline: 1px solid black;
   align-items: center;
   cursor: pointer;
 `;

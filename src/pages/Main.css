@@ -1,39 +1,21 @@
-@font-face {
-  font-family: "Luckiest Guy";
-  src: url("/src/public/fonts/LuckiestGuy-Regular.ttf") ;
- 
-}
-
-
 #Main {
-  height: 4069px;
-  width: 1920px;
-  overflow-x: hidden;
+  height: 100%
 }
 
 html,
 body {
- 
   position: relative;
-  left: 40px;
-  /* bottom: 80px; */
-  height: 100%; 
-  overflow-x: hidden;
-  
+  height: 100%;
 }
 
-.body {
+body {
   justify-content: center !important;
   /* background: #eee; */
-  /* font-family: Helvetica Neue, Helvetica, Arial, sans-serif; */
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
   margin: 0;
-  padding: 250px;
-  padding-top: 20px;
-  height: 4096px;
-  
-
+  padding: 0;
 }
 
 .swiper {

@@ -12,6 +12,7 @@ const HeaderProfile = (props) => {
     deleteCookie("token");
     deleteCookie("nickname");
     deleteCookie("userId");
+    deleteCookie("blogId");
     login(false);
     close();
     navigate("/");

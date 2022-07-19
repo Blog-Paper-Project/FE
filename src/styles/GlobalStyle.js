@@ -6,14 +6,12 @@ const GlobalStyle = createGlobalStyle`
     * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     };
     body{
         padding: 0;
         margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
         background-color: #fffdf7;
-        width: 1920px;
         /* 글로벌로 우클릭 안 되게 css 넣은 건데 안 됌...
          -webkit-user-select: none;
         -moz-user-select: none;

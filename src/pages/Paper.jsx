@@ -16,49 +16,27 @@ import { getCookie } from "../shared/Cookie";
 //4. ! 아마 onBasic 함수 필요없을듯
 const Paper = () => {
   const { blogId } = useParams();
-  console.log(blogId);
+  // console.log(blogId);
   const navigate = useNavigate();
   const isHost = getCookie("userId"); // host 주인이면 자기 페이지 왔을 때 구독하기 안 보이게 하기
   const queryClient = useQueryClient();
   //state
-  const [basicSort, setBasicSort] = useState(true);
   const [tagSort, setTagSort] = useState(false);
-  const [allSort, setAllSort] = useState(false);
+  const [allSort, setAllSort] = useState(true);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
 
-  //## 아래 조건부 렌더링 이벤트
-  const onBasic = useCallback(() => {
-    setBasicSort(true);
-    setTagSort(false);
-    setAllSort(false);
-  }, []);
-
+  //## 이벤트
   const onTag = useCallback(() => {
-    setTagSort(!tagSort);
-    if (tagSort === false) {
-      setTagSort(true);
-      setBasicSort(false);
-      setAllSort(false);
-    } else {
-      setTagSort(false);
-      setBasicSort(true);
-      setAllSort(false);
-    }
-  }, [tagSort]);
+    setAllSort(false);
+  }, [allSort]);
 
   const onAll = useCallback(() => {
-    setAllSort(!allSort);
-    if (allSort === false) {
-      setAllSort(true);
-      setBasicSort(false);
-      setTagSort(false);
-    } else {
-      setAllSort(false);
-      setBasicSort(true);
-      setTagSort(false);
-    }
+    setAllSort(true);
+    // if (allSort == true) {
+    //   setTagSort(false);
+    // }
   }, [allSort]);
 
   //## 개인 페이지 구독하기 useMutation post
@@ -135,64 +113,81 @@ const Paper = () => {
         구독하기
       </Subscribe>
       <SortType>
-        <p style={{ cursor: "pointer" }} onClick={onBasic}>
-          Basic
+        <p style={{ cursor: "pointer" }} onClick={onAll}>
+          All
         </p>
         <p style={{ cursor: "pointer" }} onClick={onTag}>
           Tag
         </p>
-        <p style={{ cursor: "pointer" }} onClick={onAll}>
-          All
-        </p>
       </SortType>
 
-      {/* 아래 카테고리 ( 기본) 정렬 렌더링 */}
-      {basicSort ? (
-        <>
-          {categoty_Toggle ? (
-            <>
-              <button
-                onClick={() => {
-                  setCategoty_Toggle(!categoty_Toggle);
-                }}
-              >
-                카테고리 토글 버튼
-              </button>
-              <button
-                onClick={() => {
-                  setCategoryEdit(!CategoryEdit);
-                }}
-              >
-                수정
-              </button>
-              <div>
-                {mypaper_data?.categories.map((value, index) => {
+      {/* 아래 전체 정렬 렌더링*/}
+      {allSort ? (
+        <ContainerAllSort>
+          <Warpper>
+            <CategoryWrap>
+              {categoty_Toggle ? (
+                <>
+                  <button
+                    onClick={() => {
+                      setCategoty_Toggle(!categoty_Toggle);
+                    }}
+                  >
+                    카테고리 토글 버튼
+                  </button>
+                  <button
+                    onClick={() => {
+                      setCategoryEdit(!CategoryEdit);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <div>
+                    {mypaper_data?.categories.map((value, index) => {
+                      return (
+                        <CategoryList
+                          key={index}
+                          categories={value}
+                          userId={blogId}
+                        />
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      setCategoty_Toggle(!categoty_Toggle);
+                    }}
+                  >
+                    카테고리 토글 버튼
+                  </button>
+                </>
+              )}
+            </CategoryWrap>
+            <AllSortWrap>
+              <AllSort>
+                {mypaper_data?.user.Papers.map((value, idx) => {
+                  // console.log(mypaper_data);
+
                   return (
-                    <CategoryList
-                      key={index}
-                      categories={value}
-                      userId={blogId}
+                    <ContentBox
+                      key={idx}
+                      title={value.title}
+                      thumbnail={value.thumbnail}
+                      tags={value.tags}
+                      createdAt={value.createdAt}
+                      userId={value.userId}
+                      postId={value.postId}
                     />
                   );
                 })}
-              </div>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => {
-                  setCategoty_Toggle(!categoty_Toggle);
-                }}
-              >
-                카테고리 토글 버튼
-              </button>
-            </>
-          )}
-        </>
-      ) : null}
-
-      {/* 아래 태그 정렬 렌더링*/}
-      {tagSort ? (
+              </AllSort>
+            </AllSortWrap>
+          </Warpper>
+        </ContainerAllSort>
+      ) : (
         <TagSortWrap>
           <TagSort>
             {mypaper_data?.tags.map((value, index) => {
@@ -200,30 +195,7 @@ const Paper = () => {
             })}
           </TagSort>
         </TagSortWrap>
-      ) : null}
-
-      {/* 아래 전체 정렬 렌더링*/}
-      {allSort ? (
-        <AllSortWrap>
-          <AllSort>
-            {mypaper_data?.user.Papers.map((value, idx) => {
-              // console.log(mypaper_data);
-
-              return (
-                <ContentBox
-                  key={idx}
-                  title={value.title}
-                  thumbnail={value.thumbnail}
-                  tags={value.tags}
-                  createdAt={value.createdAt}
-                  userId={value.userId}
-                  postId={value.postId}
-                />
-              );
-            })}
-          </AllSort>
-        </AllSortWrap>
-      ) : null}
+      )}
     </Container>
   );
 };
@@ -284,7 +256,7 @@ const Tree = styled.div``;
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
   height: 100px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -304,7 +276,7 @@ const SortType = styled.div`
 // TagSortWrap wrap - 3
 const TagSortWrap = styled.div`
   height: 80vh;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -342,26 +314,41 @@ const Tag = styled.div`
     transition: all 0.3s;
   }
 `;
-// AllSortWrap wrap - 4
-const AllSortWrap = styled.div`
-  height: 2200px;
-  width: 100vw;
+
+const ContainerAllSort = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  position: relative;
-  top: 120px;
+  height: 996px;
+  width: 100%;
+`;
+
+const Warpper = styled.div`
+  height: 100%;
+  width: 56%;
+`;
+// AllSortWrap wrap - 4
+const AllSortWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 `;
 // AllSort box - 4
 const AllSort = styled.div`
-  height: 80vh;
-  width: 70vw;
+  height: 80%;
+  width: 70%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   gap: 12%;
+`;
+
+const CategoryWrap = styled.div`
+  height: 141px;
+  width: 14%;
 `;
 export default Paper;

@@ -33,6 +33,7 @@ const WriteEdit = () => {
   const editorRef = useRef();
   const navigate = useNavigate();
   const HostIdCheck = getCookie("userId");
+  const blogId = getCookie("blogId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -120,9 +121,9 @@ const WriteEdit = () => {
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       queryClient.invalidateQueries("paper_data");
-      // console.log(res?.userId);
+      // console.log(res?.blogId);
 
-      navigate(`/paper/${res?.userId}`);
+      navigate(`/paper/${res?.blogId}`);
       alert("post 성공!");
     },
     onError: (e) => {
@@ -131,7 +132,7 @@ const WriteEdit = () => {
   });
   // ## useQuery 카테고리 데이터 get 함수
   const GetMyPaperData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${HostIdCheck}`);
+    const response = await apiToken.get(`/api/paper/users/${blogId}`);
     // console.log(response);
     return response?.data;
   };
@@ -345,7 +346,7 @@ const WriteEdit = () => {
           <button onClick={onModal}>Click!</button>
           <button
             onClick={() => {
-              navigate(`/paper/${res?.userId}`);
+              navigate(`/paper/${res?.blogId}`);
             }}
           >
             나가기!
