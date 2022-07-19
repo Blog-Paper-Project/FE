@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -18,12 +18,18 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
+  const blogRef = useRef();
+
   const [email, setEmail] = UseInput(null);
   const [nickname, setNickname] = UseInput(null);
   const [blogId, setBlogId] = UseInput(null);
   const [password, setPassword] = UseInput(null);
   const [confirmPassword, setConfirmPassword] = UseInput(null);
+  const [emailAuth, setEmailAuth] = UseInput(null);
 
+  const [emailCHK, setEmailCHK] = useState(false);
+  const [nicknameCHK, setNicknameCHK] = useState(false);
+  const [blogIdCHK, setBlogIdCHK] = useState(false);
   const [term, setTerm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -39,7 +45,7 @@ const SignUp = () => {
     setTerm(e.target.checked);
   };
 
-  const getEmailCheck = async () => {
+  const getDupEmail = async () => {
     if (!emailCheck(email)) {
       return null;
     } else {
@@ -50,21 +56,22 @@ const SignUp = () => {
     }
   };
 
-  const { mutate: dupEmail } = useMutation(getEmailCheck, {
+  const { mutate: dupEmail } = useMutation(getDupEmail, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data === null) {
         window.alert("아이디 형식을 지켜주세요");
       } else {
+        setEmailCHK(true);
         window.alert("사용가능한 아이디 입니다");
       }
     },
     onError: () => {
-      window.alert("이미 사용중인 아이디입니다.");
+      setEmailCHK(false);
     },
   });
 
-  const getNickCheck = async () => {
+  const getDupNick = async () => {
     if (!nicknameCheck(nickname)) {
       return null;
     } else {
@@ -75,21 +82,22 @@ const SignUp = () => {
     }
   };
 
-  const { mutate: dupNick } = useMutation(getNickCheck, {
+  const { mutate: dupNick } = useMutation(getDupNick, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data === null) {
         window.alert("닉네임 형식을 지켜주세요");
       } else {
-        window.alert("사용가능한 닉네임 입니다");
+        setNicknameCHK(true);
+        // window.alert("사용가능한 닉네임 입니다");
       }
     },
     onError: () => {
-      window.alert("이미 사용중인 닉네임입니다");
+      setNicknameCHK(false);
     },
   });
 
-  const getBlogId = async () => {
+  const getDupBlogId = async () => {
     if (!blogIdCheck(blogId)) {
       return null;
     } else {
@@ -100,17 +108,18 @@ const SignUp = () => {
     }
   };
 
-  const { mutate: dupBlogId } = useMutation(getBlogId, {
+  const { mutate: dupBlogId } = useMutation(getDupBlogId, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data === null) {
         window.alert("블로그주소 형식을 지켜주세요");
       } else {
-        window.alert("사용가능한 블로그주소 입니다");
+        setBlogIdCHK(true);
+        // window.alert("사용가능한 블로그주소 입니다");
       }
     },
     onError: () => {
-      window.alert("이미 사용중인 블로그주소 입니다");
+      setBlogIdCHK(false);
     },
   });
 
@@ -157,6 +166,54 @@ const SignUp = () => {
     },
   });
 
+  // ------------------------
+
+  const postEmailCheck = async () => {
+    if (!emailCheck(email)) {
+      return null;
+    } else {
+      const data = await api.post("/user/emailauth", {
+        email,
+      });
+      return data;
+    }
+  };
+
+  const { mutate: sendEmail } = useMutation(postEmailCheck, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("아이디를 입력해주세요");
+      } else {
+        console.log(data);
+      }
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  const postEmailAuth = async () => {
+    const data = await api.post("/user/emailauth", {
+      emailAuth,
+    });
+    return data;
+  };
+
+  const { mutate: sendEmailAuth } = useMutation(postEmailAuth, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("인증번호를 입력해주세요");
+      } else {
+        console.log(data);
+      }
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
   if (SignUp.isLoading) {
     return null;
   }
@@ -189,65 +246,75 @@ const SignUp = () => {
         </button>
 
         <InputBox>
-          <div
-            style={{
-              width: "100%",
-              backgroundColor: "white",
-              alignItems: "center",
-              flexDirection: "row",
-              margin: "8px 0 16px 0",
-              height: "50px",
-            }}
-          >
-            <SignUpDupInput
+          <EmailBox>
+            <SignUpInput
               type="email"
               id="email"
               placeholder="이메일 : "
               value={email || ""}
               onChange={setEmail}
+              onBlur={(e) => {
+                if (e.currentTarget.value && e.currentTarget === e.target) {
+                  dupEmail();
+                }
+              }}
             />
-            <DupButton onClick={dupEmail}>중복 확인</DupButton>
-          </div>
 
-          <div
-            style={{
-              width: "100%",
-              backgroundColor: "white",
-              alignItems: "center",
-              flexDirection: "row",
-              margin: "8px 0 8px 0",
-              height: "50px",
-            }}
-          >
-            <SignUpDupInput
+            {emailCHK ? (
+              <SendButton onClick={sendEmail}>인증메일보내기</SendButton>
+            ) : null}
+          </EmailBox>
+          {email === null ? null : emailCHK ? null : (
+            <p style={{ color: "red" }}>
+              이미 중복된 아이디거나, 사용불가능한 아이디입니다.
+            </p>
+          )}
+          <EmailBox>
+            <SignUpInput
               type="text"
-              label="닉네임"
-              placeholder="닉네임 :       영어/한글/숫자 3~15자"
-              value={nickname || ""}
-              onChange={setNickname}
+              id="emailauth"
+              placeholder="인증번호 : "
+              value={emailAuth || ""}
+              onChange={setEmailAuth}
             />
-            <DupButton onClick={dupNick}>중복 확인</DupButton>
-          </div>
 
-          <div
-            style={{
-              width: "100%",
-              backgroundColor: "white",
-              alignItems: "center",
-              flexDirection: "row",
-              margin: "16px 0 8px 0",
-              height: "50px",
+            <SendButton onClick={sendEmailAuth}>인증번호확인</SendButton>
+          </EmailBox>
+          <SignUpInput
+            type="text"
+            label="닉네임"
+            placeholder="닉네임 :       영어/한글/숫자 3~15자"
+            value={nickname || ""}
+            onChange={setNickname}
+            onBlur={(e) => {
+              if (e.currentTarget.value && e.currentTarget === e.target) {
+                dupNick();
+              }
             }}
-          >
-            <SignUpDupInput
-              type="text"
-              label="블로그주소"
-              placeholder="블로그주소 :       영어/숫자 3~15자"
-              value={blogId || ""}
-              onChange={setBlogId}
-            />
-            <DupButton onClick={dupBlogId}>중복 확인</DupButton>
-          </div>
+          />
+          {nickname === null ? null : nicknameCHK ? null : (
+            <p style={{ color: "red" }}>
+              이미 중복된 닉네임이거나, 사용불가능한 닉네임입니다.
+            </p>
+          )}
+          <SignUpInput
+            type="text"
+            label="블로그주소"
+            placeholder="블로그주소 :       영어/숫자 3~15자"
+            value={blogId || ""}
+            ref={blogRef}
+            onChange={setBlogId}
+            onBlur={(e) => {
+              if (e.currentTarget.value && e.currentTarget === e.target) {
+                dupBlogId();
+              }
+            }}
+          />
+          {blogId === null ? null : blogIdCHK ? null : (
+            <p style={{ color: "red" }}>
+              이미 중복된 블로그주소이거나, 사용불가능한 블로그주소입니다.
+            </p>
+          )}
           <SignUpInput
             type="password"
             label="비밀번호"
@@ -318,11 +385,6 @@ const InputBox = styled.div`
   justify-content: center;
 `;
 
-const SignUpDupInput = styled.input`
-  width: 70%;
-  height: 100%;
-`;
-
 const SignUpInput = styled.input`
   width: 100%;
   height: 50px;
@@ -337,12 +399,6 @@ const SignUpCheckInput = styled.input`
     props.confirmPassword && props.password !== props.confirmPassword
       ? "1px solid red"
       : ""}!important;
-`;
-
-const DupButton = styled.button`
-  margin: 8px 8px 8px;
-  width: 96px;
-  height: 30px;
 `;
 
 const SignUpButton = styled.button`
@@ -360,6 +416,24 @@ const SignUpButton = styled.button`
   letter-spacing: 0em;
   text-align: center;
   margin-top: 41px;
+`;
+
+const EmailBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const SendButton = styled.div`
+  height: 50px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 8px 0 8px 0;
+  width: 80px;
 `;
 
 export default SignUp;

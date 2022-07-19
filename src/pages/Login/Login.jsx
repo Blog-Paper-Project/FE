@@ -36,10 +36,12 @@ const Login = () => {
       const AccessToken = data.data.token;
       const Accessnickname = data.data.nickname;
       const AccessUseId = data.data.userId;
+      const AccessBlogId = data.data.blogId;
 
       setCookie("token", AccessToken, 2);
       setCookie("nickname", Accessnickname, 2);
       setCookie("userId", AccessUseId, 2);
+      setCookie("blogId", AccessBlogId, 2);
       window.alert("로그인성공!!!!");
       navigate("/");
     },
