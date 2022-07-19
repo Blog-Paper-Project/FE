@@ -3,3 +3,10 @@
     src: url("#{$asset-path}fonts/#{$file}.otf") format("otf"),
       url("#{$asset-path}fonts/#{$file}.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Luckiest Guy";
+  src: url("/src/public/fonts/LuckiestGuy-Regular.ttf") ;
+ 
+}
+
