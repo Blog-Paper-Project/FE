@@ -13,8 +13,11 @@
 
 html,
 body {
+ 
   position: relative;
-  height: 100%;
+  left: 40px;
+  /* bottom: 80px; */
+  height: 100%; 
   overflow-x: hidden;
   
 }
@@ -28,6 +31,8 @@ body {
   margin: 0;
   padding: 250px;
   padding-top: 20px;
+  height: 4096px;
+  
 
 }
 

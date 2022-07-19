@@ -50,14 +50,15 @@ const Main = () => {
 
   return (
     <>
-      <MainBox>
-        <Header />
-        <MainTop>
-          <div>PAPeR</div>
-        </MainTop>
-        <body className="body">
-          <PostBox>
-            {/* 왼쪽글
+      <Wrapper>
+        <MainBox>
+          <Header />
+          <MainTop>
+            <div>PAPeR</div>
+          </MainTop>
+          <body className="body">
+            <PostBox>
+              {/* 왼쪽글
             <Post1>
               <Post11
                 style={{
@@ -259,7 +260,7 @@ const Main = () => {
               </Post12>
             </Post1>
             {/* 오른쪽글 */}
-            {/* <Post2>
+              {/* <Post2>
               <Post21>
                 <Post211>
                   <div
@@ -436,100 +437,109 @@ const Main = () => {
                         {iPapers?.likes}
                       </p>
                     </div> */}{" "}
-            {/* </Post2222>
+              {/* </Post2222>
                 </Post222>
               </Post22>
             </Post2> */}
-            <div1
-              style={{
-                border: "3px solid black",
-                width: "400px",
-                height: "300px",
-                position: "absolute",
-                left: "1250px",
-                top: "100px",
-              }}
-            >
-              div1
-            </div1>
-            <div2
-              style={{
-                border: "3px solid black",
-                width: "500px",
-                height: "300px",
-                position: "absolute",
-                left: "700px",
-              }}
-            >
-              div2
-            </div2>
-            <div3
-              style={{
-                border: "3px solid black",
-                width: "400px",
-                height: "400px",
-                position: "absolute",
-                left: "250px",
-                top: "140px",
-              }}
-            >
-              div3
-            </div3>
-          </PostBox>
-          <PopularBloger>
-            <div className="poTitle">인기 블로거</div>
-            <div className="poText">Popular Bloger</div>
-          </PopularBloger>
-          <PopularBox>
-            <Swiper
-              slidesPerView={3}
-              grid={{
-                rows: 2,
-              }}
-              spaceBetween={0}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Grid, Pagination]}
-              className="mySwiper"
-            >
-              {paper_query &&
-                paper_query?.data.popularUsers.map((popularUsers) => {
-                  return (
-                    <SwiperSlide
-                      key={popularUsers.userId}
-                      onClick={() => {
-                        navigate(`/paper/${popularUsers.userId}`);
-                      }}
-                    >
-                      <Popular>
-                        <div>{popularUsers.profileImage}</div>
-                        <div>닉네임 = {popularUsers.nickname}</div>
-                        <div>인기도 = {popularUsers.popularity}</div>
-                      </Popular>
-                    </SwiperSlide>
-                  );
-                })}
-            </Swiper>
-          </PopularBox>
-          <EndBox>
-            <div className="enTitle">
-              PAPER에 담긴 아름다운 작품을 감상해 보세요.
-            </div>
-            <div className="enText">
-              글을 써서 나뭇잎을 모아 나무로 만드세요
-            </div>
-          </EndBox>
-        </body>
-        <Footer />
-      </MainBox>
+              <div1
+                style={{
+                  border: "3px solid black",
+                  width: "400px",
+                  height: "300px",
+                  position: "absolute",
+                  left: "1250px",
+                  top: "100px",
+                }}
+              >
+                div1
+              </div1>
+              <div2
+                style={{
+                  border: "3px solid black",
+                  width: "500px",
+                  height: "300px",
+                  position: "absolute",
+                  left: "700px",
+                }}
+              >
+                div2
+              </div2>
+              <div3
+                style={{
+                  border: "3px solid black",
+                  width: "400px",
+                  height: "400px",
+                  position: "absolute",
+                  left: "250px",
+                  top: "140px",
+                }}
+              >
+                div3
+              </div3>
+            </PostBox>
+            <PopularBloger>
+              <div className="poTitle">인기 블로거</div>
+              <div className="poText">Popular Bloger</div>
+            </PopularBloger>
+            <PopularBox>
+              <Swiper
+                slidesPerView={3}
+                grid={{
+                  rows: 2,
+                }}
+                spaceBetween={0}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Grid, Pagination]}
+                className="mySwiper"
+              >
+                {paper_query &&
+                  paper_query?.data.popularUsers.map((popularUsers) => {
+                    return (
+                      <SwiperSlide
+                        key={popularUsers.userId}
+                        onClick={() => {
+                          navigate(`/paper/${popularUsers.userId}`);
+                        }}
+                      >
+                        <Popular>
+                          <div>{popularUsers.profileImage}</div>
+                          <div>닉네임 = {popularUsers.nickname}</div>
+                          <div>인기도 = {popularUsers.popularity}</div>
+                        </Popular>
+                      </SwiperSlide>
+                    );
+                  })}
+              </Swiper>
+            </PopularBox>
+            <EndBox>
+              <div className="enTitle">
+                PAPER에 담긴 아름다운 작품을 감상해 보세요.
+              </div>
+              <div className="enText">
+                글을 써서 나뭇잎을 모아 나무로 만드세요
+              </div>
+            </EndBox>
+          </body>
+          <Footer />
+        </MainBox>
+      </Wrapper>
     </>
   );
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 4096px;
+`;
 const MainBox = styled.div`
   background-color: #fffdf7;
-  height: 4096px;
+  height: 90%;
+  width: 100%;
 `;
 const MainTop = styled.div`
   display: flex;

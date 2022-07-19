@@ -15,9 +15,10 @@ import { getCookie } from "../shared/Cookie";
 //3. 아래 p 태그 누를 시 페이지 변환할 것 (각각 형태 만들기)
 //4. ! 아마 onBasic 함수 필요없을듯
 const Paper = () => {
-  const { userId } = useParams();
+  const { blogId } = useParams();
+  console.log(blogId);
   const navigate = useNavigate();
-  const isHost = getCookie("userId") // host 주인이면 자기 페이지 왔을 때 구독하기 안 보이게 하기
+  const isHost = getCookie("userId"); // host 주인이면 자기 페이지 왔을 때 구독하기 안 보이게 하기
   const queryClient = useQueryClient();
   //state
   const [basicSort, setBasicSort] = useState(true);
@@ -26,7 +27,6 @@ const Paper = () => {
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-
 
   //## 아래 조건부 렌더링 이벤트
   const onBasic = useCallback(() => {
@@ -63,9 +63,8 @@ const Paper = () => {
 
   //## 개인 페이지 구독하기 useMutation post
   const PostSubscribeData = async () => {
-    const response = await apiToken.post(
-      `/api/paper/users/${userId}/subscription`
-    );
+    const response = await apiToken.post(`/api/paper/${blogId}/subscription`);
+    return response;
   };
 
   const { mutate: onSubscribe } = useMutation(PostSubscribeData, {
@@ -79,7 +78,7 @@ const Paper = () => {
   });
   //## 개인 페이지 데이터  useQuery get
   const GetMyPaperData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${userId}`);
+    const response = await apiToken.get(`/api/paper/${blogId}`);
     // console.log(response);
     return response?.data;
   };
@@ -108,7 +107,26 @@ const Paper = () => {
   return (
     <Container>
       <Header />
-      <MyProfile>MyProfile</MyProfile>
+      <MyProfile>
+        <wrap>
+          <div className="div1">
+            <ProfileImg src="" />
+          </div>
+          <div className="div2">
+            <Nickname>닉네임</Nickname>
+            <Introduction>자기소개</Introduction>
+            <div>
+              <Subscribe>구독자</Subscribe>
+              <Tree>나무</Tree>
+            </div>
+          </div>
+          <div className="div3">
+            <button>button1</button>
+            <button>button2</button>
+            <button>button3</button>
+          </div>
+        </wrap>
+      </MyProfile>
       <Subscribe
         onClick={() => {
           onSubscribe();
@@ -153,7 +171,7 @@ const Paper = () => {
                     <CategoryList
                       key={index}
                       categories={value}
-                      userId={userId}
+                      userId={blogId}
                     />
                   );
                 })}
@@ -212,17 +230,56 @@ const Paper = () => {
 
 // Container 이 페이지 전체 박스
 const Container = styled.div`
-  height: 300vh;
+  width: 1920px;
+  height: 1885px;
   overflow-x: hidden;
 `;
 // MyProfile 박스
 const MyProfile = styled.div`
-  height: 200px;
-  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 260px;
+  width: 100%;
   border: 1px solid black;
+  > wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 59%;
+    width: 34%;
+    border: 2px solid black;
+  }
+  wrap > .div1 {
+    height: 100%;
+    width: 25%;
+    border: 1px solid black;
+  }
+  wrap > .div2 {
+    height: 100%;
+    width: 60%;
+    border: 1px solid black;
+  }
+  wrap > .div3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 15%;
+    border: 1px solid black;
+  }
 `;
+const ProfileImg = styled.img`
+  height: 100%;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 200px;
+`;
+const Nickname = styled.div``;
+const Introduction = styled.div``;
+const Subscribe = styled.div``;
+const Tree = styled.div``;
 // Subscribe 박스
-const Subscribe = styled.button``;
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
