@@ -5,6 +5,7 @@ import styled from "styled-components";
 /* Editor */
 import { Editor } from "@toast-ui/react-editor";
 import "@toast-ui/editor/dist/toastui-editor.css";
+import "@toast-ui/editor/dist/i18n/ko-kr";
 /* Toast ColorSyntax 플러그인 */
 import "tui-color-picker/dist/tui-color-picker.css";
 import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
@@ -21,8 +22,8 @@ const WriteEdit = () => {
   const [thumbImage, setImage] = useState(null);
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState([]);
-  const [openModal, setOpenModal] = useState(false); // # 모달
-  const [previewImg, setPreviewImg] = useState(thumbImage);
+  const [openModal, setOpenModal] = useState(false); // # 썸네일, 카테고리 고르는 모달 오픈
+  const [previewImg, setPreviewImg] = useState(thumbImage); // # 썸네일
   const [editCategory, setEditCategory] = useState(false);
   const [category, setCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
@@ -31,7 +32,7 @@ const WriteEdit = () => {
   // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
-  const HostId = getCookie("userId");
+  const HostIdCheck = getCookie("userId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -130,7 +131,7 @@ const WriteEdit = () => {
   });
   // ## useQuery 카테고리 데이터 get 함수
   const GetMyPaperData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${HostId}`);
+    const response = await apiToken.get(`/api/paper/users/${HostIdCheck}`);
     // console.log(response);
     return response?.data;
   };
@@ -316,20 +317,22 @@ const WriteEdit = () => {
             useCommandShortcut={false}
             onKeydown={onKeyDown}
             usageStatistics={false}
+            language="ko-KR"
+            toolbarItems={[
+              ["heading", "bold", "italic", "strike"],
+              ["hr", "quote"],
+              ["code", "codeblock"],
+              ["ul", "ol", "image"],
+            ]}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
-                // console.log(blob.name.split(".")[0]); // File {name: '.png', ... }
-
                 // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
                 let formData = new FormData();
                 formData.append("image", blob);
-
                 const response = await apiToken.post(
                   "/api/paper/image",
                   formData
                 );
-                // console.log(response?.data.imageUrl);
-                // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
                 callback(
@@ -338,16 +341,6 @@ const WriteEdit = () => {
                 );
               },
             }}
-
-            // plugins={[
-            //   [
-            //     colorSyntax,
-            //     // 기본 색상 preset 적용
-            //     {
-            //       preset: ["#1F2E3D", "#4c5864", "#ED7675"],
-            //     },
-            //   ],
-            // ]} // colorSyntax 플러그인 적용
           />
           <button onClick={onModal}>Click!</button>
           <button

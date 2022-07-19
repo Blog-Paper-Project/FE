@@ -16,7 +16,7 @@ const HeaderProfile = (props) => {
     close();
     navigate("/");
   };
-  const proImg = process.env.REACT_APP_S3_URL + `/${profileImage}`
+  const proImg = process.env.REACT_APP_S3_URL + `/${profileImage}`;
 
   return (
     <>
@@ -31,15 +31,18 @@ const HeaderProfile = (props) => {
             </header>
             <main>
               <MainBox>
-                <ProfileImg src={(profileImage === null)
-                  ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                  : proImg} />
+                <ProfileImg
+                  src={
+                    profileImage === null
+                      ? "https://www.snsboom.co.kr/common/img/default_profile.png"
+                      : proImg
+                  }
+                />
                 <MainText>
                   <Nick style={{ fontWeight: "bolder", marginBottom: "10px" }}>
                     {nickname}
                   </Nick>
                 </MainText>
-
               </MainBox>
             </main>
             <footer>
@@ -55,7 +58,9 @@ const HeaderProfile = (props) => {
                 </Button>
                 <Button
                   className="close"
-                  onClick={onLogout}
+                  onClick={() => {
+                    onLogout();
+                  }}
                   style={{ backgroundColor: "#D9D9D9" }}
                 >
                   로그아웃
@@ -77,29 +82,28 @@ const ProfileImg = styled.img`
   border-radius: 50px;
   border: 1px solid;
   align-items: center;
-
-`
+`;
 const MainBox = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: row;
-`
+`;
 const MainText = styled.div`
-  padding-left:3%;
+  padding-left: 3%;
   width: 72%;
   height: 100%;
   display: flex;
   flex-direction: column;
-`
+`;
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`
- const Button= styled.div`
-    width: 79%;
+`;
+const Button = styled.div`
+  width: 79%;
   height: 50px;
   color: #000;
   background-color: #6c757d;
@@ -111,7 +115,7 @@ const ButtonBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 const Nick = styled.div`
   font-weight: 400;
   font-size: 22px;

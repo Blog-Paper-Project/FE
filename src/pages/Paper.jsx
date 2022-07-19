@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 /* api */
 import { apiToken } from "../shared/apis/Apis";
@@ -8,20 +8,25 @@ import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
 import styled from "styled-components";
+import { getCookie } from "../shared/Cookie";
 /* 해야 할 것 */
 //1. 블로그 글 눌러서 들어갔을 때 주소 맨 뒤 params의 postId를 얻어 내야한다.
 //2. 아래 map 돌린 거 array 정확히 다 받으면 그거 돌리자
 //3. 아래 p 태그 누를 시 페이지 변환할 것 (각각 형태 만들기)
 //4. ! 아마 onBasic 함수 필요없을듯
 const Paper = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const isHost = getCookie("userId") // host 주인이면 자기 페이지 왔을 때 구독하기 안 보이게 하기
+  const queryClient = useQueryClient();
+  //state
   const [basicSort, setBasicSort] = useState(true);
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(false);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-  const { userId } = useParams();
-  const navigate = useNavigate();
+
 
   //## 아래 조건부 렌더링 이벤트
   const onBasic = useCallback(() => {
@@ -56,6 +61,22 @@ const Paper = () => {
     }
   }, [allSort]);
 
+  //## 개인 페이지 구독하기 useMutation post
+  const PostSubscribeData = async () => {
+    const response = await apiToken.post(
+      `/api/paper/users/${userId}/subscription`
+    );
+  };
+
+  const { mutate: onSubscribe } = useMutation(PostSubscribeData, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries("paper_data");
+      // console.log(data);
+    },
+    onError: () => {
+      alert("error");
+    },
+  });
   //## 개인 페이지 데이터  useQuery get
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/users/${userId}`);
@@ -68,7 +89,7 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
         return data;
       },
       staleTime: 0,
@@ -87,7 +108,14 @@ const Paper = () => {
   return (
     <Container>
       <Header />
-      <MyProfile></MyProfile>
+      <MyProfile>MyProfile</MyProfile>
+      <Subscribe
+        onClick={() => {
+          onSubscribe();
+        }}
+      >
+        구독하기
+      </Subscribe>
       <SortType>
         <p style={{ cursor: "pointer" }} onClick={onBasic}>
           Basic
@@ -191,7 +219,10 @@ const Container = styled.div`
 const MyProfile = styled.div`
   height: 200px;
   width: 30vw;
+  border: 1px solid black;
 `;
+// Subscribe 박스
+const Subscribe = styled.button``;
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`

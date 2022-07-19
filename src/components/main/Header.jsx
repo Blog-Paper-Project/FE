@@ -136,34 +136,36 @@ const Svg = styled.div`
 `;
 const Logo = styled.div`
   padding-left: 2%;
-  width: 27%;
+  width: 12%;
   height: 60px;
-  padding-left: 2%;
   display: flex;
   align-items: center;
-  outline: 1px solid black;
+  /* border-bottom: 1px solid #7f8678; ; */
 `;
 const Search = styled.div`
   display: flex;
   align-items: center !important;
-  width: 46%;
-  height: 60px;
-  outline: 1px solid black;
+  width: 85%;
+  height: 20px;
+  /* border-left: 1px solid #7f8678;
+  border-bottom: 1px solid #7f8678;
+  border-left: 1px solid #7f8678; ; */
 `;
 const Login = styled.div`
-  width: 27%;
+  width: 19%;
   height: 60px;
-  outline: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* border-left: 1px solid #7f8678;
+  border-bottom: 1px solid #7f8678; ; */
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
   height: 40px;
   margin: 0 0 0 0;
   border-radius: 50px;
-  outline: 1px solid black;
+  border: 1px solid #7f8678;
   align-items: center;
 `;
 

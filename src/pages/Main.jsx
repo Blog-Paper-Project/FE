@@ -53,339 +53,168 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <div>The PAPER</div>
+          <div>PAPeR</div>
         </MainTop>
-        <PostBox>
-          {/* 왼쪽글 */}
-          <Post1>
-            <Post11
-              style={{
-                position: "relative",
-                overflow: "hidden",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <img
-                src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
-                alt="img"
-                style={{ width: "100%", height: "100%", padding: "5px" }}
-              />
-              <div
+        <body className="body">
+          <PostBox>
+            {/* 왼쪽글
+            <Post1>
+              <Post11
                 style={{
-                  position: "absolute",
-                  bottom: "10%",
-                  left: "10%",
-                  backgroundColor: "rgba(255, 255, 255, 0.8)",
-                  width: "347px",
-                  height: "274px",
-                }}
-                onClick={() => {
-                  navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
+                  position: "relative",
+                  overflow: "hidden",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
-                <br />
-                {aPapers?.contents && (
-                  <ViewEdit
-                    contents={aPapers?.contents}
-                    style={{ height: "200px" }}
-                  />
-                )}
-                <p>
-                  <FaHeart size="12px" />
-                  {aPapers?.likes}
-                </p>
-              </div>
-            </Post11>
-
-            <Post12>
-              <Post121>
-                <Post1211>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={
-                        process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`
-                      }
-                      alt="img"
-                      style={{
-                        width: "413px",
-                        height: "108px",
-                        margin: "73px auto 41px auto",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: "20px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
-                    <br />
-                    <p>
-                      <FaHeart size="12px" />
-                      {dPapers?.likes}
-                    </p>
-                  </div>
-                </Post1211>
-                <Post1212>
-                  <div
-                    style={{
-                      width: "70%",
-                      height: "300px",
-                      paddingLeft: "30px",
-                      paddingTop: "30px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
-                    {gPapers?.contents && (
-                      <ViewEdit
-                        contents={gPapers?.contents}
-                        style={{ height: "200px" }}
-                      />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {gPapers?.likes}
-                    </p>
-                  </div>
-                </Post1212>
-              </Post121>
-              <Post122>
-                <Post1221>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={
-                        process.env.REACT_APP_S3_URL + `/${ePapers?.thumbnail}`
-                      }
-                      alt="img"
-                      style={{
-                        width: "413px",
-                        height: "108px",
-                        margin: "73px auto 41px auto",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: "20px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
-                    <br />
-                    <p>
-                      <FaHeart size="12px" />
-                      {ePapers?.likes}
-                    </p>
-                  </div>
-                </Post1221>
-
-                <Post1222
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={
-                      process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`
-                    }
-                    alt="img"
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "10%",
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      width: "382px",
-                      height: "281px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
-                    <br />
-                    {hPapers?.contents && (
-                      <ViewEdit
-                        contents={hPapers?.contents}
-                        style={{ height: "200px" }}
-                      />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {hPapers?.likes}
-                    </p>
-                  </div>
-                </Post1222>
-              </Post122>
-            </Post12>
-          </Post1>
-          {/* 오른쪽글 */}
-          <Post2>
-            <Post21>
-              <Post211>
+                <img
+                  src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
+                  alt="img"
+                  style={{ width: "100%", height: "100%", padding: "5px" }}
+                />
                 <div
                   style={{
-                    width: "698px",
-                    height: "300px",
-                    paddingLeft: "30px",
-                    paddingTop: "30px",
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "10%",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
+                    width: "347px",
+                    height: "274px",
                   }}
                   onClick={() => {
-                    navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
+                    navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
                   }}
                 >
-                  <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
-                  {bPapers?.contents && (
+                  <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
+                  <br />
+                  {aPapers?.contents && (
                     <ViewEdit
-                      contents={bPapers?.contents}
+                      contents={aPapers?.contents}
                       style={{ height: "200px" }}
                     />
                   )}
                   <p>
                     <FaHeart size="12px" />
-                    {bPapers?.likes}
+                    {aPapers?.likes}
                   </p>
                 </div>
-              </Post211>
-              <Post212>
-                <Post2121
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src={
-                      process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
-                    }
-                    alt="img"
-                    style={{ width: "100%", height: "100%" }}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "10%",
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      width: "382px",
-                      height: "281px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
-                    <br />
-                    {cPapers?.contents && (
-                      <ViewEdit
-                        contents={cPapers?.contents}
-                        style={{ height: "200px" }}
-                      />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {cPapers?.likes}
-                    </p>
-                  </div>
-                </Post2121>
+              </Post11>
 
-                <Post2122
-                  onClick={() => {
-                    navigate(`/paper/`);
-                  }}
-                >
-                  <div>
-                    <div>설명</div>
-                  </div>
-                </Post2122>
-              </Post212>
-            </Post21>
-            <Post22>
-              <Post221>
-                <div
-                  style={{
-                    width: "698px",
-                    height: "300px",
-                    paddingLeft: "30px",
-                    paddingTop: "30px",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
-                  }}
-                >
-                  <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
-                  {fPapers?.contents && (
-                    <ViewEdit
-                      contents={fPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
-                  <p>
-                    <FaHeart size="12px" />
-                    {fPapers?.likes}
-                  </p>
-                </div>
-              </Post221>
-
-              <Post222>
-                <Post2221>
-                  <div
-                    style={{
-                      width: "70%",
-                      height: "300px",
-                      paddingLeft: "30px",
-                      paddingTop: "30px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
-                    {jPapers?.contents && (
-                      <ViewEdit
-                        contents={jPapers?.contents}
-                        style={{ height: "200px" }}
+              <Post12>
+                <Post121>
+                  <Post1211>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${dPapers?.thumbnail}`
+                        }
+                        alt="img"
+                        style={{
+                          width: "413px",
+                          height: "108px",
+                          margin: "73px auto 41px auto",
+                        }}
                       />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {jPapers?.likes}
-                    </p>
-                  </div>
-                </Post2221>
-                <Post2222>
-                  <div
+                    </div>
+                    <div
+                      style={{
+                        marginLeft: "20px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${dPapers?.userId}/${dPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
+                      <br />
+                      <p>
+                        <FaHeart size="12px" />
+                        {dPapers?.likes}
+                      </p>
+                    </div>
+                  </Post1211>
+                  <Post1212>
+                    <div
+                      style={{
+                        width: "70%",
+                        height: "300px",
+                        paddingLeft: "30px",
+                        paddingTop: "30px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${gPapers?.userId}/${gPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
+                      {gPapers?.contents && (
+                        <ViewEdit
+                          contents={gPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                      <p>
+                        <FaHeart size="12px" />
+                        {gPapers?.likes}
+                      </p>
+                    </div>
+                  </Post1212>
+                </Post121>
+                <Post122>
+                  <Post1221>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${ePapers?.thumbnail}`
+                        }
+                        alt="img"
+                        style={{
+                          width: "413px",
+                          height: "108px",
+                          margin: "73px auto 41px auto",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        marginLeft: "20px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${ePapers?.userId}/${ePapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                      <br />
+                      <p>
+                        <FaHeart size="12px" />
+                        {ePapers?.likes}
+                      </p>
+                    </div>
+                  </Post1221>
+
+                  <Post1222
                     style={{
+                      position: "relative",
+                      overflow: "hidden",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
@@ -393,78 +222,305 @@ const Main = () => {
                   >
                     <img
                       src={
-                        process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`
+                        process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`
                       }
                       alt="img"
-                      style={{
-                        width: "413px",
-                        height: "108px",
-                        margin: "73px auto 41px auto",
-                      }}
+                      style={{ width: "100%", height: "100%" }}
                     />
-                  </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "10%",
+                        backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        width: "382px",
+                        height: "281px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${hPapers?.userId}/${hPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
+                      <br />
+                      {hPapers?.contents && (
+                        <ViewEdit
+                          contents={hPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                      <p>
+                        <FaHeart size="12px" />
+                        {hPapers?.likes}
+                      </p>
+                    </div>
+                  </Post1222>
+                </Post122>
+              </Post12>
+            </Post1>
+            {/* 오른쪽글 */}
+            {/* <Post2>
+              <Post21>
+                <Post211>
                   <div
                     style={{
-                      marginLeft: "20px",
+                      width: "698px",
+                      height: "300px",
+                      paddingLeft: "30px",
+                      paddingTop: "30px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
+                      navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
                     }}
                   >
-                    <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
-                    <br />
+                    <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
+                    {bPapers?.contents && (
+                      <ViewEdit
+                        contents={bPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
                     <p>
                       <FaHeart size="12px" />
-                      {iPapers?.likes}
+                      {bPapers?.likes}
                     </p>
                   </div>
-                </Post2222>
-              </Post222>
-            </Post22>
-          </Post2>
-        </PostBox>
-        <PopularBloger>
-          <div className="poTitle">인기 블로거</div>
-          <div className="poText">Popular Bloger</div>
-        </PopularBloger>
-        <PopularBox>
-          <Swiper
-            slidesPerView={3}
-            grid={{
-              rows: 2,
-            }}
-            spaceBetween={0}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Grid, Pagination]}
-            className="mySwiper"
-          >
-            {paper_query &&
-              paper_query?.data.popularUsers.map((popularUsers) => {
-                return (
-                  <SwiperSlide
-                    key={popularUsers.userId}
-                    onClick={() => {
-                      navigate(`/paper/${popularUsers.userId}`);
+                </Post211>
+                <Post212>
+                  <Post2121
+                    style={{
+                      position: "relative",
+                      overflow: "hidden",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    <Popular>
-                      <div>{popularUsers.profileImage}</div>
-                      <div>닉네임 = {popularUsers.nickname}</div>
-                      <div>인기도 = {popularUsers.popularity}</div>
-                    </Popular>
-                  </SwiperSlide>
-                );
-              })}
-          </Swiper>
-        </PopularBox>
-        <EndBox>
-          <div className="enTitle">
-            PAPER에 담긴 아름다운 작품을 감상해 보세요.
-          </div>
-          <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
-        </EndBox>
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        bottom: "10%",
+                        backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        width: "382px",
+                        height: "281px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${cPapers?.userId}/${cPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
+                      <br />
+                      {cPapers?.contents && (
+                        <ViewEdit
+                          contents={cPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                      <p>
+                        <FaHeart size="12px" />
+                        {cPapers?.likes}
+                      </p>
+                    </div>
+                  </Post2121>
+
+                  <Post2122
+                    onClick={() => {
+                      navigate(`/paper/`);
+                    }}
+                  >
+                    <div>
+                      <div>설명</div>
+                    </div>
+                  </Post2122>
+                </Post212>
+              </Post21>
+              <Post22>
+                <Post221>
+                  <div
+                    style={{
+                      width: "698px",
+                      height: "300px",
+                      paddingLeft: "30px",
+                      paddingTop: "30px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
+                    }}
+                  >
+                    <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
+                    {fPapers?.contents && (
+                      <ViewEdit
+                        contents={fPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
+                    <p>
+                      <FaHeart size="12px" />
+                      {fPapers?.likes}
+                    </p>
+                  </div>
+                </Post221>
+
+                <Post222>
+                  <Post2221>
+                    <div
+                      style={{
+                        width: "70%",
+                        height: "300px",
+                        paddingLeft: "30px",
+                        paddingTop: "30px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${jPapers?.userId}/${jPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
+                      {jPapers?.contents && (
+                        <ViewEdit
+                          contents={jPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                      <p>
+                        <FaHeart size="12px" />
+                        {jPapers?.likes}
+                      </p>
+                    </div>
+                  </Post2221>
+                  <Post2222>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <img
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${iPapers?.thumbnail}`
+                        }
+                        alt="img"
+                        style={{
+                          width: "413px",
+                          height: "108px",
+                          margin: "73px auto 41px auto",
+                        }}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        marginLeft: "20px",
+                      }}
+                      onClick={() => {
+                        navigate(
+                          `/paper/${iPapers?.userId}/${iPapers?.postId}`
+                        );
+                      }}
+                    >
+                      <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
+                      <br />
+                      <p>
+                        <FaHeart size="12px" />
+                        {iPapers?.likes}
+                      </p>
+                    </div> */}{" "}
+            {/* </Post2222>
+                </Post222>
+              </Post22>
+            </Post2> */}
+            <div1
+              style={{
+                border: "3px solid black",
+                width: "400px",
+                height: "300px",
+                position: "absolute",
+                left: "1250px",
+                top: "100px",
+              }}
+            >
+              div1
+            </div1>
+            <div2
+              style={{
+                border: "3px solid black",
+                width: "500px",
+                height: "300px",
+                position: "absolute",
+                left: "700px",
+              }}
+            >
+              div2
+            </div2>
+            <div3
+              style={{
+                border: "3px solid black",
+                width: "400px",
+                height: "400px",
+                position: "absolute",
+                left: "250px",
+                top: "140px",
+              }}
+            >
+              div3
+            </div3>
+          </PostBox>
+          <PopularBloger>
+            <div className="poTitle">인기 블로거</div>
+            <div className="poText">Popular Bloger</div>
+          </PopularBloger>
+          <PopularBox>
+            <Swiper
+              slidesPerView={3}
+              grid={{
+                rows: 2,
+              }}
+              spaceBetween={0}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Grid, Pagination]}
+              className="mySwiper"
+            >
+              {paper_query &&
+                paper_query?.data.popularUsers.map((popularUsers) => {
+                  return (
+                    <SwiperSlide
+                      key={popularUsers.userId}
+                      onClick={() => {
+                        navigate(`/paper/${popularUsers.userId}`);
+                      }}
+                    >
+                      <Popular>
+                        <div>{popularUsers.profileImage}</div>
+                        <div>닉네임 = {popularUsers.nickname}</div>
+                        <div>인기도 = {popularUsers.popularity}</div>
+                      </Popular>
+                    </SwiperSlide>
+                  );
+                })}
+            </Swiper>
+          </PopularBox>
+          <EndBox>
+            <div className="enTitle">
+              PAPER에 담긴 아름다운 작품을 감상해 보세요.
+            </div>
+            <div className="enText">
+              글을 써서 나뭇잎을 모아 나무로 만드세요
+            </div>
+          </EndBox>
+        </body>
         <Footer />
       </MainBox>
     </>
@@ -479,15 +535,16 @@ const MainTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 9%;
-  outline: 1px solid #acacac;
+  width: 100vw;
+  height: 8.5%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 90px;
-  font-weight: 400;
+  font-size: 200px;
+  /* font-weight: 600; */
   line-height: 90px;
+  font-family: "Luckiest Guy";
+  /* border-bottom: 1px solid black; */
 `;
 const PostBox = styled.div`
   width: 100%;
@@ -497,6 +554,8 @@ const Post1 = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  /* border: 1px solid black; */
+  /* padding: 20px; */
 `;
 const Post11 = styled.div`
   width: 100%;
@@ -634,10 +693,10 @@ const EndBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;  
-  outline: 1px solid black;
- 
-  .enTitle{    
+  justify-content: center;
+  border-top: 1px solid black;
+
+  .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;

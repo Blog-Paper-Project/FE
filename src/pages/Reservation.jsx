@@ -13,6 +13,7 @@ import LeafDrop from "../components/booking/LeafDrop";
 
 const Reservation = () => {
   const [LeafCount, setLeafCount] = useState("");
+  console.log(LeafCount);
   const { userId } = useParams();
   const userName = getCookie("userId");
   const dispatch = useDispatch();

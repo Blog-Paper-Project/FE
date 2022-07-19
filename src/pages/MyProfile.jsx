@@ -35,8 +35,9 @@ const MyProfile = () => {
     return res;
   };
   const { data: res, status } = useQuery("MY_PROFILE", getMyProfile, {
-    staleTime: Infinity,
+    staleTime: 0,
     onSuccess: (data) => {
+      console.log(data);
       return data;
     },
   });
