@@ -37,12 +37,14 @@ const Footer = () => {
     </>
   );
 };
+
 const FooterBox = styled.div`
   width: 100%;
   height: 240px;
   border-top: 1px solid black;
   padding-top: 60px;
 `;
+
 const Footer1 = styled.div`
   width: 25%;
   height: 219px;
@@ -52,10 +54,12 @@ const Footer1 = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Footer1T = styled.div`
   width: 70%;
   height: 55%;
 `;
+
 const Footer2 = styled.div`
   width: 25%;
   height: 219px;
@@ -65,10 +69,12 @@ const Footer2 = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Footer2T = styled.div`
   width: 70%;
   height: 55%;
 `;
+
 const Footer3 = styled.div`
   width: 25%;
   height: 219px;
@@ -78,10 +84,12 @@ const Footer3 = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Footer3T = styled.div`
   width: 70%;
   height: 55%;
 `;
+
 const Footer4 = styled.div`
   width: 25%;
   height: 219px;
@@ -91,13 +99,16 @@ const Footer4 = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Footer4T = styled.div`
   width: 70%;
   height: 55%;
 `;
+
 const FooterEnd = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
 export default Footer;

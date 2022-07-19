@@ -1,8 +1,8 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCookie } from '../../shared/Cookie';
-import { patchBookingDB } from '../../redux/modules/Booking';
+import { deleteGuestBookingDB, deleteHostBookingDB, patchBookingDB } from '../../redux/modules/Booking';
 
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
@@ -14,7 +14,7 @@ const BookingItem = (props) => {
 
   const { item } = props;
   // 조건에 필요한 정보
-  const User = Number(getCookie('userId'));
+  const User = Number(getCookie("userId"));
   const Host = Number(item?.hostId);
   const Guest = Number(item?.guestId);
   const hostId = Number(item?.hostId);
@@ -23,63 +23,50 @@ const BookingItem = (props) => {
   // const TuteeDel = item.TuteeDel;
   const timeId = item.bokingId;
   // console.log(item)
-  console.log(hostId,bookingId)
-
-
-
+  console.log(hostId, bookingId);
   // 예약 정보
   // let startTime = item.start;
   // let endTime = item.end;
-
   if (!item) return null;
   // let [week, month, day, year, sTime] = startTime.split(' ');
   // let start = sTime.substr(0, 5);
   // let end = endTime.substr(-17, 5);
 
-  // 학생일때
+  // 게스트일때
   if (Guest === User) {
     return (
       <div>
-        {(
+        {item?.accepted === false && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item?.hostId}</div>
               <div className="userBookingWrap">
-                <span className="dayInfo">
-                  {item?.date}
-                </span>
-                <span className="timeInfo">
-                  {item?.time}
-                </span>
+                <span className="dayInfo">{item?.date}</span>
+                <span className="timeInfo">{item?.time}</span>
               </div>
             </div>
             <button
-              className="videoBtn"
-              onClick={() => {
-                navigate({
-                  pathname: `/videochat/${item.hostId + item.guestId
-                    }`,
-                  state: item.hostId,
-                });
-              }}
+              className="waitBtn"
             >
-              '시작하기'
+              '수락대기중'
             </button>
-            {/* <button
+            <button
               className="delBtn"
               onClick={() => {
-                dispatch(delBookingNotiDB(timeId));
+                dispatch(deleteGuestBookingDB({User, bookingId}))
+
+                // dispatch(delBookingNotiDB(timeId));
               }}
             >
-             '예약 취소'
-            </button> */}
+              '예약 취소'
+            </button>
           </li>
         )}
-        {/* {(
+        {item?.accepted === true && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              선생인지 학생인지에 따라서 userName 다르게 보이게 함
+              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.hostId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
@@ -91,26 +78,58 @@ const BookingItem = (props) => {
               </div>
             </div>
             <button
-              className="deleteBtn"
+              className="videoBtn"
               onClick={() => {
-                TuteeDel === 1 && dispatch(delCheckNotiDB(timeId));
+                navigate({
+                  pathname: `/chat/${item.hostId}/${item.guestId}`,
+                  state: item.hostId,
+                });
               }}
             >
-             '예약 취소'
+              '시작하기'
             </button>
           </li>
-        )} */}
+        )}
       </div>
     );
-
-    // 선생님일때
+    // 호스트일때
   } else if (Host === User) {
     return (
       <>
-        {(
+        {item?.accepted === false && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
+              <div className="userName">{item.guestId}</div>
+              <div className="userBookingWrap">
+                <span className="dayInfo">{item.date}</span>
+                <span className="timeInfo">{item.time}</span>
+              </div>
+            </div>
+
+            <button
+              className="videoBtn"
+              onClick={() => {
+                dispatch(patchBookingDB({ hostId, bookingId }));
+              }}
+            >
+              '수락하기'
+            </button>
+
+            <button
+              className="delBtn"
+              onClick={() => {
+                dispatch(deleteHostBookingDB({hostId, bookingId}));
+              }}
+            >
+              '예약취소'
+            </button>
+          </li>
+        )}
+        {item?.accepted === true && (
+          <li className="booking" key={`${timeId}`}>
+            <div className="bookingInfo">
+              {/* 게스트인지 호스트인지에 따라서 userName 다르게 보이게 함 */}
               <div className="userName">{item.guestId}</div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
@@ -121,16 +140,6 @@ const BookingItem = (props) => {
                 </span>
               </div>
             </div>
-
-            <button
-              className="videoBtn"
-              onClick={() => {
-                dispatch(patchBookingDB({ hostId, bookingId }))
-              }}
-            >
-              '수락하기'
-            </button>
-
             <button
               className="videoBtn"
               onClick={() => {
@@ -141,40 +150,8 @@ const BookingItem = (props) => {
             >
               '시작하기'
             </button>
-            {/* <button
-              className="delBtn"
-              onClick={() => {
-                dispatch(delBookingNotiDB(timeId));
-              }}
-            >
-           '예약 취소'
-            </button> */}
           </li>
         )}
-        {/* {(
-          <li className="booking" key={`${timeId}`}>
-            <div className="bookingInfo">
-              선생인지 학생인지에 따라서 userName 다르게 보이게 함
-              <div className="userName">{item.guestId}</div>
-              <div className="userBookingWrap">
-                <span className="dayInfo">
-                  {item.date}
-                </span>
-                <span className="timeInfo">
-                  {item.time}
-                </span>
-              </div>
-            </div>
-            <button
-              className="deleteBtn"
-              onClick={() => {
-                TutorDel === 1 && dispatch(notiActions.delCheckNotiDB(timeId));
-              }}
-            >
-            '예약 취소'
-            </button>
-          </li>
-        )} */}
       </>
     );
   }

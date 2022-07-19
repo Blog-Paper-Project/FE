@@ -3,15 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useMutation, useQueryClient } from "react-query";
 
-import UseInput from "../hooks/UseInput";
-import { api } from "../shared/apis/Apis";
-import { setCookie } from "../shared/Cookie";
+import UseInput from "../../hooks/UseInput";
+import { api } from "../../shared/apis/Apis";
+import { setCookie } from "../../shared/Cookie";
 import styled from "styled-components";
-import Header from "../components/main/Header";
-import Footer from "../components/main/Footer";
+import Header from "../../components/main/Header";
+import Footer from "../../components/main/Footer";
 
-import kakao from "../public/images/kakao.svg";
-import google from "../public/images/google.svg";
+import kakao from "../../public/images/kakao.svg";
+import google from "../../public/images/google.svg";
+
+import { KAKAO_AUTH_URL } from "../../shared/SocialOauth";
 
 const Login = () => {
   const queryClient = useQueryClient(); // app에 있는데 각 페이지마다 필요한가? 26번이 있을 땐 필요한 건가?
@@ -106,9 +108,11 @@ const Login = () => {
           <p>SNS계정으로 로그인</p>
         </div>
         <SocialLogin>
+          <a href={KAKAO_AUTH_URL}>
+            <img src={kakao} alt="kakao" />
+          </a>
+          <img src={kakao} alt="kakao" />
           <img src={google} alt="kakao" />
-          <img src={kakao} alt="kakao" />
-          <img src={kakao} alt="kakao" />
         </SocialLogin>
         <div
           style={{

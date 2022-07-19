@@ -542,6 +542,7 @@ const MainTop = styled.div`
   justify-content: center;
   font-size: 200px;
   /* font-weight: 600; */
+
   line-height: 90px;
   font-family: "Luckiest Guy";
   /* border-bottom: 1px solid black; */
@@ -652,7 +653,6 @@ const Post2222 = styled.div`
   height: 100%;
   outline: 1px solid;
 `;
-
 const PopularBloger = styled.div`
   width: 100%;
   height: 3%;
@@ -673,13 +673,11 @@ const PopularBloger = styled.div`
     line-height: 150%;
   }
 `;
-
 const PopularBox = styled.div`
   width: 90%;
   height: 21%;
   padding: 20px 0 0 0;
 `;
-
 const Popular = styled.div`
   background-color: #fffdf7;
   width: 500px;
@@ -695,7 +693,6 @@ const EndBox = styled.div`
   align-items: center;
   justify-content: center;
   border-top: 1px solid black;
-
   .enTitle {
     font-weight: 300;
     font-size: 30px;

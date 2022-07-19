@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import moment from "moment";
+import dayjs from "dayjs";
 import "./Calendar.css";
 import {
   IconButton,
@@ -86,62 +86,62 @@ const CalendarTemplate = ({
     1: {
       lastDay: 31,
       month: "January",
-      firstDay: moment(`${year}-01-01`),
+      firstDay: dayjs(`${year}-01-01`),
     },
     2: {
       lastDay: year % 4 === 0 ? 29 : 28,
       month: "February",
-      firstDay: moment(`${year}-02-01`),
+      firstDay: dayjs(`${year}-02-01`),
     },
     3: {
       lastDay: 31,
       month: "March",
-      firstDay: moment(`${year}-03-01`),
+      firstDay: dayjs(`${year}-03-01`),
     },
     4: {
       lastDay: 30,
       month: "April",
-      firstDay: moment(`${year}-04-01`),
+      firstDay: dayjs(`${year}-04-01`),
     },
     5: {
       lastDay: 31,
       month: "May",
-      firstDay: moment(`${year}-05-01`),
+      firstDay: dayjs(`${year}-05-01`),
     },
     6: {
       lastDay: 30,
       month: "June",
-      firstDay: moment(`${year}-06-01`),
+      firstDay: dayjs(`${year}-06-01`),
     },
     7: {
       lastDay: 31,
       month: "July",
-      firstDay: moment(`${year}-07-01`),
+      firstDay: dayjs(`${year}-07-01`),
     },
     8: {
       lastDay: 31,
       month: "August",
-      firstDay: moment(`${year}-08-01`),
+      firstDay: dayjs(`${year}-08-01`),
     },
     9: {
       lastDay: 30,
       month: "September",
-      firstDay: moment(`${year}-09-01`),
+      firstDay: dayjs(`${year}-09-01`),
     },
     10: {
       lastDay: 31,
       month: "October",
-      firstDay: moment(`${year}-10-01`),
+      firstDay: dayjs(`${year}-10-01`),
     },
     11: {
       lastDay: 30,
       month: "November",
-      firstDay: moment(`${year}-11-01`),
+      firstDay: dayjs(`${year}-11-01`),
     },
     12: {
       lastDay: 31,
       month: "December",
-      firstDay: moment(`${year}-12-01`),
+      firstDay: dayjs(`${year}-12-01`),
     },
   });
 
@@ -386,9 +386,9 @@ const CalendarTemplate = ({
   const convertAvailabilityFromDatabase = (availability) => {
     const output = {};
     for (let range of availability) {
-      let start = moment(range.start);
+      let start = dayjs(range.start);
       let startTime = `${start.format("H")}:${start.format("mm")}`;
-      let end = moment(range.end);
+      let end = dayjs(range.end);
       let endTime = `${end.format("H")}:${end.format("mm")}`;
       let year = Number(start.format("YYYY"));
       let month = start.format("MMMM");
@@ -511,8 +511,8 @@ const CalendarTemplate = ({
     const output = {};
     for (let range of availability) {
       if (new Date(range.start) > new Date()) {
-        let day = moment(range.start).format("MMMM D, YYYY");
-        let time = `${moment(range.start).format("H:mm")} - ${moment(
+        let day = dayjs(range.start).format("MMMM D, YYYY");
+        let time = `${dayjs(range.start).format("H:mm")} - ${dayjs(
           range.end
         ).format("H:mm")}`;
 
@@ -528,7 +528,7 @@ const CalendarTemplate = ({
 
   return function Calendar() {
     const classes = useStyles();
-    const today = moment();
+    const today = dayjs();
 
     // timeList 불러와서 저장되있는 곳 유무를 불러오는거.
     const [availabilityState, setAvailabilityState] = useState(
@@ -549,7 +549,7 @@ const CalendarTemplate = ({
     const months = useMonths(year);
 
     const { firstDay, month, lastDay } = months[monthNumber];
-    let dayOfWeek = Number(moment(firstDay).format("d"));
+    let dayOfWeek = Number(dayjs(firstDay).format("d"));
     const days = getDaysArray();
     const [times, setTimes] = useState(getDefaultTimes());
     const [saving, setSaving] = useState(false);
