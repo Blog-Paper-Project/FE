@@ -35,7 +35,6 @@ const Login = () => {
       setCookie("userId", data.data.userId, 2);
       setCookie("blogId", data.data.blogId, 2);
       setCookie("profileimage", data.data.profileImage, 2);
-      
       window.alert("로그인성공!!!!");
       navigate("/");
     },
@@ -137,7 +136,6 @@ const LoginContainer = styled.div`
 const LoginBox = styled.div`
   width: 386px;
   height: 708px;
-  /* background-color: gray; */
   flex-direction: column;
   justify-content: center;
 `;

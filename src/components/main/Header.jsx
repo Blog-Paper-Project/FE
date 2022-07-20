@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
 import { deleteCookie } from "../../shared/Cookie";
+import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 
 /* 컴포넌트 */
@@ -15,15 +16,15 @@ const Header = () => {
     deleteCookie("nickname");
     deleteCookie("userId");
     deleteCookie("blogId");
-    deleteCookie("profileimage")
-    setCookie(false)
+    deleteCookie("profileimage");
+    setCookie(false);
     Swal.fire({
       icon: "success",
       text: `로그 아웃 하셨습니다!`,
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
     });
-    navigate("/")
+    navigate("/");
   };
   const navigate = useNavigate();
   /* 쿠키 */
@@ -44,7 +45,7 @@ const Header = () => {
 
   const toggling = () => setIsOpen(!isOpen);
 
-  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`;
+  const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
 
   return (
     <>
@@ -61,14 +62,10 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer >
+                <DropDownContainer>
                   <DropDownHeader>
                     <ProfileImgBox
-                      src={
-                        profileImage === null
-                          ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                          : profileButton
-                      }
+                      src={profileImage === "null" ? defaultUserImage : S3}
                       onClick={toggling}
                     />
                   </DropDownHeader>
@@ -77,7 +74,7 @@ const Header = () => {
                       <DropDownList>
                         <ListItem
                           onClick={() => {
-                            navigate(`/myprofile/`);
+                            navigate(`/myprofile`);
                           }}
                         >
                           회원정보
@@ -166,10 +163,9 @@ const ProfileImgBox = styled.img`
   border-radius: 50px;
   outline: 1px solid black;
   align-items: center;
-  cursor: pointer;
 `;
 const DropDownContainer = styled.div`
-  width: 30%;  
+  width: 30%;
 `;
 const DropDownHeader = styled.div`
   padding: 0.4em 2em 0.4em 1em;
@@ -178,11 +174,9 @@ const DropDownHeader = styled.div`
   color: #3faffa;
   background: #ffffff;
 `;
-const DropDownListContainer = styled.div`
-
-`;
+const DropDownListContainer = styled.div``;
 const DropDownList = styled.ul`
-position: absolute;
+  position: absolute;
   padding: 0;
   margin: 0;
   padding-left: 1em;
@@ -197,7 +191,7 @@ position: absolute;
   }
 `;
 const ListItem = styled.li`
-list-style: none;
+  list-style: none;
   margin-bottom: 0.8em;
 `;
 
