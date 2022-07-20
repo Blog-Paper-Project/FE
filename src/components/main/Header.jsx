@@ -3,13 +3,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
-import { useQuery } from "react-query";
 import { deleteCookie } from "../../shared/Cookie";
+import Swal from "sweetalert2";
 
-/* api */
-import { apiToken } from "../../shared/apis/Apis";
 /* 컴포넌트 */
-import HeaderProfile from "./HeaderProfile";
 import HeadPaperSearch from "./HeadPaperSearch";
 
 const Header = () => {
@@ -18,53 +15,35 @@ const Header = () => {
     deleteCookie("nickname");
     deleteCookie("userId");
     deleteCookie("blogId");
-    navigate("/");
+    deleteCookie("profileimage")
+    setCookie(false)
+    Swal.fire({
+      icon: "success",
+      text: `로그 아웃 하셨습니다!`,
+      showConfirmButton: true,
+      confirmButtonColor: "#3085d6",
+    });
+    navigate("/")
   };
-  const [modalOpen, setModalOpen] = React.useState(false);
   const navigate = useNavigate();
   /* 쿠키 */
   const cookie = getCookie("token");
-  const nickname = getCookie("nickname");
   const blogId = getCookie("blogId");
   const profileImage = getCookie("profileimage");
   const [is_cookie, setCookie] = React.useState(false);
+
   React.useEffect(() => {
     if (cookie !== undefined) {
       return setCookie(true);
     }
   }, []);
   /* 유저정보 모달창 */
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+
   //드롭다운 메뉴
   const [isOpen, setIsOpen] = React.useState(false);
+
   const toggling = () => setIsOpen(!isOpen);
-  /* 유저정보 모달창 */
-  /* 개인페이지 이동 */
-  // const useGetMyPaper = async () => {
-  //   const userData = await apiToken.get("/user/myprofile");
-  //   // console.log(userData);
-  //   return userData.data.myprofile;
-  // };
-  // const { data: userpaper_query, status } = useQuery(
-  //   "userpaper_query",
-  //   useGetMyPaper,
-  //   {
-  //     onSuccess: (data) => {
-  //       // console.log(data);
-  //     },
-  //     // onError: (e) => {
-  //     //   alert(e.message);
-  //     // },
-  //     staleTime: 50000,
-  //   }
-  // );
-  // const nickname = userpaper_query?.nickname;
-  // const profileImage = userpaper_query?.profileImage;
+
   const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`;
 
   return (
@@ -91,7 +70,6 @@ const Header = () => {
                           : profileButton
                       }
                       onClick={toggling}
-                    // onClick={openModal}
                     />
                   </DropDownHeader>
                   {isOpen && (
@@ -122,31 +100,6 @@ const Header = () => {
                     </DropDownListContainer>
                   )}
                 </DropDownContainer>
-
-                <HeaderProfile
-                  open={modalOpen}
-                  close={closeModal}
-                  header="프로필"
-                  nickname={nickname}
-                  login={setCookie}
-                  profileImage={profileImage}
-                />
-                <button
-                  onClick={() => {
-                    navigate(`/paper/${blogId}`);
-                  }}
-                >
-                  내 블로그로 가기
-                </button>
-                <button
-                  onClick={() => {
-                    navigate(
-                      `/paper/${blogId}/reservationList`
-                    );
-                  }}
-                >
-                  예약리스트
-                </button>
                 <Link to="/write">
                   <div>글작성</div>
                 </Link>
@@ -216,13 +169,10 @@ const ProfileImgBox = styled.img`
   cursor: pointer;
 `;
 const DropDownContainer = styled.div`
-  width: 10.5em;
-  margin: 0 auto;
+  width: 30%;  
 `;
 const DropDownHeader = styled.div`
-  margin-bottom: 0.8em;
   padding: 0.4em 2em 0.4em 1em;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
   font-weight: 500;
   font-size: 1.3rem;
   color: #3faffa;
@@ -232,6 +182,7 @@ const DropDownListContainer = styled.div`
 
 `;
 const DropDownList = styled.ul`
+position: absolute;
   padding: 0;
   margin: 0;
   padding-left: 1em;
