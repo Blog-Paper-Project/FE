@@ -26,7 +26,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const paperList = async () => {
-    const res = await api.get("/api/paper/");
+    const res = await api.get("/api/paper");
     return res;
   };
 

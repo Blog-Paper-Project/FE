@@ -2,12 +2,16 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 
-import UseInput from "../hooks/UseInput";
-import { emailCheck, nicknameCheck, blogIdCheck } from "../shared/SignUpCheck";
-import SignUpModal from "../components/user/SignUpModal";
-import { api } from "../shared/apis/Apis";
-import Header from "../components/main/Header";
-import Footer from "../components/main/Footer";
+import UseInput from "../../hooks/UseInput";
+import {
+  emailCheck,
+  nicknameCheck,
+  blogIdCheck,
+} from "../../shared/SignUpCheck";
+import SignUpModal from "../../components/user/SignUpModal";
+import { api } from "../../shared/apis/Apis";
+import Header from "../../components/main/Header";
+import Footer from "../../components/main/Footer";
 
 import styled from "styled-components";
 
