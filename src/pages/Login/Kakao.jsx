@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, apikakao } from "../../shared/apis/Apis";
+import { apikakao } from "../../shared/apis/Apis";
 import { setCookie } from "../../shared/Cookie";
 
 const Kakao = () => {
@@ -10,15 +10,24 @@ const Kakao = () => {
 
   useEffect(() => {
     if (code) {
-      const kakaoLogin = () => {
+      const kakaoLogin = (code) => {
         apikakao
           .get(`/user/login/kakao/callback?code=${code}`)
-          .then((res) => {
-            console.log(res);
+          .then((data) => {
+            console.log(data);
+            const AccessToken = data.token;
+            const Accessnickname = data.nickname;
+            const AccessUseId = data.userId;
+            const AccessBlogId = data.blogId;
+
+            setCookie("token", AccessToken);
+            setCookie("nickname", Accessnickname);
+            setCookie("userId", AccessUseId);
+            setCookie("blogId", AccessBlogId);
+            navigate("/");
           })
           .catch((err) => {
             console.log("소셜로그인 에러", err);
-            alert("로그인 실패 !");
           });
       };
       kakaoLogin();

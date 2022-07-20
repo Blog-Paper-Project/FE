@@ -115,7 +115,7 @@ const Header = () => {
   );
 };
 const HeaderBox = styled.div`
-  background-color: #FFFDF7;
+  background-color: #fffdf7;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -136,7 +136,6 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
   outline: 1px solid black;
-
 `;
 const Search = styled.div`
   display: flex;
