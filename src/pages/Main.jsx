@@ -830,5 +830,4 @@ const EndBox = styled.div`
   }
 `;
 
-
 export default Main;

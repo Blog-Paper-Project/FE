@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import GlobalStyle from './styles/GlobalStyle';
-
+import GlobalStyle from "./styles/GlobalStyle";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
@@ -15,7 +14,7 @@ import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
 import ReservationList from "./pages/ReservationList";
 import Paper from "./pages/Paper";
-import Kakao from "./pages/Login/Kakao"
+import Kakao from "./pages/Login/Kakao";
 
 //임시
 import io from "socket.io-client";
@@ -26,7 +25,6 @@ export const initSocketConnection = () => {
 };
 //임시
 
-
 function App() {
   return (
     <>
@@ -34,9 +32,10 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/paper/:blogId" element={<Paper />} />
+
         <Route path="/write" element={<Write />} />
         <Route path="/modify/:blogId/:postId" element={<Modify />} />
+        <Route path="/paper/:blogId" element={<Paper />} />
         <Route path="/paper/:blogId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
         <Route path="/myprofile" element={<MyProfile />} />

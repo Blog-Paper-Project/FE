@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
 
 import UseInput from "../hooks/UseInput";
-
-/* 컴포넌트 */
 import { emailCheck, nicknameCheck, blogIdCheck } from "../shared/SignUpCheck";
 import SignUpModal from "../components/user/SignUpModal";
 import { api } from "../shared/apis/Apis";
@@ -15,9 +13,7 @@ import styled from "styled-components";
 
 const SignUp = () => {
   const queryClient = useQueryClient();
-
   const navigate = useNavigate();
-
   const blogRef = useRef();
 
   const [email, setEmail] = UseInput(null);
@@ -30,6 +26,7 @@ const SignUp = () => {
   const [emailCHK, setEmailCHK] = useState(false);
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
+  const [emailAuthCHK, setEmailAuthCHK] = useState(false);
   const [term, setTerm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -45,6 +42,7 @@ const SignUp = () => {
     setTerm(e.target.checked);
   };
 
+  //이메일 중복체크
   const getDupEmail = async () => {
     if (!emailCheck(email)) {
       return null;
@@ -71,6 +69,56 @@ const SignUp = () => {
     },
   });
 
+  //이메일 유효성 확인
+  const postEmailCheck = async () => {
+    if (!emailCheck(email)) {
+      return null;
+    } else {
+      const data = await api.post("/user/emailauth", {
+        email,
+      });
+      return data;
+    }
+  };
+
+  const { mutate: sendEmail } = useMutation(postEmailCheck, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("아이디를 입력해주세요");
+      } else {
+        window.alert("인증번호를 확인해주세요");
+      }
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  //인증번호 확인
+  const postEmailAuth = async () => {
+    const data = await api.post("/user/check-emailauth", {
+      emailAuth,
+    });
+    return data;
+  };
+
+  const { mutate: sendEmailAuth } = useMutation(postEmailAuth, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries();
+      if (data === null) {
+        window.alert("인증번호를 입력해주세요");
+      } else if (data.data.result === true) {
+        window.alert("인증이 완료되었습니다");
+        setEmailAuthCHK(true);
+      }
+    },
+    onError: () => {
+      console.log("error");
+    },
+  });
+
+  //닉네임 중복체크
   const getDupNick = async () => {
     if (!nicknameCheck(nickname)) {
       return null;
@@ -89,7 +137,6 @@ const SignUp = () => {
         window.alert("닉네임 형식을 지켜주세요");
       } else {
         setNicknameCHK(true);
-        // window.alert("사용가능한 닉네임 입니다");
       }
     },
     onError: () => {
@@ -97,6 +144,7 @@ const SignUp = () => {
     },
   });
 
+  //블로그아이디 중복체크
   const getDupBlogId = async () => {
     if (!blogIdCheck(blogId)) {
       return null;
@@ -115,7 +163,6 @@ const SignUp = () => {
         window.alert("블로그주소 형식을 지켜주세요");
       } else {
         setBlogIdCHK(true);
-        // window.alert("사용가능한 블로그주소 입니다");
       }
     },
     onError: () => {
@@ -123,7 +170,9 @@ const SignUp = () => {
     },
   });
 
+  //회원가입
   const Submit = async () => {
+    //공백일 시
     if (
       email === "" ||
       nickname === "" ||
@@ -153,7 +202,7 @@ const SignUp = () => {
   const { mutate: onsubmit } = useMutation(Submit, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
-      if (data.data.result == true) {
+      if (data.data.result === true) {
         window.alert("가입성공!!!");
         navigate("/login");
       } else {
@@ -163,54 +212,6 @@ const SignUp = () => {
     onError: () => {
       window.alert("외않되");
       return;
-    },
-  });
-
-  // ------------------------
-
-  const postEmailCheck = async () => {
-    if (!emailCheck(email)) {
-      return null;
-    } else {
-      const data = await api.post("/user/emailauth", {
-        email,
-      });
-      return data;
-    }
-  };
-
-  const { mutate: sendEmail } = useMutation(postEmailCheck, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries();
-      if (data === null) {
-        window.alert("아이디를 입력해주세요");
-      } else {
-        console.log(data);
-      }
-    },
-    onError: () => {
-      console.log("error");
-    },
-  });
-
-  const postEmailAuth = async () => {
-    const data = await api.post("/user/emailauth", {
-      emailAuth,
-    });
-    return data;
-  };
-
-  const { mutate: sendEmailAuth } = useMutation(postEmailAuth, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries();
-      if (data === null) {
-        window.alert("인증번호를 입력해주세요");
-      } else {
-        console.log(data);
-      }
-    },
-    onError: () => {
-      console.log("error");
     },
   });
 
@@ -246,40 +247,46 @@ const SignUp = () => {
         </button>
 
         <InputBox>
-          <EmailBox>
-            <SignUpInput
-              type="email"
-              id="email"
-              placeholder="이메일 : "
-              value={email || ""}
-              onChange={setEmail}
-              onBlur={(e) => {
-                if (e.currentTarget.value && e.currentTarget === e.target) {
-                  dupEmail();
-                }
-              }}
-            />
+          {emailAuthCHK ? (
+            <OKEmail>{email}</OKEmail>
+          ) : (
+            <EmailBox>
+              <SignUpInput
+                type="email"
+                id="email"
+                placeholder="이메일 : "
+                value={email || ""}
+                onChange={setEmail}
+                onBlur={(e) => {
+                  if (e.currentTarget.value && e.currentTarget === e.target) {
+                    dupEmail();
+                  }
+                }}
+              />
+              {emailCHK ? (
+                <SendButton onClick={sendEmail}>인증메일보내기</SendButton>
+              ) : null}
+            </EmailBox>
+          )}
 
-            {emailCHK ? (
-              <SendButton onClick={sendEmail}>인증메일보내기</SendButton>
-            ) : null}
-          </EmailBox>
           {email === null ? null : emailCHK ? null : (
             <p style={{ color: "red" }}>
               이미 중복된 아이디거나, 사용불가능한 아이디입니다.
             </p>
           )}
-          <EmailBox>
-            <SignUpInput
-              type="text"
-              id="emailauth"
-              placeholder="인증번호 : "
-              value={emailAuth || ""}
-              onChange={setEmailAuth}
-            />
+          {emailAuthCHK ? null : (
+            <EmailBox>
+              <SignUpInput
+                type="text"
+                id="emailauth"
+                placeholder="인증번호 : "
+                value={emailAuth || ""}
+                onChange={setEmailAuth}
+              />
+              <SendButton onClick={sendEmailAuth}>인증번호확인</SendButton>
+            </EmailBox>
+          )}
 
-            <SendButton onClick={sendEmailAuth}>인증번호확인</SendButton>
-          </EmailBox>
           <SignUpInput
             type="text"
             label="닉네임"
@@ -358,19 +365,15 @@ const SignUpContainer = styled.div`
 
 const SignUpBox = styled.div`
   width: 386px;
-  height: 708px;
-  /* background-color: gray; */
-  flex-direction: column;
-  justify-content: center;
 `;
 
 const Top = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
-  width: 386px;
+  width: 100%;
   border-bottom: solid 1px black;
-  margin: 130px auto 32px auto;
+  margin: 100px auto 32px auto;
   padding-bottom: 25px;
   > h2 {
     font-size: 30px;
@@ -381,20 +384,21 @@ const Top = styled.div`
 `;
 
 const InputBox = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 16px;
+  margin-top: 8px;
 `;
 
 const SignUpInput = styled.input`
   width: 100%;
   height: 50px;
-  margin: 8px 0 8px 0;
 `;
 
 const SignUpCheckInput = styled.input`
   width: 100%;
   height: 50px;
-  margin: 8px 0 8px 0;
   border: ${(props) =>
     props.confirmPassword && props.password !== props.confirmPassword
       ? "1px solid red"
@@ -407,20 +411,18 @@ const SignUpButton = styled.button`
   background-color: black;
   display: flex;
   justify-content: center;
+  text-align: center;
   color: white;
-  border: 1px solid #e5e2db;
   font-family: Gmarket Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 50px;
   letter-spacing: 0em;
-  text-align: center;
   margin-top: 41px;
 `;
 
 const EmailBox = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
 `;
 
@@ -432,8 +434,18 @@ const SendButton = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 8px 0 8px 0;
   width: 80px;
+`;
+
+const OKEmail = styled.div`
+  width: calc(100% - 20px);
+  height: 50px;
+  padding: 0 10px;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 14px;
 `;
 
 export default SignUp;

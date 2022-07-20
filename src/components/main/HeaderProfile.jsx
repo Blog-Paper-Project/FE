@@ -59,7 +59,9 @@ const HeaderProfile = (props) => {
                 </Button>
                 <Button
                   className="close"
-                  onClick={onLogout}
+                  onClick={() => {
+                    onLogout();
+                  }}
                   style={{ backgroundColor: "#D9D9D9" }}
                 >
                   로그아웃
