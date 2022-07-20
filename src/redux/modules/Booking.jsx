@@ -11,6 +11,7 @@ const getBooking = (data) => {
   return { type: GET_BOOKING, data };
 };
 
+
 const initialState = {
   list: [],
 };
@@ -19,11 +20,11 @@ const initialState = {
 // 예약하기
 let userName = getCookie("userId");
 // console.log(userName);
-export const setBookingDB = (data, userId, LeafCount) => {
+export const setBookingDB = (data, blogId) => {
   return function (dispatch, getCookie) {
-    console.log(userId);
+    console.log(blogId);
     console.log(userName);
-    console.log("DB 저장으로 가는 데이터 : ", { data, userId, LeafCount });
+    console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
     if (!userName) {
       Swal.fire({
         icon: "error",
@@ -35,7 +36,7 @@ export const setBookingDB = (data, userId, LeafCount) => {
       return;
     }
 
-    if (userId === userName) {
+    if (blogId === userName) {
       Swal.fire({
         icon: "error",
         text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
@@ -63,11 +64,10 @@ export const setBookingDB = (data, userId, LeafCount) => {
 
     apiToken({
       method: "post",
-      url: `/api/booking/${userId}`,
+      url: `/api/booking/${blogId}`,
       data: {
         // time: `${data[0]?.start}-${data[0]?.end}`,
         guestId: userName,
-        leaf: Number(LeafCount),
         date: `${data[0]?.start}-${data[0]?.end}`,
       },
     })
@@ -132,7 +132,9 @@ export const patchBookingDB = (hostId) => {
       method: "patch",
       url: `/api/booking/${hostId.userId}/${hostId.bookingId}`,
     })
-      .then(() => {})
+      .then(() => {
+        window.location.reload();
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -147,7 +149,15 @@ export const deleteHostBookingDB = (hostId) => {
       method: "delete",
       url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
     })
-    .then(() => {})
+    .then(() => {
+      Swal.fire({
+        icon: "success",
+        text: `예약을 취소 하셨 습니다!`,
+        showConfirmButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+      window.location.reload();
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -155,14 +165,22 @@ export const deleteHostBookingDB = (hostId) => {
 };
 
 // 게스트 예약 취소
-export const deleteGuestBookingDB = (User, bookingId) => {
+export const deleteGuestBookingDB = (Guest, bookingId) => {
   return function () {
-    console.log(User, bookingId)
+    console.log(Guest, bookingId)
     apiToken({
       method: "delete",
-      url: `/api/booking/${User}/${bookingId}`,
+      url: `/api/booking/guest/${Guest}/${bookingId}`,
     })
-    .then(() => {})
+    .then(() => {
+      Swal.fire({
+        icon: "success",
+        text: `예약을 취소 하셨 습니다!`,
+        showConfirmButton: true,
+        confirmButtonColor: "#3085d6",
+      });
+      window.location.reload();
+    })
     .catch((err) => {
       console.log(err);
     });

@@ -18,8 +18,7 @@ import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 
 const CalendarTemplate = ({
-  LeafCount,
-  userId,
+  blogId,
   availability,
   setAvailability,
   primaryColor = "#DF1B1B",
@@ -37,7 +36,6 @@ const CalendarTemplate = ({
   const dispatch = useDispatch();
   const isLogin = getCookie("userId");
   const saveDataCount = availability.length + 1;
-  // console.log(LeafCount)
   // 스타일
   const theme = createTheme({
     typography: {
@@ -663,8 +661,8 @@ const CalendarTemplate = ({
         );
         // console.log('goDB : ', { goDB });
         // console.log({ data });
-        dispatch(setBookingDB(goDB, userId, LeafCount));
-        // console.log(userId)
+        dispatch(setBookingDB(goDB, blogId));
+        console.log(blogId)
         setAvailability(data);
       }
     };

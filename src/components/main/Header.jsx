@@ -55,7 +55,6 @@ const Header = () => {
   if (status === "Loading") {
     return <div>loading...</div>;
   }
-  // console.log(userpaper_query?.data.myprofile.userId);
   return (
     <>
       <HeaderBox>
@@ -93,6 +92,13 @@ const Header = () => {
                   }}
                 >
                   내 블로그로 가기
+                </button>
+                <button
+                  onClick={() => {
+                    navigate(`/paper/${userpaper_query.blogId}/reservationList`);
+                  }}
+                >
+                  예약리스트
                 </button>
                 <Link to="/write">
                   <div>글작성</div>
@@ -150,8 +156,8 @@ const Login = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  outline: 1px solid black;
+
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
