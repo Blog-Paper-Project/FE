@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
-import bookingReducer, { getBookingDB } from "../../redux/modules/Booking";
+import bookingReducer, { getBookingDB } from "../redux/modules/Booking";
 import styled from "styled-components";
 
-import BookingItem from "./BookingItem";
+import BookingItem from "../components/booking/BookingItem";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 
 const ReservationList = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ const ReservationList = () => {
   console.log(bookingList)
 
   return (
+    <>
+    <Header/>
     <Wrap>
       <div className="innerWrap">
         <div className="bookingWrap">
@@ -32,9 +36,9 @@ const ReservationList = () => {
               <li className="noBookingText">'예약된 내역이 없습니다!'</li>
             )}
             {bookingList?.guestBookingList.map((item, idx) => {
+              console.log(item)
               return (
                 <BookingItem
-
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
@@ -56,7 +60,6 @@ const ReservationList = () => {
             {bookingList?.hostBookingList.map((item, idx) => {
               return (
                 <BookingItem
-
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
@@ -67,6 +70,9 @@ const ReservationList = () => {
         </div>
       </div>
     </Wrap>
+    <Footer/>
+    </>
+    
   );
 };
 

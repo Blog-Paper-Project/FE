@@ -26,13 +26,14 @@ const Main = () => {
   const navigate = useNavigate();
 
   const paperList = async () => {
-    const res = await api.get("/api/paper/");
+    const res = await api.get("/api/paper");
     return res;
   };
 
   const { data: paper_query } = useQuery("paper_list", paperList, {
     staleTime: 0,
     onSuccess: (data) => {
+      console.log(data)
       return data;
     },
   });
@@ -55,9 +56,98 @@ const Main = () => {
         <MainTop>
           <div>PAPER</div>
         </MainTop>
-        <PostBox>
-          {/* 왼쪽글 */}
-          <Post1>
+        <PostWrap>
+          <PostBox>
+            <Post1>
+              <Post11>
+              <Post111
+              style={{
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", padding: "5px" }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "10%",
+                  left: "10%",
+                  backgroundColor: "rgba(255, 255, 255, 0.8)",
+                  width: "40%",
+                  height: "40%",
+                }}
+                onClick={() => {
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
+                }}
+              >
+                <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
+                <br />
+                {aPapers?.contents && (
+                  <ViewEdit
+                    contents={aPapers?.contents}
+                    style={{ height: "200px" }}
+                  />
+                )}
+                <p>
+                  <FaHeart size="12px" />
+                  {aPapers?.likes}
+                </p>
+              </div>
+            </Post111>
+                <Post112>
+                  2번글
+                </Post112>
+              </Post11>
+              <Post12>
+                3번글
+              </Post12>
+              <Post13>
+                <Post131>
+                  4번글
+                </Post131>
+                <Post132>
+                  5번글
+                </Post132>
+              </Post13>
+            </Post1>
+            <Post2>
+              <Post21>
+                <Post211>
+                  6번글
+                </Post211>
+                <Post212>
+                  7번글
+                </Post212>
+              </Post21>
+
+              <Post22>
+                설명
+              </Post22>
+              <Post23>
+                <Post231>
+                  8번글
+                </Post231>
+                <Post232>
+                  9번글
+                </Post232>
+              </Post23>
+              <Post24>
+                10번글
+              </Post24>
+            </Post2>
+          </PostBox>
+        </PostWrap>
+
+
+
+        {/* <Post1>
             <Post11
               style={{
                 position: "relative",
@@ -82,7 +172,7 @@ const Main = () => {
                   height: "274px",
                 }}
                 onClick={() => {
-                  navigate(`/paper/${aPapers?.userId}/${aPapers?.postId}`);
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
                 }}
               >
                 <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
@@ -127,7 +217,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${dPapers?.userId}/${dPapers?.postId}`);
+                      navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
@@ -147,7 +237,7 @@ const Main = () => {
                       paddingTop: "30px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${gPapers?.userId}/${gPapers?.postId}`);
+                      navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
@@ -190,7 +280,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${ePapers?.userId}/${ePapers?.postId}`);
+                      navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
@@ -227,7 +317,7 @@ const Main = () => {
                       height: "281px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${hPapers?.userId}/${hPapers?.postId}`);
+                      navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
@@ -247,7 +337,6 @@ const Main = () => {
               </Post122>
             </Post12>
           </Post1>
-          {/* 오른쪽글 */}
           <Post2>
             <Post21>
               <Post211>
@@ -259,7 +348,7 @@ const Main = () => {
                     paddingTop: "30px",
                   }}
                   onClick={() => {
-                    navigate(`/paper/${bPapers?.userId}/${bPapers?.postId}`);
+                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                   }}
                 >
                   <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
@@ -301,7 +390,7 @@ const Main = () => {
                       height: "281px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${cPapers?.userId}/${cPapers?.postId}`);
+                      navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
@@ -340,7 +429,7 @@ const Main = () => {
                     paddingTop: "30px",
                   }}
                   onClick={() => {
-                    navigate(`/paper/${fPapers?.userId}/${fPapers?.postId}`);
+                    navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
                   }}
                 >
                   <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
@@ -367,7 +456,7 @@ const Main = () => {
                       paddingTop: "30px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${jPapers?.userId}/${jPapers?.postId}`);
+                      navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
@@ -408,7 +497,7 @@ const Main = () => {
                       marginLeft: "20px",
                     }}
                     onClick={() => {
-                      navigate(`/paper/${iPapers?.userId}/${iPapers?.postId}`);
+                      navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
@@ -421,8 +510,8 @@ const Main = () => {
                 </Post2222>
               </Post222>
             </Post22>
-          </Post2>
-        </PostBox>
+          </Post2> */}
+
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
           <div className="poText">Popular Bloger</div>
@@ -444,9 +533,9 @@ const Main = () => {
               paper_query?.data.popularUsers.map((popularUsers) => {
                 return (
                   <SwiperSlide
-                    key={popularUsers.userId}
+                    key={popularUsers.blogId}
                     onClick={() => {
-                      navigate(`/paper/${popularUsers.userId}`);
+                      navigate(`/paper/${popularUsers.blogId}`);
                     }}
                   >
                     <Popular>
@@ -473,14 +562,14 @@ const Main = () => {
 
 const MainBox = styled.div`
   background-color: #fffdf7;
-  height: 4096px;
+  height: 4069px;
 `;
 const MainTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 9%;
+  height: 6%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -488,112 +577,207 @@ const MainTop = styled.div`
   font-weight: 600;
   line-height: 90px;
 `;
-const PostBox = styled.div`
+const PostWrap = styled.div`
   width: 100%;
-  height: 46%;
+  height: 43%;
+  display: flex;
+  justify-content: center;
+`
+const PostBox = styled.div`
+  width: 90%;
+  height: 95%;
+  outline: 1px solid;
 `;
 const Post1 = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  background-color: black;
   /* border: 1px solid black; */
   /* padding: 20px; */
 `;
 const Post11 = styled.div`
   width: 100%;
-  height: 54%;
+  height: 23%;
   outline: 1px solid;
+  background-color: yellow;
+`;
+const Post111 = styled.div`
+  width: 50%;
+  height: 100%;
+  outline: 1px solid;
+  background-color: pink;
+  float: left;
+`;
+const Post112 = styled.div`
+  width: 50%;
+  height: 100%;
+  outline: 1px solid;
+  background-color: green;
+  float: left;
 `;
 const Post12 = styled.div`
   width: 100%;
-  height: 46%;
+  height: 54%;
+  background-color: yellow;
 `;
-const Post121 = styled.div`
+const Post13 = styled.div`
+  width: 100%;
+  height: 23%;
+  background-color: lime;
+`;
+const Post131 = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  background-color: aqua;
 `;
-const Post1211 = styled.div`
-  width: 100%;
-  height: 50%;
-  outline: 1px solid;
-`;
-const Post1212 = styled.div`
-  width: 100%;
-  height: 50%;
-  outline: 1px solid;
-`;
-const Post122 = styled.div`
+const Post132 = styled.div`
   width: 50%;
   height: 100%;
-  float: right;
-`;
-const Post1221 = styled.div`
-  width: 100%;
-  height: 50%;
-  outline: 1px solid;
-`;
-const Post1222 = styled.div`
-  width: 100%;
-  height: 50%;
-  outline: 1px solid;
+  float: left;
+  background-color: aquamarine;
 `;
 const Post2 = styled.div`
   width: 50%;
   height: 100%;
   float: left;
+  background-color: azure;
 `;
 const Post21 = styled.div`
   width: 100%;
-  height: 54%;
+  height: 23%;
+  float: left;
+  background-color: black;
 `;
 const Post211 = styled.div`
-  width: 100%;
-  height: 50%;
-  outline: 1px solid;
+  width: 50%;
+  height: 100%;
+  float: left;
+  background-color: blanchedalmond;
 `;
 const Post212 = styled.div`
-  width: 100%;
-  height: 50%;
+  width: 50%;
+  height: 100%;
   float: left;
-`;
-const Post2121 = styled.div`
-  width: 50%;
-  height: 100%;
-  outline: 1px solid;
-  float: right;
-  outline: 1px solid;
-`;
-const Post2122 = styled.div`
-  width: 50%;
-  height: 100%;
-  outline: 1px solid;
+  background-color: blue;
 `;
 const Post22 = styled.div`
   width: 100%;
-  height: 46%;
+  height: 27%;
+  background-color: cadetblue;
+  float: left;
 `;
-const Post221 = styled.div`
+const Post23 = styled.div`
   width: 100%;
-  height: 50%;
-  outline: 1px solid;
+  height: 27%;
+  float: left;
+  background-color: black;
 `;
-const Post222 = styled.div`
-  width: 100%;
-  height: 50%;
-`;
-const Post2221 = styled.div`
+const Post231 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid;
-  float: right;
-  outline: 1px solid;
+  float: left;
+  background-color: blueviolet;
 `;
-const Post2222 = styled.div`
+const Post232 = styled.div`
   width: 50%;
   height: 100%;
-  outline: 1px solid;
+  float: left;
+  background-color: brown;
 `;
+const Post24 = styled.div`
+  width: 100%;
+  height: 23%;
+  float: left;
+  background-color: burlywood;
+`;
+// const Post121 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   float: left;
+// `;
+// const Post1211 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post1212 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post122 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   float: right;
+// `;
+// const Post1221 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post1222 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post2 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   float: left;
+// `;
+// const Post21 = styled.div`
+//   width: 100%;
+//   height: 54%;
+// `;
+// const Post211 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post212 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   float: left;
+// `;
+// const Post2121 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   outline: 1px solid;
+//   float: right;
+//   outline: 1px solid;
+// `;
+// const Post2122 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   outline: 1px solid;
+// `;
+// const Post22 = styled.div`
+//   width: 100%;
+//   height: 46%;
+// `;
+// const Post221 = styled.div`
+//   width: 100%;
+//   height: 50%;
+//   outline: 1px solid;
+// `;
+// const Post222 = styled.div`
+//   width: 100%;
+//   height: 50%;
+// `;
+// const Post2221 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   outline: 1px solid;
+//   float: right;
+//   outline: 1px solid;
+// `;
+// const Post2222 = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   outline: 1px solid;
+// `;
 const PopularBloger = styled.div`
   width: 100%;
   height: 3%;

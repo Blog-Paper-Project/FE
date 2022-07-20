@@ -7,15 +7,11 @@ import { getBookingDB } from "../redux/modules/Booking";
 import { useParams } from "react-router-dom";
 
 import CalendarTemplate from "../components/booking/Calendar";
-import ReservationList from "../components/booking/ReservationList";
-import { getCookie } from "../shared/Cookie";
-import LeafDrop from "../components/booking/LeafDrop";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 
 const Reservation = () => {
-  const [LeafCount, setLeafCount] = useState("");
-  console.log(LeafCount);
-  const { userId } = useParams();
-  const userName = getCookie("userId");
+  const { blogId } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getBookingDB());
@@ -26,15 +22,15 @@ const Reservation = () => {
 
   const [availability, setAvailability] = useState([]);
   const Calendar = CalendarTemplate({
-    LeafCount,
-    userId,
+    blogId,
     availability,
     setAvailability,
   });
   return (
     <div>
-      <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
-      <Calendar userId={userId} LeafCount={LeafCount} />
+      <Header/>
+      <Calendar userId={blogId}/>
+      <Footer/>
     </div>
   );
 };
