@@ -38,6 +38,7 @@ const MyProfile = () => {
     staleTime: 0,
     cacheTime: 0,
     onSuccess: (data) => {
+      console.log(data);
       return data;
     },
   });

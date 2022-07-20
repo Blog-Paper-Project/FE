@@ -12,9 +12,9 @@ import { getCookie } from "../shared/Cookie";
 
 const PaperDetail = () => {
   const navigate = useNavigate();
-  const { userId } = useParams();
+  const { blogId } = useParams();
   const { postId } = useParams();
-  // console.log(userId);
+  // console.log(blogId);
   // console.log(postId);
   const queryClient = useQueryClient();
   const LoginId = getCookie("userId");
@@ -30,7 +30,7 @@ const PaperDetail = () => {
   const { mutate: onDelete } = useMutation(DeleteDetail, {
     onSuccess: () => {
       queryClient.invalidateQueries("paper_data", "detail_data");
-      navigate(`/paper/${userId}`);
+      navigate(`/paper/${blogId}`);
       // console.log();
     },
   });
@@ -39,7 +39,7 @@ const PaperDetail = () => {
 
   // ## useQuery 글 get 함수
   const GetDetailtData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
+    const response = await apiToken.get(`/api/paper/users/${blogId}/${postId}`);
     // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
@@ -71,7 +71,7 @@ const PaperDetail = () => {
   return (
     <div>
       <Header />
-      {LoginId === userId ? (
+      {LoginId === detail_data?.userId ? (
         <>
           {/* 아래 글 삭제 버튼*/}
           <div>
@@ -87,7 +87,7 @@ const PaperDetail = () => {
           <div>
             <button
               onClick={() => {
-                navigate(`/modify/${userId}/${postId}`);
+                navigate(`/modify/${blogId}/${postId}`);
               }}
             >
               글 수정하기

@@ -41,7 +41,7 @@ const Header = () => {
     useGetMyPaper,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
       },
       // onError: (e) => {
       //   alert(e.message);
@@ -89,7 +89,7 @@ const Header = () => {
                 />
                 <button
                   onClick={() => {
-                    navigate(`/paper/${userpaper_query.userId}`);
+                    navigate(`/paper/${userpaper_query.blogId}`);
                   }}
                 >
                   내 블로그로 가기
