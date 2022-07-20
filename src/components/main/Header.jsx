@@ -24,6 +24,9 @@ const Header = () => {
   const navigate = useNavigate();
   /* 쿠키 */
   const cookie = getCookie("token");
+  const nickname = getCookie("nickname");
+  const blogId = getCookie("blogId");
+  const profileImage = getCookie("profileimage");
   const [is_cookie, setCookie] = React.useState(false);
   React.useEffect(() => {
     if (cookie !== undefined) {
@@ -42,30 +45,28 @@ const Header = () => {
   const toggling = () => setIsOpen(!isOpen);
   /* 유저정보 모달창 */
   /* 개인페이지 이동 */
-  const useGetMyPaper = async () => {
-    const userData = await apiToken.get("/user/myprofile");
-    // console.log(userData);
-    return userData.data.myprofile;
-  };
-  const { data: userpaper_query, status } = useQuery(
-    "userpaper_query",
-    useGetMyPaper,
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-      // onError: (e) => {
-      //   alert(e.message);
-      // },
-      staleTime: 50000,
-    }
-  );
-  const nickname = userpaper_query?.nickname;
-  const profileImage = userpaper_query?.profileImage;
+  // const useGetMyPaper = async () => {
+  //   const userData = await apiToken.get("/user/myprofile");
+  //   // console.log(userData);
+  //   return userData.data.myprofile;
+  // };
+  // const { data: userpaper_query, status } = useQuery(
+  //   "userpaper_query",
+  //   useGetMyPaper,
+  //   {
+  //     onSuccess: (data) => {
+  //       // console.log(data);
+  //     },
+  //     // onError: (e) => {
+  //     //   alert(e.message);
+  //     // },
+  //     staleTime: 50000,
+  //   }
+  // );
+  // const nickname = userpaper_query?.nickname;
+  // const profileImage = userpaper_query?.profileImage;
   const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`;
-  if (status === "Loading") {
-    return <div>loading...</div>;
-  }
+
   return (
     <>
       <HeaderBox>
@@ -132,14 +133,16 @@ const Header = () => {
                 />
                 <button
                   onClick={() => {
-                    navigate(`/paper/${userpaper_query.blogId}`);
+                    navigate(`/paper/${blogId}`);
                   }}
                 >
                   내 블로그로 가기
                 </button>
                 <button
                   onClick={() => {
-                    navigate(`/paper/${userpaper_query.blogId}/reservationList`);
+                    navigate(
+                      `/paper/${blogId}/reservationList`
+                    );
                   }}
                 >
                   예약리스트
@@ -201,7 +204,6 @@ const Login = styled.div`
   align-items: center;
   justify-content: center;
   outline: 1px solid black;
-
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
