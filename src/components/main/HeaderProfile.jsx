@@ -51,7 +51,7 @@ const HeaderProfile = (props) => {
                 <Button
                   className="close"
                   onClick={() => {
-                    navigate(`/myprofile/`);
+                    navigate(`/myprofile`);
                   }}
                   style={{ backgroundColor: "#D9D9D9" }}
                 >

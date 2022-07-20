@@ -10,7 +10,7 @@ const Kakao = () => {
 
   useEffect(() => {
     if (code) {
-      const kakaoLogin = (code) => {
+      const kakaoLogin = () => {
         apikakao
           .get(`/user/login/kakao/callback?code=${code}`)
           .then((data) => {
@@ -24,7 +24,7 @@ const Kakao = () => {
             setCookie("nickname", Accessnickname);
             setCookie("userId", AccessUseId);
             setCookie("blogId", AccessBlogId);
-            navigate("/");
+            // navigate("/");
           })
           .catch((err) => {
             console.log("소셜로그인 에러", err);

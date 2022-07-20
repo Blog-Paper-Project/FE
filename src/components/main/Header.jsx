@@ -41,7 +41,7 @@ const Header = () => {
     useGetMyPaper,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
       },
       // onError: (e) => {
       //   alert(e.message);

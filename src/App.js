@@ -7,7 +7,7 @@ import Main from "./pages/Main";
 import Write from "./pages/Write";
 import Modify from "./pages/Modify";
 import MyProfile from "./pages/MyProfile";
-import SignUp from "./pages/SignUp";
+import SignUp from "./pages/SignUp/SignUp";
 import Search from "./pages/Search";
 import Chat from "./pages/Chat";
 import PaperDetail from "./pages/PaperDetail";
@@ -16,14 +16,14 @@ import ReservationList from "./pages/ReservationList";
 import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao";
 
-//임시
+// //임시
 import io from "socket.io-client";
 
 export const socket = io.connect(process.env.REACT_APP_API_URL);
 export const initSocketConnection = () => {
   if (socket) return;
 };
-//임시
+// //임시
 
 function App() {
   return (
