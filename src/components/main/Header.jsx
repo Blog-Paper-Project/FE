@@ -106,7 +106,7 @@ const Header = () => {
                         </ListItem>
                         <ListItem
                           onClick={() => {
-                            navigate(`/paper/${userpaper_query.blogId}/reservationList`);
+                            navigate(`/paper/${blogId}/reservationList`);
                           }}
                         >
                           예약리스트
@@ -167,6 +167,7 @@ const Header = () => {
     </>
   );
 };
+
 const HeaderBox = styled.div`
   background-color: #fffdf7;
   flex-direction: row;
