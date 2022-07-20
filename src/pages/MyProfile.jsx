@@ -13,17 +13,9 @@ import Header from "../components/main/Header";
 import { socket } from "../App";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
-import LeafDrop from "../components/booking/LeafDrop";
-import { useDispatch } from "react-redux";
-import { setLeafDB } from "../redux/modules/Leaf";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [LeafCount, setLeafCount] = useState();
-  const [LeafHidden, setLeafHidden] = useState(false);
-  const dispatch = useDispatch();
-  const userId = getCookie("userId");
-
   const nickname = getCookie("nickname");
   const navigate = useNavigate();
 
@@ -70,11 +62,7 @@ const MyProfile = () => {
       navigate("/myprofile");
     });
   };
-  const leafSet = () => {
-    dispatch(setLeafDB(userId, LeafCount))
-    setLeafHidden(true)
-  };
-
+  
 
   return (
     <MyProfileContainer>
@@ -118,15 +106,7 @@ const MyProfile = () => {
           </PointBox>
         </PointWrap>
         <LeafWrap>
-          <p>필요나뭇잎</p>
-          {LeafHidden ? (LeafCount):(
-          <>
-          <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
-          <LeafButton
-            onClick={ leafSet }
-          >설정하기</LeafButton>
-          </>
-          )}
+       
           
         </LeafWrap>
 

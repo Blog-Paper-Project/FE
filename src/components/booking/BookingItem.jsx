@@ -23,7 +23,7 @@ const BookingItem = (props) => {
   // const TuteeDel = item.TuteeDel;
   const timeId = item.bokingId;
   // console.log(item)
-  console.log(Guest, bookingId);
+  console.log(item);
   // 예약 정보
   // let startTime = item.start;
   // let endTime = item.end;

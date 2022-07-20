@@ -4,6 +4,8 @@ import bookingReducer, { getBookingDB } from "../redux/modules/Booking";
 import styled from "styled-components";
 
 import BookingItem from "../components/booking/BookingItem";
+import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 
 const ReservationList = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ const ReservationList = () => {
   console.log(bookingList)
 
   return (
+    <>
+    <Header/>
     <Wrap>
       <div className="innerWrap">
         <div className="bookingWrap">
@@ -35,7 +39,6 @@ const ReservationList = () => {
               console.log(item)
               return (
                 <BookingItem
-
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
@@ -57,7 +60,6 @@ const ReservationList = () => {
             {bookingList?.hostBookingList.map((item, idx) => {
               return (
                 <BookingItem
-
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
@@ -68,6 +70,9 @@ const ReservationList = () => {
         </div>
       </div>
     </Wrap>
+    <Footer/>
+    </>
+    
   );
 };
 

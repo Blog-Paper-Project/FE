@@ -20,11 +20,11 @@ const initialState = {
 // 예약하기
 let userName = getCookie("userId");
 // console.log(userName);
-export const setBookingDB = (data, userId, LeafCount) => {
+export const setBookingDB = (data, blogId) => {
   return function (dispatch, getCookie) {
-    console.log(userId);
+    console.log(blogId);
     console.log(userName);
-    console.log("DB 저장으로 가는 데이터 : ", { data, userId, LeafCount });
+    console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
     if (!userName) {
       Swal.fire({
         icon: "error",
@@ -36,7 +36,7 @@ export const setBookingDB = (data, userId, LeafCount) => {
       return;
     }
 
-    if (userId === userName) {
+    if (blogId === userName) {
       Swal.fire({
         icon: "error",
         text: `선생님은.. 예약 할수 없어요... ㅠㅠ`,
@@ -64,11 +64,10 @@ export const setBookingDB = (data, userId, LeafCount) => {
 
     apiToken({
       method: "post",
-      url: `/api/booking/${userId}`,
+      url: `/api/booking/${blogId}`,
       data: {
         // time: `${data[0]?.start}-${data[0]?.end}`,
         guestId: userName,
-        leaf: Number(LeafCount),
         date: `${data[0]?.start}-${data[0]?.end}`,
       },
     })

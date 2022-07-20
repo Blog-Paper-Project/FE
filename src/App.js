@@ -42,7 +42,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
-        <Route path="/paper/:blogId/reservation" element={<ReservationList />} />
+        <Route path="/paper/:blogId/reservationList" element={<ReservationList />} />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
         <Route path="/user/login/kakao/callback" element={<Kakao />} />
       </Routes>
