@@ -14,7 +14,6 @@ import LeafDrop from "../booking/LeafDrop";
 import { useDispatch } from "react-redux";
 import { patchLeafDB } from "../../redux/modules/Leaf";
 
-
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
 
@@ -29,7 +28,6 @@ const MyProfileModal = (props) => {
   const [LeafCount, setLeafCount] = useState();
   const dispatch = useDispatch();
   const userId = getCookie("userId");
-
 
   console.log(PreNickname);
   //닉네임 중복체크
@@ -86,11 +84,13 @@ const MyProfileModal = (props) => {
   };
 
   const { mutate: onsubmit } = useMutation(useProfile, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries();
       window.alert("수정성공!!");
       deleteCookie("nickname");
+      deleteCookie("profileimage");
       setCookie("nickname", CHGnickname);
+      setCookie("profileimage", data.data.profileImage);
       close();
     },
     onError: () => {
@@ -101,7 +101,6 @@ const MyProfileModal = (props) => {
 
   //프로필 변경
   const useProfile1 = async () => {
-
     const formData = new FormData();
 
     formData.append("introduction", CHGintroduction);
@@ -113,8 +112,10 @@ const MyProfileModal = (props) => {
   };
 
   const { mutate: onsubmit1 } = useMutation(useProfile1, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries();
+      deleteCookie("profileimage");
+      setCookie("profileimage", data.data.profileImage);
       window.alert("수정성공!!");
       close();
     },
@@ -133,8 +134,8 @@ const MyProfileModal = (props) => {
     fileInputRef.current.click();
   };
   const leafPatch = () => {
-    dispatch(patchLeafDB(userId, LeafCount))
-  }
+    dispatch(patchLeafDB(userId, LeafCount));
+  };
 
   return (
     <>
@@ -195,11 +196,9 @@ const MyProfileModal = (props) => {
                 </div>
                 <div>
                   <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
-                  <LeafChangeButton
-                    onClick={leafPatch}
-                  >설정하기</LeafChangeButton>
-
-
+                  <LeafChangeButton onClick={leafPatch}>
+                    설정하기
+                  </LeafChangeButton>
                 </div>
                 <div>
                   <textarea
@@ -288,6 +287,6 @@ const LeafChangeButton = styled.button`
   line-height: 50px;
   letter-spacing: 0em;
   text-align: center;
-`
+`;
 
 export default MyProfileModal;
