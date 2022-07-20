@@ -8,9 +8,9 @@ import { apiToken } from "../shared/apis/Apis";
 
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
+import { socket } from "../App";
 
 import Header from "../components/main/Header";
-import { socket } from "../App";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
 import defaultUserImage from "../public/images/default_profile.png";

@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
         border: none;
         border-radius: 3px;
     };
+    img{
+        cursor: pointer;
+    };
     input{
         outline: none;
         padding-left: 10px;
@@ -23,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing : border-box;
         border-width: 0;
         margin: 0;
-    }
+    };
 `;
 
 export default GlobalStyle;

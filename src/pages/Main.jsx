@@ -33,7 +33,6 @@ const Main = () => {
   const { data: paper_query } = useQuery("paper_list", paperList, {
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(data)
       return data;
     },
   });

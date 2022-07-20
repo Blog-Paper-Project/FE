@@ -30,18 +30,11 @@ const Login = () => {
   const { mutate: onsubmit } = useMutation(onLogin, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
-      const AccessToken = data.data.token;
-      const Accessnickname = data.data.nickname;
-      const AccessUseId = data.data.userId;
-      const AccessBlogId = data.data.blogId;
-      const AccessProfileImage = data.data.profileImage;
-
-      setCookie("token", AccessToken, 2);
-      setCookie("nickname", Accessnickname, 2);
-      setCookie("userId", AccessUseId, 2);
-      setCookie("blogId", AccessBlogId, 2);
-      setCookie("profileimage", AccessProfileImage, 2);
-
+      setCookie("token", data.data.token, 2);
+      setCookie("nickname", data.data.nickname, 2);
+      setCookie("userId", data.data.userId, 2);
+      setCookie("blogId", data.data.blogId, 2);
+      setCookie("profileimage", data.data.profileImage, 2);
       window.alert("로그인성공!!!!");
       navigate("/");
     },
@@ -143,7 +136,6 @@ const LoginContainer = styled.div`
 const LoginBox = styled.div`
   width: 386px;
   height: 708px;
-  /* background-color: gray; */
   flex-direction: column;
   justify-content: center;
 `;

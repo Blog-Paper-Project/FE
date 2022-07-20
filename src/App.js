@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import GlobalStyle from "./styles/GlobalStyle";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
@@ -16,14 +15,12 @@ import ReservationList from "./pages/ReservationList";
 import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao";
 
-// //임시
-// import io from "socket.io-client";
+import io from "socket.io-client";
 
-// export const socket = io.connect(process.env.REACT_APP_API_URL);
-// export const initSocketConnection = () => {
-//   if (socket) return;
-// };
-// //임시
+export const socket = io.connect(process.env.REACT_APP_API_URL);
+export const initSocketConnection = () => {
+  if (socket) return;
+};
 
 function App() {
   return (
@@ -32,14 +29,13 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/write" element={<Write />} />
         <Route path="/modify/:blogId/:postId" element={<Modify />} />
         <Route path="/paper/:blogId" element={<Paper />} />
         <Route path="/paper/:blogId/:postId" element={<PaperDetail />} />
         <Route path="/paper/search/:payload" element={<Search />} />
-        {/* <Route path="/myprofile" element={<MyProfile />} /> */}
-        {/* <Route path="/chat" element={<Chat />} /> */}
+        <Route path="/myprofile" element={<MyProfile />} />
+        <Route path="/chat" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
         <Route
           path="/paper/:blogId/reservationList"
