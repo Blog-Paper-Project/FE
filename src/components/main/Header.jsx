@@ -120,6 +120,7 @@ const Header = () => {
     </>
   );
 };
+
 const HeaderBox = styled.div`
   background-color: #fffdf7;
   flex-direction: row;
