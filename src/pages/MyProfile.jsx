@@ -13,11 +13,9 @@ import Header from "../components/main/Header";
 import { socket } from "../App";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
-import ReservationList from "../components/booking/ReservationList";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const nickname = getCookie("nickname");
   const navigate = useNavigate();
 
@@ -65,6 +63,7 @@ const MyProfile = () => {
       navigate("/myprofile");
     });
   };
+  
 
   return (
     <MyProfileContainer>
@@ -107,6 +106,10 @@ const MyProfile = () => {
             <p>{res?.data.myprofile.email}</p>
           </PointBox>
         </PointWrap>
+        <LeafWrap>
+       
+          
+        </LeafWrap>
 
         <ProfileButton
           onClick={() => {
@@ -130,7 +133,6 @@ const MyProfile = () => {
         />
       ) : null}
 
-      <ReservationList />
       <Footer />
     </MyProfileContainer>
   );
@@ -203,6 +205,10 @@ const PointWrap = styled.div`
     font-size: 14px;
   }
 `;
+const LeafWrap = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 const PointBox = styled.div`
   background-color: white;
@@ -230,6 +236,22 @@ const ProfileButton = styled.button`
   letter-spacing: 0em;
   text-align: center;
   margin-top: 30px;
+`;
+const LeafButton = styled.button`
+  width: 25%;
+  height: 30px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: 1px solid #e5e2db;
+  font-family: Gmarket Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  text-align: center;
 `;
 
 export default MyProfile;
