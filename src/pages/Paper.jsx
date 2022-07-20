@@ -87,22 +87,22 @@ const Paper = () => {
       <Header />
       <MyProfile>
         <MyProfileWrap>
-          <Box BoxWidth="25%">
+          <div className="MyProfileWrap_div1">
             <ProfileImg src="" />
-          </Box>
-          <Box BoxWidth="60%">
+          </div>
+          <div className="MyProfileWrap_div2">
             <Nickname>닉네임</Nickname>
             <Introduction>자기소개</Introduction>
-            <Box width>
+            <div className="MyProfileWrap_div4">
               <Subscribe>구독자</Subscribe>
               <Tree>나무</Tree>
-            </Box>
-          </Box>
-          <Box BoxWidth="15%">
+            </div>
+          </div>
+          <div className="MyProfileWrap_div3">
             <button>button1</button>
             <button>button2</button>
             <button>button3</button>
-          </Box>
+          </div>
         </MyProfileWrap>
       </MyProfile>
       <Subscribe
@@ -200,13 +200,6 @@ const Paper = () => {
   );
 };
 
-// Box 모든 곳에 쓰이는 기본 박스
-const Box = styled.div`
-  height: 100%;
-  width: ${(props) => props.BoxWidth || "100%"};
-  border: 1px solid black;
-`;
-// ${(props) => props.height || "100%"};
 // Container 이 페이지 전체 박스
 const Container = styled.div`
   width: 1920px;
@@ -230,6 +223,27 @@ const MyProfileWrap = styled.div`
   height: 59%;
   width: 34%;
   border: 2px solid black;
+  .MyProfileWrap_div1 {
+    height: 100%;
+    width: 25%;
+  }
+  .MyProfileWrap_div2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+  }
+  .MyProfileWrap_div3 {
+    display: flex;
+    height: 100%;
+    width: 25%;
+  }
+  .MyProfileWrap_div4 {
+    height: 100%;
+    width: 60%;
+  }
 `;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`

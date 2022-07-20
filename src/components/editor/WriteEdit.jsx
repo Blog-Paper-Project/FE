@@ -123,7 +123,7 @@ const WriteEdit = () => {
       queryClient.invalidateQueries("paper_data");
       // console.log(res?.blogId);
 
-      navigate(`/paper/${res?.blogId}`);
+      navigate(`/paper/${blogId}`);
       alert("post 성공!");
     },
     onError: (e) => {
@@ -132,7 +132,7 @@ const WriteEdit = () => {
   });
   // ## useQuery 카테고리 데이터 get 함수
   const GetMyPaperData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${blogId}`);
+    const response = await apiToken.get(`/api/paper/${blogId}`);
     // console.log(response);
     return response?.data;
   };

@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhoneIcon from "@material-ui/icons/Phone";
 
-
 const Chat = () => {
   //채팅관련
   const [currentMessage, setCurrentMessage] = useState("");

@@ -8,20 +8,16 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     };
     body{
-        padding: 0;
-        margin: 0;
         font-family: 'Noto Sans KR', sans-serif;
         background-color: #fffdf7;
-        /* 글로벌로 우클릭 안 되게 css 넣은 건데 안 됌...
-         -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none; */
     };
     button{
         cursor: pointer;
         border: none;
         border-radius: 3px;
+    };
+    img{
+        cursor: pointer;
     };
     input{
         outline: none;
@@ -30,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing : border-box;
         border-width: 0;
         margin: 0;
-    }
+    };
 `;
 
 export default GlobalStyle;

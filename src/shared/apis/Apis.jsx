@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getCookie } from "../Cookie";
-
 /* 기본 api */
 export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

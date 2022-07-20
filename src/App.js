@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import GlobalStyle from "./styles/GlobalStyle";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
@@ -16,14 +15,12 @@ import ReservationList from "./pages/ReservationList";
 import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao";
 
-// //임시
 import io from "socket.io-client";
 
 export const socket = io.connect(process.env.REACT_APP_API_URL);
 export const initSocketConnection = () => {
   if (socket) return;
 };
-// //임시
 
 function App() {
   return (
@@ -32,7 +29,6 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-
         <Route path="/write" element={<Write />} />
         <Route path="/modify/:blogId/:postId" element={<Modify />} />
         <Route path="/paper/:blogId" element={<Paper />} />
@@ -41,7 +37,10 @@ function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
-        <Route path="/paper/:blogId/reservationList" element={<ReservationList />} />
+        <Route
+          path="/paper/:blogId/reservationList"
+          element={<ReservationList />}
+        />
         <Route path="/*" element={<h1>존재하지 않는 페이지입니다.</h1>} />
         <Route path="/user/login/kakao/callback" element={<Kakao />} />
       </Routes>

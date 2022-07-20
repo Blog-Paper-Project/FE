@@ -35,7 +35,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7%;
-  height: 400px;
+  height: 316px;
   /* width: 100vw; */
   /* margin-bottom: 50px; */
 `;

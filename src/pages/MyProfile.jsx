@@ -8,11 +8,12 @@ import { apiToken } from "../shared/apis/Apis";
 
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
+import { socket } from "../App";
 
 import Header from "../components/main/Header";
-import { socket } from "../App";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
+import defaultUserImage from "../public/images/default_profile.png";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +64,6 @@ const MyProfile = () => {
       navigate("/myprofile");
     });
   };
-  
 
   return (
     <MyProfileContainer>
@@ -73,11 +73,7 @@ const MyProfile = () => {
         <p>My page</p>
       </Top>
       <ProfileImg
-        src={
-          res?.data.myprofile.profileImage
-            ? S3
-            : "https://www.snsboom.co.kr/common/img/default_profile.png"
-        }
+        src={res?.data.myprofile.profileImage ? S3 : defaultUserImage}
         alt="profileImg"
       />
       <div>{res?.data.myprofile.nickname}</div>
@@ -106,10 +102,7 @@ const MyProfile = () => {
             <p>{res?.data.myprofile.email}</p>
           </PointBox>
         </PointWrap>
-        <LeafWrap>
-       
-          
-        </LeafWrap>
+        <LeafWrap></LeafWrap>
 
         <ProfileButton
           onClick={() => {
@@ -208,7 +201,7 @@ const PointWrap = styled.div`
 const LeafWrap = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const PointBox = styled.div`
   background-color: white;
