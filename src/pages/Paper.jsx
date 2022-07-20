@@ -86,24 +86,24 @@ const Paper = () => {
     <Container>
       <Header />
       <MyProfile>
-        <wrap>
-          <div className="div1">
+        <MyProfileWrap>
+          <Box BoxWidth="25%">
             <ProfileImg src="" />
-          </div>
-          <div className="div2">
+          </Box>
+          <Box BoxWidth="60%">
             <Nickname>닉네임</Nickname>
             <Introduction>자기소개</Introduction>
-            <div>
+            <Box width>
               <Subscribe>구독자</Subscribe>
               <Tree>나무</Tree>
-            </div>
-          </div>
-          <div className="div3">
+            </Box>
+          </Box>
+          <Box BoxWidth="15%">
             <button>button1</button>
             <button>button2</button>
             <button>button3</button>
-          </div>
-        </wrap>
+          </Box>
+        </MyProfileWrap>
       </MyProfile>
       <Subscribe
         onClick={() => {
@@ -200,6 +200,13 @@ const Paper = () => {
   );
 };
 
+// Box 모든 곳에 쓰이는 기본 박스
+const Box = styled.div`
+  height: 100%;
+  width: ${(props) => props.BoxWidth || "100%"};
+  border: 1px solid black;
+`;
+// ${(props) => props.height || "100%"};
 // Container 이 페이지 전체 박스
 const Container = styled.div`
   width: 1920px;
@@ -214,39 +221,24 @@ const MyProfile = styled.div`
   height: 260px;
   width: 100%;
   border: 1px solid black;
-  > wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 59%;
-    width: 34%;
-    border: 2px solid black;
-  }
-  wrap > .div1 {
-    height: 100%;
-    width: 25%;
-    border: 1px solid black;
-  }
-  wrap > .div2 {
-    height: 100%;
-    width: 60%;
-    border: 1px solid black;
-  }
-  wrap > .div3 {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 100%;
-    width: 15%;
-    border: 1px solid black;
-  }
 `;
+// MyProfile의  Wrap
+const MyProfileWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 59%;
+  width: 34%;
+  border: 2px solid black;
+`;
+// MyProfile의 ProfileImg
 const ProfileImg = styled.img`
   height: 100%;
   width: 100%;
   border: 1px solid black;
   border-radius: 200px;
 `;
+
 const Nickname = styled.div``;
 const Introduction = styled.div``;
 const Subscribe = styled.div``;
