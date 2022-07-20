@@ -75,6 +75,13 @@ const Header = () => {
                   {isOpen && (
                     <DropDownListContainer>
                       <DropDownList>
+                      <ListItem
+                          onClick={() => {
+                            navigate(`/paper/${blogId}`);
+                          }}
+                        >
+                          내블로그
+                        </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/myprofile/`);
@@ -196,7 +203,7 @@ position: absolute;
     padding-top: 0.8em;
   }
 `;
-const ListItem = styled.li`
+const ListItem = styled.button`
 list-style: none;
   margin-bottom: 0.8em;
 `;
