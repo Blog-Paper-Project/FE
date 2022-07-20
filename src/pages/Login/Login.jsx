@@ -41,7 +41,7 @@ const Login = () => {
       setCookie("userId", AccessUseId, 2);
       setCookie("blogId", AccessBlogId, 2);
       setCookie("profileimage", AccessProfileImage, 2);
-      
+
       window.alert("로그인성공!!!!");
       navigate("/");
     },

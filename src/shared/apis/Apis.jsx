@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getCookie } from "../Cookie";
-
+import io from "socket.io-client";
 /* 기본 api */
 export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -43,3 +43,8 @@ apiForm.interceptors.request.use(
 export const apikakao = axios.create({
   baseURL: process.env.REACT_APP_KAKAO_API_URL,
 });
+
+export const socket = io.connect(process.env.REACT_APP_API_URL);
+export const initSocketConnection = () => {
+  if (socket) return;
+};

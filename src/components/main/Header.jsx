@@ -5,11 +5,12 @@ import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { deleteCookie } from "../../shared/Cookie";
+import defaultUserImage from "../../public/images/default_profile.png";
 
 /* api */
 import { apiToken } from "../../shared/apis/Apis";
 /* 컴포넌트 */
-import HeaderProfile from "./HeaderProfile";
+// import HeaderProfile from "./HeaderProfile";
 import HeadPaperSearch from "./HeadPaperSearch";
 
 const Header = () => {
@@ -28,6 +29,7 @@ const Header = () => {
   const blogId = getCookie("blogId");
   const profileImage = getCookie("profileimage");
   const [is_cookie, setCookie] = React.useState(false);
+  console.log(profileImage);
   React.useEffect(() => {
     if (cookie !== undefined) {
       return setCookie(true);
@@ -65,8 +67,7 @@ const Header = () => {
   // );
   // const nickname = userpaper_query?.nickname;
   // const profileImage = userpaper_query?.profileImage;
-  const profileButton = process.env.REACT_APP_S3_URL + `/${profileImage}`;
-
+  const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
   return (
     <>
       <HeaderBox>
@@ -82,16 +83,12 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer >
+                <DropDownContainer>
                   <DropDownHeader>
                     <ProfileImgBox
-                      src={
-                        profileImage === null
-                          ? "https://www.snsboom.co.kr/common/img/default_profile.png"
-                          : profileButton
-                      }
+                      src={profileImage === "null" ? defaultUserImage : S3}
                       onClick={toggling}
-                    // onClick={openModal}
+                      // onClick={openModal}
                     />
                   </DropDownHeader>
                   {isOpen && (
@@ -99,14 +96,14 @@ const Header = () => {
                       <DropDownList>
                         <ListItem
                           onClick={() => {
-                            navigate(`/myprofile/`);
+                            navigate(`/myprofile`);
                           }}
                         >
                           회원정보
                         </ListItem>
                         <ListItem
                           onClick={() => {
-                            navigate(`/paper/${userpaper_query.blogId}/reservationList`);
+                            navigate(`/paper/${blogId}/reservationList`);
                           }}
                         >
                           예약리스트
@@ -123,14 +120,14 @@ const Header = () => {
                   )}
                 </DropDownContainer>
 
-                <HeaderProfile
+                {/* <HeaderProfile
                   open={modalOpen}
                   close={closeModal}
                   header="프로필"
                   nickname={nickname}
                   login={setCookie}
                   profileImage={profileImage}
-                />
+                /> */}
                 <button
                   onClick={() => {
                     navigate(`/paper/${blogId}`);
@@ -140,9 +137,7 @@ const Header = () => {
                 </button>
                 <button
                   onClick={() => {
-                    navigate(
-                      `/paper/${blogId}/reservationList`
-                    );
+                    navigate(`/paper/${blogId}/reservationList`);
                   }}
                 >
                   예약리스트
@@ -227,9 +222,7 @@ const DropDownHeader = styled.div`
   color: #3faffa;
   background: #ffffff;
 `;
-const DropDownListContainer = styled.div`
-
-`;
+const DropDownListContainer = styled.div``;
 const DropDownList = styled.ul`
   padding: 0;
   margin: 0;
@@ -245,7 +238,7 @@ const DropDownList = styled.ul`
   }
 `;
 const ListItem = styled.li`
-list-style: none;
+  list-style: none;
   margin-bottom: 0.8em;
 `;
 
