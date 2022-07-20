@@ -15,16 +15,18 @@ const Kakao = () => {
           .get(`/user/login/kakao/callback?code=${code}`)
           .then((data) => {
             console.log(data);
-            const AccessToken = data.token;
-            const Accessnickname = data.nickname;
-            const AccessUseId = data.userId;
-            const AccessBlogId = data.blogId;
+            const AccessToken = data.data.token;
+            const Accessnickname = data.data.nickname;
+            const AccessUseId = data.data.userId;
+            const AccessBlogId = data.data.blogId;
+            const AccessProfileImage = data.data.profileImage;
 
-            setCookie("token", AccessToken);
-            setCookie("nickname", Accessnickname);
-            setCookie("userId", AccessUseId);
-            setCookie("blogId", AccessBlogId);
-            // navigate("/");
+            setCookie("token", AccessToken, 2);
+            setCookie("nickname", Accessnickname, 2);
+            setCookie("userId", AccessUseId, 2);
+            setCookie("blogId", AccessBlogId, 2);
+            setCookie("profileimage", AccessProfileImage, 2);
+            navigate("/");
           })
           .catch((err) => {
             console.log("소셜로그인 에러", err);

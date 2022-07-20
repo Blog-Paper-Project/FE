@@ -95,7 +95,9 @@ const Header = () => {
                 </button>
                 <button
                   onClick={() => {
-                    navigate(`/paper/${userpaper_query.blogId}/reservationList`);
+                    navigate(
+                      `/paper/${userpaper_query.blogId}/reservationList`
+                    );
                   }}
                 >
                   예약리스트
@@ -157,7 +159,6 @@ const Login = styled.div`
   align-items: center;
   justify-content: center;
   outline: 1px solid black;
-
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
