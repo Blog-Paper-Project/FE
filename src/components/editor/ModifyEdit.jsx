@@ -31,11 +31,14 @@ const ModifyEdit = (props) => {
   const [openModal, setOpenModal] = useState(false); // # 모달
   const [previewImg, setPreviewImg] = useState(thumbImage);
 
+  const PastTagList = detail_data?.Tags;
   const hostId = getCookie("userId");
+  const blogId = getCookie("blogId");
   const editorRef = useRef();
   const navigate = useNavigate();
   // const BeforeTags = detail_data?.Tags;
   // console.log(detail_data?.Tags);
+  console.log(PastTagList);
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -99,7 +102,7 @@ const ModifyEdit = (props) => {
   };
 
   const GetDetailtData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${userId}/${postId}`);
+    const response = await apiToken.get(`/api/paper/users/${blogId}/${postId}`);
     // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
