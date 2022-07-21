@@ -18,7 +18,7 @@ const Paper = () => {
   const queryClient = useQueryClient();
   // Cookies
   const isHost = getCookie("blogId");
-  const profileImage = getCookie("profileimage");
+  // const profileImage = getCookie("profileimage");
   // State
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(true);
@@ -26,7 +26,6 @@ const Paper = () => {
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
   // 변수 저장
-  const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(false);
@@ -57,20 +56,31 @@ const Paper = () => {
   //## 개인 페이지 데이터  useQuery get
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}`);
-    // console.log(response);
     return response?.data;
   };
 
-  const { data: mypaper_data, status } = useQuery(
-    "paper_data",
-    GetMyPaperData,
+  const { data: mypaper_data } = useQuery("paper_data", GetMyPaperData, {
+    onSuccess: (data) => {
+      // console.log(data);
+      return data;
+    },
+    staleTime: 0,
+    cacheTime: 0,
+  });
+  //## 개인 프로필 데이터 useQuery get
+  const GetMyProfileData = async () => {
+    const response = await apiToken.get(`/api/paper/miniprofile`);
+    return response.data.user;
+  };
+
+  const { data: myprofile_data, status } = useQuery(
+    "myprofile_data",
+    GetMyProfileData,
     {
       onSuccess: (data) => {
         console.log(data);
         return data;
       },
-      staleTime: 0,
-      cacheTime: 0,
     }
   );
 
@@ -81,6 +91,8 @@ const Paper = () => {
   if (status === "error") {
     return alert("error");
   }
+  const S3 = process.env.REACT_APP_S3_URL + `/${myprofile_data?.profileImage}`;
+
   // console.log(mypaper_data.categories);
   return (
     <Container>
@@ -88,18 +100,22 @@ const Paper = () => {
       <MyProfile>
         <MyProfileWrap>
           <div className="MyProfileWrap_div1">
-            <ProfileImg src={profileImage === "null" ? defaultUserImage : S3} />
+            <ProfileImg
+              src={
+                myprofile_data?.profileImage === null ? defaultUserImage : S3
+              }
+            />
           </div>
           <div className="MyProfileWrap_div2">
-            <Nickname>닉네임</Nickname>
-            <Introduction>자기소개</Introduction>
+            <Nickname>{myprofile_data?.nickname}</Nickname>
+            <Introduction>{myprofile_data?.introduction}</Introduction>
             <div className="MyProfileWrap_div3">
               <Subscribe>구독자</Subscribe>
               <Tree>나무</Tree>
             </div>
           </div>
         </MyProfileWrap>
-        {isHost ? null : (
+        {isHost === blogId ? null : (
           <div className="MyProfile_div1">
             <Button
               onClick={() => {
