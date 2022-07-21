@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "react-query";
+import Swal from "sweetalert2";
 
 import UseInput from "../../hooks/UseInput";
 import { api } from "../../shared/apis/Apis";
@@ -11,15 +12,17 @@ import Footer from "../../components/main/Footer";
 import kakao from "../../public/images/kakao.svg";
 import google from "../../public/images/google.svg";
 import { KAKAO_AUTH_URL } from "../../shared/SocialOauth";
+import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
+import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
 
 const Login = () => {
-  const queryClient = useQueryClient(); // app에 있는데 각 페이지마다 필요한가? 26번이 있을 땐 필요한 건가?
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [email, setEmail] = UseInput(null);
   const [password, setPassword] = UseInput(null);
 
-  const onLogin = async () => {
+  const postLogin = async () => {
     const data = await api.post("/user/login", {
       email,
       password,
@@ -27,7 +30,7 @@ const Login = () => {
     return data;
   };
 
-  const { mutate: onsubmit } = useMutation(onLogin, {
+  const { mutate: onsubmit } = useMutation(postLogin, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       setCookie("token", data.data.token, 2);
@@ -35,11 +38,15 @@ const Login = () => {
       setCookie("userId", data.data.userId, 2);
       setCookie("blogId", data.data.blogId, 2);
       setCookie("profileimage", data.data.profileImage, 2);
-      window.alert("로그인성공!!!!");
       navigate("/");
     },
     onError: () => {
-      window.alert("엥?아이디, 비번 확인해라잉!");
+      Swal.fire({
+        text: "아아디, 비밀번호를 확인해주세요.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
@@ -52,19 +59,19 @@ const Login = () => {
     <LoginContainer>
       <Header />
       <LoginBox>
-        <Top>
+        <Title>
           <h2>로그인</h2>
           <p>Login</p>
-        </Top>
+        </Title>
         <InputBox>
-          <LoginInput
+          <Input2
             type="email"
             label="이메일"
             placeholder="아이디"
             value={email || ""}
             onChange={setEmail}
           />
-          <LoginInput
+          <Input2
             type="password"
             label="비밀번호"
             value={password || ""}
@@ -84,6 +91,8 @@ const Login = () => {
             marginBottom: "34px",
             textAlign: "right",
             fontSize: "14px",
+            fontWeight: "400",
+            lineHeight: "14px",
           }}
         >
           <Link to="/">
@@ -98,16 +107,25 @@ const Login = () => {
             marginBottom: "20px",
             textAlign: "center",
             fontSize: "14px",
+            fontWeight: "500",
+            lineHeight: "20px",
+            color: "#ACACAC",
           }}
         >
           <p>SNS계정으로 로그인</p>
         </div>
         <SocialLogin>
+          <a href={GOOGLE_AUTH_URL}>
+            <img src={google} alt="google" />
+          </a>
+
           <a href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </a>
-          <img src={kakao} alt="kakao" />
-          <img src={google} alt="kakao" />
+
+          <a href={NAVER_AUTH_URL}>
+            <img src={kakao} alt="ssss" />
+          </a>
         </SocialLogin>
         <div
           style={{
@@ -130,41 +148,45 @@ const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #e5e2db;
+  background-color: #fffdf7;
 `;
 
 const LoginBox = styled.div`
   width: 386px;
-  height: 708px;
-  flex-direction: column;
-  justify-content: center;
+  margin: 160px auto;
 `;
 
-const Top = styled.div`
+const Title = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
-  width: 386px;
-  border-bottom: solid 1px gray;
-  margin: 160px auto 32px auto;
+  width: 100%;
+  border-bottom: solid 1px #acacac;
+  margin: 0 auto 32px auto;
   padding-bottom: 25px;
   > h2 {
     font-size: 30px;
+    font-weight: 400;
+    line-height: 45px;
   }
   > p {
     font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
   }
 `;
 
 const InputBox = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 16px;
 `;
 
-const LoginInput = styled.input`
+const Input2 = styled.input`
   width: 100%;
   height: 50px;
-  margin: 8px 0 8px 0;
+  border-bottom: solid 1px #acacac;
 `;
 
 const LoginButton = styled.button`
@@ -173,19 +195,17 @@ const LoginButton = styled.button`
   background-color: black;
   display: flex;
   justify-content: center;
+  text-align: center;
   color: white;
-  border: 1px solid #e5e2db;
-  font-family: Gmarket Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 50px;
   letter-spacing: 0em;
-  text-align: center;
+  margin-top: 41px;
 `;
 
 const SocialLogin = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   gap: 24px;
 `;
