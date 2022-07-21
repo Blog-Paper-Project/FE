@@ -17,11 +17,12 @@ const ReservationList = () => {
 
   //  불러온 예약 정보
   const bookingList = useSelector((state) => state?.bookingReducer.data);
+  const [change, setChange] = React.useState(false);
   useEffect(() => {
     dispatch(getBookingDB());
-  }, []);
+  }, [dispatch,change]);
   console.log(bookingList)
-
+  
   return (
     <>
     <Header/>
@@ -39,6 +40,8 @@ const ReservationList = () => {
               console.log(item)
               return (
                 <BookingItem
+                change={change}
+                setChange={setChange}
                   item={item}
                   // userInfo={userInfo}
                   key={idx}
