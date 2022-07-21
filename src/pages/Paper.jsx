@@ -59,23 +59,9 @@ const Paper = () => {
     return response?.data;
   };
 
-  const { data: mypaper_data } = useQuery("paper_data", GetMyPaperData, {
-    onSuccess: (data) => {
-      console.log(data);
-      return data;
-    },
-    staleTime: 0,
-    cacheTime: 0,
-  });
-  //## 개인 프로필 데이터 useQuery get
-  const GetMyProfileData = async () => {
-    const response = await apiToken.get(`/api/paper/miniprofile`);
-    return response.data.user;
-  };
-
-  const { data: myprofile_data, status } = useQuery(
-    "myprofile_data",
-    GetMyProfileData,
+  const { data: mypaper_data, status } = useQuery(
+    "paper_data",
+    GetMyPaperData,
     {
       onSuccess: (data) => {
         console.log(data);
@@ -85,6 +71,24 @@ const Paper = () => {
       cacheTime: 0,
     }
   );
+  // //## 개인 프로필 데이터 useQuery get
+  // const GetMyProfileData = async () => {
+  //   const response = await apiToken.get(`/api/paper/miniprofile`);
+  //   return response.data.user;
+  // };
+
+  // const { data: myprofile_data, status } = useQuery(
+  //   "myprofile_data",
+  //   GetMyProfileData,
+  //   {
+  //     onSuccess: (data) => {
+  //       console.log(data);
+  //       return data;
+  //     },
+  //     staleTime: 0,
+  //     cacheTime: 0,
+  //   }
+  // );
 
   if (status === "loading") {
     return <>loading...</>;
@@ -93,7 +97,8 @@ const Paper = () => {
   if (status === "error") {
     return alert("error");
   }
-  const S3 = process.env.REACT_APP_S3_URL + `/${myprofile_data?.profileImage}`;
+  const S3 =
+    process.env.REACT_APP_S3_URL + `/${mypaper_data?.user.profileImage}`;
 
   // console.log(mypaper_data.categories);
   return (
@@ -104,13 +109,13 @@ const Paper = () => {
           <div className="MyProfileWrap_div1">
             <ProfileImg
               src={
-                myprofile_data?.profileImage === null ? defaultUserImage : S3
+                mypaper_data?.user.profileImage === null ? defaultUserImage : S3
               }
             />
           </div>
           <div className="MyProfileWrap_div2">
-            <Nickname>{myprofile_data?.nickname}</Nickname>
-            <Introduction>{myprofile_data?.introduction}</Introduction>
+            <Nickname>{mypaper_data?.user.nickname}</Nickname>
+            <Introduction>{mypaper_data?.user.introduction}</Introduction>
             <div className="MyProfileWrap_div3">
               <Subscribe>구독자</Subscribe>
               <Tree>나무</Tree>
