@@ -38,7 +38,3 @@ apiForm.interceptors.request.use(
   (error) => {}
 );
 
-// 소셜로그인용
-export const apikakao = axios.create({
-  baseURL: process.env.REACT_APP_KAKAO_API_URL,
-});

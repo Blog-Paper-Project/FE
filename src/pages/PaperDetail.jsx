@@ -17,7 +17,7 @@ const PaperDetail = () => {
   // console.log(blogId);
   // console.log(postId);
   const queryClient = useQueryClient();
-  const LoginId = getCookie("userId");
+  const isHostId = getCookie("blogId");
 
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
@@ -31,7 +31,7 @@ const PaperDetail = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("paper_data", "detail_data");
       navigate(`/paper/${blogId}`);
-      // console.log();
+      console.log();
     },
   });
 
@@ -39,7 +39,7 @@ const PaperDetail = () => {
 
   // ## useQuery 글 get 함수
   const GetDetailtData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${blogId}/${postId}`);
+    const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
     // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
@@ -51,12 +51,14 @@ const PaperDetail = () => {
   const { data: detail_data, status } = useQuery(
     "detail_data",
     GetDetailtData,
-    { staleTime: 0, cacheTime: 0 },
+
     {
       onSuccess: (data) => {
         console.log(data);
         return data;
       },
+      staleTime: 0,
+      cacheTime: 0,
     }
   );
   if (status === "loading") {
@@ -67,11 +69,11 @@ const PaperDetail = () => {
     return alert("error");
   }
 
-  // console.log("PaperDeTail", detail_data);
+  console.log("PaperDeTail", detail_data);
   return (
     <div>
       <Header />
-      {LoginId === detail_data?.userId ? (
+      {isHostId === blogId ? (
         <>
           {/* 아래 글 삭제 버튼*/}
           <div>
@@ -111,7 +113,7 @@ const PaperDetail = () => {
       </div>
       {/* 아래 좋아요 */}
       <div>
-        <Like postId={postId} Likes={detail_data?.Likes} LoginId={LoginId} />
+        <Like postId={postId} Likes={detail_data?.Likes} />
       </div>
     </div>
   );

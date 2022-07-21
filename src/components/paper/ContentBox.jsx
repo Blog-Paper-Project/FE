@@ -4,7 +4,7 @@ import styled from "styled-components";
 /*해야할 것 */
 //1. 크레에잇 날짜, 시간 보이기 별로 -> 보이기 좋게 변환
 const ContentBox = (props) => {
-  const { title, thumbnail, userId, postId, createdAt } = props;
+  const { title, thumbnail, blogId, postId, createdAt } = props;
   const navigate = useNavigate();
   return (
     <Container>
@@ -15,13 +15,13 @@ const ContentBox = (props) => {
         }
         alt=""
         onClick={() => {
-          navigate(`/paper/${userId}/${postId}`);
+          navigate(`/paper/${blogId}/${postId}`);
         }}
       />
       <Title
         style={{ cursor: "pointer" }}
         onClick={() => {
-          navigate(`/paper/${userId}/${postId}`);
+          navigate(`/paper/${blogId}/${postId}`);
         }}
       >
         {title}

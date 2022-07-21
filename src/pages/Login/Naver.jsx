@@ -4,15 +4,15 @@ import { api } from "../../shared/apis/Apis";
 import { setCookie } from "../../shared/Cookie";
 import Swal from "sweetalert2";
 
-const Kakao = () => {
+const Naver = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
     if (code) {
-      const kakaoLogin = () => {
+      const naverLogin = () => {
         api
-          .get(`/user/login/kakao/callback?code=${code}`)
+          .get(`/user/login/naver/callback?code=${code}`)
           .then((data) => {
             if (data.data.blogId === null || data.data.blogId === undefined) {
               setCookie("token", data.data.token, 2);
@@ -45,10 +45,10 @@ const Kakao = () => {
             navigate("/login");
           });
       };
-      kakaoLogin();
+      naverLogin();
     }
   }, [code]);
-  return <div>Kakao</div>;
+  return <div>Naver</div>;
 };
 
-export default Kakao;
+export default Naver;

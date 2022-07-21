@@ -1,19 +1,18 @@
 import React, { useCallback, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
+import { getCookie } from "../../shared/Cookie";
 
-const Like = ({ postId, Likes, LoginId }) => {
+const Like = ({ postId, Likes }) => {
   // console.log(postId);
   const [like, setLike] = useState(false);
-  // console.log(Likes);
-  // console.log(LoginId);
-  // console.log(LoginId);
-
+  const userId = getCookie("userId");
+  console.log(Likes);
   const LikesCheck = Likes?.find((value) => {
     // console.log(value.likes.userId);
-    return value.likes.userId == LoginId;
+    return value.likes.userId == userId;
   });
-  // console.log(LikesCheck);
+  console.log(LikesCheck);
   // ## useMutation 좋아요 post 함수
   const queryClient = useQueryClient();
 
