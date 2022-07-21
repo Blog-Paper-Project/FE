@@ -1,43 +1,43 @@
 import React, { useCallback, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import { getCookie } from "../shared/Cookie";
 /* api */
 import { apiToken } from "../shared/apis/Apis";
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
-import styled from "styled-components";
-import { getCookie } from "../shared/Cookie";
-/* 해야 할 것 */
-//1. 블로그 글 눌러서 들어갔을 때 주소 맨 뒤 params의 postId를 얻어 내야한다.
-//2. 아래 map 돌린 거 array 정확히 다 받으면 그거 돌리자
-//3. 아래 p 태그 누를 시 페이지 변환할 것 (각각 형태 만들기)
-//4. ! 아마 onBasic 함수 필요없을듯
+/*그 외 */
+import defaultUserImage from "../public/images/default_profile.png";
+
 const Paper = () => {
   const { blogId } = useParams();
-  // console.log(blogId);
   const navigate = useNavigate();
-  const isHost = getCookie("userId"); // host 주인이면 자기 페이지 왔을 때 구독하기 안 보이게 하기
   const queryClient = useQueryClient();
-  //state
+  // Cookies
+  const isHost = getCookie("blogId");
+  const profileImage = getCookie("profileimage");
+  // State
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(true);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-
+  // 변수 저장
+  const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(false);
-  }, [allSort]);
+  }, []);
 
   const onAll = useCallback(() => {
     setAllSort(true);
     // if (allSort == true) {
     //   setTagSort(false);
     // }
-  }, [allSort]);
+  }, []);
 
   //## 개인 페이지 구독하기 useMutation post
   const PostSubscribeData = async () => {
@@ -88,30 +88,31 @@ const Paper = () => {
       <MyProfile>
         <MyProfileWrap>
           <div className="MyProfileWrap_div1">
-            <ProfileImg src="" />
+            <ProfileImg src={profileImage === "null" ? defaultUserImage : S3} />
           </div>
           <div className="MyProfileWrap_div2">
             <Nickname>닉네임</Nickname>
             <Introduction>자기소개</Introduction>
-            <div className="MyProfileWrap_div4">
+            <div className="MyProfileWrap_div3">
               <Subscribe>구독자</Subscribe>
               <Tree>나무</Tree>
             </div>
           </div>
-          <div className="MyProfileWrap_div3">
-            <button>button1</button>
-            <button>button2</button>
-            <button>button3</button>
-          </div>
         </MyProfileWrap>
+        {isHost ? null : (
+          <div className="MyProfile_div1">
+            <Button
+              onClick={() => {
+                onSubscribe();
+              }}
+              color="white"
+            >
+              구독하기
+            </Button>
+            <Button background_color="#FFFDF7">채팅 예약하기</Button>
+          </div>
+        )}
       </MyProfile>
-      <Subscribe
-        onClick={() => {
-          onSubscribe();
-        }}
-      >
-        구독하기
-      </Subscribe>
       <SortType>
         <p style={{ cursor: "pointer" }} onClick={onAll}>
           All
@@ -214,6 +215,16 @@ const MyProfile = styled.div`
   height: 260px;
   width: 100%;
   border: 1px solid black;
+  .MyProfile_div1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    /* justify-items: flex-start; */
+    height: 59%;
+    width: 154px;
+    gap: 10px;
+  }
 `;
 // MyProfile의  Wrap
 const MyProfileWrap = styled.div`
@@ -236,20 +247,28 @@ const MyProfileWrap = styled.div`
     width: 60%;
   }
   .MyProfileWrap_div3 {
-    display: flex;
-    height: 100%;
-    width: 25%;
-  }
-  .MyProfileWrap_div4 {
     height: 100%;
     width: 60%;
   }
+`;
+// 기본 모음
+// Button
+const Button = styled.button`
+  height: 40px;
+  width: 100%;
+  color: ${(props) => props.color || "black"};
+  background-color: ${(props) => props.background_color || "black"};
+  border: 1px solid black;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  outline: 1px solid #000000;
 `;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`
   height: 100%;
   width: 100%;
-  border: 1px solid black;
+  border: 1px solid #000000;
   border-radius: 200px;
 `;
 

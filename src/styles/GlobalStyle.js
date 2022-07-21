@@ -6,15 +6,14 @@ const GlobalStyle = createGlobalStyle`
     * {
     margin: 0;
     padding: 0;
+    box-sizing : border-box;
     };
     body{
         font-family: 'Noto Sans KR', sans-serif;
-        background-color: #fffdf7;
+        background-color:  #FFFDF7;
     };
     button{
         cursor: pointer;
-        border: none;
-        border-radius: 3px;
     };
     img{
         cursor: pointer;
@@ -23,8 +22,6 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
         padding-left: 10px;
         padding-right: 10px;
-        box-sizing : border-box;
-        border-width: 0;
         margin: 0;
     };
 `;
