@@ -165,7 +165,7 @@ const Paper = () => {
                         <CategoryList
                           key={index}
                           categories={value}
-                          userId={blogId}
+                          blogId={blogId}
                         />
                       );
                     })}
@@ -195,7 +195,7 @@ const Paper = () => {
                       thumbnail={value.thumbnail}
                       tags={value.tags}
                       createdAt={value.createdAt}
-                      userId={value.userId}
+                      blogId={value.blogId}
                       postId={value.postId}
                     />
                   );

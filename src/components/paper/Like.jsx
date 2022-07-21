@@ -2,16 +2,16 @@ import React, { useCallback, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 
-const Like = ({ postId, Likes, LoginId }) => {
+const Like = ({ postId, Likes, isHostId }) => {
   // console.log(postId);
   const [like, setLike] = useState(false);
   // console.log(Likes);
-  // console.log(LoginId);
-  // console.log(LoginId);
+  // console.log(isHostId);
+  // console.log(isHostId);
 
   const LikesCheck = Likes?.find((value) => {
     // console.log(value.likes.userId);
-    return value.likes.userId == LoginId;
+    return value.likes.userId == isHostId;
   });
   // console.log(LikesCheck);
   // ## useMutation 좋아요 post 함수
@@ -38,7 +38,7 @@ const Like = ({ postId, Likes, LoginId }) => {
   const onLike = useCallback(() => {
     setLike(!like);
     onPost();
-  }, [onPost]);
+  }, [like]);
 
   return (
     <>
