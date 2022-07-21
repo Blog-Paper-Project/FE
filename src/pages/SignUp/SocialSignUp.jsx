@@ -10,7 +10,7 @@ import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
 
 import styled from "styled-components";
-import { deleteCookie, getCookie } from "../../shared/Cookie";
+import { deleteCookie, getCookie, setCookie } from "../../shared/Cookie";
 
 const SocialSignUp = () => {
   const queryClient = useQueryClient();
@@ -22,6 +22,8 @@ const SocialSignUp = () => {
 
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
+
+  console.log(email)
 
   //닉네임 중복체크
   const postDupNick = async () => {
@@ -105,6 +107,7 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
+        setCookie("blodId", blogId);
         deleteCookie("email");
         navigate("/");
       } else {
