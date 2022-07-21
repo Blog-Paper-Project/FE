@@ -8,7 +8,6 @@ import { apiToken } from "../shared/apis/Apis";
 
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
-import { socket } from "../App";
 
 import Header from "../components/main/Header";
 import styled from "styled-components";
@@ -17,8 +16,6 @@ import defaultUserImage from "../public/images/default_profile.png";
 
 const MyProfile = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const nickname = getCookie("nickname");
-  const navigate = useNavigate();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -28,7 +25,6 @@ const MyProfile = () => {
     if (isModalOpen === true) return setIsModalOpen(false);
   };
 
-  //로그인 상태일때만 get요청하는걸로 바꾸기
   const getMyProfile = async () => {
     const res = await apiToken.get("/user/myprofile");
     return res;
@@ -48,22 +44,6 @@ const MyProfile = () => {
 
   const S3 =
     process.env.REACT_APP_S3_URL + `/${res?.data.myprofile.profileImage}`;
-
-  const enterChat = async () => {
-    const roomData = {
-      room: "광민1",
-      name: nickname,
-    };
-    await socket.emit("user-connected");
-
-    socket.emit("newUser", roomData);
-    navigate("/chat");
-
-    socket.on("roomfull", (data) => {
-      window.alert("방꽉참");
-      navigate("/myprofile");
-    });
-  };
 
   return (
     <MyProfileContainer>
@@ -96,12 +76,6 @@ const MyProfile = () => {
             <p>{res?.data.myprofile.popularity}</p>
           </PointBox>
         </PointWrap>
-        <PointWrap>
-          <p>이메일</p>
-          <PointBox>
-            <p>{res?.data.myprofile.email}</p>
-          </PointBox>
-        </PointWrap>
         <LeafWrap>
         <p>나뭇잎 설정값</p>
           <PointBox>
@@ -116,7 +90,6 @@ const MyProfile = () => {
         >
           마이페이지 수정
         </ProfileButton>
-        <button onClick={enterChat}>채팅시작!</button>
       </ProfileBox>
 
       {isModalOpen === true ? (

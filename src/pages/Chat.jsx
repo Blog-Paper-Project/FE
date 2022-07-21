@@ -177,7 +177,7 @@ const Chat = () => {
     stream.getTracks().forEach(function (track) {
       track.stop();
     });
-    navigate("/myprofile");
+    navigate("/");
   };
 
   //스크롤 하단고정
