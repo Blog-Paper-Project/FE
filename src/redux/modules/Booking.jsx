@@ -4,12 +4,16 @@ import Swal from "sweetalert2";
 
 //액션타입
 const GET_BOOKING = "GET_BOOKING";
+// const DEL_BOOKING = "DEL_BOOKING";
 
 //액션 크리에이터
 const getBooking = (data) => {
-  console.log(data);
+  // console.log(data);
   return { type: GET_BOOKING, data };
 };
+// const delBooking =(data) => {
+//   return { type: DEL_BOOKING, data}
+// }
 
 
 const initialState = {
@@ -19,7 +23,6 @@ const initialState = {
 //---------청크--------------//
 // 예약하기
 let userName = getCookie("blogId");
-// console.log(userName);
 export const setBookingDB = (data, blogId) => {
   return function (dispatch, getCookie) {
     console.log(blogId);
@@ -116,7 +119,7 @@ export const getBookingDB = () => {
       url: `/api/booking`, // 학생 또는 선생님
     })
       .then((doc) => {
-        console.log(doc.data.totalList);
+        // console.log(doc.data.totalList);
         dispatch(getBooking(doc.data.totalList));
       })
       .catch((err) => {
@@ -130,9 +133,15 @@ export const patchBookingDB = (hostId) => {
     return function () {
     apiToken({
       method: "patch",
-      url: `/api/booking/${hostId.userId}/${hostId.bookingId}`,
+      url: `/api/booking/${hostId.hostId}/${hostId.bookingId}`,
     })
       .then(() => {
+        Swal.fire({
+          icon: "success",
+          text: `예약을 수락 하셨 습니다!`,
+          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -149,6 +158,7 @@ export const deleteHostBookingDB = (hostId) => {
       url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
     })
     .then(() => {
+      // dispatch(delBooking())
       Swal.fire({
         icon: "success",
         text: `예약을 취소 하셨 습니다!`,
@@ -171,7 +181,8 @@ export const deleteGuestBookingDB = (Guest, bookingId) => {
       method: "delete",
       url: `/api/booking/guest/${Guest}/${bookingId}`,
     })
-    .then(() => {
+    .then((bookingId) => {
+      // dispatch(delBooking(bookingId))
       Swal.fire({
         icon: "success",
         text: `예약을 취소 하셨 습니다!`,
@@ -190,8 +201,11 @@ export const deleteGuestBookingDB = (Guest, bookingId) => {
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKING:
-      return { data: action.data };
-    default:
+      return { data: action.data.guestBookingList, data2: action.data.hostBookingList };
+    // case DEL_BOOKING:
+    //   const newList = state.list.filter((state) => {return state.bookingId !== action.id});
+    //   return {...state,list:[...newList]};
+      default:
       return state;
   }
 };

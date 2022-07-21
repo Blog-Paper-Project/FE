@@ -111,6 +111,7 @@ const SignUp = () => {
   //인증번호 확인
   const postEmailAuth = async () => {
     const data = await api.post("/user/check-emailauth", {
+      email,
       emailAuth,
     });
     return data;
