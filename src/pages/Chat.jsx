@@ -21,15 +21,13 @@ const Chat = () => {
   //화상관련
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
-  const [receivingCall, setReceivingCall] = useState(false);
-  const [caller, setCaller] = useState("");
-  const [callerSignal, setCallerSignal] = useState();
   const [callAccepted, setCallAccepted] = useState(false);
   const [idToCall, setIdToCall] = useState("");
   const [callEnded, setCallEnded] = useState(false);
   const [name, setName] = useState("");
   const [videoOn, setVideoOn] = useState(true);
   const [audioOn, setAudioOn] = useState(true);
+  const [call, setCall] = useState({});
 
   const myVideo = useRef();
   const userVideo = useRef();
@@ -39,20 +37,17 @@ const Chat = () => {
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        setStream(stream);
-        myVideo.current.srcObject = stream;
+      .then((currentStream) => {
+        setStream(currentStream);
+        myVideo.current.srcObject = currentStream;
       });
     console.log(socket.id);
     socket.on("me", (id) => {
       setMe(id);
     });
 
-    socket.on("callUser", (data) => {
-      setReceivingCall(true);
-      setCaller(data.from);
-      setName(data.name);
-      setCallerSignal(data.signal);
+    socket.on("callUser", ({ from, name: callerName, signal }) => {
+      setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
   }, []);
 
@@ -68,12 +63,12 @@ const Chat = () => {
         userToCall: id,
         signalData: data,
         from: me,
-        name: name,
+        name,
       });
     });
 
-    peer.on("stream", (stream) => {
-      userVideo.current.srcObject = stream;
+    peer.on("stream", (currentStream) => {
+      userVideo.current.srcObject = currentStream;
     });
 
     socket.on("callAccepted", (signal) => {
@@ -93,14 +88,14 @@ const Chat = () => {
     });
 
     peer.on("signal", (data) => {
-      socket.emit("answerCall", { signal: data, to: caller });
+      socket.emit("answerCall", { signal: data, to: call.from });
     });
 
-    peer.on("stream", (stream) => {
-      userVideo.current.srcObject = stream;
+    peer.on("stream", (currentStream) => {
+      userVideo.current.srcObject = currentStream;
     });
 
-    peer.signal(callerSignal);
+    peer.signal(call.signal);
     connectionRef.current = peer;
   };
 
@@ -174,6 +169,7 @@ const Chat = () => {
   const leaveChat = () => {
     socket.emit("leaveRoom");
     setCallEnded(true);
+    connectionRef.current.destroy();
     stream.getTracks().forEach(function (track) {
       track.stop();
     });
@@ -231,7 +227,7 @@ const Chat = () => {
                   {messageContent.type === "disconnect" ? (
                     <p>{messageContent.name} 님이 퇴장하였습니다</p>
                   ) : null}
-                  {messageContent.nick == nickname ? (
+                  {messageContent.nick === nickname ? (
                     <div>
                       <p style={{ color: "blue" }}>{messageContent.nick}</p>
                       <div
@@ -344,14 +340,14 @@ const Chat = () => {
         </div>
       </div>
       <div>
-        {receivingCall && !callAccepted ? (
-          <div className="caller">
-            <h1>{name} is calling...</h1>
+        {call.isReceivingCall && !callAccepted && (
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <h1>{call.name} is calling:</h1>
             <Button variant="contained" color="primary" onClick={answerCall}>
               Answer
             </Button>
           </div>
-        ) : null}
+        )}
       </div>
     </ChatContainer>
   );
