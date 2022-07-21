@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { api } from "../shared/apis/Apis";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookingDB } from "../redux/modules/Booking";
+import { getCookie } from "../shared/Cookie";
 
 import { useParams } from "react-router-dom";
 
@@ -18,8 +19,7 @@ const Reservation = () => {
   }, []);
 
   // console.log(LeafCount)
-  // console.log(userId)
-
+  // console.log(blogId)
   const [availability, setAvailability] = useState([]);
   const Calendar = CalendarTemplate({
     blogId,
@@ -28,11 +28,23 @@ const Reservation = () => {
   });
   return (
     <div>
-      <Header/>
-      <Calendar userId={blogId}/>
-      <Footer/>
+      <Header />
+      
+      <CalendarBox>
+        <Calendar userId={blogId} />
+      </CalendarBox>
+      <Footer />
     </div>
   );
 };
+
+const CalendarBox = styled.div`
+width: 100%;
+height: 950px;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
 
 export default Reservation;

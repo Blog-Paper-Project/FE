@@ -67,7 +67,7 @@ export const setBookingDB = (data, blogId) => {
       url: `/api/booking/${blogId}`,
       data: {
         // time: `${data[0]?.start}-${data[0]?.end}`,
-        guestId: userName,
+        blogId: userName,
         date: `${data[0]?.start}-${data[0]?.end}`,
       },
     })
@@ -133,7 +133,6 @@ export const patchBookingDB = (hostId) => {
       url: `/api/booking/${hostId.userId}/${hostId.bookingId}`,
     })
       .then(() => {
-        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -156,7 +155,7 @@ export const deleteHostBookingDB = (hostId) => {
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
       });
-      window.location.reload();
+      
     })
     .catch((err) => {
       console.log(err);
@@ -179,7 +178,6 @@ export const deleteGuestBookingDB = (Guest, bookingId) => {
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
       });
-      window.location.reload();
     })
     .catch((err) => {
       console.log(err);
