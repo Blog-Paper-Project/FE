@@ -17,7 +17,7 @@ const Paper = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   // Cookies
-  const isHost = getCookie("blogId");
+  const isHostId = getCookie("blogId");
   // const profileImage = getCookie("profileimage");
   // State
   const [tagSort, setTagSort] = useState(false);
@@ -61,7 +61,7 @@ const Paper = () => {
 
   const { data: mypaper_data } = useQuery("paper_data", GetMyPaperData, {
     onSuccess: (data) => {
-      // console.log(data);
+      console.log(data);
       return data;
     },
     staleTime: 0,
@@ -81,6 +81,8 @@ const Paper = () => {
         console.log(data);
         return data;
       },
+      staleTime: 0,
+      cacheTime: 0,
     }
   );
 
@@ -115,7 +117,7 @@ const Paper = () => {
             </div>
           </div>
         </MyProfileWrap>
-        {isHost === blogId ? null : (
+        {isHostId === blogId ? null : (
           <div className="MyProfile_div1">
             <Button
               onClick={() => {
