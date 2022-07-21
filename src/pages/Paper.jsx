@@ -71,25 +71,6 @@ const Paper = () => {
       cacheTime: 0,
     }
   );
-  // //## 개인 프로필 데이터 useQuery get
-  // const GetMyProfileData = async () => {
-  //   const response = await apiToken.get(`/api/paper/miniprofile`);
-  //   return response.data.user;
-  // };
-
-  // const { data: myprofile_data, status } = useQuery(
-  //   "myprofile_data",
-  //   GetMyProfileData,
-  //   {
-  //     onSuccess: (data) => {
-  //       console.log(data);
-  //       return data;
-  //     },
-  //     staleTime: 0,
-  //     cacheTime: 0,
-  //   }
-  // );
-
   if (status === "loading") {
     return <>loading...</>;
   }
@@ -132,7 +113,14 @@ const Paper = () => {
             >
               구독하기
             </Button>
-            <Button background_color="#FFFDF7">채팅 예약하기</Button>
+            <Button
+              onClick={() => {
+                navigate(`/paper/${blogId}/reservation`);
+              }}
+              background_color="#FFFDF7"
+            >
+              채팅 예약하기
+            </Button>
           </div>
         )}
       </MyProfile>
@@ -202,7 +190,7 @@ const Paper = () => {
                       thumbnail={value.thumbnail}
                       tags={value.tags}
                       createdAt={value.createdAt}
-                      blogId={value.blogId}
+                      blogId={blogId}
                       postId={value.postId}
                     />
                   );

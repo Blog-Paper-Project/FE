@@ -14,7 +14,7 @@ const PaperDetail = () => {
   const navigate = useNavigate();
   const { blogId } = useParams();
   const { postId } = useParams();
-  // console.log(blogId);
+  console.log(blogId);
   // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
