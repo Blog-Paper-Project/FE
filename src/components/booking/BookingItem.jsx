@@ -12,14 +12,15 @@ import { useEffect } from "react";
 const BookingItem = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { item, setChange, change } = props;
+  const { item } = props;
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId")
   const Host = item?.hostId;
   const Guest = item?.guestId;
-  const hostId = Number(item?.hostId);
+  const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item.bokingId;
+  console.log(item)
 
   if (!item) return null;
   // 게스트일때
@@ -48,7 +49,6 @@ const BookingItem = (props) => {
               className="delBtn"
               onClick={() => {
                 dispatch(deleteGuestBookingDB(Guest, bookingId))
-                setChange(!change)
               }}
             >
               '예약 취소'
@@ -76,7 +76,7 @@ const BookingItem = (props) => {
               className="videoBtn"
               onClick={() => {
                 navigate({
-                  pathname: `/chat/${item.hostId}/${item.guestId}`,
+                  pathname: `/chat/${Host}/${Guest}`,
                   state: item.hostId,
                 });
               }}
@@ -108,7 +108,6 @@ const BookingItem = (props) => {
               className="videoBtn"
               onClick={() => {
                 dispatch(patchBookingDB({ hostId, bookingId }));
-                setChange(!change)
               }}
             >
               '수락하기'
@@ -117,7 +116,6 @@ const BookingItem = (props) => {
               className="delBtn"
               onClick={() => {
                 dispatch(deleteHostBookingDB({ hostId, bookingId }));
-                setChange(!change)
               }}
             >
               '예약취소'

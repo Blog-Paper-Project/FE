@@ -130,9 +130,15 @@ export const patchBookingDB = (hostId) => {
     return function () {
     apiToken({
       method: "patch",
-      url: `/api/booking/${hostId.userId}/${hostId.bookingId}`,
+      url: `/api/booking/${hostId.hostId}/${hostId.bookingId}`,
     })
       .then(() => {
+        Swal.fire({
+          icon: "success",
+          text: `예약을 수락 하셨 습니다!`,
+          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+        });
       })
       .catch((err) => {
         console.log(err);
