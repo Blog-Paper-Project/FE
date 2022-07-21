@@ -10,16 +10,18 @@ import { useParams } from "react-router-dom";
 import CalendarTemplate from "../components/booking/Calendar";
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
+import { getLeafDB } from "../redux/modules/Leaf";
 
 const Reservation = () => {
   const { blogId } = useParams();
   const dispatch = useDispatch();
+  const LeafCount = useSelector((state) => state?.leafReducer?.data);
   useEffect(() => {
     dispatch(getBookingDB());
+    dispatch(getLeafDB());
   }, []);
+  console.log(LeafCount)
 
-  // console.log(LeafCount)
-  // console.log(blogId)
   const [availability, setAvailability] = useState([]);
   const Calendar = CalendarTemplate({
     blogId,

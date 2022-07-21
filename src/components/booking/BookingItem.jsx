@@ -1,12 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { getCookie } from "../../shared/Cookie";
-import {
-  deleteGuestBookingDB,
-  deleteHostBookingDB,
-  patchBookingDB,
-} from "../../redux/modules/Booking";
+import { getCookie } from '../../shared/Cookie';
+import { deleteGuestBookingDB, deleteHostBookingDB, getBookingDB, patchBookingDB } from '../../redux/modules/Booking';
 import { useEffect } from "react";
 import { socket } from "../../App";
 
@@ -14,10 +10,10 @@ import { socket } from "../../App";
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
 // import { actionCreators as notiActions } from '../redux/modules/booking';
 
-const BookingItem = (props) => {
+const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { item } = props;
+  // const { item, change, setChange } = props;
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
   const nickname = getCookie("nickname");
@@ -26,6 +22,7 @@ const BookingItem = (props) => {
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item.bokingId;
+
   console.log(item);
 
   const enterChat = async () => {
@@ -71,9 +68,12 @@ const BookingItem = (props) => {
             <button className="waitBtn">'수락대기중'</button>
             <button
               className="delBtn"
-              onClick={() => {
-                dispatch(deleteGuestBookingDB(Guest, bookingId));
+              onClick={(e) => {
+                dispatch(deleteGuestBookingDB(Guest, bookingId))
+                dispatch(getBookingDB())
+                setLeafChange(!leafChange)
               }}
+
             >
               '예약 취소'
             </button>
@@ -131,16 +131,20 @@ const BookingItem = (props) => {
             </div>
             <button
               className="videoBtn"
-              onClick={() => {
+              onClick={(e) => {
                 dispatch(patchBookingDB({ hostId, bookingId }));
+                dispatch(getBookingDB())
+                setLeafChange(!leafChange)
               }}
             >
               '수락하기'
             </button>
             <button
               className="delBtn"
-              onClick={() => {
+              onClick={(e) => {
                 dispatch(deleteHostBookingDB({ hostId, bookingId }));
+                dispatch(getBookingDB())
+                setLeafChange(!leafChange)
               }}
             >
               '예약취소'
