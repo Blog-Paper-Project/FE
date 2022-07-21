@@ -20,7 +20,13 @@ import { CookiesProvider } from "react-cookie";
 import store from "./redux/configStore";
 import { Provider } from "react-redux";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // window focus 설정
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

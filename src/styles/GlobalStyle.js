@@ -8,10 +8,11 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing : border-box;
     };
     body{
         font-family: 'Noto Sans KR', sans-serif;
-        background-color: #fffdf7;
+        background-color:  #FFFDF7;
     };
     button{
         cursor: pointer;
@@ -24,8 +25,6 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
         padding-left: 10px;
         padding-right: 10px;
-        box-sizing : border-box;
-        border-width: 0;
         margin: 0;
     };
     a{ color: inherit; }
