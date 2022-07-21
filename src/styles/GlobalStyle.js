@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;
         border: none;
-        border-radius: 3px;
     };
     img{
         cursor: pointer;

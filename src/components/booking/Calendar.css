@@ -8,7 +8,7 @@
   }
   
   .saveBtn > button {
-    background-color: #213f8d;
+    background-color: #000;
     color: #fff;
   }
   
@@ -39,7 +39,7 @@
   
   .calendarTextWrap {
     max-width: 1280px;
-    width: 80%;
+    width: 45%;
     padding-left: 50px;
     display: flex;
     flex-direction: column;

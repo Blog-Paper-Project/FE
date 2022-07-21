@@ -731,9 +731,9 @@ const CalendarTemplate = ({
                                           availabilityState[year][month][
                                             day
                                           ].filter((x) => x.available).length >
-                                            0
-                                        ? "secondary"
-                                        : "default"
+                                          0
+                                          ? "secondary"
+                                          : "default"
                                     }
                                     disabled={
                                       !day ||
@@ -764,7 +764,7 @@ const CalendarTemplate = ({
                       onClick={handleJumpToCurrent}
                       className={classes.buttonNoMargin}
                     >
-                      Jump to Current Month
+                      -이번달로 돌아가기-
                     </Button>
                   </Grid>
                 </Card>
@@ -850,7 +850,7 @@ const CalendarTemplate = ({
             </div>
 
             <p className="calendarText">
-              * '예약은 한시간에 한번만 예약 가능합니다.'
+              '예약은 한시간에 한번만 가능합니다.'
             </p>
           </div>
           <Grid item className="btnWrap">

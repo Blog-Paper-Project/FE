@@ -102,7 +102,12 @@ const MyProfile = () => {
             <p>{res?.data.myprofile.email}</p>
           </PointBox>
         </PointWrap>
-        <LeafWrap></LeafWrap>
+        <LeafWrap>
+        <p>나뭇잎 설정값</p>
+          <PointBox>
+            <p>{res?.data.myprofile.setPoint}</p>
+          </PointBox>
+        </LeafWrap>
 
         <ProfileButton
           onClick={() => {
@@ -198,10 +203,6 @@ const PointWrap = styled.div`
     font-size: 14px;
   }
 `;
-const LeafWrap = styled.div`
-  display: flex;
-  align-items: center;
-`;
 
 const PointBox = styled.div`
   background-color: white;
@@ -212,6 +213,17 @@ const PointBox = styled.div`
   display: flex;
   align-items: center;
   border: solid 1px;
+`;
+
+const LeafWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 386px;
+  margin: 8px 0 8px 0;
+  p {
+    font-size: 14px;
+  }
 `;
 
 const ProfileButton = styled.button`
