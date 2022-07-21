@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import bookingReducer, { getBookingDB } from "../redux/modules/Booking";
 import styled from "styled-components";
@@ -9,18 +9,15 @@ import Footer from "../components/main/Footer";
 
 const ReservationList = () => {
   const dispatch = useDispatch();
-  // 마이페이지에 불러올 유저 api
-  // const userApi = props.match.params;
-  //마이페이지 유저정보
-  // const userInfo = useSelector((state) => state.user.detailInfo);
-  // 마이페이지 예약정보 불러오기 위한 값들
-
   //  불러온 예약 정보
   const bookingList = useSelector((state) => state?.bookingReducer.data);
-  const [change, setChange] = React.useState(false);
+  const bookingList2 = useSelector((state) => state?.bookingReducer.data2);
+console.log(bookingList2)
+  const [leafChange, setLeafChange] = useState(false);
+  
   useEffect(() => {
     dispatch(getBookingDB());
-  }, [dispatch,change]);
+  }, [dispatch, leafChange]);
   console.log(bookingList)
   
   return (
@@ -33,17 +30,17 @@ const ReservationList = () => {
             '예약 리스트' <span>/ '예약 신청 내역'</span>
           </p>
           <ul className="bookingList">
-            {bookingList?.guestBookingList.length === 0 && (
+            {bookingList?.length === 0 && (
               <li className="noBookingText">'예약된 내역이 없습니다!'</li>
             )}
-            {bookingList?.guestBookingList.map((item, idx) => {
+            {bookingList?.map((item, idx) => {
               console.log(item)
               return (
                 <BookingItem
-                change={change}
-                setChange={setChange}
+                leafChange={leafChange}
+                setLeafChange={setLeafChange}
+               
                   item={item}
-                  // userInfo={userInfo}
                   key={idx}
                 />
               );
@@ -57,12 +54,15 @@ const ReservationList = () => {
             '예약 리스트' <span>/ '예약 받은 내역'</span>
           </p>
           <ul className="bookingList">
-            {bookingList?.hostBookingList.length === 0 && (
+            {bookingList2?.length === 0 && (
               <li className="noBookingText">'예약된 내역이 없습니다!'</li>
             )}
-            {bookingList?.hostBookingList.map((item, idx) => {
+            {bookingList2?.map((item, idx) => {
               return (
                 <BookingItem
+                leafChange={leafChange}
+                setLeafChange={setLeafChange}
+               
                   item={item}
                   // userInfo={userInfo}
                   key={idx}

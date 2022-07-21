@@ -18,13 +18,13 @@ const Header = () => {
     deleteCookie("blogId");
     deleteCookie("profileimage");
     setCookie(false);
+    navigate('/');
     Swal.fire({
       icon: "success",
       text: `로그 아웃 하셨습니다!`,
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
     });
-    navigate("/");
   };
   const navigate = useNavigate();
   /* 쿠키 */
