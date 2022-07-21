@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
     * {
     margin: 0;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
     };
     body{
         font-family: 'Noto Sans KR', sans-serif;
@@ -14,7 +16,6 @@ const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;
         border: none;
-        border-radius: 3px;
     };
     img{
         cursor: pointer;
@@ -27,6 +28,7 @@ const GlobalStyle = createGlobalStyle`
         border-width: 0;
         margin: 0;
     };
+    a{ color: inherit; }
 `;
 
 export default GlobalStyle;
