@@ -6,6 +6,8 @@ const GlobalStyle = createGlobalStyle`
     * {
     margin: 0;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
     box-sizing : border-box;
     };
     body{
@@ -14,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
     };
     button{
         cursor: pointer;
+        border: none;
     };
     img{
         cursor: pointer;
@@ -24,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
         padding-right: 10px;
         margin: 0;
     };
+    a{ color: inherit; }
 `;
 
 export default GlobalStyle;

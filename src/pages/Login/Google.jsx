@@ -4,16 +4,18 @@ import { api } from "../../shared/apis/Apis";
 import { setCookie } from "../../shared/Cookie";
 import Swal from "sweetalert2";
 
-const Kakao = () => {
+const Google = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get("code");
+  console.log(code);
 
   useEffect(() => {
     if (code) {
-      const kakaoLogin = () => {
+      const GoogleLogin = () => {
         api
-          .get(`/user/login/kakao/callback?code=${code}`)
+          .get(`/user/login/google/callback?code=${code}`)
           .then((data) => {
+            console.log(data.data.blogId);
             if (data.data.blogId === null || data.data.blogId === undefined) {
               setCookie("token", data.data.token, 2);
               setCookie("nickname", data.data.nickname, 2);
@@ -45,10 +47,10 @@ const Kakao = () => {
             navigate("/login");
           });
       };
-      kakaoLogin();
+      GoogleLogin();
     }
   }, [code]);
-  return <div>Kakao</div>;
+  return <div>Google</div>;
 };
 
-export default Kakao;
+export default Google;
