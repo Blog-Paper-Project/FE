@@ -17,7 +17,7 @@ const PaperDetail = () => {
   // console.log(blogId);
   // console.log(postId);
   const queryClient = useQueryClient();
-  const LoginId = getCookie("userId");
+  const isHostId = getCookie("blogId");
 
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
@@ -71,7 +71,7 @@ const PaperDetail = () => {
   return (
     <div>
       <Header />
-      {LoginId === detail_data?.userId ? (
+      {isHostId === blogId ? (
         <>
           {/* 아래 글 삭제 버튼*/}
           <div>
@@ -111,7 +111,7 @@ const PaperDetail = () => {
       </div>
       {/* 아래 좋아요 */}
       <div>
-        <Like postId={postId} Likes={detail_data?.Likes} LoginId={LoginId} />
+        <Like postId={postId} Likes={detail_data?.Likes} isHostId={isHostId} />
       </div>
     </div>
   );
