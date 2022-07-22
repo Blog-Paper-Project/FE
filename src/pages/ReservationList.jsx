@@ -11,71 +11,66 @@ const ReservationList = () => {
   const dispatch = useDispatch();
   //  불러온 예약 정보
   const bookingList = useSelector((state) => state?.bookingReducer.data);
-  const bookingList2 = useSelector((state) => state?.bookingReducer.data2);
-console.log(bookingList2)
+  console.log(bookingList)
   const [leafChange, setLeafChange] = useState(false);
-  
+
   useEffect(() => {
     dispatch(getBookingDB());
   }, [dispatch, leafChange]);
   console.log(bookingList)
-  
+
   return (
     <>
-    <Header/>
-    <Wrap>
+      <Header />
+      <Wrap>
       <div className="innerWrap">
-        <div className="bookingWrap">
-          <p className="bookingTitle">
-            '예약 리스트' <span>/ '예약 신청 내역'</span>
-          </p>
-          <ul className="bookingList">
-            {bookingList?.length === 0 && (
-              <li className="noBookingText">'예약된 내역이 없습니다!'</li>
-            )}
-            {bookingList?.map((item, idx) => {
-              console.log(item)
-              return (
-                <BookingItem
-                leafChange={leafChange}
-                setLeafChange={setLeafChange}
-               
-                  item={item}
-                  key={idx}
-                />
-              );
-            })}
-          </ul>
+          <div className="bookingWrap">
+            <p className="bookingTitle">
+              '예약 리스트' <span>/ '예약 한 내역'</span>
+            </p>
+            <ul className="bookingList">
+              {bookingList?.guestBookingList.length === 0 && (
+                <li className="noBookingText">'예약된 내역이 없습니다!'</li>
+              )}
+              {bookingList?.guestBookingList.map((item, idx) => {
+                return (
+                  <BookingItem
+                    leafChange={leafChange}
+                    setLeafChange={setLeafChange}
+                    item={item}
+                    key={idx}
+                  />
+                );
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
-      <div className="innerWrap">
-        <div className="bookingWrap">
-          <p className="bookingTitle">
-            '예약 리스트' <span>/ '예약 받은 내역'</span>
-          </p>
-          <ul className="bookingList">
-            {bookingList2?.length === 0 && (
-              <li className="noBookingText">'예약된 내역이 없습니다!'</li>
-            )}
-            {bookingList2?.map((item, idx) => {
-              return (
-                <BookingItem
-                leafChange={leafChange}
-                setLeafChange={setLeafChange}
-               
-                  item={item}
-                  // userInfo={userInfo}
-                  key={idx}
-                />
-              );
-            })}
-          </ul>
+        <div className="innerWrap">
+          <div className="bookingWrap">
+            <p className="bookingTitle">
+              '예약 리스트' <span>/ '예약 받은 내역'</span>
+            </p>
+            <ul className="bookingList">
+              {bookingList?.hostBookingList.length === 0 && (
+                <li className="noBookingText">'예약된 내역이 없습니다!'</li>
+              )}
+              {bookingList?.hostBookingList.map((item, idx) => {
+                return (
+                  <BookingItem
+                    leafChange={leafChange}
+                    setLeafChange={setLeafChange}
+                    item={item}
+                    key={idx}
+                  />
+                );
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
-    </Wrap>
-    <Footer/>
+      </Wrap>
+      <Footer />
     </>
-    
+
   );
 };
 
@@ -231,6 +226,7 @@ const Wrap = styled.div`
             font-size: 16px;
             font-weight: bolder;
             color: #fff;
+            cursor: pointer;
             background-color: #666666;
           }
 

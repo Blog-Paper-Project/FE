@@ -201,7 +201,7 @@ export const deleteGuestBookingDB = (Guest, bookingId) => {
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKING:
-      return { data: action.data.guestBookingList, data2: action.data.hostBookingList };
+      return { data: action.data };
     // case DEL_BOOKING:
     //   const newList = state.list.filter((state) => {return state.bookingId !== action.id});
     //   return {...state,list:[...newList]};

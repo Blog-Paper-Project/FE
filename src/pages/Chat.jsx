@@ -169,7 +169,7 @@ const Chat = () => {
   const leaveChat = () => {
     socket.emit("leaveRoom");
     setCallEnded(true);
-    connectionRef.current.destroy();
+    // connectionRef.current.destroy();
     stream.getTracks().forEach(function (track) {
       track.stop();
     });
