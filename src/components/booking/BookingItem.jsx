@@ -47,7 +47,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   // 게스트일때
   if (Guest === Bloger) {
     return (
-      <div>
+      <>
         {item?.accepted === false && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
@@ -61,11 +61,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 {Host}
               </div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item?.date}</span>
-                <span className="timeInfo">{item?.time}</span>
+                <span className="dayInfo">{item.date}</span>
+                <span className="timeInfo">{item.time}</span>
               </div>
             </div>
-            <button className="waitBtn">'수락대기중'</button>
+            <button className="waitBtn">
+              '수락대기중'
+              </button>
             <button
               className="delBtn"
               onClick={(e) => {
@@ -73,7 +75,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 dispatch(getBookingDB())
                 setLeafChange(!leafChange)
               }}
-
             >
               '예약 취소'
             </button>
@@ -106,7 +107,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
             </button>
           </li>
         )}
-      </div>
+      </>
     );
     // 호스트일때
   } else if (Host === Bloger) {

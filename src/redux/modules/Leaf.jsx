@@ -46,7 +46,7 @@ export const getLeafDB = (blogId) => {
         })
             .then((doc) => {
                 console.log(doc)
-                dispatch(getLeaf(doc.data));
+                dispatch(getLeaf(doc?.data));
             })
             .catch((err) => {
                 console.log(err);
@@ -57,7 +57,7 @@ export const getLeafDB = (blogId) => {
 const leafReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_LEAF:
-            return { ...state, data: action.data };
+            return { ...state, data: action?.data };
         default:
             return state;
     }
