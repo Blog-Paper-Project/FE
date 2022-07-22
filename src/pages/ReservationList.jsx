@@ -11,19 +11,19 @@ const ReservationList = () => {
   const dispatch = useDispatch();
   //  불러온 예약 정보
   const bookingList = useSelector((state) => state?.bookingReducer.data);
-  console.log(bookingList)
+  console.log(bookingList);
   const [leafChange, setLeafChange] = useState(false);
-
+  console.log("예약리스트페이지");
   useEffect(() => {
     dispatch(getBookingDB());
   }, [dispatch, leafChange]);
-  console.log(bookingList)
+  console.log(bookingList);
 
   return (
     <>
       <Header />
       <Wrap>
-      <div className="innerWrap">
+        <div className="innerWrap">
           <div className="bookingWrap">
             <p className="bookingTitle">
               '예약 리스트' <span>/ '예약 한 내역'</span>
@@ -70,7 +70,6 @@ const ReservationList = () => {
       </Wrap>
       <Footer />
     </>
-
   );
 };
 

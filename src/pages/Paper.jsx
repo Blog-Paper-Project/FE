@@ -146,7 +146,7 @@ const Paper = () => {
           Tag
         </p>
       </SortType>
-      <Container_middle>
+      <Container_Middle>
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
           <>
@@ -204,6 +204,7 @@ const Paper = () => {
                     createdAt={value.createdAt}
                     blogId={blogId}
                     postId={value.postId}
+                    content={value.contents}
                   />
                 );
               })}
@@ -218,7 +219,7 @@ const Paper = () => {
             </TagSort>
           </TagSortWrap>
         )}
-      </Container_middle>
+      </Container_Middle>
     </Container>
   );
 };
@@ -230,7 +231,7 @@ const Container = styled.div`
   margin: 0 auto;
   overflow-x: hidden;
 `;
-const Container_middle = styled.div`
+const Container_Middle = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;

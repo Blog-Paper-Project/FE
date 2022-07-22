@@ -6,17 +6,25 @@ import styled from "styled-components";
 const ContentBox = (props) => {
   const { title, thumbnail, blogId, postId, createdAt } = props;
   const navigate = useNavigate();
+  console.log(thumbnail);
   return (
     <Container>
-      <Thumbnail
-        src={
-          process.env.REACT_APP_S3_URL + `/${thumbnail}` || "images/Meiyou2.png"
-        }
-        alt=""
-        onClick={() => {
-          navigate(`/paper/${blogId}/${postId}`);
-        }}
-      />
+      {thumbnail === null ? (
+        <Meiyou
+          onClick={() => {
+            navigate(`/paper/${blogId}/${postId}`);
+          }}
+        />
+      ) : (
+        <Thumbnail
+          src={process.env.REACT_APP_S3_URL + `/${thumbnail}`}
+          alt=""
+          onClick={() => {
+            navigate(`/paper/${blogId}/${postId}`);
+          }}
+        />
+      )}
+
       <Title
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -37,6 +45,12 @@ const Container = styled.div`
 const Thumbnail = styled.img`
   height: 250px;
   width: 100%;
+`;
+const Meiyou = styled.div`
+  height: 250px;
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
 `;
 const Title = styled.div`
   height: 54px;
