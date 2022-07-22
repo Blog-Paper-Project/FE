@@ -376,7 +376,7 @@ const Head = styled.div`
   outline: 1px solid #a7aca1;
 `;
 const TitleWrap = styled.div`
-  width: calc(100% - 1022px);
+  width: 898px;
   height: 146px;
   margin-top: 160px;
 `;
