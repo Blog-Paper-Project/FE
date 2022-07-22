@@ -25,7 +25,7 @@ const Paper = () => {
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-  // 변수 저장
+
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(false);
@@ -33,9 +33,6 @@ const Paper = () => {
 
   const onAll = useCallback(() => {
     setAllSort(true);
-    // if (allSort == true) {
-    //   setTagSort(false);
-    // }
   }, []);
 
   //## 개인 페이지 구독하기 useMutation post
@@ -78,10 +75,15 @@ const Paper = () => {
   if (status === "error") {
     return alert("error");
   }
+  // 변수 값 저장
   const S3 =
     process.env.REACT_APP_S3_URL + `/${mypaper_data?.user.profileImage}`;
 
-  // console.log(mypaper_data.categories);
+  const isSubscribe = mypaper_data.user.Followers.find((value) => {
+    return value.blogId === isHostId;
+  });
+  console.log("isSubscribe", isSubscribe);
+  console.log(mypaper_data.user.Followers);
   return (
     <Container>
       <Header />
@@ -97,22 +99,34 @@ const Paper = () => {
           <div className="MyProfileWrap_div2">
             <Nickname>{mypaper_data?.user.nickname}</Nickname>
             <Introduction>{mypaper_data?.user.introduction}</Introduction>
-            <div className="MyProfileWrap_div3">
-              <Subscribe>구독자</Subscribe>
-              <Tree>나무</Tree>
-            </div>
+            <Subscribe>구독자</Subscribe>
           </div>
         </MyProfileWrap>
         {isHostId === blogId ? null : (
           <div className="MyProfile_div1">
-            <Button
-              onClick={() => {
-                onSubscribe();
-              }}
-              color="white"
-            >
-              구독하기
-            </Button>
+            {isSubscribe === undefined ? (
+              <Button
+                onClick={() => {
+                  onSubscribe();
+                }}
+                color="#FFFFFF"
+              >
+                구독하기
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  onSubscribe();
+                }}
+                color="#ACACAC"
+                background_color="#E5E2DB"
+                border_color="#ACACAC"
+                outline_color="#ACACAC"
+              >
+                구독중
+              </Button>
+            )}
+
             <Button
               onClick={() => {
                 navigate(`/paper/${blogId}/reservation`);
@@ -214,8 +228,9 @@ const Paper = () => {
 
 // Container 이 페이지 전체 박스
 const Container = styled.div`
-  width: 1920px;
+  max-width: 1920px;
   height: 1885px;
+  margin: 0 auto;
   overflow-x: hidden;
 `;
 // MyProfile 박스
@@ -225,7 +240,9 @@ const MyProfile = styled.div`
   align-items: center;
   height: 260px;
   width: 100%;
-  border: 1px solid black;
+  border-top: 1px solid #acacac;
+  border-bottom: 1px solid #acacac;
+  outline: 1px solid #acacac;
   .MyProfile_div1 {
     display: flex;
     flex-direction: column;
@@ -240,26 +257,23 @@ const MyProfile = styled.div`
 // MyProfile의  Wrap
 const MyProfileWrap = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 59%;
-  width: 34%;
-  border: 2px solid black;
+  height: 154px;
+  width: 720px;
+  /* border: 2px solid black; */
+  gap: 24px;
   .MyProfileWrap_div1 {
     height: 100%;
-    width: 25%;
+    width: calc(100% - 566px);
   }
   .MyProfileWrap_div2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 60%;
-  }
-  .MyProfileWrap_div3 {
-    height: 100%;
-    width: 60%;
+    height: calc(100% - 20px);
+    width: calc(100% - 178px);
   }
 `;
 // 기본 모음
@@ -269,23 +283,33 @@ const Button = styled.button`
   width: 100%;
   color: ${(props) => props.color || "black"};
   background-color: ${(props) => props.background_color || "black"};
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.border_color || "black"};
+  font-family: Gmarket Sans;
   font-size: 14px;
   font-weight: 400;
   line-height: 14px;
-  outline: 1px solid #000000;
+  outline: 1px solid ${(props) => props.outline_color || "black"};
 `;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`
   height: 100%;
   width: 100%;
-  border: 1px solid #000000;
-  border-radius: 200px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
 `;
 
-const Nickname = styled.div``;
-const Introduction = styled.div``;
-const Subscribe = styled.div``;
+const Nickname = styled.div`
+  width: 100%;
+  height: 24px;
+`;
+const Introduction = styled.div`
+  width: 100%;
+  height: 38px;
+`;
+const Subscribe = styled.div`
+  width: 100%;
+  height: 19px;
+`;
 const Tree = styled.div``;
 // Subscribe 박스
 

@@ -158,7 +158,8 @@ const WriteEdit = () => {
   }
   // console.log(mypaper_data);
   return (
-    <>
+    <Container>
+      <Head />
       {openModal ? (
         <div
           style={{
@@ -269,48 +270,51 @@ const WriteEdit = () => {
           <button onClick={onPost}>click</button>
         </div>
       ) : (
-        <div
+        <EditWrap
           //## 마우스 오른쪽 클릭 이벤트
           onContextMenu={(e) => {
             e.preventDefault();
             alert("붙혀넣기 금지");
           }}
         >
-          <Title
-            placeholder="제목 쓰는 곳이야"
-            onChange={(e) => {
-              setHead(e.target.value);
-            }}
-          ></Title>
-          <HashTagInput
-            name="HashTagInput"
-            type="text"
-            value={tag || ""}
-            placeholder="Enter를 누르시면 태그가 추가됩니다!"
-            maxLength="10"
-            onKeyUp={onKeyUp}
-            onChange={(e) => {
-              setTag(e.target.value);
-            }}
-          ></HashTagInput>
-          <HashWrapOuter>
-            {tagList.length > 0 ? (
-              tagList.map((value, index) => {
-                return (
-                  <Tag key={value + index} onClick={onClcik_tag}>
-                    <p id={index}>{value}</p>
-                  </Tag>
-                );
-              })
-            ) : (
-              <div>태그를 추가하실 수 있습니다.</div>
-            )}
-          </HashWrapOuter>
+          <TitleWrap>
+            <Title
+              placeholder="제목을 입력하세요"
+              onChange={(e) => {
+                setHead(e.target.value);
+              }}
+            ></Title>
+            <Line />
+            <HashTagInput
+              name="HashTagInput"
+              type="text"
+              value={tag || ""}
+              placeholder="태그를 입력하세요"
+              maxLength="10"
+              onKeyUp={onKeyUp}
+              onChange={(e) => {
+                setTag(e.target.value);
+              }}
+            ></HashTagInput>
+            <HashWrapOuter>
+              {tagList.length > 0 ? (
+                tagList.map((value, index) => {
+                  return (
+                    <Tag key={value + index} onClick={onClcik_tag}>
+                      <p id={index}>{value}</p>
+                    </Tag>
+                  );
+                })
+              ) : (
+                <div>태그를 추가하실 수 있습니다.</div>
+              )}
+            </HashWrapOuter>
+          </TitleWrap>
           <Editor
             previewStyle="vertical"
             placeholder="Paper에 자신의 생각을 적어주세요..."
             height="700px"
-            minHeight="600px"
+            minHeight="480px"
             initialEditType="markdown"
             initialValue={markdown_data}
             ref={editorRef}
@@ -352,16 +356,47 @@ const WriteEdit = () => {
             나가기!
           </button>
           <button onClick={onTemporary}>임시저장!</button>
-        </div>
+        </EditWrap>
       )}
-    </>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  max-width: 1920px;
+  max-height: 1080px;
+  background-color: white;
+`;
+const EditWrap = styled.div`
+  padding: 0 80px;
+`;
+const Head = styled.div`
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #a7aca1;
+  outline: 1px solid #a7aca1;
+`;
+const TitleWrap = styled.div`
+  width: calc(100% - 1022px);
+  height: 146px;
+  margin-top: 160px;
+`;
+const Title = styled.input`
+  height: 60px;
+  width: 100%;
+  color: #333333;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 60px;
+`;
+const Line = styled.div`
+  width: 100%;
+  height: 0px;
+  border: 1px solid #000000;
+`;
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  /* margin: 20px 50px 0; */
 `;
 
 const Thumbmail = styled.img`
@@ -369,24 +404,15 @@ const Thumbmail = styled.img`
   height: 100px;
 `;
 
-const Title = styled.input`
-  display: block;
-  height: 50px;
-  width: 500px;
-  margin: 10px;
-`;
-
 const HashTagInput = styled.input`
-  display: block;
-  width: auto;
-  margin: 10px;
-  display: inline-flex;
+  width: 100%;
+  margin: 10px 20px 0;
   outline: none;
   cursor: text;
-  line-height: 2rem;
-  margin-bottom: 0.75rem;
-  min-width: 8rem;
   border: none;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 25px;
 `;
 
 const Tag = styled.div`
@@ -405,19 +431,6 @@ const Tag = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin: 3px;
 `;
-
-// const HashInput = styled.input`
-//   width: auto;
-//   margin: 10px;
-//   display: inline-flex;
-//   outline: none;
-//   cursor: text;
-//   line-height: 2rem;
-//   margin-bottom: 0.75rem;
-//   min-width: 8rem;
-//   border: none;
-// `;
 
 export default WriteEdit;

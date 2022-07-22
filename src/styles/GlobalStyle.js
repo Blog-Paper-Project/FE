@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing : border-box;
     };
     body{
+        /* width:100%; */
         font-family: 'Noto Sans KR', sans-serif;
         background-color:  #FFFDF7;
     };
