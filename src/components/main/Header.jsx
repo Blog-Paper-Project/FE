@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
@@ -18,12 +18,13 @@ const Header = () => {
     deleteCookie("blogId");
     deleteCookie("profileimage");
     setCookie(false);
-    navigate('/');
     Swal.fire({
       icon: "success",
       text: `로그 아웃 하셨습니다!`,
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
+    }).then(() => {
+      navigate('/');
     });
   };
   const navigate = useNavigate();
@@ -42,8 +43,20 @@ const Header = () => {
 
   //드롭다운 메뉴
   const [isOpen, setIsOpen] = React.useState(false);
-
   const toggling = () => setIsOpen(!isOpen);
+  const el = useRef();
+
+  const handleCloseToggling = (e) => {
+    if (el.current && !el.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("click", handleCloseToggling);
+    return () => {
+      window.removeEventListener("click", handleCloseToggling);
+    };
+  }, []);
 
   const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
 
@@ -62,7 +75,7 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer>
+                <DropDownContainer ref={el}>
                   <DropDownHeader>
                     <ProfileImgBox
                       src={profileImage === "null" ? defaultUserImage : S3}
@@ -186,7 +199,7 @@ const DropDownList = styled.ul`
   position: absolute;
   padding: 0;
   margin: 0;
-  padding-left: 1em;
+  padding: 10px;
   background: #ffffff;
   border: 2px solid #e5e5e5;
   box-sizing: border-box;
