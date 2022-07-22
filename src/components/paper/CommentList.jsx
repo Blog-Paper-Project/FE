@@ -71,6 +71,12 @@ const CommentList = (props) => {
                 }}
                 value={modifyText}
                 maxLength="40"
+                style={{
+                  backgroound_color: "white",
+                  border: "1px solid black",
+                  height: "26px",
+                  width: "300px",
+                }}
               />
             ) : (
               <div>댓글 내용 {text}</div>
