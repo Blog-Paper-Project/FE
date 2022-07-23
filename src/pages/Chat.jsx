@@ -2,15 +2,18 @@ import React, { useState, useRef, useEffect } from "react";
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { socket } from "../App";
+// import { socket } from "../components/booking/BookingItem";
 import Peer from "simple-peer";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhoneIcon from "@material-ui/icons/Phone";
+import io from "socket.io-client";
 
 const Chat = () => {
+  const socket = io.connect(process.env.REACT_APP_API_URL);
+
   //채팅관련
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -41,7 +44,7 @@ const Chat = () => {
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
       });
-    console.log(socket.id);
+    console.log("socket.id", socket.id);
     socket.on("me", (id) => {
       setMe(id);
     });

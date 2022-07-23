@@ -149,8 +149,7 @@ const PaperDetail = () => {
 };
 
 const Container = styled.div`
-  height: 1656px;
-  width: 1920px;
+  max-width: 1920px;
 `;
 
 const Wrap = styled.div`

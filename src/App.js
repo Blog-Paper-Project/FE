@@ -18,13 +18,6 @@ import Kakao from "./pages/Login/Kakao";
 import Google from "./pages/Login/Google";
 import Naver from "./pages/Login/Naver";
 
-import io from "socket.io-client";
-
-export const socket = io.connect(process.env.REACT_APP_API_URL);
-export const initSocketConnection = () => {
-  if (socket) return;
-};
-
 function App() {
   return (
     <>

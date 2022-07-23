@@ -395,7 +395,7 @@ const EditWrap = styled.div`
 // 헤더 관련 - 2
 const Head = styled.div`
   width: 100%;
-  height: 80px;
+  height: 72px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -404,6 +404,8 @@ const Head = styled.div`
   border-bottom: 1px solid #a7aca1;
   outline: 1px solid #a7aca1;
   background-color: #ffffff;
+  position: fixed;
+  top: 0px;
 `;
 const ModalBoxWrap = styled.div`
   display: flex;
@@ -421,7 +423,7 @@ const ModalBox = styled.div`
 const TitleWrap = styled.div`
   width: 898px;
   height: 146px;
-  margin-top: 160px;
+  margin-top: 120px;
 `;
 const Title = styled.input`
   height: 60px;
@@ -439,7 +441,7 @@ const Line = styled.div`
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* margin: 20px 50px 0; */
+  margin-top: 10px;
 `;
 
 const Thumbmail = styled.img`
@@ -449,7 +451,7 @@ const Thumbmail = styled.img`
 
 const HashTagInput = styled.input`
   width: 100%;
-  margin: 10px 20px 0;
+  margin-top: 15px;
   outline: none;
   cursor: text;
   border: none;

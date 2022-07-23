@@ -227,9 +227,8 @@ const Paper = () => {
 // Container 이 페이지 전체 박스
 const Container = styled.div`
   max-width: 1920px;
-  height: 1885px;
   margin: 0 auto;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 `;
 const Container_Middle = styled.div`
   display: flex;
@@ -251,7 +250,6 @@ const MyProfile = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    /* justify-items: flex-start; */
     height: 59%;
     width: 154px;
     gap: 10px;

@@ -9,61 +9,65 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal button {
-  outline: none;
-  cursor: pointer;
-  background-color: black;
-  border: 0;
-}
-
 .modal>section {
   width: 90%;
   max-width: 606px;
   margin: 0 auto;
   border-radius: 5px;
-  background-color: #e5e2db;
+  background-color: #fffdf7;
   animation: modal-show 0.3s;
   overflow: hidden;
 }
 
 .modal>section>header {
-  position: relative;
-  padding: 16px 64px 16px 16px;
-  background-color: #e5e2db;
-  font-weight: 70;
-  color: black;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  border-bottom: solid 1px #acacac;
+  margin: 10px 20px;
+  padding-bottom: 25px;
 }
 
-.modal>section>header button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  width: 60px;
-  font-size: 17px;
-  font-weight: 70;
-  text-align: center;
-  color: #999;
-  background-color: transparent;
+.modal>section>header>h2 {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 45px;
+}
+
+.modal>section>header>p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
 }
 
 .modal>section>main {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   padding: 16px;
-  height: 450px;
+  margin: 15px auto;
 }
 
 .modal>section>footer {
   padding: 12px 16px;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 }
 
 .modal>section>footer button {
-  padding: 6px 12px;
-  color: #fff;
-  background-color: #6c757d;
-  border-radius: 5px;
-  font-size: 13px;
+  width: 184px;
+  height: 50px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  margin-top: 41px;
 }
 
 .modal.openModal {
