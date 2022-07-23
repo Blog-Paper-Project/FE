@@ -23,7 +23,7 @@ const Header = () => {
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
     }).then(() => {
-      navigate('/');
+      navigate("/");
     });
     navigate("/");
   };
@@ -144,7 +144,7 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60px;
+  height: 70px;
 `;
 const Svg = styled.div`
   display: flex;
@@ -155,7 +155,7 @@ const Svg = styled.div`
 const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
-  height: 60px;
+  height: 67px;
   padding-left: 2%;
   display: flex;
   align-items: center;
@@ -165,12 +165,12 @@ const Search = styled.div`
   display: flex;
   align-items: center !important;
   width: 46%;
-  height: 60px;
+  height: 67px;
   outline: 1px solid black;
 `;
 const Login = styled.div`
   width: 27%;
-  height: 60px;
+  height: 67px;
   display: flex;
   align-items: center;
   justify-content: center;

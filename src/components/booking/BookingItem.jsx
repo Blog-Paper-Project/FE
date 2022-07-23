@@ -1,11 +1,17 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { getCookie } from '../../shared/Cookie';
-import { deleteGuestBookingDB, deleteHostBookingDB, getBookingDB, patchBookingDB } from '../../redux/modules/Booking';
+import { getCookie } from "../../shared/Cookie";
+import {
+  deleteGuestBookingDB,
+  deleteHostBookingDB,
+  getBookingDB,
+  patchBookingDB,
+} from "../../redux/modules/Booking";
 import { useEffect } from "react";
-import { socket } from "../../App";
-
+import io from "socket.io-client";
+// import { socket } from "../../App";
+export const socket = io.connect(process.env.REACT_APP_API_URL);
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
 // import { actionCreators as notiActions } from '../redux/modules/booking';
@@ -24,6 +30,11 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const timeId = item.bokingId;
 
   const enterChat = async () => {
+    const initSocketConnection = () => {
+      if (socket) return;
+      socket.connect();
+    };
+
     const roomData = {
       room: `${Host}/${Guest}`,
       name: nickname,
@@ -46,7 +57,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let endTime = item.end;
 
   if (!item) return null;
-  let [week, month, day, year, sTime] = startTime.split(' ');
+  let [week, month, day, year, sTime] = startTime.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(-17, 5);
 
@@ -71,18 +82,18 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                   {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}</span>
+                  {start}&emsp;~&emsp;{end}
+                </span>
               </div>
             </div>
-            <button className="waitBtn">
-              '수락대기중'
-            </button>
+
+            <button className="waitBtn">'수락대기중'</button>
             <button
               className="delBtn"
               onClick={(e) => {
-                dispatch(deleteGuestBookingDB(Guest, bookingId))
-                dispatch(getBookingDB())
-                setLeafChange(!leafChange)
+                dispatch(deleteGuestBookingDB(Guest, bookingId));
+                dispatch(getBookingDB());
+                setLeafChange(!leafChange);
               }}
             >
               '예약 취소'
@@ -151,8 +162,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               className="videoBtn"
               onClick={(e) => {
                 dispatch(patchBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB())
-                setLeafChange(!leafChange)
+                dispatch(getBookingDB());
+                setLeafChange(!leafChange);
               }}
             >
               '수락하기'
@@ -161,8 +172,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               className="delBtn"
               onClick={(e) => {
                 dispatch(deleteHostBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB())
-                setLeafChange(!leafChange)
+                dispatch(getBookingDB());
+                setLeafChange(!leafChange);
               }}
             >
               '예약취소'
