@@ -143,10 +143,8 @@ const MyProfileModal = (props) => {
         {open ? (
           <section>
             <header>
-              {header}
-              <button className="close" onClick={close}>
-                닫기
-              </button>
+              <h2>마이페이지 수정</h2>
+              <p>Modify Mypage</p>
             </header>
 
             <div>
@@ -173,54 +171,44 @@ const MyProfileModal = (props) => {
               <ChgProfile>
                 <img src={chgImg} alt="img" onClick={onClickImageUpload} />
               </ChgProfile>
-              <InputBox>
-                <div
-                  style={{
-                    width: "40%",
-                    backgroundColor: "white",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    margin: "8px 0 16px 0",
-                    height: "40px",
-                  }}
-                >
-                  <SignUpDupInput
-                    defaultValue={nickname}
-                    onChange={(e) => {
-                      setCHGnickname(e.target.value);
-                    }}
-                  />
-                  <DupButton style={{ color: "white" }} onClick={dupnick}>
-                    중복 확인
-                  </DupButton>
-                </div>
-                <div>
-                  <LeafDrop setLeafCount={setLeafCount} LeafCount={LeafCount} />
-                  <LeafChangeButton onClick={leafPatch}>
-                    설정하기
-                  </LeafChangeButton>
-                </div>
-                <div>
-                  <textarea
-                    style={{
-                      width: "500px",
-                      height: "6.25em",
-                      border: "none",
-                      resize: "none",
-                      border: "1px solid black",
-                      padding: "10px",
-                    }}
+              <ModifyBox>
+                <Wrap>
+                  <p>닉네임</p>
+                  <InputWrap>
+                    <input
+                      defaultValue={nickname}
+                      onChange={(e) => {
+                        setCHGnickname(e.target.value);
+                      }}
+                    />
+                    <DupButton onClick={dupnick}>중복 확인</DupButton>
+                  </InputWrap>
+                </Wrap>
+                <Wrap2>
+                  <p>자기소개</p>
+                  <IntroTextBox
                     defaultValue={introduction}
                     onChange={(e) => {
                       setCHGIntroduction(e.target.value);
                     }}
                   />
-                </div>
-              </InputBox>
+                </Wrap2>
+                <Wrap>
+                  <p>나뭇잎 수</p>
+                  <InputWrap>
+                    <LeafDrop
+                      setLeafCount={setLeafCount}
+                      LeafCount={LeafCount}
+                    />
+                    <DupButton onClick={leafPatch}>설정하기</DupButton>
+                  </InputWrap>
+                </Wrap>
+              </ModifyBox>
             </div>
             <footer>
+              <button onClick={close}>취소하기</button>
               {PreNickname === CHGnickname ? (
-                <button onClick={onsubmit1}>닉네임빼고수정</button>
+                <button onClick={onsubmit1}>수정</button>
               ) : (
                 <button onClick={onsubmit}>수정</button>
               )}
@@ -254,39 +242,62 @@ const ChgProfile = styled.div`
   background-color: white;
 `;
 
-const InputBox = styled.div`
-  flex-direction: column;
+const ModifyBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 16px;
+  width: 400px;
+  margin: 0 auto;
 `;
 
-const SignUpDupInput = styled.input`
-  width: 70%;
-  height: 100%;
+const Wrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-bottom: solid 1px #acacac;
+  width: 272px;
+  height: 50px;
 `;
 
 const DupButton = styled.button`
-  margin: 8px 8px 8px;
-  width: 56px;
-  height: 20px;
+  width: 96px;
+  height: 34px;
+  color: black;
+  border: 1px solid gray;
+  margin: 8px 8px 8px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 80px;
 `;
 
-const LeafChangeButton = styled.button`
-  width: 25%;
-  height: 30px;
-  background-color: black;
+const Wrap2 = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  color: white;
-  border: 1px solid #e5e2db;
-  font-family: Gmarket Sans;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 50px;
-  letter-spacing: 0em;
-  text-align: center;
+  width: 100%;
+  gap: 8px;
+`;
+
+const IntroTextBox = styled.textarea`
+  width: 400px;
+  height: 192px;
+  resize: none;
+  border: none;
+  border-bottom: solid 1px #acacac;
+  padding: 10px;
+  :focus {
+    outline: none;
+  }
 `;
 
 export default MyProfileModal;
