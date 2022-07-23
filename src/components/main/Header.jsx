@@ -144,7 +144,7 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60px;
+  height: 72x;
 `;
 const Svg = styled.div`
   display: flex;
@@ -183,6 +183,9 @@ const ProfileImgBox = styled.img`
   border-radius: 50px;
   outline: 1px solid black;
   align-items: center;
+  @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 const DropDownContainer = styled.div`
   width: 30%;
@@ -192,7 +195,8 @@ const DropDownHeader = styled.div`
   font-weight: 500;
   font-size: 1.3rem;
   color: #3faffa;
-  background: #ffffff;
+  background: #fffdf7;
+
 `;
 const DropDownListContainer = styled.div``;
 const DropDownList = styled.ul`

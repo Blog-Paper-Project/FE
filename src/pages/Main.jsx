@@ -126,47 +126,47 @@ const Main = () => {
                 </Post112>
               </Post11>
               <Post12 style={{
-                  position: "relative",
-                  overflow: "hidden",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                position: "relative",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              >
+                {ePapers?.contents && (
+                  <ViewEdit
+                    contents={ePapers?.contents}
+                    style={{ width: "100%", height: "100%", padding: "5px" }}
+                  />
+                )}
+
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "10%",
+                    left: "10%",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
+                    width: "347px",
+                    height: "274px",
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
+                  }}
                 >
+                  <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                  <br />
                   {ePapers?.contents && (
-                      <ViewEdit
-                        contents={ePapers?.contents}
-                        style={{ width: "100%", height: "100%", padding: "5px" }}
-                      />
-                    )}
-                 
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "10%",
-                      left: "10%",
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      width: "347px",
-                      height: "274px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
-                    <br />
-                    {ePapers?.contents && (
-                      <ViewEdit
-                        contents={aPapers?.contents}
-                        style={{ height: "200px" }}
-                      />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {ePapers?.likes}
-                    </p>
-                  </div>
-                
+                    <ViewEdit
+                      contents={aPapers?.contents}
+                      style={{ height: "200px" }}
+                    />
+                  )}
+                  <p>
+                    <FaHeart size="12px" />
+                    {ePapers?.likes}
+                  </p>
+                </div>
+
               </Post12>
               <Post13>
                 <Post131>
@@ -417,7 +417,7 @@ const Main = () => {
             </Post2>
           </PostBox>
         </PostWrap>
-        
+
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
           <div className="poText">Popular Bloger</div>
