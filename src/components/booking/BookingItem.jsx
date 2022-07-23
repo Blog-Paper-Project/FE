@@ -23,8 +23,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const bookingId = Number(item?.bookingId);
   const timeId = item.bokingId;
 
-  console.log(item);
-
   const enterChat = async () => {
     const roomData = {
       room: `${Host}/${Guest}`,
@@ -43,7 +41,15 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     });
   };
 
+  // 예약 정보
+  let startTime = item.start;
+  let endTime = item.end;
+
   if (!item) return null;
+  let [week, month, day, year, sTime] = startTime.split(' ');
+  let start = sTime.substr(0, 5);
+  let end = endTime.substr(-17, 5);
+
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -61,13 +67,16 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 {Host}
               </div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                </span>
+                <span className="timeInfo">
+                  {start}&emsp;~&emsp;{end}</span>
               </div>
             </div>
             <button className="waitBtn">
               '수락대기중'
-              </button>
+            </button>
             <button
               className="delBtn"
               onClick={(e) => {
@@ -93,8 +102,12 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 {Host}
               </div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                </span>
+                <span className="timeInfo">
+                  {start}&emsp;~&emsp;{end}
+                </span>
               </div>
             </div>
             <button
@@ -126,8 +139,12 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 {Guest}
               </div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                </span>
+                <span className="timeInfo">
+                  {start}&emsp;~&emsp;{end}
+                </span>
               </div>
             </div>
             <button
@@ -165,8 +182,12 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 {Guest}
               </div>
               <div className="userBookingWrap">
-                <span className="dayInfo">{item.date}</span>
-                <span className="timeInfo">{item.time}</span>
+                <span className="dayInfo">
+                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                </span>
+                <span className="timeInfo">
+                  {start}&emsp;~&emsp;{end}
+                </span>
               </div>
             </div>
             <button

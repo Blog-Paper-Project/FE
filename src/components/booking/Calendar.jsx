@@ -630,7 +630,7 @@ const CalendarTemplate = ({
         } else {
           for (let i = 0; i < availability.length; i++) {
             onePick1.push({
-              start: availability[i].start
+              start: availability[i]?.start
                 .toString()
                 .replace(" (한국 표준시)", ""),
               end: availability[i].end.toString().replace(" (한국 표준시)", ""),

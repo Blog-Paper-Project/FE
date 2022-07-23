@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { api } from "../shared/apis/Apis";
+import { apiToken } from "../shared/apis/Apis";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookingDB } from "../redux/modules/Booking";
-import { getCookie } from "../shared/Cookie";
 import defaultUserImage from "../public/images/default_profile.png";
 
 import { useParams } from "react-router-dom";
@@ -17,19 +16,34 @@ const Reservation = () => {
   const { blogId } = useParams();
   const dispatch = useDispatch();
   const LeafCount = useSelector((state) => state.leafReducer.data);
+  const [availability, setAvailability] = useState([]);
+
   useEffect(() => {
     dispatch(getLeafDB(blogId));
-    dispatch(getBookingDB());
+
+    apiToken({
+      method: "get",
+      url: `/api/booking`, // 학생 또는 선생님
+    })
+      .then((doc) => {
+        // console.log(doc.data.totalList);
+        setAvailability(doc?.data.totalList.hostBookingList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-  console.log(LeafCount)
+
   const HostLeafCount = LeafCount?.pointList.hostLeaf[0];
   const hostProfileImage = HostLeafCount?.profileImage;
 
-  const [availability, setAvailability] = useState([]);
+
   const Calendar = CalendarTemplate({
     blogId,
     availability,
-    setAvailability,
+    setAvailability: (timeList) => {
+      setAvailability(timeList);
+    },
   });
   const S3 = process.env.REACT_APP_S3_URL + `/${hostProfileImage}`;
 

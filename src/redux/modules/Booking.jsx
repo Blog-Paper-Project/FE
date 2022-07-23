@@ -70,8 +70,9 @@ export const setBookingDB = (data, blogId) => {
       url: `/api/booking/${blogId}`,
       data: {
         // time: `${data[0]?.start}-${data[0]?.end}`,
+        start: data[0]?.start,
+        end: data[0]?.end,
         blogId: userName,
-        date: `${data[0]?.start}-${data[0]?.end}`,
       },
     })
       .then((doc) => {
