@@ -48,40 +48,47 @@ const MyProfile = () => {
   return (
     <MyProfileContainer>
       <Header />
-      <Top>
-        <h2>마이페이지</h2>
-        <p>My page</p>
-      </Top>
-      <ProfileImg
-        src={res?.data.myprofile.profileImage ? S3 : defaultUserImage}
-        alt="profileImg"
-      />
-      <div>{res?.data.myprofile.nickname}</div>
       <ProfileBox>
-        <IntroBox>
-          <p>자기소개</p>
-          <Intro>
-            <p>{res?.data.myprofile.introduction}</p>
-          </Intro>
-        </IntroBox>
-        <PointWrap>
-          <p>모은 나뭇잎</p>
-          <PointBox>
-            <p>{res?.data.myprofile.point}</p>
-          </PointBox>
-        </PointWrap>
-        <PointWrap>
-          <p>인기도</p>
-          <PointBox>
-            <p>{res?.data.myprofile.popularity}</p>
-          </PointBox>
-        </PointWrap>
-        <LeafWrap>
-        <p>나뭇잎 설정값</p>
-          <PointBox>
-            <p>{res?.data.myprofile.setPoint}</p>
-          </PointBox>
-        </LeafWrap>
+        <Title>
+          <h2>마이페이지</h2>
+          <p>Mypage</p>
+        </Title>
+        <ProfileImg
+          src={res?.data.myprofile.profileImage ? S3 : defaultUserImage}
+          alt="profileImg"
+        />
+        <ProfileDetailBox>
+          <PointWrap>
+            <p>닉네임</p>
+            <PointBox>
+              <p>{res?.data.myprofile.nickname}</p>
+            </PointBox>
+          </PointWrap>
+          <IntroBox>
+            <p>자기소개</p>
+            <Intro>
+              <p>{res?.data.myprofile.introduction}</p>
+            </Intro>
+          </IntroBox>
+          <PointWrap>
+            <p>모은 나뭇잎</p>
+            <PointBox>
+              <p>{res?.data.myprofile.point}</p>
+            </PointBox>
+          </PointWrap>
+          <PointWrap>
+            <p>인기도</p>
+            <PointBox>
+              <p>{res?.data.myprofile.popularity}</p>
+            </PointBox>
+          </PointWrap>
+          <PointWrap>
+            <p>나뭇잎 설정값</p>
+            <PointBox>
+              <p>{res?.data.myprofile.setPoint}</p>
+            </PointBox>
+          </PointWrap>
+        </ProfileDetailBox>
 
         <ProfileButton
           onClick={() => {
@@ -99,11 +106,8 @@ const MyProfile = () => {
           profileImage={S3}
           introduction={res?.data.myprofile.introduction}
           nickname={res?.data.myprofile.nickname}
-          email={res?.data.myprofile.email}
-          header="마이페이지 수정"
         />
       ) : null}
-
       <Footer />
     </MyProfileContainer>
   );
@@ -118,25 +122,26 @@ const MyProfileContainer = styled.div`
 
 const ProfileBox = styled.div`
   width: 386px;
-  height: 500px;
-  /* background-color: gray; */
-  flex-direction: column;
-  justify-content: center;
+  margin: 160px auto;
 `;
 
-const Top = styled.div`
+const Title = styled.div`
   display: flex;
   text-align: center;
   flex-direction: column;
-  width: 386px;
-  border-bottom: solid 1px black;
-  margin: 160px auto 32px auto;
+  width: 100%;
+  border-bottom: solid 1px #acacac;
+  margin: 0 auto 32px auto;
   padding-bottom: 25px;
   > h2 {
     font-size: 30px;
+    font-weight: 400;
+    line-height: 45px;
   }
   > p {
     font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
   }
 `;
 
@@ -145,17 +150,44 @@ const ProfileImg = styled.img`
   height: 154px;
   border-radius: 154px;
   display: block;
-  margin: 0px auto;
+  margin: 0px auto 24px auto;
+`;
+
+const ProfileDetailBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+`;
+
+const PointWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.3px;
+`;
+
+const PointBox = styled.div`
+  background-color: white;
+  width: 272px;
+  height: 50px;
+  padding-left: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.3px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px #acacac;
 `;
 
 const IntroBox = styled.div`
-  margin-top: 8px;
   display: flex;
   flex-direction: column;
-  width: 386px;
-  > p {
-    font-size: 14px;
-  }
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20.3px;
 `;
 
 const Intro = styled.div`
@@ -163,40 +195,7 @@ const Intro = styled.div`
   height: 102px;
   padding: 10px;
   margin-top: 8px;
-  border: solid 1px;
-`;
-
-const PointWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 386px;
-  margin: 8px 0 8px 0;
-  p {
-    font-size: 14px;
-  }
-`;
-
-const PointBox = styled.div`
-  background-color: white;
-  width: 272px;
-  height: 30px;
-  padding-left: 10px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  border: solid 1px;
-`;
-
-const LeafWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 386px;
-  margin: 8px 0 8px 0;
-  p {
-    font-size: 14px;
-  }
+  border-bottom: solid 1px #acacac;
 `;
 
 const ProfileButton = styled.button`
@@ -207,29 +206,11 @@ const ProfileButton = styled.button`
   justify-content: center;
   color: white;
   border: 1px solid #e5e2db;
-  font-family: Gmarket Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 50px;
-  letter-spacing: 0em;
   text-align: center;
-  margin-top: 30px;
-`;
-const LeafButton = styled.button`
-  width: 25%;
-  height: 30px;
-  background-color: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  border: 1px solid #e5e2db;
-  font-family: Gmarket Sans;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 50px;
-  letter-spacing: 0em;
-  text-align: center;
+  margin-top: 32px;
 `;
 
 export default MyProfile;
