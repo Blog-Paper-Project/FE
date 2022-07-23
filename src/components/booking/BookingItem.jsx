@@ -8,18 +8,11 @@ import {
   getBookingDB,
   patchBookingDB,
 } from "../../redux/modules/Booking";
-import { useEffect } from "react";
 import io from "socket.io-client";
-// import { socket } from "../../App";
-export const socket = io.connect(process.env.REACT_APP_API_URL);
-// 모듈
-// import { actionCreators as bookingAction } from '../redux/modules/booking';
-// import { actionCreators as notiActions } from '../redux/modules/booking';
 
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { item, change, setChange } = props;
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
   const nickname = getCookie("nickname");
@@ -27,13 +20,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const Guest = item?.guestId;
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
-  const timeId = item.bokingId;
-
+  const timeId = item?.bokingId;
+  console.log("item", item);
   const enterChat = async () => {
-    const initSocketConnection = () => {
-      if (socket) return;
-      socket.connect();
-    };
+    const socket = io.connect(process.env.REACT_APP_API_URL);
+    if (socket) {
+      return socket.connect();
+    }
 
     const roomData = {
       room: `${Host}/${Guest}`,
@@ -53,11 +46,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   };
 
   // 예약 정보
-  let startTime = item.start;
-  let endTime = item.end;
-
-  if (!item) return null;
-  let [week, month, day, year, sTime] = startTime.split(" ");
+  let startTime = item?.start;
+  let endTime = item?.end;
+  console.log("startTime", startTime);
+  if (!item) {
+    return null;
+  }
+  let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(-17, 5);
 
@@ -103,7 +98,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
         {item?.accepted === true && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              {/* 호스트인지 게스트인지에 따라서 userName 다르게 보이게 함 */}
               <div
                 className="userName"
                 onClick={() => {
