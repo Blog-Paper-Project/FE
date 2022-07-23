@@ -8,20 +8,11 @@ import {
   getBookingDB,
   patchBookingDB,
 } from "../../redux/modules/Booking";
-import { useEffect } from "react";
-import { socket } from "../../shared/apis/Apis";
-
-// import io from "socket.io-client";
-// import { socket } from "../../App";
-// export const socket = io.connect(process.env.REACT_APP_API_URL);
-// 모듈
-// import { actionCreators as bookingAction } from '../redux/modules/booking';
-// import { actionCreators as notiActions } from '../redux/modules/booking';
+import io from "socket.io-client";
 
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const { item, change, setChange } = props;
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
   const nickname = getCookie("nickname");
@@ -32,6 +23,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const timeId = item?.bokingId;
   console.log("item", item);
   const enterChat = async () => {
+    const socket = io.connect(process.env.REACT_APP_API_URL);
     if (socket) {
       return socket.connect();
     }
@@ -106,7 +98,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
         {item?.accepted === true && (
           <li className="booking" key={`${timeId}`}>
             <div className="bookingInfo">
-              {/* 선생인지 학생인지에 따라서 userName 다르게 보이게 함 */}
+              {/* 호스트인지 게스트인지에 따라서 userName 다르게 보이게 함 */}
               <div
                 className="userName"
                 onClick={() => {
