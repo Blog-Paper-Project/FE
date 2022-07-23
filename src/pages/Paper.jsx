@@ -251,7 +251,6 @@ const MyProfile = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    /* justify-items: flex-start; */
     height: 59%;
     width: 154px;
     gap: 10px;
