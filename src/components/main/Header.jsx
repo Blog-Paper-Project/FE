@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
-
 /* 컴포넌트 */
 import HeadPaperSearch from "./HeadPaperSearch";
 
@@ -18,13 +17,15 @@ const Header = () => {
     deleteCookie("blogId");
     deleteCookie("profileimage");
     setCookie(false);
-    navigate('/');
     Swal.fire({
       icon: "success",
       text: `로그 아웃 하셨습니다!`,
       showConfirmButton: true,
       confirmButtonColor: "#3085d6",
+    }).then(() => {
+      navigate("/");
     });
+    navigate("/");
   };
   const navigate = useNavigate();
   /* 쿠키 */
@@ -42,8 +43,20 @@ const Header = () => {
 
   //드롭다운 메뉴
   const [isOpen, setIsOpen] = React.useState(false);
-
   const toggling = () => setIsOpen(!isOpen);
+  const el = useRef();
+
+  const handleCloseToggling = (e) => {
+    if (el.current && !el.current.contains(e.target)) {
+      setIsOpen(false);
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("click", handleCloseToggling);
+    return () => {
+      window.removeEventListener("click", handleCloseToggling);
+    };
+  }, []);
 
   const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
 
@@ -62,7 +75,7 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer>
+                <DropDownContainer ref={el}>
                   <DropDownHeader>
                     <ProfileImgBox
                       src={profileImage === "null" ? defaultUserImage : S3}
@@ -72,7 +85,7 @@ const Header = () => {
                   {isOpen && (
                     <DropDownListContainer>
                       <DropDownList>
-                      <ListItem
+                        <ListItem
                           onClick={() => {
                             navigate(`/paper/${blogId}`);
                           }}
@@ -131,7 +144,7 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 60px;
+  height: 70px;
 `;
 const Svg = styled.div`
   display: flex;
@@ -142,7 +155,7 @@ const Svg = styled.div`
 const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
-  height: 60px;
+  height: 67px;
   padding-left: 2%;
   display: flex;
   align-items: center;
@@ -152,12 +165,12 @@ const Search = styled.div`
   display: flex;
   align-items: center !important;
   width: 46%;
-  height: 60px;
+  height: 67px;
   outline: 1px solid black;
 `;
 const Login = styled.div`
   width: 27%;
-  height: 60px;
+  height: 67px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +199,7 @@ const DropDownList = styled.ul`
   position: absolute;
   padding: 0;
   margin: 0;
-  padding-left: 1em;
+  padding: 10px;
   background: #ffffff;
   border: 2px solid #e5e5e5;
   box-sizing: border-box;
@@ -197,7 +210,6 @@ const DropDownList = styled.ul`
     padding-top: 0.8em;
   }
 `;
-
 const ListItem = styled.li`
   list-style: none;
   margin-bottom: 0.8em;

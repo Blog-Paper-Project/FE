@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { getCookie } from "../shared/Cookie";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { socket } from "../App";
+import { socket } from "../components/booking/BookingItem";
 import Peer from "simple-peer";
 
 import TextField from "@material-ui/core/TextField";
@@ -41,7 +41,7 @@ const Chat = () => {
         setStream(currentStream);
         myVideo.current.srcObject = currentStream;
       });
-    console.log(socket.id);
+    console.log("socket.id", socket.id);
     socket.on("me", (id) => {
       setMe(id);
     });

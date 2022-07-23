@@ -35,6 +35,7 @@ const CommentContainer = (props) => {
           onChange={(e) => {
             setComment(e.target.value);
           }}
+          style={{ border: "1px solid black", height: "30px", width: "690px" }}
         />
         <button
           onClick={() => {

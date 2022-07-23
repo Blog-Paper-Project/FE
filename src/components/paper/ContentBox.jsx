@@ -6,18 +6,25 @@ import styled from "styled-components";
 const ContentBox = (props) => {
   const { title, thumbnail, blogId, postId, createdAt } = props;
   const navigate = useNavigate();
+  console.log(thumbnail);
   return (
     <Container>
-      <Thumbnail
-        style={{ cursor: "pointer" }}
-        src={
-          process.env.REACT_APP_S3_URL + `/${thumbnail}` || "images/Meiyou2.png"
-        }
-        alt=""
-        onClick={() => {
-          navigate(`/paper/${blogId}/${postId}`);
-        }}
-      />
+      {thumbnail === null ? (
+        <Meiyou
+          onClick={() => {
+            navigate(`/paper/${blogId}/${postId}`);
+          }}
+        />
+      ) : (
+        <Thumbnail
+          src={process.env.REACT_APP_S3_URL + `/${thumbnail}`}
+          alt=""
+          onClick={() => {
+            navigate(`/paper/${blogId}/${postId}`);
+          }}
+        />
+      )}
+
       <Title
         style={{ cursor: "pointer" }}
         onClick={() => {
@@ -26,26 +33,34 @@ const ContentBox = (props) => {
       >
         {title}
       </Title>
-      <div>{createdAt}</div>
+      <CreatedAt>{createdAt}</CreatedAt>
     </Container>
   );
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 7%;
   height: 316px;
-  /* width: 100vw; */
-  /* margin-bottom: 50px; */
+  width: 438px;
 `;
 const Thumbnail = styled.img`
-  height: 25vh;
-  width: 25vw;
+  height: 250px;
+  width: 100%;
 `;
-
+const Meiyou = styled.div`
+  height: 250px;
+  width: 100%;
+  background-color: white;
+  cursor: pointer;
+`;
 const Title = styled.div`
-  font-weight: 600;
-  font-size: large;
+  height: 54px;
+  width: 100%;
+  font-weight: 540;
+  font-size: 25px;
+  line-height: 50px;
+`;
+const CreatedAt = styled.div`
+  height: 16px;
+  width: 100%;
 `;
 export default ContentBox;

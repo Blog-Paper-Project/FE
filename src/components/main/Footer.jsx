@@ -32,7 +32,7 @@ const Footer = () => {
         </Footer4>
       </FooterBox>
       <FooterEnd>
-        <div>Copyright PAPER.All Rights Reserved</div>
+        <div>Copyright ⓒ PAPER.All Rights Reserved</div>
       </FooterEnd>
     </>
   );
@@ -40,14 +40,14 @@ const Footer = () => {
 
 const FooterBox = styled.div`
   width: 100%;
-  height: 240px;
+  height: 270px;
   border-top: 1px solid black;
-  padding-top: 60px;
+  padding-top: 50px;
 `;
 
 const Footer1 = styled.div`
   width: 25%;
-  height: 219px;
+  height: 220px;
   outline: 1px solid black;
   float: left;
   display: flex;
@@ -62,7 +62,7 @@ const Footer1T = styled.div`
 
 const Footer2 = styled.div`
   width: 25%;
-  height: 219px;
+  height: 220px;
   outline: 1px solid black;
   float: left;
   display: flex;
@@ -77,7 +77,7 @@ const Footer2T = styled.div`
 
 const Footer3 = styled.div`
   width: 25%;
-  height: 219px;
+  height: 220px;
   outline: 1px solid black;
   float: left;
   display: flex;
@@ -92,7 +92,7 @@ const Footer3T = styled.div`
 
 const Footer4 = styled.div`
   width: 25%;
-  height: 219px;
+  height: 220px;
   outline: 1px solid black;
   float: left;
   display: flex;
@@ -106,9 +106,11 @@ const Footer4T = styled.div`
 `;
 
 const FooterEnd = styled.div`
+  width: 100%;
+  height: 54px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 48px;
 `;
 
 export default Footer;

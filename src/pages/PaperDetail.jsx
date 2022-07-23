@@ -7,6 +7,8 @@ import CommentContainer from "../components/paper/CommentContainer";
 import Like from "../components/paper/Like";
 import { apiToken } from "../shared/apis/Apis";
 import { getCookie } from "../shared/Cookie";
+import defaultUserImage from "../public/images/default_profile.png";
+import styled from "styled-components";
 
 /*해야할 것*/
 
@@ -14,7 +16,10 @@ const PaperDetail = () => {
   const navigate = useNavigate();
   const { blogId } = useParams();
   const { postId } = useParams();
-  console.log(blogId);
+  const StringUserId = getCookie("userId");
+  const userId = Number(StringUserId);
+  // console.log(typeof userId);
+  // console.log(blogId);
   // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
@@ -39,8 +44,12 @@ const PaperDetail = () => {
 
   // ## useQuery 글 get 함수
   const GetDetailtData = async () => {
-    const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
-    // console.log("PaperDetail page", response);
+    const response = await apiToken.get(`/api/paper/${blogId}/${postId}`, {
+      headers: {
+        userId: userId,
+      },
+    });
+    console.log("PaperDetail page", response);
     return response?.data.paper;
   };
 
@@ -68,45 +77,65 @@ const PaperDetail = () => {
   if (status === "error") {
     return alert("error");
   }
-
+  const S3 =
+    process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
   console.log("PaperDeTail", detail_data);
   return (
-    <div>
+    <Container>
       <Header />
-      {isHostId === blogId ? (
-        <>
-          {/* 아래 글 삭제 버튼*/}
-          <div>
-            <button
-              onClick={() => {
-                onDelete();
-              }}
-            >
-              글 삭제하기
-            </button>
-          </div>
-          {/* 아래 글 수정 버튼*/}
-          <div>
-            <button
-              onClick={() => {
-                navigate(`/modify/${blogId}/${postId}`);
-              }}
-            >
-              글 수정하기
-            </button>
-          </div>
-        </>
-      ) : null}
+
       {/* 아래 글*/}
-      <div>{detail_data?.title}</div>
+      <Title>{detail_data?.title}</Title>
+      <Line />
+      <Wrap>
+        <div className="wrap">
+          {/* 블로거 프로필 이미지 */}
+          <ProfileImgBox
+            src={
+              detail_data?.Users.profileImage === "null" ? defaultUserImage : S3
+            }
+            onClick={() => {
+              navigate(`/paper/${detail_data?.Users.blogId}`);
+            }}
+          />
+          <Nickname>{detail_data?.Users.nickname}</Nickname>
+        </div>
+        <div className="wrap">
+          {isHostId === blogId ? (
+            <>
+              {/* 아래 글 수정 버튼*/}
+
+              <button
+                onClick={() => {
+                  navigate(`/modify/${blogId}/${postId}`);
+                }}
+              >
+                글 수정하기
+              </button>
+
+              {/* 아래 글 삭제 버튼*/}
+
+              <button
+                onClick={() => {
+                  onDelete();
+                }}
+              >
+                글 삭제하기
+              </button>
+            </>
+          ) : null}
+        </div>
+      </Wrap>
       <div>{detail_data?.createdAt}</div>
-      <ViewEdit contents={detail_data?.contents} />
+      <ViewEditWarp>
+        <ViewEdit contents={detail_data?.contents} />
+      </ViewEditWarp>
       {/* 아래 해시태그 */}
-      <div>
+      <TagWrap>
         {detail_data?.Tags.map((value, index) => {
-          return <div key={index}>{value.name}</div>;
+          return <Tag key={index}>{value.name}</Tag>;
         })}
-      </div>
+      </TagWrap>
       {/* 아래 댓글 */}
       <div>
         <CommentContainer postId={postId} Comments={detail_data?.Comments} />
@@ -115,8 +144,70 @@ const PaperDetail = () => {
       <div>
         <Like postId={postId} Likes={detail_data?.Likes} />
       </div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  height: 1656px;
+  width: 1920px;
+`;
+
+const Wrap = styled.div`
+  width: 898px;
+  display: flex;
+  justify-content: space-between;
+  .wrap > {
+    display: flex;
+  }
+`;
+
+const ProfileImgBox = styled.img`
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 0;
+  border-radius: 50%;
+`;
+
+const Nickname = styled.span`
+  height: 40px;
+  width: 80px;
+`;
+const Title = styled.div`
+  height: 60px;
+  width: 896px;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 60px;
+  color: #333333;
+`;
+const Line = styled.div`
+  width: 898px;
+  border-bottom: 1px solid #000000;
+`;
+const ViewEditWarp = styled.div`
+  height: 500px;
+  width: 898px;
+  background-color: #efefef;
+`;
+const TagWrap = styled.div`
+  height: 20px;
+  width: 300px;
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: flex-start;
+  gap: 0 10px;
+  margin-bottom: 40px;
+`;
+const Tag = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 85px;
+  border: 2px solid black;
+  border-radius: 30px;
+  font-size: 12px;
+`;
 
 export default PaperDetail;
