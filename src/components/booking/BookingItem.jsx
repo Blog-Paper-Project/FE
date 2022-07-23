@@ -9,9 +9,11 @@ import {
   patchBookingDB,
 } from "../../redux/modules/Booking";
 import { useEffect } from "react";
-import io from "socket.io-client";
+import { socket } from "../../shared/apis/Apis";
+
+// import io from "socket.io-client";
 // import { socket } from "../../App";
-export const socket = io.connect(process.env.REACT_APP_API_URL);
+// export const socket = io.connect(process.env.REACT_APP_API_URL);
 // 모듈
 // import { actionCreators as bookingAction } from '../redux/modules/booking';
 // import { actionCreators as notiActions } from '../redux/modules/booking';
@@ -27,13 +29,12 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const Guest = item?.guestId;
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
-  const timeId = item.bokingId;
-
+  const timeId = item?.bokingId;
+  console.log("item", item);
   const enterChat = async () => {
-    const initSocketConnection = () => {
-      if (socket) return;
-      socket.connect();
-    };
+    if (socket) {
+      return socket.connect();
+    }
 
     const roomData = {
       room: `${Host}/${Guest}`,
@@ -53,11 +54,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   };
 
   // 예약 정보
-  let startTime = item.start;
-  let endTime = item.end;
-
-  if (!item) return null;
-  let [week, month, day, year, sTime] = startTime.split(" ");
+  let startTime = item?.start;
+  let endTime = item?.end;
+  console.log("startTime", startTime);
+  if (!item) {
+    return null;
+  }
+  let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(-17, 5);
 
