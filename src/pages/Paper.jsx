@@ -146,11 +146,10 @@ const Paper = () => {
           Tag
         </p>
       </SortType>
-
-      {/* 아래 전체 정렬 렌더링*/}
-      {allSort ? (
-        <ContainerAllSort>
-          <Warpper>
+      <Container_Middle>
+        {/* 아래 전체 정렬 렌더링*/}
+        {allSort ? (
+          <>
             <CategoryWrap>
               {categoty_Toggle ? (
                 <>
@@ -187,41 +186,40 @@ const Paper = () => {
                       setCategoty_Toggle(!categoty_Toggle);
                     }}
                   >
-                    카테고리 토글 버튼
+                    카테고리
                   </button>
                 </>
               )}
             </CategoryWrap>
             <AllSortWrap>
-              <AllSort>
-                {mypaper_data?.user.Papers.map((value, idx) => {
-                  // console.log(mypaper_data);
+              {mypaper_data?.user.Papers.map((value, idx) => {
+                // console.log(mypaper_data);
 
-                  return (
-                    <ContentBox
-                      key={idx}
-                      title={value.title}
-                      thumbnail={value.thumbnail}
-                      tags={value.tags}
-                      createdAt={value.createdAt}
-                      blogId={blogId}
-                      postId={value.postId}
-                    />
-                  );
-                })}
-              </AllSort>
+                return (
+                  <ContentBox
+                    key={idx}
+                    title={value.title}
+                    thumbnail={value.thumbnail}
+                    tags={value.tags}
+                    createdAt={value.createdAt}
+                    blogId={blogId}
+                    postId={value.postId}
+                    content={value.contents}
+                  />
+                );
+              })}
             </AllSortWrap>
-          </Warpper>
-        </ContainerAllSort>
-      ) : (
-        <TagSortWrap>
-          <TagSort>
-            {mypaper_data?.tags.map((value, index) => {
-              return <Tag key={index}>{value}</Tag>;
-            })}
-          </TagSort>
-        </TagSortWrap>
-      )}
+          </>
+        ) : (
+          <TagSortWrap>
+            <TagSort>
+              {mypaper_data?.tags.map((value, index) => {
+                return <Tag key={index}>{value}</Tag>;
+              })}
+            </TagSort>
+          </TagSortWrap>
+        )}
+      </Container_Middle>
     </Container>
   );
 };
@@ -232,6 +230,11 @@ const Container = styled.div`
   height: 1885px;
   margin: 0 auto;
   overflow-x: hidden;
+`;
+const Container_Middle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 `;
 // MyProfile 박스
 const MyProfile = styled.div`
@@ -261,7 +264,6 @@ const MyProfileWrap = styled.div`
   align-items: center;
   height: 154px;
   width: 720px;
-  /* border: 2px solid black; */
   gap: 24px;
   .MyProfileWrap_div1 {
     height: 100%;
@@ -379,36 +381,23 @@ const ContainerAllSort = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 996px;
+  height: calc(100% - 653px);
   width: 100%;
 `;
 
-const Warpper = styled.div`
-  height: 100%;
-  width: 56%;
-`;
 // AllSortWrap wrap - 4
 const AllSortWrap = styled.div`
-  width: 100%;
+  height: 998px;
+  width: 1078px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
   overflow: hidden;
   /* overflow-x: hidden; */
 `;
-// AllSort box - 4
-const AllSort = styled.div`
-  height: 80%;
-  width: 70%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  gap: 12%;
-`;
 
 const CategoryWrap = styled.div`
-  height: 141px;
-  width: 14%;
+  height: 36px;
+  width: 154px;
 `;
 export default Paper;

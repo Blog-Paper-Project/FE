@@ -159,205 +159,228 @@ const WriteEdit = () => {
   // console.log(mypaper_data);
   return (
     <Container>
-      <Head />
-      {openModal ? (
-        <div
-          style={{
-            box_sizing: "border-box",
-            border: "solid #5B6DCD 10px",
-            height: "800px",
-          }}
-        >
-          <Thumbmail
-            src={previewImg !== null ? previewImg : null}
-            alt="썸네일"
-          />
-          <input
-            type="file"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-              encodeFileToBase64(e.target.files[0]);
-            }}
-          ></input>
-          {editCategory ? (
-            <>
-              <input
-                type="text"
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-                value={category}
-              />
-              <button
-                onClick={() => {
-                  setCategoryList([...categoryList, category]);
-                  setCategory("");
-                  setEditCategory(!editCategory);
-                }}
-              >
-                추가
-              </button>
-              <button
-                onClick={() => {
-                  setEditCategory(!editCategory);
-                }}
-              >
-                취소
-              </button>
-            </>
-          ) : (
-            <>
-              <div>카테고리</div>
-              <button
-                onClick={() => {
-                  setEditCategory(!editCategory);
-                }}
-              >
-                카테고리 추가!
-              </button>
-            </>
-          )}
-          <select
-            onChange={(e) => {
-              setSelectOption(e.target.value);
-            }}
-            required
+      <Head>
+        <div>
+          <Logo>PAPER</Logo>
+        </div>
+        <div>
+          <Button
+            width="96px"
+            background_color="#FFFFFF"
+            border_color="white"
+            outline_color="white"
           >
-            {categoryList ? (
+            나가기
+          </Button>
+          <Button
+            width="96px"
+            background_color="#FFFFFF"
+            color="#A7ACA1"
+            border_color="white"
+            outline_color="white"
+          >
+            임시저장
+          </Button>
+          <Button color="white" onClick={onModal}>
+            발행하기
+          </Button>
+        </div>
+      </Head>
+
+      {openModal ? (
+        <ModalBoxWrap>
+          <ModalBox>
+            <Thumbmail
+              src={previewImg !== null ? previewImg : null}
+              alt="썸네일"
+            />
+            <input
+              type="file"
+              onChange={(e) => {
+                setImage(e.target.files[0]);
+                encodeFileToBase64(e.target.files[0]);
+              }}
+            ></input>
+            {editCategory ? (
               <>
-                {categoryList?.map((value, idx) => {
-                  return (
-                    <option key={idx} value={value}>
-                      {value}
-                    </option>
-                  );
-                })}
-                {mypaper_data?.categories.length === 0 ? (
-                  <>
-                    <option value="etc">etc</option>
-                  </>
-                ) : (
-                  <>
-                    {mypaper_data?.categories.map((value, index) => {
-                      return (
-                        <option key={index} value={value}>
-                          {value}
-                        </option>
-                      );
-                    })}
-                  </>
-                )}
+                <input
+                  type="text"
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
+                  value={category}
+                />
+                <button
+                  onClick={() => {
+                    setCategoryList([...categoryList, category]);
+                    setCategory("");
+                    setEditCategory(!editCategory);
+                  }}
+                >
+                  추가
+                </button>
+                <button
+                  onClick={() => {
+                    setEditCategory(!editCategory);
+                  }}
+                >
+                  취소
+                </button>
               </>
             ) : (
               <>
-                {mypaper_data?.categories.map((value, index) => {
-                  return (
-                    <option key={index} value={value}>
-                      {value}
-                    </option>
-                  );
-                })}
+                <div>카테고리</div>
+                <button
+                  onClick={() => {
+                    setEditCategory(!editCategory);
+                  }}
+                >
+                  카테고리 추가!
+                </button>
               </>
             )}
-          </select>
-          <button
-            onClick={() => {
-              setOpenModal(!openModal);
+            <select
+              onChange={(e) => {
+                setSelectOption(e.target.value);
+              }}
+              required
+            >
+              {categoryList ? (
+                <>
+                  {categoryList?.map((value, idx) => {
+                    return (
+                      <option key={idx} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
+                  {mypaper_data?.categories.length === 0 ? (
+                    <>
+                      <option value="etc">etc</option>
+                    </>
+                  ) : (
+                    <>
+                      {mypaper_data?.categories.map((value, index) => {
+                        return (
+                          <option key={index} value={value}>
+                            {value}
+                          </option>
+                        );
+                      })}
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {mypaper_data?.categories.map((value, index) => {
+                    return (
+                      <option key={index} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
+                </>
+              )}
+            </select>
+            {/* <button
+              onClick={() => {
+                setOpenModal(!openModal);
+              }}
+            >
+              x
+            </button> */}
+            <Button width="120px" background_color="white" onClick={onPost}>
+              발행
+            </Button>
+          </ModalBox>
+        </ModalBoxWrap>
+      ) : null}
+      <EditWrap
+        //## 마우스 오른쪽 클릭 이벤트
+        onContextMenu={(e) => {
+          e.preventDefault();
+          alert("붙혀넣기 금지");
+        }}
+      >
+        <TitleWrap>
+          <Title
+            placeholder="제목을 입력하세요"
+            onChange={(e) => {
+              setHead(e.target.value);
             }}
-          >
-            x
-          </button>
-          <button onClick={onPost}>click</button>
-        </div>
-      ) : (
-        <EditWrap
-          //## 마우스 오른쪽 클릭 이벤트
-          onContextMenu={(e) => {
-            e.preventDefault();
-            alert("붙혀넣기 금지");
+          ></Title>
+          <Line />
+          <HashTagInput
+            name="HashTagInput"
+            type="text"
+            value={tag || ""}
+            placeholder="태그를 입력하세요"
+            maxLength="10"
+            onKeyUp={onKeyUp}
+            onChange={(e) => {
+              setTag(e.target.value);
+            }}
+          ></HashTagInput>
+          <HashWrapOuter>
+            {tagList.length > 0 ? (
+              tagList.map((value, index) => {
+                return (
+                  <Tag key={value + index} onClick={onClcik_tag}>
+                    <p id={index}>{value}</p>
+                  </Tag>
+                );
+              })
+            ) : (
+              <div>태그를 추가하실 수 있습니다.</div>
+            )}
+          </HashWrapOuter>
+        </TitleWrap>
+        <Editor
+          previewStyle="vertical"
+          placeholder="Paper에 자신의 생각을 적어주세요..."
+          height="700px"
+          minHeight="480px"
+          initialEditType="markdown"
+          initialValue={markdown_data}
+          ref={editorRef}
+          onChange={onchange}
+          useCommandShortcut={false}
+          onKeydown={onKeyDown}
+          usageStatistics={false}
+          language="ko-KR"
+          toolbarItems={[
+            ["heading", "bold", "italic", "strike"],
+            ["hr", "quote"],
+            ["code", "codeblock"],
+            ["ul", "ol", "image"],
+          ]}
+          hooks={{
+            addImageBlobHook: async (blob, callback) => {
+              // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
+              let formData = new FormData();
+              formData.append("image", blob);
+              const response = await apiToken.post(
+                "/api/paper/image",
+                formData
+              );
+
+              // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
+              callback(
+                process.env.REACT_APP_S3_URL + `/${response?.data.imageUrl}`,
+                `${blob.name.split(".")[0]}`
+              );
+            },
+          }}
+        />
+        <button
+          onClick={() => {
+            navigate(`/paper/${res?.blogId}`);
           }}
         >
-          <TitleWrap>
-            <Title
-              placeholder="제목을 입력하세요"
-              onChange={(e) => {
-                setHead(e.target.value);
-              }}
-            ></Title>
-            <Line />
-            <HashTagInput
-              name="HashTagInput"
-              type="text"
-              value={tag || ""}
-              placeholder="태그를 입력하세요"
-              maxLength="10"
-              onKeyUp={onKeyUp}
-              onChange={(e) => {
-                setTag(e.target.value);
-              }}
-            ></HashTagInput>
-            <HashWrapOuter>
-              {tagList.length > 0 ? (
-                tagList.map((value, index) => {
-                  return (
-                    <Tag key={value + index} onClick={onClcik_tag}>
-                      <p id={index}>{value}</p>
-                    </Tag>
-                  );
-                })
-              ) : (
-                <div>태그를 추가하실 수 있습니다.</div>
-              )}
-            </HashWrapOuter>
-          </TitleWrap>
-          <Editor
-            previewStyle="vertical"
-            placeholder="Paper에 자신의 생각을 적어주세요..."
-            height="700px"
-            minHeight="480px"
-            initialEditType="markdown"
-            initialValue={markdown_data}
-            ref={editorRef}
-            onChange={onchange}
-            useCommandShortcut={false}
-            onKeydown={onKeyDown}
-            usageStatistics={false}
-            language="ko-KR"
-            toolbarItems={[
-              ["heading", "bold", "italic", "strike"],
-              ["hr", "quote"],
-              ["code", "codeblock"],
-              ["ul", "ol", "image"],
-            ]}
-            hooks={{
-              addImageBlobHook: async (blob, callback) => {
-                // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
-                let formData = new FormData();
-                formData.append("image", blob);
-                const response = await apiToken.post(
-                  "/api/paper/image",
-                  formData
-                );
-
-                // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
-                callback(
-                  process.env.REACT_APP_S3_URL + `/${response?.data.imageUrl}`,
-                  `${blob.name.split(".")[0]}`
-                );
-              },
-            }}
-          />
-          <button onClick={onModal}>Click!</button>
-          <button
-            onClick={() => {
-              navigate(`/paper/${res?.blogId}`);
-            }}
-          >
-            나가기!
-          </button>
-          <button onClick={onTemporary}>임시저장!</button>
-        </EditWrap>
-      )}
+          나가기!
+        </button>
+        <button onClick={onTemporary}>임시저장!</button>
+      </EditWrap>
     </Container>
   );
 };
@@ -369,14 +392,34 @@ const Container = styled.div`
 const EditWrap = styled.div`
   padding: 0 80px;
 `;
+// 헤더 관련 - 2
 const Head = styled.div`
   width: 100%;
   height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 48px;
+  padding-right: 50px;
   border-bottom: 1px solid #a7aca1;
   outline: 1px solid #a7aca1;
+  background-color: #ffffff;
+`;
+const ModalBoxWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 49px;
+`;
+const ModalBox = styled.div`
+  height: 359px;
+  width: 424px;
+  border: 1px solid #a7aca1;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 1;
 `;
 const TitleWrap = styled.div`
-  width: calc(100% - 1022px);
+  width: 898px;
   height: 146px;
   margin-top: 160px;
 `;
@@ -433,4 +476,25 @@ const Tag = styled.div`
   cursor: pointer;
 `;
 
+// 기본 모음
+// Button
+const Button = styled.button`
+  height: 40px;
+  width: ${(props) => props.width || "154px"};
+  color: ${(props) => props.color || "black"};
+  background-color: ${(props) => props.background_color || "black"};
+  border: 1px solid ${(props) => props.border_color || "black"};
+  font-family: Gmarket Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  outline: 1px solid ${(props) => props.outline_color || "black"};
+`;
+const Logo = styled.div`
+  height: 30px;
+  width: 107px;
+  line-height: 30.17px;
+  font-size: 24.13px;
+  font-weight: 400;
+`;
 export default WriteEdit;

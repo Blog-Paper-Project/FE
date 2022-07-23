@@ -6,7 +6,6 @@ import styled from "styled-components";
 import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
-
 /* 컴포넌트 */
 import HeadPaperSearch from "./HeadPaperSearch";
 
@@ -26,6 +25,7 @@ const Header = () => {
     }).then(() => {
       navigate('/');
     });
+    navigate("/");
   };
   const navigate = useNavigate();
   /* 쿠키 */
@@ -85,7 +85,7 @@ const Header = () => {
                   {isOpen && (
                     <DropDownListContainer>
                       <DropDownList>
-                      <ListItem
+                        <ListItem
                           onClick={() => {
                             navigate(`/paper/${blogId}`);
                           }}
@@ -210,7 +210,6 @@ const DropDownList = styled.ul`
     padding-top: 0.8em;
   }
 `;
-
 const ListItem = styled.li`
   list-style: none;
   margin-bottom: 0.8em;
