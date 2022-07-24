@@ -20,6 +20,9 @@ import { CookiesProvider } from "react-cookie";
 import store from "./redux/configStore";
 import { Provider } from "react-redux";
 
+/* socket */
+import { ContextProvider } from './Context';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -35,7 +38,9 @@ root.render(
       <BrowserRouter>
         <GlobalStyle />
         <Provider store={store}>
-          <App />
+          <ContextProvider>
+            <App />
+          </ContextProvider>
         </Provider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
