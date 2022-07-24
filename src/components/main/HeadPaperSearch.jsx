@@ -39,10 +39,13 @@ const HeadPaperSearch = () => {
 };
 
 const SearchBox = styled.div`
+  width: 592px;
+  height: 52px;
   position: relative;
-  padding-left: 14%;
+  padding-left: 20px;
   display: flex;
   align-items: center !important;
+  border: 1px solid #A7ACA1;
 `;
 
 const Search1 = styled.input`
