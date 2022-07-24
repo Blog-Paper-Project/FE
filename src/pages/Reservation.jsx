@@ -27,7 +27,7 @@ const Reservation = () => {
     })
       .then((doc) => {
         // console.log(doc.data.totalList);
-        setAvailability(doc?.data.totalList.hostBookingList);
+        setAvailability(doc?.data.totalList.guestBookingList);
       })
       .catch((err) => {
         console.log(err);
