@@ -6,7 +6,14 @@ const Footer = () => {
     <>
       <FooterBox>
         <Footer1>
-          <Footer1T>paper</Footer1T>
+          <Footer1T>
+            <img
+              className="futerTitle"
+              src={process.env.PUBLIC_URL + "/logo_paper.png"}
+              back_size="100% 100%"
+              alt="logo"
+            />
+          </Footer1T>
         </Footer1>
         <Footer2>
           <Footer2T>
@@ -39,16 +46,22 @@ const Footer = () => {
 };
 
 const FooterBox = styled.div`
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
   width: 100%;
   height: 270px;
-  border-top: 1px solid black;
+  border: 1px solid #A7ACA1;
+  border-collapse: collapse;
   padding-top: 50px;
 `;
 
 const Footer1 = styled.div`
   width: 25%;
   height: 220px;
-  outline: 1px solid black;
+  border: 1px solid #A7ACA1;
   float: left;
   display: flex;
   align-items: center;
@@ -63,7 +76,7 @@ const Footer1T = styled.div`
 const Footer2 = styled.div`
   width: 25%;
   height: 220px;
-  outline: 1px solid black;
+  border: 1px solid #A7ACA1;
   float: left;
   display: flex;
   align-items: center;
@@ -78,7 +91,7 @@ const Footer2T = styled.div`
 const Footer3 = styled.div`
   width: 25%;
   height: 220px;
-  outline: 1px solid black;
+  border: 1px solid #A7ACA1;
   float: left;
   display: flex;
   align-items: center;
@@ -93,7 +106,7 @@ const Footer3T = styled.div`
 const Footer4 = styled.div`
   width: 25%;
   height: 220px;
-  outline: 1px solid black;
+  border: 1px solid #A7ACA1;
   float: left;
   display: flex;
   align-items: center;

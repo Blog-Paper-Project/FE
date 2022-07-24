@@ -21,6 +21,8 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
 import Footer from "../components/main/Footer";
 import ViewEdit from "../components/editor/ViewEdit";
+import defaultUserImage from "../public/images/default_profile.png";
+
 
 const Main = () => {
   const navigate = useNavigate();
@@ -33,6 +35,7 @@ const Main = () => {
   const { data: paper_query } = useQuery("paper_list", paperList, {
     staleTime: 0,
     onSuccess: (data) => {
+      console.log(data)
       return data;
     },
   });
@@ -47,19 +50,25 @@ const Main = () => {
   const hPapers = paper_query?.data.papers[7];
   const iPapers = paper_query?.data.papers[8];
   const jPapers = paper_query?.data.papers[9];
+  console.log(aPapers)
 
   return (
     <>
       <MainBox>
         <Header />
         <MainTop>
-          <div>PAPER</div>
+          <img
+            className="paperTitle"
+            src={process.env.PUBLIC_URL + "/Group 365.png"}
+            back_size="100% 100%"
+            alt="icon"
+          />
         </MainTop>
         <PostWrap>
           <PostBox>
             <Post1>
               <Post11>
-                <Post111>
+                <Post1st>
                   <div
                     style={{
                       width: "70%",
@@ -83,8 +92,8 @@ const Main = () => {
                       {aPapers?.likes}
                     </p>
                   </div>
-                </Post111>
-                <Post112 style={{
+                </Post1st>
+                <Post2st style={{
                   position: "relative",
                   overflow: "hidden",
                   display: "flex",
@@ -100,11 +109,11 @@ const Main = () => {
                   <div
                     style={{
                       position: "absolute",
-                      bottom: "10%",
-                      left: "10%",
+                      bottom: "56px",
+                      left: "56px",
                       backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      width: "347px",
-                      height: "274px",
+                      width: "260px",
+                      height: "304px",
                     }}
                     onClick={() => {
                       navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
@@ -123,11 +132,10 @@ const Main = () => {
                       {bPapers?.likes}
                     </p>
                   </div>
-                </Post112>
+                </Post2st>
               </Post11>
-              <Post12 style={{
+              <Post5st style={{
                 position: "relative",
-                overflow: "hidden",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -167,9 +175,9 @@ const Main = () => {
                   </p>
                 </div>
 
-              </Post12>
+              </Post5st>
               <Post13>
-                <Post131>
+                <Post8st>
                   <div
                     style={{
                       display: "flex",
@@ -204,8 +212,8 @@ const Main = () => {
                       {hPapers?.likes}
                     </p>
                   </div>
-                </Post131>
-                <Post132>
+                </Post8st>
+                <Post9st>
                   <div
                     style={{
                       display: "flex",
@@ -240,12 +248,12 @@ const Main = () => {
                       {iPapers?.likes}
                     </p>
                   </div>
-                </Post132>
+                </Post9st>
               </Post13>
             </Post1>
             <Post2>
               <Post21>
-                <Post211>
+                <Post3st>
                   <div
                     style={{
                       display: "flex",
@@ -259,15 +267,15 @@ const Main = () => {
                       }
                       alt="img"
                       style={{
-                        width: "413px",
+                        width: "253px",
                         height: "108px",
-                        margin: "73px auto 41px auto",
+                        margin: "56px auto 56px auto",
                       }}
                     />
                   </div>
                   <div
                     style={{
-                      marginLeft: "20px",
+                      marginLeft: "56px",
                     }}
                     onClick={() => {
                       navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
@@ -280,14 +288,15 @@ const Main = () => {
                       {cPapers?.likes}
                     </p>
                   </div>
-                </Post211>
-                <Post212>
+                </Post3st>
+                <Post4st>
                   <div
                     style={{
-                      width: "70%",
-                      height: "300px",
-                      paddingLeft: "30px",
-                      paddingTop: "30px",
+                      width: "259px",
+                      height: "234px",
+                      marginLeft: "56px",
+                      marginTop: "56px",
+                      overflow: "hidden",
                     }}
                     onClick={() => {
                       navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
@@ -299,20 +308,65 @@ const Main = () => {
                         contents={dPapers?.contents}
                         style={{ height: "200px" }}
                       />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
+                    )}                    
+                  </div>
+                  <p>
+                      <FaHeart 
+                      style={{marginLeft: "56px"}}
+                      size="12px" />
                       {dPapers?.likes}
                     </p>
-                  </div>
-                </Post212>
+                </Post4st>
               </Post21>
 
-              <Post22>
-                설명
-              </Post22>
+              <Information>
+                <div style={{
+                  position: "relative",
+                  padding: "53px 56px",
+                }}>
+
+                  <div>
+                    <div style={{
+                      fontWeight: "400",
+                      fontSize: "60px",
+                      lineHeight: "60px",
+                    }}>
+                      The PAPER
+                      <span style={{
+                        fontWeight: "300",
+                        fontSize: "60px",
+                        lineHeight: "60px",
+                      }}>
+                        | write
+                      </span>
+                    </div>
+                    <div style={{
+                      fontWeight: "300",
+                      fontSize: "25px",
+                      marginTop: "27px"
+                    }}>
+                      PAPER에 담긴 아름다운 작품을 감상해 보세요.
+                    </div>
+                    <span style={{
+                      fontWeight: "400",
+                      fontSize: "25px",
+                    }}>
+                      글을 써서 나뭇잎을 모아 나무로 만드세요.
+                    </span>
+                  </div>
+                  <img
+                    style={{
+                      padding: "0px 0px 0px 212px"
+                    }}
+                    className="paperInfo"
+                    src={process.env.PUBLIC_URL + "/Frame 182.png"}
+                    back_size="100% 100%"
+                    alt="icon"
+                  />
+                </div>
+              </Information>
               <Post23>
-                <Post231>
+                <Post6st>
                   <div
                     style={{
                       display: "flex",
@@ -347,8 +401,8 @@ const Main = () => {
                       {fPapers?.likes}
                     </p>
                   </div>
-                </Post231>
-                <Post232 style={{
+                </Post6st>
+                <Post7st style={{
                   position: "relative",
                   overflow: "hidden",
                   display: "flex",
@@ -387,9 +441,9 @@ const Main = () => {
                       {gPapers?.likes}
                     </p>
                   </div>
-                </Post232>
+                </Post7st>
               </Post23>
-              <Post24>
+              <Post10st>
                 <div
                   style={{
                     width: "698px",
@@ -413,7 +467,7 @@ const Main = () => {
                     {jPapers?.likes}
                   </p>
                 </div>
-              </Post24>
+              </Post10st>
             </Post2>
           </PostBox>
         </PostWrap>
@@ -437,16 +491,18 @@ const Main = () => {
           >
             {paper_query &&
               paper_query?.data.popularUsers.map((popularUsers) => {
+                const S3 = process.env.REACT_APP_S3_URL + `/${popularUsers.profileImage}`;
                 return (
                   <SwiperSlide
                     key={popularUsers.blogId}
-                    onClick={() => {
-                      navigate(`/paper/${popularUsers.blogId}`);
-                    }}
                   >
                     <Popular>
-                      <div>{popularUsers.profileImage}</div>
-                      <div>닉네임 = {popularUsers.nickname}</div>
+                      <PopularImg
+                        onClick={() => {
+                          navigate(`/paper/${popularUsers.blogId}`);
+                        }}
+                        src={popularUsers.profileImage === null ? defaultUserImage : S3} />
+                      <div className="popularNick">{popularUsers.nickname}</div>
                       <div>인기도 = {popularUsers.popularity}</div>
                     </Popular>
                   </SwiperSlide>
@@ -458,7 +514,10 @@ const Main = () => {
           <div className="enTitle">
             PAPER에 담긴 아름다운 작품을 감상해 보세요.
           </div>
-          <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
+          <div className="enText">
+
+            글을 써서 나뭇잎을 모아 나무로 만드세요
+          </div>
         </EndBox>
         <Footer />
       </MainBox>
@@ -475,221 +534,133 @@ const MainTop = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 7%;
+  height: 266px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 160px;
   font-weight: 600;
   line-height: 90px;
+  border-bottom: 1px solid #A7ACA1;
 `;
 const PostWrap = styled.div`
   width: 100%;
-  height: 45%;
+  height: 1680px;
   display: flex;
   justify-content: center;
 `
 const PostBox = styled.div`
-  width: 90%;
-  height: 95%;
-  outline: 1px solid;
+  width: 1516px;
+  height: 1680px;
 `;
 const Post1 = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 758px;
+  height: 1680px;
   float: left;
-  /* border: 1px solid black; */
-  /* padding: 20px; */
 `;
 const Post11 = styled.div`
-  width: 100%;
-  height: 23%;
-  outline: 1px solid;
+  width: 758px;
+  height: 400px;
 `;
-const Post111 = styled.div`
-  width: 50%;
-  height: 100%;
-  outline: 1px solid;
+const Post1st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
+  border: 1px solid #A7ACA1;
 `;
-const Post112 = styled.div`
-  width: 50%;
-  height: 100%;
-  outline: 1px solid;
-  background-color: green;
+const Post2st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
+  border: 1px solid #A7ACA1;
 `;
-const Post12 = styled.div`
-  width: 100%;
-  height: 54%;
-  background-color: yellow;
+const Post5st = styled.div`
+  width: 758px;
+  height: 880px;
+  border: 1px solid #A7ACA1;
 `;
 const Post13 = styled.div`
-  width: 100%;
-  height: 23%;
-  background-color: lime;
+  width: 758px;
+  height: 400px;
 `;
-const Post131 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post8st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: aqua;
+  border: 1px solid #A7ACA1;
 `;
-const Post132 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post9st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: aquamarine;
+  border: 1px solid #A7ACA1;
 `;
 const Post2 = styled.div`
-  width: 50%;
-  height: 100%;
+  width: 758px;
+  height: 1680px;
   float: left;
-  background-color: azure;
 `;
 const Post21 = styled.div`
-  width: 100%;
-  height: 23%;
+  width: 758px;
+  height: 400px;
   float: left;
-  background-color: black;
 `;
-const Post211 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post3st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: blanchedalmond;
+  border: 1px solid #A7ACA1;
 `;
-const Post212 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post4st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: blue;
+  border: 1px solid #A7ACA1;
 `;
-const Post22 = styled.div`
-  width: 100%;
-  height: 27%;
-  background-color: cadetblue;
+const Information = styled.div`
+  width: 758px;
+  height: 480px;
   float: left;
+  border: 1px solid #A7ACA1;
+  background-color: white;
+  font-family: 'Gmarket Sans';
+  font-style: normal;
 `;
 const Post23 = styled.div`
-  width: 100%;
-  height: 27%;
+  width: 758px;
+  height: 400px;
   float: left;
-  background-color: black;
 `;
-const Post231 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post6st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: blueviolet;
+  border: 1px solid #A7ACA1;
 `;
-const Post232 = styled.div`
-  width: 50%;
-  height: 100%;
+const Post7st = styled.div`
+  width: 379px;
+  height: 400px;
   float: left;
-  background-color: brown;
+  border: 1px solid #A7ACA1;
 `;
-const Post24 = styled.div`
-  width: 100%;
-  height: 23%;
+const Post10st = styled.div`
+  width: 758px;
+  height: 400px;
   float: left;
-  background-color: burlywood;
+  border: 1px solid #A7ACA1;
 `;
-// const Post121 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   float: left;
-// `;
-// const Post1211 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post1212 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post122 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   float: right;
-// `;
-// const Post1221 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post1222 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post2 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   float: left;
-// `;
-// const Post21 = styled.div`
-//   width: 100%;
-//   height: 54%;
-// `;
-// const Post211 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post212 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   float: left;
-// `;
-// const Post2121 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   outline: 1px solid;
-//   float: right;
-//   outline: 1px solid;
-// `;
-// const Post2122 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   outline: 1px solid;
-// `;
-// const Post22 = styled.div`
-//   width: 100%;
-//   height: 46%;
-// `;
-// const Post221 = styled.div`
-//   width: 100%;
-//   height: 50%;
-//   outline: 1px solid;
-// `;
-// const Post222 = styled.div`
-//   width: 100%;
-//   height: 50%;
-// `;
-// const Post2221 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   outline: 1px solid;
-//   float: right;
-//   outline: 1px solid;
-// `;
-// const Post2222 = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   outline: 1px solid;
-// `;
+
 const PopularBloger = styled.div`
   width: 100%;
-  height: 7%;
-  outline: 1px solid black;
+  height: 260px;
+  border: 1px solid #A7ACA1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
-  padding-bottom: 1%;
+  padding-bottom: 25px;
+  font-family: 'Gmarket Sans';
+  font-style: normal;
   .poTitle {
     font-weight: 400;
     font-size: 30px;
@@ -703,31 +674,52 @@ const PopularBloger = styled.div`
 `;
 const PopularBox = styled.div`
   width: 90%;
-  height: 22%;
+  height: 920px;
   padding: 20px 0 0 0;
 `;
 const Popular = styled.div`
   background-color: #fffdf7;
-  width: 90%;
-  height: 85%;
-  outline: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+  width: 506px;
+  height: 410px;
+  border: 1px solid #A7ACA1;
   display: block;
+  .popularNick{
+    margin-top: 20px;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 30px;
+  }
 `;
+const PopularImg = styled.img`
+  width: 100px;
+  height: 100px;
+  margin: 0 0 0 0;
+  border-radius: 100px;
+  align-items: center;
+`
 const EndBox = styled.div`
   width: 100%;
   height: 10%;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid black;
+  border: 1px solid #A7ACA1;
+  font-family: 'Gmarket Sans';
+  font-style: normal;
   .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
   }
   .enText {
-    font-weight: 600;
+    font-weight: 400;
     font-size: 30px;
     line-height: 150%;
   }
