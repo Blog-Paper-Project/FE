@@ -44,6 +44,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
       navigate("/myprofile");
     });
   };
+  console.log(item)
 
   // 예약 정보
   let startTime = item?.start;
