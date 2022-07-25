@@ -71,10 +71,11 @@ const Main = () => {
                 <Post1st>
                   <div
                     style={{
-                      width: "70%",
-                      height: "300px",
-                      paddingLeft: "30px",
-                      paddingTop: "30px",
+                      width: "259px",
+                      height: "234px",
+                      marginLeft: "56px",
+                      marginTop: "56px",
+                      overflow: "hidden",
                     }}
                     onClick={() => {
                       navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
@@ -87,15 +88,24 @@ const Main = () => {
                         style={{ height: "200px" }}
                       />
                     )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {aPapers?.likes}
-                    </p>
                   </div>
+                  <div
+                    style={{ marginLeft: "56px" }}
+                    className="writer">
+                    by. {aPapers?.nickname}
+                  </div>
+                  <p>
+                    <FaHeart
+                      style={{ 
+                        marginRight: "5px",
+                        marginLeft: "56px" 
+                      }}
+                      size="12px" />
+                    {aPapers?.likes}
+                  </p>
                 </Post1st>
                 <Post2st style={{
                   position: "relative",
-                  overflow: "hidden",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -119,26 +129,39 @@ const Main = () => {
                       navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                     }}
                   >
-                    <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
+                    <div
+                      style={{
+                        width: "260px",
+                        height: "250px",
+                        overflow: "hidden"
+                      }}>
+                      <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
+                      <br />
+                      {bPapers?.contents && (
+                        <ViewEdit
+                          contents={bPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                    </div>
                     <br />
-                    {bPapers?.contents && (
-                      <ViewEdit
-                        contents={bPapers?.contents}
-                        style={{ height: "200px" }}
-                      />
-                    )}
-                    <p>
-                      <FaHeart size="12px" />
+                    <div className="writer">
+                      by. {bPapers?.nickname}
+                    </div>
+                    <span>
+                    <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
                       {bPapers?.likes}
-                    </p>
+                    </span>
                   </div>
                 </Post2st>
               </Post11>
               <Post5st style={{
                 position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                overflow: "hidden",
+                padding: "69px",
+
               }}
               >
                 {ePapers?.contents && (
@@ -151,26 +174,38 @@ const Main = () => {
                 <div
                   style={{
                     position: "absolute",
-                    bottom: "10%",
-                    left: "10%",
-                    backgroundColor: "rgba(255, 255, 255, 0.8)",
-                    width: "347px",
-                    height: "274px",
+                    bottom: "80px",
+                    backgroundColor: "rgb(255, 255, 255, 0.8)",
+                    width: "343px",
+                    height: "304px",
                   }}
                   onClick={() => {
                     navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                   }}
                 >
-                  <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                  <div
+                    style={{
+                      width: "260px",
+                      height: "250px",
+                      overflow: "hidden"
+                    }}>
+                    <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                    <br />
+                    {ePapers?.contents && (
+                      <ViewEdit
+                        contents={aPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
+                  </div>
                   <br />
-                  {ePapers?.contents && (
-                    <ViewEdit
-                      contents={aPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
+                  <div className="writer">
+                    by. {ePapers?.nickname}
+                  </div>
                   <p>
-                    <FaHeart size="12px" />
+                  <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
                     {ePapers?.likes}
                   </p>
                 </div>
@@ -191,15 +226,15 @@ const Main = () => {
                       }
                       alt="img"
                       style={{
-                        width: "413px",
+                        width: "253px",
                         height: "108px",
-                        margin: "73px auto 41px auto",
+                        margin: "56px auto 56px auto",
                       }}
                     />
                   </div>
                   <div
                     style={{
-                      marginLeft: "20px",
+                      marginLeft: "56px",
                     }}
                     onClick={() => {
                       navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
@@ -207,8 +242,13 @@ const Main = () => {
                   >
                     <h2 style={{ fontSize: "40px" }}>{hPapers?.title}</h2>
                     <br />
+                    <div className="writer">
+                      by. {hPapers?.nickname}
+                    </div>
                     <p>
-                      <FaHeart size="12px" />
+                    <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
                       {hPapers?.likes}
                     </p>
                   </div>
@@ -227,15 +267,15 @@ const Main = () => {
                       }
                       alt="img"
                       style={{
-                        width: "413px",
+                        width: "253px",
                         height: "108px",
-                        margin: "73px auto 41px auto",
+                        margin: "56px auto 56px auto",
                       }}
                     />
                   </div>
                   <div
                     style={{
-                      marginLeft: "20px",
+                      marginLeft: "56px",
                     }}
                     onClick={() => {
                       navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
@@ -243,8 +283,13 @@ const Main = () => {
                   >
                     <h2 style={{ fontSize: "40px" }}>{iPapers?.title}</h2>
                     <br />
+                    <div className="writer">
+                      by. {iPapers?.nickname}
+                    </div>
                     <p>
-                      <FaHeart size="12px" />
+                    <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
                       {iPapers?.likes}
                     </p>
                   </div>
@@ -283,8 +328,13 @@ const Main = () => {
                   >
                     <h2 style={{ fontSize: "40px" }}>{cPapers?.title}</h2>
                     <br />
+                    <div className="writer">
+                      by. {cPapers?.nickname}
+                    </div>
                     <p>
-                      <FaHeart size="12px" />
+                    <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
                       {cPapers?.likes}
                     </p>
                   </div>
@@ -308,14 +358,23 @@ const Main = () => {
                         contents={dPapers?.contents}
                         style={{ height: "200px" }}
                       />
-                    )}                    
+                    )}
+                  </div>
+                  <br />
+                  <div
+                    style={{ marginLeft: "56px" }}
+                    className="writer">
+                    by. {dPapers?.nickname}
                   </div>
                   <p>
-                      <FaHeart 
-                      style={{marginLeft: "56px"}}
+                    <FaHeart
+                      style={{ 
+                        marginRight: "5px",
+                        marginLeft: "56px" 
+                      }}
                       size="12px" />
-                      {dPapers?.likes}
-                    </p>
+                    {dPapers?.likes}
+                  </p>
                 </Post4st>
               </Post21>
 
@@ -366,104 +425,131 @@ const Main = () => {
                 </div>
               </Information>
               <Post23>
-                <Post6st>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={
-                        process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`
-                      }
-                      alt="img"
-                      style={{
-                        width: "413px",
-                        height: "108px",
-                        margin: "73px auto 41px auto",
-                      }}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: "20px",
-                    }}
-                    onClick={() => {
-                      navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
-                    }}
-                  >
-                    <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
-                    <br />
-                    <p>
-                      <FaHeart size="12px" />
-                      {fPapers?.likes}
-                    </p>
-                  </div>
-                </Post6st>
-                <Post7st style={{
+                <Post6st style={{
                   position: "relative",
-                  overflow: "hidden",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
                 >
                   <img
-                    src={process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`}
+                    src={process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`}
                     alt="img"
                     style={{ width: "100%", height: "100%", padding: "5px" }}
                   />
                   <div
                     style={{
                       position: "absolute",
-                      bottom: "10%",
-                      left: "10%",
+                      bottom: "56px",
+                      left: "56px",
                       backgroundColor: "rgba(255, 255, 255, 0.8)",
-                      width: "347px",
-                      height: "274px",
+                      width: "260px",
+                      height: "304px",
+                    }}
+                    onClick={() => {
+                      navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "260px",
+                        height: "250px",
+                        overflow: "hidden"
+                      }}>
+                      <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
+                      <br />
+                      {fPapers?.contents && (
+                        <ViewEdit
+                          contents={fPapers?.contents}
+                          style={{ height: "200px" }}
+                        />
+                      )}
+                    </div>
+                    <br />
+                    <div className="writer">
+                      by. {fPapers?.nickname}
+                    </div>
+                    <span>
+                      <FaHeart 
+                      style={{marginRight:"5px"}}
+                      size="12px" />
+                      {fPapers?.likes}
+                    </span>
+                  </div>
+                </Post6st>
+                <Post7st>
+                  <div
+                    style={{
+                      width: "259px",
+                      height: "234px",
+                      marginLeft: "56px",
+                      marginTop: "56px",
+                      overflow: "hidden",
                     }}
                     onClick={() => {
                       navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
                     }}
                   >
                     <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
-                    <br />
                     {gPapers?.contents && (
                       <ViewEdit
                         contents={gPapers?.contents}
                         style={{ height: "200px" }}
                       />
                     )}
-                    <p>
-                      <FaHeart size="12px" />
-                      {gPapers?.likes}
-                    </p>
                   </div>
+                  <div
+                    style={{ marginLeft: "56px" }}
+                    className="writer">
+                    by. {gPapers?.nickname}
+                  </div>
+                  <p>
+                  <FaHeart 
+                      style={{
+                        marginRight:"5px",
+                        marginLeft:"57px"
+                      }}
+                      size="12px" />
+                    {gPapers?.likes}
+                  </p>
                 </Post7st>
               </Post23>
               <Post10st>
                 <div
                   style={{
                     width: "698px",
-                    height: "300px",
-                    paddingLeft: "30px",
-                    paddingTop: "30px",
+                    height: "298px",
+                    paddingLeft: "56px",
+                    paddingTop: "56px",
                   }}
                   onClick={() => {
                     navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
                   }}
                 >
-                  <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
-                  {jPapers?.contents && (
-                    <ViewEdit
-                      contents={jPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
+                  <div 
+                  style={{
+                    width: "698px",
+                    height: "250px",
+                    overflow: "hidden"
+                  }}>
+                    <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
+                    <br/>
+                    <br/>
+                    {jPapers?.contents && (
+                      <ViewEdit
+                        contents={jPapers?.contents}
+                        style={{ height: "200px" }}
+                      />
+                    )}
+                  </div>
+                  <br />
+                  <div className="writer">
+                    by. {bPapers?.nickname}
+                  </div>
                   <p>
-                    <FaHeart size="12px" />
+                    <FaHeart 
+                    style={{marginRight:"5px"}}
+                    size="12px" />
                     {jPapers?.likes}
                   </p>
                 </div>
@@ -503,6 +589,7 @@ const Main = () => {
                         }}
                         src={popularUsers.profileImage === null ? defaultUserImage : S3} />
                       <div className="popularNick">{popularUsers.nickname}</div>
+                      <div className="popularIntro">{popularUsers.introduction}</div>
                       <div>인기도 = {popularUsers.popularity}</div>
                     </Popular>
                   </SwiperSlide>
@@ -567,17 +654,38 @@ const Post1st = styled.div`
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post2st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post5st = styled.div`
   width: 758px;
   height: 880px;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post13 = styled.div`
   width: 758px;
@@ -588,17 +696,38 @@ const Post8st = styled.div`
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post9st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post2 = styled.div`
   width: 758px;
   height: 1680px;
   float: left;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post21 = styled.div`
   width: 758px;
@@ -610,12 +739,26 @@ const Post3st = styled.div`
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post4st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Information = styled.div`
   width: 758px;
@@ -636,18 +779,39 @@ const Post6st = styled.div`
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post7st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 const Post10st = styled.div`
   width: 758px;
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  .writer{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+  }
 `;
 
 const PopularBloger = styled.div`
@@ -681,12 +845,11 @@ const Popular = styled.div`
   background-color: #fffdf7;
   display: flex;
   align-items: center;
-  justify-content: center;
   padding-top: 50px;
   width: 506px;
   height: 410px;
   border: 1px solid #A7ACA1;
-  display: block;
+  flex-direction: column;
   .popularNick{
     margin-top: 20px;
     font-family: 'Gmarket Sans';
@@ -694,6 +857,20 @@ const Popular = styled.div`
     font-weight: 400;
     font-size: 30px;
     line-height: 30px;
+  }
+  .popularIntro{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 212px;
+    height: 76px;
+    overflow: hidden;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    text-align: center;
+    color: #333333;
   }
 `;
 const PopularImg = styled.img`
