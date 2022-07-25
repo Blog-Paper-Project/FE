@@ -11,8 +11,13 @@
 }
 
 @font-face {
-  font-family: "Gmarket Sans";
-  src: url("/src/css/font/GmarketSansTTFMedium.ttf") ;
+  font-family: "Noto Sans KR";
+  src: url("/src/css/font/NotoSansKR-Regular.otf") ;
  
 }
 
+@font-face {
+  font-family: "Gmarket Sans";
+  src: url("/src/public/fonts/GmarketSansTTFMedium.ttf") ;
+ 
+}
