@@ -29,10 +29,10 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
+      .then((stream) => {
+        setStream(stream);
 
-        myVideo.current.srcObject = currentStream;
+        myVideo.current.srcObject = stream;
       });
 
     socket.on("me", (id) => setMe(id));
