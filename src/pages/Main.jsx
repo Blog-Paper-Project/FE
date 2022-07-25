@@ -35,7 +35,6 @@ const Main = () => {
   const { data: paper_query } = useQuery("paper_list", paperList, {
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(data)
       return data;
     },
   });
@@ -50,7 +49,6 @@ const Main = () => {
   const hPapers = paper_query?.data.papers[7];
   const iPapers = paper_query?.data.papers[8];
   const jPapers = paper_query?.data.papers[9];
-  console.log(aPapers)
 
   return (
     <>
