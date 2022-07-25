@@ -142,7 +142,7 @@ const WriteEdit = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
+        console.log(data);
         return data;
       },
       staleTime: Infinity,
@@ -169,6 +169,9 @@ const WriteEdit = () => {
             background_color="#FFFFFF"
             border_color="white"
             outline_color="white"
+            onClick={() => {
+              navigate(`/paper/${mypaper_data?.user.blogId}`);
+            }}
           >
             나가기
           </Button>
@@ -178,110 +181,127 @@ const WriteEdit = () => {
             color="#A7ACA1"
             border_color="white"
             outline_color="white"
+            onClick={onTemporary}
           >
             임시저장
           </Button>
           <Button color="white" onClick={onModal}>
-            발행하기
+            {openModal ? "취소" : "발행하기"}
           </Button>
         </div>
       </Head>
-
-      {openModal ? (
-        <ModalBoxWrap>
+      <ModalBoxWrap>
+        {openModal ? (
           <ModalBox>
-            <Thumbmail
-              src={previewImg !== null ? previewImg : null}
-              alt="썸네일"
-            />
-            <input
-              type="file"
-              onChange={(e) => {
-                setImage(e.target.files[0]);
-                encodeFileToBase64(e.target.files[0]);
-              }}
-            ></input>
             {editCategory ? (
               <>
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
-                  value={category}
-                />
-                <button
-                  onClick={() => {
-                    setCategoryList([...categoryList, category]);
-                    setCategory("");
-                    setEditCategory(!editCategory);
-                  }}
-                >
-                  추가
-                </button>
-                <button
-                  onClick={() => {
-                    setEditCategory(!editCategory);
-                  }}
-                >
-                  취소
-                </button>
+                <CategoryWarp>
+                  <div className="category_name">카테고리</div>
+                  <input
+                    type="text"
+                    className="input_plus"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    value={category}
+                  />
+                  <button
+                    className="btn_plus"
+                    onClick={() => {
+                      setCategoryList([...categoryList, category]);
+                      setCategory("");
+                      setEditCategory(!editCategory);
+                    }}
+                  >
+                    추가
+                  </button>
+                  <button
+                    className="btn_plus"
+                    onClick={() => {
+                      setEditCategory(!editCategory);
+                    }}
+                  >
+                    취소
+                  </button>
+                </CategoryWarp>
               </>
             ) : (
-              <>
-                <div>카테고리</div>
+              <CategorySelectWrap>
+                <CategoryWarp>
+                  <div className="category_name">카테고리</div>
+                  <select
+                    onChange={(e) => {
+                      setSelectOption(e.target.value);
+                    }}
+                    required
+                  >
+                    {categoryList ? (
+                      <>
+                        {categoryList?.map((value, idx) => {
+                          return (
+                            <option key={idx} value={value}>
+                              {value}
+                            </option>
+                          );
+                        })}
+                        {mypaper_data?.categories.length === 0 ? (
+                          <>
+                            <option value="etc">etc</option>
+                          </>
+                        ) : (
+                          <>
+                            {mypaper_data?.categories.map((value, index) => {
+                              return (
+                                <option key={index} value={value}>
+                                  {value}
+                                </option>
+                              );
+                            })}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {mypaper_data?.categories.map((value, index) => {
+                          return (
+                            <option key={index} value={value}>
+                              {value}
+                            </option>
+                          );
+                        })}
+                      </>
+                    )}
+                  </select>
+                </CategoryWarp>
                 <button
                   onClick={() => {
                     setEditCategory(!editCategory);
                   }}
                 >
-                  카테고리 추가!
+                  카테고리 추가
                 </button>
-              </>
+              </CategorySelectWrap>
             )}
-            <select
-              onChange={(e) => {
-                setSelectOption(e.target.value);
-              }}
-              required
-            >
-              {categoryList ? (
-                <>
-                  {categoryList?.map((value, idx) => {
-                    return (
-                      <option key={idx} value={value}>
-                        {value}
-                      </option>
-                    );
-                  })}
-                  {mypaper_data?.categories.length === 0 ? (
-                    <>
-                      <option value="etc">etc</option>
-                    </>
-                  ) : (
-                    <>
-                      {mypaper_data?.categories.map((value, index) => {
-                        return (
-                          <option key={index} value={value}>
-                            {value}
-                          </option>
-                        );
-                      })}
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  {mypaper_data?.categories.map((value, index) => {
-                    return (
-                      <option key={index} value={value}>
-                        {value}
-                      </option>
-                    );
-                  })}
-                </>
-              )}
-            </select>
+
+            <ThumbmailWrap>
+              <div>
+                <div className="thumnail">썸네일</div>
+                <label for="file">
+                  <div className="btn-upload">파일 선택</div>
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    encodeFileToBase64(e.target.files[0]);
+                  }}
+                ></input>
+              </div>
+              <Thumbmail src={previewImg !== null ? previewImg : null} alt="" />
+            </ThumbmailWrap>
+
             {/* <button
               onClick={() => {
                 setOpenModal(!openModal);
@@ -289,108 +309,122 @@ const WriteEdit = () => {
             >
               x
             </button> */}
-            <Button width="120px" background_color="white" onClick={onPost}>
-              발행
-            </Button>
+            <ButtonWrap>
+              <Button
+                height="36px"
+                width="120px"
+                background_color="white"
+                onClick={onPost}
+              >
+                발행
+              </Button>
+            </ButtonWrap>
           </ModalBox>
-        </ModalBoxWrap>
-      ) : null}
-      <EditWrap
-        //## 마우스 오른쪽 클릭 이벤트
-        onContextMenu={(e) => {
-          e.preventDefault();
-          alert("붙혀넣기 금지");
-        }}
-      >
-        <TitleWrap>
-          <Title
-            placeholder="제목을 입력하세요"
-            onChange={(e) => {
-              setHead(e.target.value);
-            }}
-          ></Title>
-          <Line />
-          <HashTagInput
-            name="HashTagInput"
-            type="text"
-            value={tag || ""}
-            placeholder="태그를 입력하세요"
-            maxLength="10"
-            onKeyUp={onKeyUp}
-            onChange={(e) => {
-              setTag(e.target.value);
-            }}
-          ></HashTagInput>
-          <HashWrapOuter>
-            {tagList.length > 0 ? (
-              tagList.map((value, index) => {
-                return (
-                  <Tag key={value + index} onClick={onClcik_tag}>
-                    <p id={index}>{value}</p>
-                  </Tag>
-                );
-              })
-            ) : (
-              <div>태그를 추가하실 수 있습니다.</div>
-            )}
-          </HashWrapOuter>
-        </TitleWrap>
-        <Editor
-          previewStyle="vertical"
-          placeholder="Paper에 자신의 생각을 적어주세요..."
-          height="700px"
-          minHeight="480px"
-          initialEditType="markdown"
-          initialValue={markdown_data}
-          ref={editorRef}
-          onChange={onchange}
-          useCommandShortcut={false}
-          onKeydown={onKeyDown}
-          usageStatistics={false}
-          language="ko-KR"
-          toolbarItems={[
-            ["heading", "bold", "italic", "strike"],
-            ["hr", "quote"],
-            ["code", "codeblock"],
-            ["ul", "ol", "image"],
-          ]}
-          hooks={{
-            addImageBlobHook: async (blob, callback) => {
-              // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
-              let formData = new FormData();
-              formData.append("image", blob);
-              const response = await apiToken.post(
-                "/api/paper/image",
-                formData
-              );
-
-              // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
-              callback(
-                process.env.REACT_APP_S3_URL + `/${response?.data.imageUrl}`,
-                `${blob.name.split(".")[0]}`
-              );
-            },
-          }}
-        />
-        <button
-          onClick={() => {
-            navigate(`/paper/${res?.blogId}`);
+        ) : null}
+      </ModalBoxWrap>
+      <SpaceWrap>
+        <Space />
+        <EditWrap
+          //## 마우스 오른쪽 클릭 이벤트
+          onContextMenu={(e) => {
+            e.preventDefault();
+            alert("붙혀넣기 금지");
           }}
         >
-          나가기!
-        </button>
-        <button onClick={onTemporary}>임시저장!</button>
-      </EditWrap>
+          <TitleWrap>
+            <Title
+              placeholder="제목을 입력하세요"
+              onChange={(e) => {
+                setHead(e.target.value);
+              }}
+            ></Title>
+            <Line />
+            <HashTagInput
+              name="HashTagInput"
+              type="text"
+              value={tag || ""}
+              placeholder="태그를 입력하세요"
+              maxLength="10"
+              onKeyUp={onKeyUp}
+              onChange={(e) => {
+                setTag(e.target.value);
+              }}
+            ></HashTagInput>
+            <HashWrapOuter>
+              {tagList.length > 0 ? (
+                tagList.map((value, index) => {
+                  return (
+                    <Tag key={value + index} onClick={onClcik_tag}>
+                      <p id={index}>{value}</p>
+                    </Tag>
+                  );
+                })
+              ) : (
+                <div>Enter을 누르면 태그를 추가할 수 있습니다.</div>
+              )}
+            </HashWrapOuter>
+          </TitleWrap>
+          <Editor
+            previewStyle="vertical"
+            placeholder="당신의 이야기를 적어보세요 ..."
+            height="auto"
+            minHeight="500px"
+            initialEditType="markdown"
+            initialValue={markdown_data}
+            ref={editorRef}
+            onChange={onchange}
+            useCommandShortcut={false}
+            // onKeydown={onKeyDown}
+            usageStatistics={false}
+            language="ko-KR"
+            toolbarItems={[
+              ["heading", "bold", "italic"],
+              ["hr", "quote", "task"],
+              ["code", "codeblock"],
+              ["ul", "ol", "image"],
+            ]}
+            hooks={{
+              addImageBlobHook: async (blob, callback) => {
+                // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
+                let formData = new FormData();
+                formData.append("image", blob);
+                const response = await apiToken.post(
+                  "/api/paper/image",
+                  formData
+                );
+
+                // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
+                callback(
+                  process.env.REACT_APP_S3_URL + `/${response?.data.imageUrl}`,
+                  `${blob.name.split(".")[0]}`
+                );
+              },
+            }}
+          />
+        </EditWrap>
+        <Space />
+      </SpaceWrap>
     </Container>
   );
 };
 const Container = styled.div`
   max-width: 1920px;
-  max-height: 1080px;
   background-color: white;
 `;
+const SpaceWrap = styled.div`
+  max-width: 1920px;
+  display: flex;
+`;
+const Space = styled.div`
+  height: 1000px;
+  width: 356px;
+  background-color: #f8f8f8;
+`;
 const EditWrap = styled.div`
-  padding: 0 80px;
+  height: 1000px;
+  width: 1208px;
+  padding-left: 154px;
+  padding-right: 154px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
@@ -401,16 +435,17 @@ const Head = styled.div`
   align-items: center;
   padding-left: 48px;
   padding-right: 50px;
-  border-bottom: 1px solid #a7aca1;
+  /* border-bottom: 1px solid #a7aca1; */
   outline: 1px solid #a7aca1;
-  background-color: #ffffff;
+  background-color: white;
   position: fixed;
-  top: 0px;
+  z-index: 1;
 `;
 const ModalBoxWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   padding-right: 49px;
+  padding-top: 72px;
 `;
 const ModalBox = styled.div`
   height: 359px;
@@ -419,11 +454,74 @@ const ModalBox = styled.div`
   background-color: #ffffff;
   position: absolute;
   z-index: 1;
+
+  input[type="file"] {
+  }
+
+  .category_name {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 57px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+    padding-left: 4px;
+  }
 `;
+const CategorySelectWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  select {
+    width: 248px;
+    padding-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+  }
+  button {
+    height: 14px;
+    width: 85px;
+    justify-content: space-between;
+    margin-top: 13px;
+    margin-bottom: 26px;
+    margin-right: 24px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Gmarket Sans";
+    text-decoration-line: underline;
+    line-height: 14px;
+  }
+`;
+const CategoryWarp = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 36px;
+  width: 362px;
+  margin-top: 31px;
+  margin-left: 40px;
+  margin-right: 24px;
+  .btn_plus {
+    background-color: white;
+  }
+  .input_plus {
+    /* margin-left: 2px; */
+    height: 20px;
+    width: 160px;
+    outline: 1px solid #eee;
+  }
+`;
+
 const TitleWrap = styled.div`
   width: 898px;
   height: 146px;
   margin-top: 120px;
+  margin-bottom: 32px;
 `;
 const Title = styled.input`
   height: 60px;
@@ -431,33 +529,72 @@ const Title = styled.input`
   color: #333333;
   font-weight: 400;
   font-size: 40px;
-  line-height: 60px;
+  /* line-height: 60px; */
+  padding-bottom: 10px;
+  padding-left: 1px;
 `;
 const Line = styled.div`
   width: 100%;
   height: 0px;
-  border: 1px solid #000000;
+  border-bottom: 2px solid #000000;
 `;
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 10px;
+  margin-top: 20px;
 `;
-
+const ThumbmailWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 140px;
+  width: 362px;
+  margin-left: 40px;
+  margin-right: 24px;
+  input[type="file"] {
+    display: none;
+  }
+  .btn-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 86px;
+    outline: 1px solid black;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+    margin-top: 16px;
+  }
+  .thumnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 42px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+  }
+`;
 const Thumbmail = styled.img`
-  width: 15vw;
-  height: 100px;
+  display: block;
+  width: 248px;
+  height: 140px;
 `;
 
 const HashTagInput = styled.input`
+  height: 25px;
   width: 100%;
   margin-top: 15px;
   outline: none;
   cursor: text;
   border: none;
+  color: #333333;
   font-size: 18px;
   font-weight: 500;
-  line-height: 25px;
+  line-height: 24.52px;
+  padding: 0;
 `;
 
 const Tag = styled.div`
@@ -480,13 +617,20 @@ const Tag = styled.div`
 
 // 기본 모음
 // Button
+const ButtonWrap = styled.div`
+  height: 70px;
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+`;
 const Button = styled.button`
-  height: 40px;
+  height: ${(props) => props.height || "40px"};
   width: ${(props) => props.width || "154px"};
   color: ${(props) => props.color || "black"};
   background-color: ${(props) => props.background_color || "black"};
   border: 1px solid ${(props) => props.border_color || "black"};
-  font-family: Gmarket Sans;
+  font-family: "Gmarket Sans";
   font-size: 14px;
   font-weight: 400;
   line-height: 14px;
