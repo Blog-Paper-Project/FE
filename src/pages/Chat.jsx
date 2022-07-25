@@ -1,6 +1,4 @@
-import React from "react";
-import { Typography, AppBar } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useEffect, useContext } from "react";
 
 import Sidebar from "../components/chat/Sidebar";
 import Notifications from "../components/chat/Notifications";
@@ -8,53 +6,53 @@ import VideoPlayer from "../components/chat/VideoPlayer";
 import Chatting from "../components/chat/Chatting";
 
 import Header from "../components/main/Header";
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    borderRadius: 15,
-    margin: "30px 100px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "600px",
-    border: "2px solid black",
-
-    [theme.breakpoints.down("xs")]: {
-      width: "90%",
-    },
-  },
-  image: {
-    marginLeft: "15px",
-  },
-  wrapper: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    width: "100%",
-  },
-}));
+import styled from "styled-components";
+import { getCookie } from "../shared/Cookie";
+import { SocketContext } from "../Context"
 
 const Chat = () => {
-  const classes = useStyles();
+  const { socket } = useContext(SocketContext);
+  const nickname = getCookie("nickname");
+
+  useEffect(() => {
+    const roomData = {
+      room: "광민1",
+      name: nickname,
+    };
+    socket.emit("user-connected");
+
+    socket.emit("newUser", roomData);
+
+    socket.on("roomfull");
+  }, []);
 
   return (
     <>
       <Header />
-      <div className={classes.wrapper}>
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography variant="h2" align="center">
-            Video Chat
-          </Typography>
-        </AppBar>
-        <VideoPlayer />
-        <Sidebar>
-          <Notifications />
-        </Sidebar>
+      <ChatBox>
+        <VideoBox>
+          <VideoPlayer />
+          <Sidebar>
+            <Notifications />
+          </Sidebar>
+        </VideoBox>
         <Chatting />
-      </div>
+      </ChatBox>
     </>
   );
 };
+
+const ChatBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 42px 202px auto 202px;
+`;
+
+const VideoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export default Chat;

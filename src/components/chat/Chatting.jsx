@@ -1,40 +1,21 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 
 import { SocketContext } from "../../Context";
+import { getCookie } from "../../shared/Cookie";
 
 const Chatting = () => {
   const { messageList, boxRef, setCurrentMessage, inputRef, sendMessage } =
     useContext(SocketContext);
+
+  const nickname = getCookie("nickname");
+
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: "50px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#d9d9d9",
-            height: "480px",
-            flexDirection: "column",
-            position: "relative",
-            width: "283px",
-            padding: "10px",
-          }}
-        >
-          <div
-            style={{
-              backgroundColor: "white",
-              padding: "10px",
-              height: "450px",
-              overflowY: "auto",
-            }}
-            ref={boxRef}
-          >
-            {messageList.map((messageContent, index) => {
+      <ChatBox>
+        <ChatBack>
+          <ChatList ref={boxRef}>
+            {messageList.map((messageContent, index, me, you) => {
               return (
                 <div key={index}>
                   {messageContent.type === "connect" ? (
@@ -43,7 +24,7 @@ const Chatting = () => {
                   {messageContent.type === "disconnect" ? (
                     <p>{messageContent.name} 님이 퇴장하였습니다</p>
                   ) : null}
-                  {messageContent.nick === "hi" ? (
+                  {messageContent.nick === nickname ? (
                     <div>
                       <p style={{ color: "blue" }}>{messageContent.nick}</p>
                       <div
@@ -73,7 +54,7 @@ const Chatting = () => {
                 </div>
               );
             })}
-          </div>
+          </ChatList>
 
           <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
             <input
@@ -87,10 +68,32 @@ const Chatting = () => {
             />
             <button onClick={sendMessage}>보내기</button>
           </div>
-        </div>
-      </div>
+        </ChatBack>
+      </ChatBox>
     </>
   );
 };
+
+const ChatBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const ChatBack = styled.div`
+  background-color: #d9d9d9;
+  height: 615.41px;
+  flex-direction: column;
+  position: relative;
+  width: 283px;
+  padding: 10px;
+`;
+
+const ChatList = styled.div`
+  background-color: white;
+  padding: 10px;
+  height: 550px;
+  overflow-y: auto;
+`;
 
 export default Chatting;

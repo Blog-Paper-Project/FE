@@ -97,7 +97,7 @@ const ContextProvider = ({ children }) => {
     socket.emit("newUser", roomData);
 
     socket.on("roomfull");
-  }, []);
+  },[]);
 
   //채팅보내기
   const sendMessage = () => {
@@ -147,6 +147,7 @@ const ContextProvider = ({ children }) => {
   return (
     <SocketContext.Provider
       value={{
+        socket,
         call,
         callAccepted,
         myVideo,
