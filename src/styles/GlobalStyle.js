@@ -18,12 +18,13 @@ const GlobalStyle = createGlobalStyle`
     button{
         cursor: pointer;
         border: none;
+        font-family: "Gmarket Sans";
     };
     img{
         cursor: pointer;
     };
     input{
-        outline: none;
+        outline: none; 
         padding-left: 10px;
         padding-right: 10px;
         margin: 0;

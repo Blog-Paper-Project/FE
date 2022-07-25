@@ -153,8 +153,8 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 80px;
-  border-bottom: 1px solid #A7ACA1;
+  height: 72px;
+  border-bottom: 1px solid #a7aca1;
 `;
 const Svg = styled.div`
   display: flex;
@@ -165,7 +165,7 @@ const Svg = styled.div`
 const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
-  height: 80px;
+  height: 72px;
   padding-left: 2%;
   display: flex;
   align-items: center;
@@ -175,11 +175,11 @@ const Search = styled.div`
   align-items: center !important;
   justify-content: center;
   width: 46%;
-  height: 80px;
+  height: 72px;
 `;
 const Login = styled.div`
   width: 27%;
-  height: 80px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: end;
@@ -190,18 +190,13 @@ const ProfileImgBox = styled.img`
   height: 40px;
   margin: 0 0 0 0;
   border-radius: 50px;
-  outline: 1px solid black;
   align-items: center;
-  &:hover {
-    transform: translate(5px, -5px);
-  }
 `;
 const BtnBox = styled.div`
   display: flex;
   gap: 24px;
-`
+`;
 const Btn = styled.button`
-  font-family: 'Gmarket Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -214,7 +209,7 @@ const Btn = styled.button`
   width: 154px;
   height: 40px;
   background-color: #fffdf7;
-`
+`;
 const DropDownContainer = styled.div`
   width: 50px;
 `;
@@ -245,7 +240,6 @@ const NickBox = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 14px;
-  
-`
+`;
 
 export default Header;
