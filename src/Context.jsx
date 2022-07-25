@@ -29,18 +29,19 @@ const ContextProvider = ({ children }) => {
   useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        setStream(stream);
+      .then((currentStream) => {
+        setStream(currentStream);
 
-        myVideo.current.srcObject = stream;
+        myVideo.current.srcObject = currentStream;
       });
 
     socket.on("me", (id) => setMe(id));
+    console.log(socket.id)
 
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, []);
+  }, [call]);
 
   useEffect(() => {
     const roomData = {
@@ -50,6 +51,7 @@ const ContextProvider = ({ children }) => {
     socket.emit("user-connected");
 
     socket.emit("newUser", roomData);
+    console.log(roomData)
 
     socket.on("roomfull", (data) => {
       Swal.fire({
@@ -86,7 +88,7 @@ const ContextProvider = ({ children }) => {
         userToCall: id,
         signalData: data,
         from: me,
-        name,
+        name: nickname,
       });
     });
 
@@ -166,6 +168,7 @@ const ContextProvider = ({ children }) => {
         setCurrentMessage,
         sendMessage,
         inputRef,
+        nickname,
       }}
     >
       {children}
