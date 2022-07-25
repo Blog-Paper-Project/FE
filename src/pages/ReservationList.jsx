@@ -23,6 +23,7 @@ const ReservationList = () => {
     <>
       <Header />
       <Wrap>
+    
         <div className="innerWrap">
           <div className="bookingWrap">
             <p className="bookingTitle">

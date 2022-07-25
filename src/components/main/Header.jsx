@@ -80,13 +80,11 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer ref={el}>
-                  <DropDownHeader>
+                <DropDownContainer ref={el}>                  
                     <ProfileImgBox
                       src={profileImage === "null" ? defaultUserImage : S3}
                       onClick={toggling}
-                    />
-                  </DropDownHeader>
+                    />                  
                   {isOpen && (
                     <DropDownListContainer>
                       <DropDownList>
@@ -190,6 +188,9 @@ const ProfileImgBox = styled.img`
   border-radius: 50px;
   outline: 1px solid black;
   align-items: center;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
   @media screen and (max-width: 800px) {
         display: none;
     }
@@ -212,28 +213,23 @@ const Btn = styled.button`
   width: 154px;
   height: 40px;
   background-color: #fffdf7;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
 `
 const DropDownContainer = styled.div`
-  width: 30%;
-`;
-const DropDownHeader = styled.div`
-  padding: 0.4em 2em 0.4em 1em;
-  font-weight: 500;
-  font-size: 1.3rem;
-  color: #3faffa;
-  background: #fffdf7;
-
+  width: 50px;
 `;
 const DropDownListContainer = styled.div``;
 const DropDownList = styled.ul`
   position: absolute;
   padding: 0;
   margin: 0;
-  padding: 10px;
-  background: #ffffff;
+  padding: 5px;
+  background: #000;
   border: 2px solid #e5e5e5;
   box-sizing: border-box;
-  color: #3faffa;
+  color: #fff;
   font-size: 1.3rem;
   font-weight: 500;
   &:first-child {
@@ -242,7 +238,11 @@ const DropDownList = styled.ul`
 `;
 const ListItem = styled.li`
   list-style: none;
-  margin-bottom: 0.8em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
 `;
 
 export default Header;
