@@ -2,16 +2,38 @@ import React, { useContext } from "react";
 
 import { SocketContext } from "../../Context";
 
-import styled from "styled-components";
-
 const Chatting = () => {
   const { messageList, boxRef, setCurrentMessage, inputRef, sendMessage } =
     useContext(SocketContext);
   return (
     <>
-      <ChatBox>
-        <ChatList>
-          <ChatChat ref={boxRef}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: "50px",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#d9d9d9",
+            height: "480px",
+            flexDirection: "column",
+            position: "relative",
+            width: "283px",
+            padding: "10px",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "white",
+              padding: "10px",
+              height: "450px",
+              overflowY: "auto",
+            }}
+            ref={boxRef}
+          >
             {messageList.map((messageContent, index) => {
               return (
                 <div key={index}>
@@ -51,7 +73,7 @@ const Chatting = () => {
                 </div>
               );
             })}
-          </ChatChat>
+          </div>
 
           <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
             <input
@@ -65,33 +87,10 @@ const Chatting = () => {
             />
             <button onClick={sendMessage}>보내기</button>
           </div>
-        </ChatList>
-      </ChatBox>
+        </div>
+      </div>
     </>
   );
 };
-
-const ChatBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 50px;
-`;
-
-const ChatList = styled.div`
-  background-color: #d9d9d9;
-  height: 480px;
-  flex-direction: column;
-  position: relative;
-  width: 283px;
-  padding: 10px;
-`;
-
-const ChatChat = styled.div`
-  background-color: white;
-  padding: 10px;
-  height: 450px;
-  overflow-y: auto;
-`;
 
 export default Chatting;

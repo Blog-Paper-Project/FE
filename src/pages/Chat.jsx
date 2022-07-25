@@ -7,6 +7,8 @@ import Notifications from "../components/chat/Notifications";
 import VideoPlayer from "../components/chat/VideoPlayer";
 import Chatting from "../components/chat/Chatting";
 
+import Header from "../components/main/Header";
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
@@ -37,18 +39,21 @@ const Chat = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.wrapper}>
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography variant="h2" align="center">
-          채팅하기
-        </Typography>
-      </AppBar>
-      <VideoPlayer />
-      <Sidebar>
-        <Notifications />
-      </Sidebar>
-      <Chatting />
-    </div>
+    <>
+      <Header />
+      <div className={classes.wrapper}>
+        <AppBar className={classes.appBar} position="static" color="inherit">
+          <Typography variant="h2" align="center">
+            Video Chat
+          </Typography>
+        </AppBar>
+        <VideoPlayer />
+        <Sidebar>
+          <Notifications />
+        </Sidebar>
+        <Chatting />
+      </div>
+    </>
   );
 };
 
