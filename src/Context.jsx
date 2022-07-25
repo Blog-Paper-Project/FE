@@ -87,17 +87,17 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  useEffect(() => {
-    const roomData = {
-      room: "광민1",
-      name: nickname,
-    };
-    socket.emit("user-connected");
+  // useEffect(() => {
+  //   const roomData = {
+  //     room: "광민1",
+  //     name: nickname,
+  //   };
+  //   socket.emit("user-connected");
 
-    socket.emit("newUser", roomData);
+  //   socket.emit("newUser", roomData);
 
-    socket.on("roomfull");
-  },[]);
+  //   socket.on("roomfull");
+  // },[]);
 
   //채팅보내기
   const sendMessage = () => {
