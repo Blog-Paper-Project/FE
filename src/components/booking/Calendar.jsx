@@ -842,15 +842,15 @@ const CalendarTemplate = ({
           <div className="calendarTextWrap">
             <div className="calendarTextInner">
               <span className="calendarInfo">
-                <span className="redColor"></span> '선택하신 날짜'
+                <span className="redColor"></span> 선택하신 날짜
               </span>
               <span className="calendarInfo">
-                <span className="blueColor"></span> '예약하신 날짜'
+                <span className="blueColor"></span> 예약하신 날짜
               </span>
             </div>
 
             <p className="calendarText">
-              '예약은 한시간에 한번만 가능합니다.'
+              예약은 한시간에 한번만 가능합니다
             </p>
           </div>
           <Grid item className="btnWrap">
@@ -862,14 +862,14 @@ const CalendarTemplate = ({
             >
               <Grid item>
                 <div className="saveBtn">
-                  <Button
-                    color="primary"
-                    variant="contained"
+                  <button
+                    // color="primary"
+                    // variant="contained"
                     onClick={handleSaveAvailability}
-                    className={classes.button}
+                    // className={classes.button}
                   >
-                    '화상 채팅을 예약 합니다.'
-                  </Button>
+                    '화상채팅 예약하기'
+                  </button>
                 </div>
               </Grid>
             </Grid>

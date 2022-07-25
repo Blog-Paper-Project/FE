@@ -27,7 +27,7 @@ const Reservation = () => {
     })
       .then((doc) => {
         // console.log(doc.data.totalList);
-        setAvailability(doc?.data.totalList.hostBookingList);
+        setAvailability(doc?.data.totalList.guestBookingList);
       })
       .catch((err) => {
         console.log(err);
@@ -36,7 +36,6 @@ const Reservation = () => {
 
   const HostLeafCount = LeafCount?.pointList.hostLeaf[0];
   const hostProfileImage = HostLeafCount?.profileImage;
-
 
   const Calendar = CalendarTemplate({
     blogId,
@@ -50,52 +49,204 @@ const Reservation = () => {
   return (
     <>
       <Header />
-      <HostBox>
-        <HostInfo>
-          <div>
-            내가 보유한 나뭇잎 갯수 = {LeafCount?.pointList.gusetLeaf}
-          </div>
-          <div>
-            예약에 필요한 나뭇잎 갯수 = {HostLeafCount?.setPoint}
-          </div>
-          <div>
-            호스트의 닉네임 = {HostLeafCount?.nickname}
-          </div>
-          <div>호스트프로필</div>
-          <HostImgBox src={hostProfileImage === "null" ? defaultUserImage : S3} />
-        </HostInfo>
-      </HostBox>
-      <CalendarBox>
-        <Calendar userId={blogId} />
-      </CalendarBox>
+      <Wrap>
+        <InfoBox>
+          <TitleBox>
+            <div className="korean">예약 하기</div>
+            <div className="english">Reservation</div>
+          </TitleBox>
+          <HostBox>
+
+            <ImgBox>
+              <HostImgBox src={hostProfileImage === null ? defaultUserImage : S3} />
+              <div className="hostNickName">
+                {HostLeafCount?.nickname}
+              </div>
+            </ImgBox>
+            <LeafBox>
+              <div className="guestLeaf">
+                <div className="leafTitle">
+                  내가 보유한 나뭇잎 갯수
+                </div>
+                <img
+                  className="leafIcon"
+                  src={process.env.PUBLIC_URL + "/Group.png"}
+                  back_size="100% 100%"
+                  alt="icon"
+                />
+                <div className="leafCount">
+                  {LeafCount?.pointList.gusetLeaf}개
+                </div>
+              </div>
+
+              <div className="hostLeaf">
+                <div className="leafTitle">
+                  예약에 필요한 나뭇잎 갯수
+                </div>
+                <img
+                  className="leafIcon"
+                  src={process.env.PUBLIC_URL + "/Group.png"}
+                  alt="icon"
+                />
+                <div className="leafCount">
+                  {HostLeafCount?.setPoint}개
+                </div>
+              </div>
+            </LeafBox>
+          </HostBox>
+        </InfoBox>
+
+        <CalendarBox>
+          <Calendar userId={blogId} />
+        </CalendarBox>
+      </Wrap>
       <Footer />
     </>
   );
 };
 
-const HostBox = styled.div`
+const Wrap = styled.div`
   width: 100%;
-  height: 300px;
+  height: 1500px;
+`
+const InfoBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
-const HostInfo = styled.div`
-  width: 50%;
-  height: 50%;
-  outline: 1px solid;
+const TitleBox = styled.div`
+  width: 640px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 25px;
+  margin-bottom: 46px;
+  flex-direction: column;
+  border-bottom: 1px solid #ACACAC;
+  .korean {
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+  }
+  .english {
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+  }
+`
+const HostBox = styled.div`
+  width: 592px;
+  height: 158.4px;
+  display: flex;
+  align-items: center;
+  float: left;
+`
+
+const ImgBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .hostNickName{
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding-top: 16px;
+  }
+`
+const LeafBox = styled.div`
+  width: 592px;
+  height: 130px;
+  display: flex;
+  padding-left: 67px;
+  margin-top: -30px;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  float: left;
+  .guestLeaf{
+    display: flex;
+    align-items: center;
+    .leafTitle{
+      font-family: 'Gmarket Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 18px;
+      /* identical to box height */
+      display: flex;
+      align-items: center;
+    }
+    .leafIcon{
+      height: 24.67px;
+      margin-left: 28px;
+    }
+    .leafCount{
+      height: 50px;
+      width: 125px;
+      margin-left: 16px;
+      padding-left: 16px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      color: #ACACAC;
+      background: #FFFFFF;
+      border-bottom: 1px solid #ACACAC;
+    }
+  }
+  .hostLeaf{
+    display: flex;    
+    align-items: center;
+    .leafTitle{
+      font-family: 'Gmarket Sans';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 18px;
+      /* identical to box height */
+      display: flex;
+      align-items: center;
+    }
+    .leafIcon{
+      height: 24.67px;
+      margin-left: 15px;
+    }
+    .leafCount{
+      height: 50px;
+      width: 125px;
+      margin-left: 16px;
+      padding-left: 16px;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      display: flex;
+      align-items: center;
+      color: #ACACAC;
+      background: #FFFFFF;
+      border-bottom: 1px solid #ACACAC;
+    }
+  }
 `
 const HostImgBox = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 130px;
+  height: 130px;
   margin: 0 0 0 0;
-  border-radius: 50px;
-  outline: 1px solid black;
+  border-radius: 100px;
   align-items: center;
 `
 const CalendarBox = styled.div`
-width: 100%;
-height: 600px;
+margin-top: 66.6px;
 display: flex;
 justify-content: center;
 align-items: center;

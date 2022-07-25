@@ -66,7 +66,12 @@ const Header = () => {
         <Svg>
           <Logo>
             <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-              Paper
+              <img
+                className="paperTitle"
+                src={process.env.PUBLIC_URL + "/Frame.png"}
+                back_size="100% 100%"
+                alt="icon"
+              />
             </Link>
           </Logo>
           <Search>
@@ -75,13 +80,11 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer ref={el}>
-                  <DropDownHeader>
+                <DropDownContainer ref={el}>                  
                     <ProfileImgBox
                       src={profileImage === "null" ? defaultUserImage : S3}
                       onClick={toggling}
-                    />
-                  </DropDownHeader>
+                    />                  
                   {isOpen && (
                     <DropDownListContainer>
                       <DropDownList>
@@ -118,17 +121,19 @@ const Header = () => {
                   )}
                 </DropDownContainer>
                 <Link to="/write">
-                  <div>글작성</div>
+                  <Btn>글작성</Btn>
                 </Link>
               </>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  <button>로그인</button>
-                </Link>
+                <BtnBox>
+                  <Link
+                    to="/login"
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    <Btn>로그인</Btn>
+                  </Link>
+                </BtnBox>
               </>
             )}
           </Login>
@@ -144,7 +149,8 @@ const HeaderBox = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 70px;
+  height: 80px;
+  border-bottom: 1px solid #A7ACA1;
 `;
 const Svg = styled.div`
   display: flex;
@@ -155,26 +161,25 @@ const Svg = styled.div`
 const Logo = styled.div`
   padding-left: 2%;
   width: 27%;
-  height: 67px;
+  height: 80px;
   padding-left: 2%;
   display: flex;
   align-items: center;
-  outline: 1px solid black;
 `;
 const Search = styled.div`
   display: flex;
   align-items: center !important;
+  justify-content: center;
   width: 46%;
-  height: 67px;
-  outline: 1px solid black;
+  height: 80px;
 `;
 const Login = styled.div`
   width: 27%;
-  height: 67px;
+  height: 80px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  outline: 1px solid black;
+  justify-content: end;
+  padding-right: 48px;
 `;
 const ProfileImgBox = styled.img`
   width: 40px;
@@ -183,27 +188,48 @@ const ProfileImgBox = styled.img`
   border-radius: 50px;
   outline: 1px solid black;
   align-items: center;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
+  @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
+const BtnBox = styled.div`
+  display: flex;
+  gap: 22px;
+`
+const Btn = styled.button`
+  font-family: 'Gmarket Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid;
+  width: 154px;
+  height: 40px;
+  background-color: #fffdf7;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
+`
 const DropDownContainer = styled.div`
-  width: 30%;
-`;
-const DropDownHeader = styled.div`
-  padding: 0.4em 2em 0.4em 1em;
-  font-weight: 500;
-  font-size: 1.3rem;
-  color: #3faffa;
-  background: #ffffff;
+  width: 50px;
 `;
 const DropDownListContainer = styled.div``;
 const DropDownList = styled.ul`
   position: absolute;
   padding: 0;
   margin: 0;
-  padding: 10px;
-  background: #ffffff;
+  padding: 5px;
+  background: #000;
   border: 2px solid #e5e5e5;
   box-sizing: border-box;
-  color: #3faffa;
+  color: #fff;
   font-size: 1.3rem;
   font-weight: 500;
   &:first-child {
@@ -212,7 +238,11 @@ const DropDownList = styled.ul`
 `;
 const ListItem = styled.li`
   list-style: none;
-  margin-bottom: 0.8em;
+  margin-bottom: 0.5em;
+  cursor: pointer;
+  &:hover {
+    transform: translate(5px, -5px);
+  }
 `;
 
 export default Header;

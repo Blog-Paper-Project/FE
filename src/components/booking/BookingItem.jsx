@@ -10,6 +10,7 @@ import {
 } from "../../redux/modules/Booking";
 import io from "socket.io-client";
 
+
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,27 +23,23 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const bookingId = Number(item?.bookingId);
   const timeId = item?.bokingId;
   console.log("item", item);
-  const enterChat = async () => {
-    const socket = io.connect(process.env.REACT_APP_API_URL);
-    if (socket) {
-      return socket.connect();
-    }
 
+  const socket = io(process.env.REACT_APP_API_URL);
+
+  const enterChat = () => {
     const roomData = {
       room: `${Host}/${Guest}`,
       name: nickname,
     };
-    await socket.emit("user-connected");
-
-    console.log(roomData);
+    socket.emit("user-connected");
 
     socket.emit("newUser", roomData);
-    navigate(`/chat/${Host}/${Guest}`);
+    console.log(roomData);
 
     socket.on("roomfull", (data) => {
-      window.alert("방꽉참");
-      navigate("/myprofile");
+      window.alert("꽉참")
     });
+    navigate(`/chat/${Host}/${Guest}`);
   };
 
   // 예약 정보

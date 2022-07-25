@@ -3,13 +3,20 @@
   }
   
   .saveBtn {
-    /* margin-top: 50px; */
+    margin-top: 81px;
     position: relative;
   }
   
   .saveBtn > button {
     background-color: #000;
     color: #fff;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    width: 384px;
+    height: 50px;
   }
   
   .resetBtn {
@@ -47,12 +54,12 @@
     align-items: flex-start;
   }
   .calendarTextInner {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
   .calendarInfo {
     display: inline-block;
-    font-size: 12px;
-    margin-right: 15px;
+    font-size: 14px;
+    margin-right: 16px;
   }
   
   .redColor {
@@ -62,6 +69,11 @@
     height: 10px;
     border-radius: 50%;
     margin-right: 5px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
   }
   
   .blueColor {
@@ -71,10 +83,19 @@
     height: 10px;
     border-radius: 50%;
     margin-right: 5px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
   }
   
   .calendarText {
-    font-size: 12px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
   }
   
   .btnWrap {
