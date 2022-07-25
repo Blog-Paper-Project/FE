@@ -43,26 +43,6 @@ const ContextProvider = ({ children }) => {
     });
   }, [call]);
 
-  useEffect(() => {
-    const roomData = {
-      room: "광민1",
-      name: nickname,
-    };
-    socket.emit("user-connected");
-
-    socket.emit("newUser", roomData);
-    console.log(roomData)
-
-    socket.on("roomfull", (data) => {
-      Swal.fire({
-        text: "방이 꽉찼어요.",
-        icon: "warning",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "확인",
-      });
-    });
-  }, []);
-
   const answerCall = () => {
     setCallAccepted(true);
     const peer = new Peer({ initiator: false, trickle: false, stream });
