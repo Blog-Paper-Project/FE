@@ -21,12 +21,13 @@ import store from "./redux/configStore";
 import { Provider } from "react-redux";
 
 /* socket */
-import { ContextProvider } from './Context';
+import { ContextProvider } from "./Context";
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false, // window focus 설정
+      // refetchOnMount: true,
     },
   },
 });
