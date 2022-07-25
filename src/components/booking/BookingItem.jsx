@@ -10,7 +10,6 @@ import {
 } from "../../redux/modules/Booking";
 import io from "socket.io-client";
 
-
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +26,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const socket = io(process.env.REACT_APP_API_URL);
 
   const enterChat = () => {
+    // const socket = io(process.env.REACT_APP_API_URL);
     const roomData = {
       room: `${Host}/${Guest}`,
       name: nickname,
@@ -37,7 +37,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     console.log(roomData);
 
     socket.on("roomfull", (data) => {
-      window.alert("꽉참")
+      window.alert("꽉참");
     });
     navigate(`/chat/${Host}/${Guest}`);
   };
