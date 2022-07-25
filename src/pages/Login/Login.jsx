@@ -195,13 +195,14 @@ const LoginButton = styled.button`
   background-color: black;
   display: flex;
   justify-content: center;
-  text-align: center;
-  color: white;
+  align-items: center;
+  /* text-align: center; */
+  color: #ffffff;
   font-size: 16px;
   font-weight: 400;
-  line-height: 50px;
-  letter-spacing: 0em;
+  line-height: 16px;
   margin-top: 41px;
+  font-family: "Gmarket Sans Light";
 `;
 
 const SocialLogin = styled.div`
