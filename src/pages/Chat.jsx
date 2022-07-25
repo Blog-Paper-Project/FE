@@ -40,7 +40,7 @@ const Chat = () => {
     <div className={classes.wrapper}>
       <AppBar className={classes.appBar} position="static" color="inherit">
         <Typography variant="h2" align="center">
-          Video Chat
+          채팅하기
         </Typography>
       </AppBar>
       <VideoPlayer />
