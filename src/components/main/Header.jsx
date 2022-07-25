@@ -31,6 +31,7 @@ const Header = () => {
   /* 쿠키 */
   const cookie = getCookie("token");
   const blogId = getCookie("blogId");
+  const nickName = getCookie("nickname");
   const profileImage = getCookie("profileimage");
   const [is_cookie, setCookie] = React.useState(false);
 
@@ -80,60 +81,63 @@ const Header = () => {
           <Login>
             {is_cookie ? (
               <>
-                <DropDownContainer ref={el}>                  
+                <BtnBox>
+                  <Link to="/write">
+                    <Btn>작성하기</Btn>
+                  </Link>
+                  <DropDownContainer ref={el}>
                     <ProfileImgBox
                       src={profileImage === "null" ? defaultUserImage : S3}
                       onClick={toggling}
-                    />                  
-                  {isOpen && (
-                    <DropDownListContainer>
-                      <DropDownList>
-                        <ListItem
-                          onClick={() => {
-                            navigate(`/paper/${blogId}`);
-                          }}
-                        >
-                          내블로그
-                        </ListItem>
-                        <ListItem
-                          onClick={() => {
-                            navigate(`/myprofile`);
-                          }}
-                        >
-                          회원정보
-                        </ListItem>
-                        <ListItem
-                          onClick={() => {
-                            navigate(`/paper/${blogId}/reservationList`);
-                          }}
-                        >
-                          예약리스트
-                        </ListItem>
-                        <ListItem
-                          onClick={() => {
-                            onLogout();
-                          }}
-                        >
-                          로그아웃
-                        </ListItem>
-                      </DropDownList>
-                    </DropDownListContainer>
-                  )}
-                </DropDownContainer>
-                <Link to="/write">
-                  <Btn>글작성</Btn>
-                </Link>
+                    />
+                    {isOpen && (
+                      <DropDownListContainer>
+                        <DropDownList>
+                          <ListItem
+                            onClick={() => {
+                              navigate(`/paper/${blogId}`);
+                            }}
+                          >
+                            내블로그
+                          </ListItem>
+                          <ListItem
+                            onClick={() => {
+                              navigate(`/myprofile`);
+                            }}
+                          >
+                            회원정보
+                          </ListItem>
+                          <ListItem
+                            onClick={() => {
+                              navigate(`/paper/${blogId}/reservationList`);
+                            }}
+                          >
+                            예약리스트
+                          </ListItem>
+                          <ListItem
+                            onClick={() => {
+                              onLogout();
+                            }}
+                          >
+                            로그아웃
+                          </ListItem>
+                        </DropDownList>
+                      </DropDownListContainer>
+                    )}
+                  </DropDownContainer>
+                </BtnBox>
+                <NickBox>
+                  {nickName}
+                </NickBox>
               </>
             ) : (
               <>
-                <BtnBox>
-                  <Link
-                    to="/login"
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    <Btn>로그인</Btn>
-                  </Link>
-                </BtnBox>
+                <Link
+                  to="/login"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <Btn>로그인</Btn>
+                </Link>
               </>
             )}
           </Login>
@@ -191,13 +195,10 @@ const ProfileImgBox = styled.img`
   &:hover {
     transform: translate(5px, -5px);
   }
-  @media screen and (max-width: 800px) {
-        display: none;
-    }
 `;
 const BtnBox = styled.div`
   display: flex;
-  gap: 22px;
+  gap: 24px;
 `
 const Btn = styled.button`
   font-family: 'Gmarket Sans';
@@ -213,9 +214,6 @@ const Btn = styled.button`
   width: 154px;
   height: 40px;
   background-color: #fffdf7;
-  &:hover {
-    transform: translate(5px, -5px);
-  }
 `
 const DropDownContainer = styled.div`
   width: 50px;
@@ -240,9 +238,14 @@ const ListItem = styled.li`
   list-style: none;
   margin-bottom: 0.5em;
   cursor: pointer;
-  &:hover {
-    transform: translate(5px, -5px);
-  }
 `;
+const NickBox = styled.div`
+  font-family: 'Gmarket Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  
+`
 
 export default Header;
