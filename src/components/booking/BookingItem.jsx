@@ -8,15 +8,11 @@ import {
   getBookingDB,
   patchBookingDB,
 } from "../../redux/modules/Booking";
-import io from "socket.io-client";
-
-
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
-  const nickname = getCookie("nickname");
   const Host = item?.hostId;
   const Guest = item?.guestId;
   const hostId = item?.hostId;
@@ -24,21 +20,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const timeId = item?.bokingId;
   console.log("item", item);
 
-  const socket = io(process.env.REACT_APP_API_URL);
-
   const enterChat = () => {
-    const roomData = {
-      room: `${Host}/${Guest}`,
-      name: nickname,
-    };
-    socket.emit("user-connected");
-
-    socket.emit("newUser", roomData);
-    console.log(roomData);
-
-    socket.on("roomfull", (data) => {
-      window.alert("꽉참")
-    });
     navigate(`/chat/${Host}/${Guest}`);
   };
 

@@ -2,11 +2,11 @@ import React, { createContext, useState, useRef, useEffect } from "react";
 import { io } from "socket.io-client";
 import Peer from "simple-peer";
 import { getCookie } from "./shared/Cookie";
-import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SocketContext = createContext();
 
-const socket = io(process.env.REACT_APP_API_URL);
+const socket = io("https://first-sw.shop");
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
@@ -24,7 +24,9 @@ const ContextProvider = ({ children }) => {
   const [messageList, setMessageList] = useState([]);
   const inputRef = useRef();
   const boxRef = useRef();
+
   const nickname = getCookie("nickname");
+  const navigate = useNavigate()
 
   useEffect(() => {
     navigator.mediaDevices
@@ -34,15 +36,14 @@ const ContextProvider = ({ children }) => {
 
         myVideo.current.srcObject = currentStream;
       });
-
     socket.on("me", (id) => setMe(id));
-    console.log(socket.id)
 
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, [call]);
+  },[callAccepted, call]);
 
+  //화상
   const answerCall = () => {
     setCallAccepted(true);
     const peer = new Peer({ initiator: false, trickle: false, stream });
@@ -60,6 +61,7 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
+  //화상
   const callUser = (id) => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
@@ -68,7 +70,7 @@ const ContextProvider = ({ children }) => {
         userToCall: id,
         signalData: data,
         from: me,
-        name: nickname,
+        name,
       });
     });
 
@@ -84,6 +86,18 @@ const ContextProvider = ({ children }) => {
 
     connectionRef.current = peer;
   };
+
+  useEffect(() => {
+    const roomData = {
+      room: "광민1",
+      name: nickname,
+    };
+    socket.emit("user-connected");
+
+    socket.emit("newUser", roomData);
+
+    socket.on("roomfull");
+  }, []);
 
   //채팅보내기
   const sendMessage = () => {
@@ -126,6 +140,8 @@ const ContextProvider = ({ children }) => {
     setCallEnded(true);
 
     connectionRef.current.destroy();
+
+    navigate(-1)
   };
 
   return (
