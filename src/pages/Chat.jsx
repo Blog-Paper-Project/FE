@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 import Sidebar from "../components/chat/Sidebar";
 import Notifications from "../components/chat/Notifications";
@@ -8,22 +9,47 @@ import Chatting from "../components/chat/Chatting";
 import Header from "../components/main/Header";
 import styled from "styled-components";
 import { getCookie } from "../shared/Cookie";
-import { SocketContext } from "../Context"
+import { SocketContext } from "../Context";
 
 const Chat = () => {
-  const { socket } = useContext(SocketContext);
+  const { socket, setStream, myVideo, setCall, setMe } = useContext(SocketContext);
   const nickname = getCookie("nickname");
+
+  const { hostId } = useParams();
+  const { guestId } = useParams();
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: true })
+      .then((currentStream) => {
+        setStream(currentStream);
+
+        myVideo.current.srcObject = currentStream;
+      });
+    socket.on("me", (id) => setMe(id));
+
+    socket.on("callUser", ({ from, name: callerName, signal }) => {
+      setCall({ isReceivingCall: true, from, name: callerName, signal });
+    });
+  },[]);
 
   useEffect(() => {
     const roomData = {
-      room: "광민1",
+      room: `${hostId}/${guestId}`,
       name: nickname,
     };
     socket.emit("user-connected");
 
     socket.emit("newUser", roomData);
+    console.log(roomData);
 
-    socket.on("roomfull");
+    socket.on("me", (id) => {
+      console.log(id);
+    });
+
+    socket.on("roomfull", (data) => {
+      window.alert("hi");
+    });
   }, []);
 
   return (

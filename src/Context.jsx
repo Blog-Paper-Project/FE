@@ -28,20 +28,20 @@ const ContextProvider = ({ children }) => {
   const nickname = getCookie("nickname");
   const navigate = useNavigate()
 
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
+  // useEffect(() => {
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: true, audio: true })
+  //     .then((currentStream) => {
+  //       setStream(currentStream);
 
-        myVideo.current.srcObject = currentStream;
-      });
-    socket.on("me", (id) => setMe(id));
+  //       myVideo.current.srcObject = currentStream;
+  //     });
+  //   socket.on("me", (id) => setMe(id));
 
-    socket.on("callUser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
-    });
-  },[callAccepted, call]);
+  //   socket.on("callUser", ({ from, name: callerName, signal }) => {
+  //     setCall({ isReceivingCall: true, from, name: callerName, signal });
+  //   });
+  // },[callAccepted, call]);
 
   //화상
   const answerCall = () => {
@@ -86,18 +86,6 @@ const ContextProvider = ({ children }) => {
 
     connectionRef.current = peer;
   };
-
-  // useEffect(() => {
-  //   const roomData = {
-  //     room: "광민1",
-  //     name: nickname,
-  //   };
-  //   socket.emit("user-connected");
-
-  //   socket.emit("newUser", roomData);
-
-  //   socket.on("roomfull");
-  // },[]);
 
   //채팅보내기
   const sendMessage = () => {
