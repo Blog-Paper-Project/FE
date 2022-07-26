@@ -386,13 +386,10 @@ const ContainerAllSort = styled.div`
 
 // AllSortWrap wrap - 4
 const AllSortWrap = styled.div`
-  height: 998px;
   width: 1078px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  overflow: hidden;
-  /* overflow-x: hidden; */
 `;
 
 const CategoryWrap = styled.div`

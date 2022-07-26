@@ -12,11 +12,10 @@ import { useMutation, useQuery } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
 import { getCookie, setCookie } from "../../shared/Cookie";
-// import Meiyou2 from "../../public/images/Meiyou.";
-/*해야 할 것*/
-//1. 여기에 임시글 저장 버튼도 필요함.
-//2. 해시태그 post data 안에 key 값 찾아서 넣기
-//3. 상세페이지 post로 보낼 때 배열로 보내드릴 것 ( 배열로가 정확히 무슨 뜻일까?)
+// image
+import Paper_Logo from "../../public/images/logo_paper.svg";
+import Post_Icon from "../../public/images/icons/post_Icon.png";
+import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const ModifyEdit = (props) => {
   const { postId, blogId } = props;
@@ -24,16 +23,20 @@ const ModifyEdit = (props) => {
   // console.log(props.postId);
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
-  const [head_data, setHead] = useState(null);
+  const [head_data, setHeadData] = useState(null);
   const [thumbImage, setImage] = useState(null);
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState([]);
-  const [openModal, setOpenModal] = useState(false); // # 모달
-  const [previewImg, setPreviewImg] = useState(thumbImage);
-
+  const [openModal, setOpenModal] = useState(false); // # 썸네일, 카테고리 고르는 모달 오픈
+  const [previewImg, setPreviewImg] = useState(thumbImage); // # 썸네일
+  const [editCategory, setEditCategory] = useState(false);
+  const [category, setCategory] = useState("etc");
+  const [categoryList, setCategoryList] = useState([]);
+  const [selectOption, setSelectOption] = useState("");
+  console.log(head_data);
   // const PastTagList = detail_data?.Tags;
-  // const hostId = getCookie("userId");
-  const hostId = getCookie("blogId");
+  const userId = getCookie("userId");
+  const hostId = Number(userId);
   const editorRef = useRef();
   const navigate = useNavigate();
   // const BeforeTags = detail_data?.Tags;
@@ -105,9 +108,7 @@ const ModifyEdit = (props) => {
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
-    // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data?.data.imageUrl);
 
     const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -115,14 +116,11 @@ const ModifyEdit = (props) => {
       thumbnail: image_data?.data.imageUrl,
       tags: tagList,
     });
-    console.log(response?.data);
     return response?.data.paper;
   };
   //## useMutation write 데이터 post
-  const { data: res, mutate: onPost } = useMutation(postfecher, {
-    onSuccess: (res) => {
-      // console.log(res?.blogId);
-
+  const { mutate: onPost } = useMutation(postfecher, {
+    onSuccess: () => {
       navigate(`/paper/${blogId}`);
       alert("post 성공!");
     },
@@ -133,17 +131,24 @@ const ModifyEdit = (props) => {
 
   const GetDetailtData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
-    // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
 
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
-    "detail_data",
-    GetDetailtData
+    ["detail_data", postId],
+    GetDetailtData,
     // { staleTime: Infinity }
+    {
+      onSuccess: () => {
+        setHeadData(detail_data?.title);
+        // setImage(detail_data?.thumbnail);
+        // setCategoryList(detail_data?.)
+      },
+    }
   );
+
   if (status === "loading") {
     return <>loading...</>;
   }
@@ -151,12 +156,14 @@ const ModifyEdit = (props) => {
   if (status === "error") {
     return alert("error");
   }
-  // if (hostId !== userId) {
-  //   navigate("/");
-  //   alert("블로거 주인만 수정할 수 있습니다.");
-  // }
-
-  console.log("Modify", detail_data);
+  if (hostId !== detail_data?.userId) {
+    navigate("/");
+    alert("블로거 주인만 수정할 수 있습니다.");
+  }
+  // const TagAll = detail_data?.Tags;
+  // console.log(...TagAll);
+  // console.log("Modify", detail_data);
+  // console.log(Object.values(...TagAll));
 
   return (
     <Container>
@@ -176,7 +183,7 @@ const ModifyEdit = (props) => {
             border_color="white"
             outline_color="white"
             onClick={() => {
-              navigate(`/paper/${mypaper_data?.user.blogId}`);
+              navigate(`/paper/${detail_data?.Users.blogId}`);
             }}
           >
             나가기
@@ -252,13 +259,13 @@ const ModifyEdit = (props) => {
                             </option>
                           );
                         })}
-                        {mypaper_data?.categories.length === 0 ? (
+                        {detail_data?.category.length === 0 ? (
                           <>
                             <option value="etc">etc</option>
                           </>
                         ) : (
                           <>
-                            {mypaper_data?.categories.map((value, index) => {
+                            {detail_data?.category.map((value, index) => {
                               return (
                                 <option key={index} value={value}>
                                   {value}
@@ -270,7 +277,7 @@ const ModifyEdit = (props) => {
                       </>
                     ) : (
                       <>
-                        {mypaper_data?.categories.map((value, index) => {
+                        {detail_data?.category.map((value, index) => {
                           return (
                             <option key={index} value={value}>
                               {value}
@@ -338,8 +345,9 @@ const ModifyEdit = (props) => {
           <TitleWrap>
             <Title
               placeholder="제목을 입력하세요"
+              defaultValue={detail_data?.title}
               onChange={(e) => {
-                setHead(e.target.value);
+                setHeadData(e.target.value);
               }}
             ></Title>
             <Line />
@@ -374,7 +382,7 @@ const ModifyEdit = (props) => {
             height="auto"
             minHeight="500px"
             initialEditType="markdown"
-            initialValue={markdown_data}
+            initialValue={detail_data?.contents}
             ref={editorRef}
             onChange={onchange}
             useCommandShortcut={false}
@@ -546,7 +554,7 @@ const TitleWrap = styled.div`
   margin-top: 120px;
   margin-bottom: 32px;
 `;
-const Title = styled.input`
+const Title = styled.textarea`
   height: 60px;
   width: 100%;
   color: #333333;
@@ -555,6 +563,9 @@ const Title = styled.input`
   /* line-height: 60px; */
   padding-bottom: 10px;
   padding-left: 1px;
+  border: none;
+  resize: none;
+  outline: none;
 `;
 const Line = styled.div`
   width: 100%;

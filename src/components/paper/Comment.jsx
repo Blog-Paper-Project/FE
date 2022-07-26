@@ -82,7 +82,7 @@ const CommentInputBtnWrap = styled.div`
   div {
     height: 100px;
     width: 898px;
-    background-color: #ffffff;
+    background-color: white;
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     padding: 10px;
