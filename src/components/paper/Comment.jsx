@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import CommentList from "./CommentList";
 /*해야할 것 */
-const CommentContainer = (props) => {
+const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
@@ -64,4 +64,4 @@ const CommentContainer = (props) => {
   );
 };
 
-export default CommentContainer;
+export default Comment;

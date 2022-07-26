@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import ViewEdit from "../components/editor/ViewEdit";
 import Header from "../components/main/Header";
-import CommentContainer from "../components/paper/CommentContainer";
+import Comment from "../components/paper/Comment";
 import Like from "../components/paper/Like";
 import { apiToken } from "../shared/apis/Apis";
 import { getCookie } from "../shared/Cookie";
 import defaultUserImage from "../public/images/default_profile.png";
 import styled from "styled-components";
+import Footer from "../components/main/Footer";
 
 /*해야할 것*/
 
@@ -23,7 +24,8 @@ const PaperDetail = () => {
   // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
-
+  //state
+  const [openComment, setOpenComment] = useState(false);
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
@@ -36,7 +38,6 @@ const PaperDetail = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("paper_data", "detail_data");
       navigate(`/paper/${blogId}`);
-      console.log();
     },
   });
 
@@ -49,7 +50,7 @@ const PaperDetail = () => {
         userId: userId,
       },
     });
-    console.log("PaperDetail page", response);
+    // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
 
@@ -63,7 +64,7 @@ const PaperDetail = () => {
 
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -79,71 +80,98 @@ const PaperDetail = () => {
   }
   const S3 =
     process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
-  console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />
 
       {/* 아래 글*/}
-      <Title>{detail_data?.title}</Title>
-      <Line />
-      <Wrap>
-        <div className="wrap">
-          {/* 블로거 프로필 이미지 */}
-          <ProfileImgBox
-            src={
-              detail_data?.Users.profileImage === "null" ? defaultUserImage : S3
-            }
-            onClick={() => {
-              navigate(`/paper/${detail_data?.Users.blogId}`);
-            }}
-          />
-          <Nickname>{detail_data?.Users.nickname}</Nickname>
-        </div>
-        <div className="wrap">
-          {isHostId === blogId ? (
+      <ContainerContents>
+        <Title>{detail_data?.title}</Title>
+        <Line />
+        <Wrap>
+          <div className="wrap">
+            {/* 블로거 프로필 이미지 */}
+            <ProfileImgBox
+              src={
+                detail_data?.Users.profileImage === "null"
+                  ? defaultUserImage
+                  : S3
+              }
+              onClick={() => {
+                navigate(`/paper/${detail_data?.Users.blogId}`);
+              }}
+            />
+            <Nickname>{detail_data?.Users.nickname}</Nickname>
+          </div>
+          <div className="wrap">
+            {isHostId === blogId ? (
+              <>
+                {/* 아래 글 수정 버튼*/}
+
+                <button
+                  onClick={() => {
+                    navigate(`/modify/${blogId}/${postId}`);
+                  }}
+                >
+                  글 수정하기
+                </button>
+
+                {/* 아래 글 삭제 버튼*/}
+
+                <button
+                  onClick={() => {
+                    onDelete();
+                  }}
+                >
+                  글 삭제하기
+                </button>
+              </>
+            ) : null}
+          </div>
+        </Wrap>
+        <div>{detail_data?.createdAt}</div>
+        <ViewEditWarp>
+          <ViewEdit contents={detail_data?.contents} />
+        </ViewEditWarp>
+        {/* 아래 해시태그 */}
+        <TagWrap>
+          {detail_data?.Tags.map((value, index) => {
+            return <Tag key={index}>{value.name}</Tag>;
+          })}
+        </TagWrap>
+        {/* 아래 댓글 */}
+        <div>
+          {openComment ? (
+            <CommentLikeWrap>
+              <div
+                onClick={() => {
+                  setOpenComment(!openComment);
+                }}
+              >
+                댓글 쓰기
+              </div>
+
+              <Like postId={postId} Likes={detail_data?.Likes} />
+
+              <Comment postId={postId} Comments={detail_data?.Comments} />
+            </CommentLikeWrap>
+          ) : (
             <>
-              {/* 아래 글 수정 버튼*/}
-
-              <button
+              <div
                 onClick={() => {
-                  navigate(`/modify/${blogId}/${postId}`);
+                  setOpenComment(!openComment);
                 }}
               >
-                글 수정하기
-              </button>
+                댓글 쓰기
+              </div>
 
-              {/* 아래 글 삭제 버튼*/}
-
-              <button
-                onClick={() => {
-                  onDelete();
-                }}
-              >
-                글 삭제하기
-              </button>
+              <Like postId={postId} Likes={detail_data?.Likes} />
             </>
-          ) : null}
+          )}
         </div>
-      </Wrap>
-      <div>{detail_data?.createdAt}</div>
-      <ViewEditWarp>
-        <ViewEdit contents={detail_data?.contents} />
-      </ViewEditWarp>
-      {/* 아래 해시태그 */}
-      <TagWrap>
-        {detail_data?.Tags.map((value, index) => {
-          return <Tag key={index}>{value.name}</Tag>;
-        })}
-      </TagWrap>
-      {/* 아래 댓글 */}
-      <div>
-        <CommentContainer postId={postId} Comments={detail_data?.Comments} />
-      </div>
-      {/* 아래 좋아요 */}
-      <div>
-        <Like postId={postId} Likes={detail_data?.Likes} />
-      </div>
+      </ContainerContents>
+      <Footer />
     </Container>
   );
 };
@@ -151,7 +179,12 @@ const PaperDetail = () => {
 const Container = styled.div`
   max-width: 1920px;
 `;
-
+const ContainerContents = styled.div`
+  width: 899px;
+  padding: 160px 511px 160px 510px;
+  /* padding-left: 510px;
+  padding-right: 511px; */
+`;
 const Wrap = styled.div`
   width: 898px;
   display: flex;
@@ -207,6 +240,22 @@ const Tag = styled.div`
   border: 2px solid black;
   border-radius: 30px;
   font-size: 12px;
+`;
+const CommentLikeWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+// 버튼
+
+const LikeButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  width: 130px;
+  border: 1px solid;
+  outline: 1px solid;
 `;
 
 export default PaperDetail;

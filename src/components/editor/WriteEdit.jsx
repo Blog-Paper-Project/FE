@@ -13,7 +13,9 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import { getCookie, setCookie } from "../../shared/Cookie";
-// import Meiyou2 from "../../public/images/Meiyou.";
+import Paper_Logo from "../../public/images/logo_paper.svg";
+import Post_Icon from "../../public/images/icons/post_Icon.png";
+import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const WriteEdit = () => {
   //## 글 작성 데이터 관련 state
@@ -32,7 +34,7 @@ const WriteEdit = () => {
   // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
-  const HostIdCheck = getCookie("userId");
+  // const HostIdCheck = getCookie("userId");
   const blogId = getCookie("blogId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
@@ -161,7 +163,12 @@ const WriteEdit = () => {
     <Container>
       <Head>
         <div>
-          <Logo>PAPER</Logo>
+          <Logo
+            src={Paper_Logo}
+            onClick={() => {
+              navigate("/");
+            }}
+          ></Logo>
         </div>
         <div>
           <Button
@@ -299,25 +306,21 @@ const WriteEdit = () => {
                   }}
                 ></input>
               </div>
-              <Thumbmail src={previewImg !== null ? previewImg : null} alt="" />
+              <Thumbmail
+                src={previewImg !== null ? previewImg : Meiyou_thumnail}
+                alt=""
+              />
             </ThumbmailWrap>
-
-            {/* <button
-              onClick={() => {
-                setOpenModal(!openModal);
-              }}
-            >
-              x
-            </button> */}
             <ButtonWrap>
-              <Button
+              <PostButton
                 height="36px"
                 width="120px"
                 background_color="white"
                 onClick={onPost}
               >
+                <PostImg src={Post_Icon} />
                 발행
-              </Button>
+              </PostButton>
             </ButtonWrap>
           </ModalBox>
         ) : null}
@@ -325,11 +328,11 @@ const WriteEdit = () => {
       <SpaceWrap>
         <Space />
         <EditWrap
-          //## 마우스 오른쪽 클릭 이벤트
-          onContextMenu={(e) => {
-            e.preventDefault();
-            alert("붙혀넣기 금지");
-          }}
+        // //## 마우스 오른쪽 클릭 이벤트
+        // onContextMenu={(e) => {
+        //   e.preventDefault();
+        //   alert("붙혀넣기 금지");
+        // }}
         >
           <TitleWrap>
             <Title
@@ -360,7 +363,7 @@ const WriteEdit = () => {
                   );
                 })
               ) : (
-                <div>Enter을 누르면 태그를 추가할 수 있습니다.</div>
+                <div>'Enter'을 누르면 태그를 추가할 수 있습니다.</div>
               )}
             </HashWrapOuter>
           </TitleWrap>
@@ -559,6 +562,7 @@ const ThumbmailWrap = styled.div`
     align-items: center;
     height: 24px;
     width: 86px;
+    color: #333333;
     outline: 1px solid black;
     font-size: 14px;
     line-height: 14px;
@@ -598,12 +602,13 @@ const HashTagInput = styled.input`
 `;
 
 const Tag = styled.div`
-  height: 25px;
+  height: 21px;
   width: 90px;
   box-sizing: border-box;
-  border: 2px solid #333333;
-  border-radius: 20px;
-  padding: 5px;
+  outline: 1px solid;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px, 10px, 5px, 10px;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
@@ -624,6 +629,10 @@ const ButtonWrap = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
 `;
+const PostImg = styled.img`
+  height: 20px;
+  width: 20px;
+`;
 const Button = styled.button`
   height: ${(props) => props.height || "40px"};
   width: ${(props) => props.width || "154px"};
@@ -636,11 +645,14 @@ const Button = styled.button`
   line-height: 14px;
   outline: 1px solid ${(props) => props.outline_color || "black"};
 `;
-const Logo = styled.div`
-  height: 30px;
-  width: 107px;
-  line-height: 30.17px;
-  font-size: 24.13px;
-  font-weight: 400;
+const PostButton = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const Logo = styled.img`
+  height: 28px;
+  width: 153px;
 `;
 export default WriteEdit;
