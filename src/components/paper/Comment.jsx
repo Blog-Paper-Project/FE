@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
 import CommentList from "./CommentList";
 /*해야할 것 */
@@ -27,26 +28,28 @@ const Comment = (props) => {
   });
 
   return (
-    <>
+    <Container>
       {/* 아래 댓글 추가 */}
-      <div>
-        <input
-          value={comment}
-          onChange={(e) => {
-            setComment(e.target.value);
-          }}
-          style={{ border: "1px solid black", height: "30px", width: "690px" }}
-        />
+      <CommentInputBtnWrap>
+        <div>
+          <textarea
+            value={comment}
+            placeholder="댓글을 작성하세요"
+            onChange={(e) => {
+              setComment(e.target.value);
+            }}
+          />
+        </div>
         <button
           onClick={() => {
             onPost(comment);
           }}
         >
-          댓글 등록!
+          댓글 작성
         </button>
-      </div>
+      </CommentInputBtnWrap>
       {/* 아래 댓글 리스트 */}
-      <div>
+      <CommentListWrap>
         {Comments?.map((value) => {
           return (
             <CommentList
@@ -59,9 +62,45 @@ const Comment = (props) => {
             />
           );
         })}
-      </div>
-    </>
+      </CommentListWrap>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 898px;
+  margin-top: 24px;
+`;
+const CommentInputBtnWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+  div {
+    height: 100px;
+    width: 898px;
+    background-color: #ffffff;
+    outline: 1px solid #acacac;
+    border: 1px solid #acacac;
+    padding: 10px;
+  }
+  textarea {
+    height: 80px;
+    width: 483px;
+    border: none;
+    resize: none;
+    outline: none;
+  }
+  button {
+    height: 40px;
+    width: 154px;
+    background-color: black;
+    color: white;
+  }
+`;
+const CommentListWrap = styled.div`
+  width: 898px;
+  margin-top: 24px;
+`;
 
 export default Comment;

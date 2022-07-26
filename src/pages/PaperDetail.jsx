@@ -10,6 +10,11 @@ import { getCookie } from "../shared/Cookie";
 import defaultUserImage from "../public/images/default_profile.png";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
+//imgage
+import Comments from "../public/images/icons/comments.png";
+import ArrowDown from "../public/images/icons/Keyboard_down.png";
+import ArrowUp from "../public/images/icons/Keyboard_up.png";
+import Line_1 from "../public/images/icons/Line_1.png";
 
 /*해야할 것*/
 
@@ -89,7 +94,7 @@ const PaperDetail = () => {
       <ContainerContents>
         <Title>{detail_data?.title}</Title>
         <Line />
-        <Wrap>
+        <UserDataWrap>
           <div className="wrap">
             {/* 블로거 프로필 이미지 */}
             <ProfileImgBox
@@ -103,6 +108,7 @@ const PaperDetail = () => {
               }}
             />
             <Nickname>{detail_data?.Users.nickname}</Nickname>
+            <CreatedAt>{detail_data?.createdAt}</CreatedAt>
           </div>
           <div className="wrap">
             {isHostId === blogId ? (
@@ -129,8 +135,7 @@ const PaperDetail = () => {
               </>
             ) : null}
           </div>
-        </Wrap>
-        <div>{detail_data?.createdAt}</div>
+        </UserDataWrap>
         <ViewEditWarp>
           <ViewEdit contents={detail_data?.contents} />
         </ViewEditWarp>
@@ -143,30 +148,37 @@ const PaperDetail = () => {
         {/* 아래 댓글 */}
         <div>
           {openComment ? (
-            <CommentLikeWrap>
-              <div
-                onClick={() => {
-                  setOpenComment(!openComment);
-                }}
-              >
-                댓글 쓰기
-              </div>
-
-              <Like postId={postId} Likes={detail_data?.Likes} />
-
+            <>
+              <CommentLikeWrap>
+                <Like postId={postId} Likes={detail_data?.Likes} />
+                <CommentButton
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
+                >
+                  <img src={Comments} alt="comment_image" />
+                  <div> 댓글</div>
+                  <img src={Line_1} alt="Line"></img>
+                  <img src={ArrowDown} alt="Arrow"></img>
+                </CommentButton>
+              </CommentLikeWrap>
               <Comment postId={postId} Comments={detail_data?.Comments} />
-            </CommentLikeWrap>
+            </>
           ) : (
             <>
-              <div
-                onClick={() => {
-                  setOpenComment(!openComment);
-                }}
-              >
-                댓글 쓰기
-              </div>
-
-              <Like postId={postId} Likes={detail_data?.Likes} />
+              <CommentLikeWrap>
+                <Like postId={postId} Likes={detail_data?.Likes} />
+                <CommentButton
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
+                >
+                  <img src={Comments} alt="comment_image" />
+                  <div> 댓글</div>
+                  <img src={Line_1} alt="Line" />
+                  <img src={ArrowUp} alt="Arrow" />
+                </CommentButton>
+              </CommentLikeWrap>
             </>
           )}
         </div>
@@ -178,20 +190,20 @@ const PaperDetail = () => {
 
 const Container = styled.div`
   max-width: 1920px;
+  background-color: white;
 `;
 const ContainerContents = styled.div`
   width: 899px;
   padding: 160px 511px 160px 510px;
-  /* padding-left: 510px;
-  padding-right: 511px; */
 `;
-const Wrap = styled.div`
+const UserDataWrap = styled.div`
   width: 898px;
   display: flex;
   justify-content: space-between;
   .wrap > {
     display: flex;
   }
+  margin-bottom: 59px;
 `;
 
 const ProfileImgBox = styled.img`
@@ -212,13 +224,15 @@ const Title = styled.div`
   font-weight: 400;
   line-height: 60px;
   color: #333333;
+  margin-bottom: 10px;
 `;
 const Line = styled.div`
   width: 898px;
   border-bottom: 1px solid #000000;
+  margin-bottom: 20px;
 `;
+const CreatedAt = styled.div``;
 const ViewEditWarp = styled.div`
-  height: 500px;
   width: 898px;
   background-color: #efefef;
 `;
@@ -226,10 +240,10 @@ const TagWrap = styled.div`
   height: 20px;
   width: 300px;
   display: flex;
-  /* flex-direction: row; */
   justify-content: flex-start;
   gap: 0 10px;
-  margin-bottom: 40px;
+  margin-top: 24px;
+  margin-bottom: 50px;
 `;
 const Tag = styled.div`
   display: flex;
@@ -244,18 +258,19 @@ const Tag = styled.div`
 const CommentLikeWrap = styled.div`
   display: flex;
   flex-direction: row;
+  height: 36px;
+  width: 284px;
+  gap: 24px;
 `;
-
-// 버튼
-
-const LikeButton = styled.button`
+const CommentButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   height: 36px;
   width: 130px;
-  border: 1px solid;
   outline: 1px solid;
+  border: 1px solid;
 `;
 
 export default PaperDetail;
