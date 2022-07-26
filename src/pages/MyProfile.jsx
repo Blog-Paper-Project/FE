@@ -6,9 +6,6 @@ import MyProfileModal from "../components/user/MyProfileModal";
 
 import { apiToken } from "../shared/apis/Apis";
 
-import { getCookie } from "../shared/Cookie";
-import { useNavigate } from "react-router";
-
 import Header from "../components/main/Header";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
