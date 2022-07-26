@@ -8,6 +8,10 @@ import {
   getBookingDB,
   patchBookingDB,
 } from "../../redux/modules/Booking";
+import dayjs from 'dayjs';
+    import 'dayjs/locale/ko';
+    dayjs.locale('ko');
+
 
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
@@ -19,8 +23,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item?.bokingId;
-  console.log("item", item);
-
+ 
   const enterChat = () => {
     navigate(`/chat/${Host}/${Guest}`);
   };
@@ -28,13 +31,17 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   // 예약 정보
   let startTime = item?.start;
   let endTime = item?.end;
-  console.log("startTime", startTime);
+  console.log(item);
   if (!item) {
     return null;
   }
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(-17, 5);
+
+ 
+
+  
 
   // 게스트일때
   if (Guest === Bloger) {
@@ -62,7 +69,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
 
-            <button className="waitBtn">'수락대기중'</button>
+            <button className="waitBtn">수락대기</button>
             <button
               className="delBtn"
               onClick={(e) => {
@@ -71,7 +78,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 setLeafChange(!leafChange);
               }}
             >
-              '예약 취소'
+              예약 취소
             </button>
           </li>
         )}
@@ -102,7 +109,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 enterChat();
               }}
             >
-              '시작하기'
+              Start
             </button>
           </li>
         )}
@@ -141,7 +148,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 setLeafChange(!leafChange);
               }}
             >
-              '수락하기'
+              수락하기
             </button>
             <button
               className="delBtn"
@@ -151,7 +158,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 setLeafChange(!leafChange);
               }}
             >
-              '예약취소'
+              예약취소
             </button>
           </li>
         )}
@@ -182,7 +189,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 enterChat();
               }}
             >
-              '시작하기'
+              Start
             </button>
           </li>
         )}

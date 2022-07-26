@@ -899,6 +899,7 @@ const PopularBloger = styled.div`
   }
 `;
 const PopularBox = styled.div`
+  display: flex;
   width: 90%;
   height: 920px;
   padding: 20px 0 0 0;
