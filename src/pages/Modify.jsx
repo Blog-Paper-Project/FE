@@ -4,11 +4,11 @@ import ModifyEdit from "../components/editor/ModifyEdit";
 
 const Modify = () => {
   const { postId } = useParams();
-  const { userId } = useParams();
+  const { blogId } = useParams();
 
   return (
     <div>
-      <ModifyEdit postId={postId} userId={userId} />
+      <ModifyEdit postId={postId} blogId={blogId} />
     </div>
   );
 };

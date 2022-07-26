@@ -27,11 +27,12 @@ const WriteEdit = () => {
   const [openModal, setOpenModal] = useState(false); // # 썸네일, 카테고리 고르는 모달 오픈
   const [previewImg, setPreviewImg] = useState(thumbImage); // # 썸네일
   const [editCategory, setEditCategory] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState("etc");
-  // console.log(selectOption);
+  const [selectOption, setSelectOption] = useState("");
+  console.log(selectOption);
   // console.log(categoryList);
+  console.log(category);
   const editorRef = useRef();
   const navigate = useNavigate();
   // const HostIdCheck = getCookie("userId");
@@ -202,22 +203,22 @@ const WriteEdit = () => {
           <ModalBox>
             {editCategory ? (
               <>
-                <CategoryWarp>
-                  <div className="category_name">카테고리</div>
+                <CategoryWarp className="openInput">
+                  <div className="category_name2">카테고리</div>
                   <input
                     type="text"
                     className="input_plus"
                     onChange={(e) => {
                       setCategory(e.target.value);
                     }}
-                    value={category}
                   />
                   <button
                     className="btn_plus"
                     onClick={() => {
                       setCategoryList([...categoryList, category]);
-                      setCategory("");
+                      setCategory(category);
                       setEditCategory(!editCategory);
+                      setSelectOption(category);
                     }}
                   >
                     추가
@@ -231,15 +232,17 @@ const WriteEdit = () => {
                     취소
                   </button>
                 </CategoryWarp>
+                <Box></Box>
               </>
             ) : (
               <CategorySelectWrap>
                 <CategoryWarp>
-                  <div className="category_name">카테고리</div>
+                  <div className="category_name1">카테고리</div>
                   <select
                     onChange={(e) => {
                       setSelectOption(e.target.value);
                     }}
+                    autoFocus
                     required
                   >
                     {categoryList ? (
@@ -461,16 +464,27 @@ const ModalBox = styled.div`
   input[type="file"] {
   }
 
-  .category_name {
+  .category_name1 {
     display: flex;
     align-items: center;
     height: 20px;
-    width: 57px;
+    width: 65px;
     font-size: 14px;
     font-weight: 500;
     font-family: "Noto Sans KR";
     line-height: 20px;
     padding-left: 4px;
+  }
+  .category_name2 {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 65px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+    /* padding-left: 4px; */
   }
 `;
 const CategorySelectWrap = styled.div`
@@ -500,6 +514,13 @@ const CategorySelectWrap = styled.div`
     line-height: 14px;
   }
 `;
+const Box = styled.div`
+  height: 14px;
+  width: 85px;
+  margin-top: 13px;
+  margin-bottom: 26px;
+  margin-right: 24px;
+`;
 const CategoryWarp = styled.div`
   display: flex;
   justify-content: space-between;
@@ -513,10 +534,11 @@ const CategoryWarp = styled.div`
     background-color: white;
   }
   .input_plus {
-    /* margin-left: 2px; */
+    margin-left: 29px;
     height: 20px;
-    width: 160px;
+    width: 170px;
     outline: 1px solid #eee;
+    border: 1px solid #eee;
   }
 `;
 
