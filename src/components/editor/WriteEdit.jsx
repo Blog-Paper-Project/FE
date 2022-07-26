@@ -13,6 +13,7 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import { getCookie, setCookie } from "../../shared/Cookie";
+// image
 import Paper_Logo from "../../public/images/logo_paper.svg";
 import Post_Icon from "../../public/images/icons/post_Icon.png";
 import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
@@ -422,15 +423,14 @@ const SpaceWrap = styled.div`
   display: flex;
 `;
 const Space = styled.div`
-  height: 1000px;
   width: 356px;
   background-color: #f8f8f8;
 `;
 const EditWrap = styled.div`
-  height: 1000px;
   width: 1208px;
-  padding-left: 154px;
-  padding-right: 154px;
+  min-height: 1000px;
+  padding-left: 85px;
+  padding-right: 85px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
@@ -445,7 +445,7 @@ const Head = styled.div`
   outline: 1px solid #a7aca1;
   background-color: white;
   position: fixed;
-  z-index: 1;
+  z-index: 99;
 `;
 const ModalBoxWrap = styled.div`
   display: flex;

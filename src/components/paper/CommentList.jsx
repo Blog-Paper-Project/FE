@@ -82,67 +82,84 @@ const CommentList = (props) => {
     <Container>
       {EditUserId == CommentUserId ? (
         <>
-          <div>
-            {ifEdit ? (
-              <input
-                onChange={(e) => {
-                  setModifyText(e.target.value);
-                }}
-                value={modifyText}
-                maxLength="40"
-                style={{
-                  backgroound_color: "white",
-                  border: "1px solid black",
-                  height: "26px",
-                  width: "300px",
-                }}
-              />
-            ) : (
-              <div>댓글 내용 {text}</div>
-            )}
-          </div>
-          <div>{createdAt}</div>
-          <div>유저 아이디{CommentUserId}</div>
-          <div>댓글 번호{commentId}</div>
-          {closeEdit ? (
-            <div>
-              <button
-                onClick={() => {
-                  onPatch();
-                  setIfEdit(false);
-                  setCloseEdit(!closeEdit);
-                }}
-              >
-                수정 하기!
-              </button>
-              <button
-                onClick={() => {
-                  setIfEdit(!ifEdit);
-                  setCloseEdit(!closeEdit);
-                }}
-              >
-                취소 하기!
-              </button>
+          <CommentWrap>
+            <div className="UserWrap">
+              <div>
+                <img
+                  src={profileImage === null ? defaultUserImage : S3}
+                  alt=""
+                  onClick={() => {
+                    navigate(`/paper/${blogId}`);
+                  }}
+                />
+              </div>
+              <div className="NicknameCreateWrap">
+                <div className="UserNickname">{nickname}</div>
+                <div className="CreatedAt">{createdAt}</div>
+              </div>
             </div>
-          ) : (
             <>
-              <button
-                onClick={() => {
-                  setIfEdit(!ifEdit);
-                  setCloseEdit(!closeEdit);
-                }}
-              >
-                수정 모양!
-              </button>
-              <button
-                onClick={() => {
-                  onDelete();
-                }}
-              >
-                삭제 하기!
-              </button>
+              {ifEdit ? (
+                <div className="TextWrap">
+                  <textarea
+                    className="TextArea"
+                    onChange={(e) => {
+                      setModifyText(e.target.value);
+                    }}
+                    defaultValue={text}
+                    value={modifyText}
+                    maxLength="400"
+                  />
+                </div>
+              ) : (
+                <div className="TextWrap">
+                  <div className="Text">{text}</div>
+                </div>
+              )}
             </>
-          )}
+          </CommentWrap>
+          <EditButtonWrap>
+            {closeEdit ? (
+              <>
+                <button
+                  onClick={() => {
+                    onPatch();
+                    setIfEdit(false);
+                    setCloseEdit(!closeEdit);
+                  }}
+                >
+                  완료
+                </button>
+                <button
+                  onClick={() => {
+                    setIfEdit(!ifEdit);
+                    setCloseEdit(!closeEdit);
+                  }}
+                >
+                  취소
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    setIfEdit(!ifEdit);
+                    setCloseEdit(!closeEdit);
+                  }}
+                >
+                  수정
+                </button>
+                <button
+                  onClick={() => {
+                    onDelete();
+                    alert("댓글이 삭제 되었습니다.");
+                  }}
+                >
+                  삭제
+                </button>
+              </>
+            )}
+          </EditButtonWrap>
         </>
       ) : (
         <CommentWrap>
@@ -162,7 +179,7 @@ const CommentList = (props) => {
             </div>
           </div>
           <div className="TextWrap">
-            <div className="Text">댓글 내용 {text}</div>
+            <div className="Text">{text}</div>
           </div>
         </CommentWrap>
       )}
@@ -213,8 +230,47 @@ const CommentWrap = styled.div`
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
   }
+  /* .TextWrap_Edit {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 898px;
+    height: 100px;
+    margin-top: 10px;
+    outline: 1px solid #acacac;
+    border: 1px solid #acacac;
+    background-color: white;
+  } */
   .Text {
     width: 483px;
+    padding: 10px 0px 10px 15px;
+  }
+  .TextArea {
+    height: 80px;
+    width: 483px;
+    border: none;
+    resize: none;
+    outline: none;
+    padding: 10px 0px 10px 15px;
+  }
+`;
+const EditButtonWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  height: 40px;
+  width: 898px;
+  margin-top: 10px;
+
+  button {
+    height: 25px;
+    width: 52px;
+    border: 1px solid;
+    outline: 1px solid;
+    font-weight: 500;
+    font-size: 13px;
+    /* background-color: black;
+    color: white; */
   }
 `;
 //## 대댓글 가능할 때 이런 방식으로
