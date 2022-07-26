@@ -23,11 +23,26 @@ const ReservationList = () => {
         <div className="innerWrap">
           <div className="bookingWrap">
             <p className="bookingTitle">
-              '예약 리스트' <span>/ '예약 한 내역'</span>
+              예약 리스트 <span>/ 예약 한 내역</span>
             </p>
+            <ListTitle>
+              <div className="bookingInfo">
+                <div className="userName">
+                  예약상대
+                </div>
+                <div className="userBookingWrap">
+                  <span className="dayInfo">
+                    날짜
+                  </span>
+                  <span className="timeInfo">
+                    시간
+                  </span>
+                </div>
+              </div>
+            </ListTitle>
             <ul className="bookingList">
               {bookingList?.guestBookingList.length === 0 && (
-                <li className="noBookingText">'예약된 내역이 없습니다!'</li>
+                <li className="noBookingText">예약된 내역이 없습니다!</li>
               )}
               {bookingList?.guestBookingList.map((item, idx) => {
                 return (
@@ -45,11 +60,13 @@ const ReservationList = () => {
         <div className="innerWrap">
           <div className="bookingWrap">
             <p className="bookingTitle">
-              '예약 리스트' <span>/ '예약 받은 내역'</span>
+              예약 리스트 <span>/ 예약 받은 내역</span>
             </p>
+            <ListTitle>타이틀</ListTitle>
             <ul className="bookingList">
+
               {bookingList?.hostBookingList.length === 0 && (
-                <li className="noBookingText">'예약된 내역이 없습니다!'</li>
+                <li className="noBookingText">예약된 내역이 없습니다!</li>
               )}
               {bookingList?.hostBookingList.map((item, idx) => {
                 return (
@@ -79,7 +96,7 @@ const Wrap = styled.div`
     max-width: 1280px;
     width: 80%;
     margin: auto;
-
+    
     /* 예약 리스트 Wrap */
     .bookingWrap {
       width: 90%;
@@ -87,7 +104,7 @@ const Wrap = styled.div`
       margin: 70px auto;
       min-height: 100px;
       padding: 10px;
-      border-top: 1px solid #c4c4c4;
+      border-top: 1px solid #ACACAC;
 
       /* 예약 리스트 타이틀 */
       .bookingTitle {
@@ -108,12 +125,10 @@ const Wrap = styled.div`
         margin: auto;
         max-height: 400px;
         min-height: 260px;
-        border: 2px solid #c7c7c7;
-        border: 1px solid #c7c7c7;
-        border-radius: 4px;
+        border: 1px solid #E1E1E1;
         padding: 20px 10px 20px 20px;
-        box-shadow: inset 0px 0px 6px rgba(0, 0, 0, 0.15);
         overflow-y: scroll;
+        background-color: #fff;
 
         /* 스크롤 버튼 조절 */
         ::-webkit-scrollbar {
@@ -123,14 +138,13 @@ const Wrap = styled.div`
         ::-webkit-scrollbar-thumb {
           /*스크롤바의 색상*/
           height: 20%;
-          background-color: #e4e4e4;
+          background-color: #889175;
           border-radius: 15px;
         }
         ::-webkit-scrollbar-track {
           /*스크롤바 트랙 색상 */
-          background-color: #d7d7d7;
+          background-color: rgba(217, 217, 217, 0.5);
           border-radius: 15px;
-          display: none;
         }
         .noBookingText {
           text-align: center;
@@ -200,64 +214,111 @@ const Wrap = styled.div`
 
           .videoBtn {
             width: 15%;
-            max-width: 240px;
-            height: 50px;
-            border: none;
+            max-width: 92px;
+            height: 34px;
+            border: 1px solid;
             padding: 10px 8px 9px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bolder;
-            color: #fff;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
             cursor: pointer;
-            background-color: #153587;
+            background-color: #fff;
+            &:hover {
+              color: #fff;
+              background-color: #153587;
+            }
           }
 
           .waitBtn {
             width: 15%;
-            max-width: 240px;
-            height: 50px;
-            border: none;
+            max-width: 92px;
+            height: 34px;
+            border: 1px solid;
             padding: 10px 8px 9px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bolder;
-            color: #fff;
-            cursor: pointer;
-            background-color: #666666;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+            cursor: auto;
+            background-color: #969696;
           }
 
           .delBtn {
             width: 15%;
-            max-width: 200px;
-            height: 50px;
-            border: none;
+            max-width: 92px;
+            height: 34px;
+            border: 1px solid;
             padding: 10px 8px 9px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bolder;
-            color: #fff;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
             margin-left: 5px;
             cursor: pointer;
-            background-color: #981821;
-          }
-
-          /* .deleteBtn {
-            width: 32%;
-            max-width: 253px;
-            height: 50px;
-            border: none;
-            padding: 10px 8px 9px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bolder;
-            color: #fff;
-            margin-left: 5px;
-            background-color: #525252;
-          } */
+            background-color: #fff;
+            &:hover {
+              color: #fff;
+              background-color: #981821;
+            }
+          }          
         }
       }
     }
   }
 `;
+const ListTitle = styled.div`
+  width: 100%;
+  height: 44px;
+  background: #F1F1F1;
+  border: 1px solid #ACACAC;
+  font-family: 'Gmarket Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  .bookingInfo {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    text-align: center;
+    border-radius: 4px;
+    margin-right: 20px;
+    gap: 3%;
+
+    .userName {
+      width: 15%;
+      width: auto;
+      min-width: 100px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-left: 10px;
+      margin-right: 5px;
+      padding-left: 10px;
+    }
+
+    .userBookingWrap {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+        span {
+          display: inline-block;
+          font-size: 16px;
+        }
+        .dayInfo {
+          min-width: 200px;
+        }
+
+        .timeInfo {
+          min-width: 200px;
+        }
+    }
+  }
+`
 
 export default ReservationList;

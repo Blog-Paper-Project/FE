@@ -41,7 +41,6 @@ const HeadPaperSearch = () => {
 const SearchBox = styled.div`
   width: 592px;
   height: 52px;
-  position: relative;
   padding-left: 20px;
   display: flex;
   align-items: center !important;
@@ -50,7 +49,7 @@ const SearchBox = styled.div`
 
 const Search1 = styled.input`
   background-color: #fffdf7;
-  width: 46%;
+  width: 100%;
   height: 100%;
   color: #212124;
 `;
