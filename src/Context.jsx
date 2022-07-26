@@ -172,10 +172,9 @@ const ContextProvider = ({ children }) => {
 
   const leaveCall = () => {
     setCallEnded(true);
-    // connectionRef.current.destroy();
+    connectionRef.current.destroy();
     socket.emit("leaveRoom");
     navigate(-1);
-    
   };
 
   return (
