@@ -8,7 +8,7 @@ const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
-  //   console.log(props.Comments);
+  console.log(props.Comments);
   // ## useMutation 댓글 post 함수
   const PostComment = async (comment) => {
     const response = await apiToken.post(`/api/paper/${postId}/comments`, {
@@ -53,12 +53,15 @@ const Comment = (props) => {
         {Comments?.map((value) => {
           return (
             <CommentList
-              key={value.commentId}
-              postId={value.postId}
-              CommentUserId={value.userId}
-              commentId={value.commentId}
-              createdAt={value.createdAt}
-              text={value.text}
+              key={value?.commentId}
+              postId={value?.postId}
+              CommentUserId={value?.userId}
+              blogId={value?.Users.blogId}
+              profileImage={value?.Users.profileImage}
+              nickname={value?.Users.nickname}
+              commentId={value?.commentId}
+              createdAt={value?.createdAt}
+              text={value?.text}
             />
           );
         })}
@@ -79,7 +82,7 @@ const CommentInputBtnWrap = styled.div`
   div {
     height: 100px;
     width: 898px;
-    background-color: #ffffff;
+    background-color: white;
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     padding: 10px;

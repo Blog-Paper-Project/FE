@@ -11,7 +11,7 @@ import defaultUserImage from "../public/images/default_profile.png";
 import styled from "styled-components";
 import Footer from "../components/main/Footer";
 //imgage
-import Comments from "../public/images/icons/comments.png";
+import CommentsImg from "../public/images/icons/comments.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import Line_1 from "../public/images/icons/Line_1.png";
@@ -64,7 +64,7 @@ const PaperDetail = () => {
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
-    "detail_data",
+    ["detail_data", postId],
     GetDetailtData,
 
     {
@@ -85,7 +85,7 @@ const PaperDetail = () => {
   }
   const S3 =
     process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
-  // console.log("PaperDeTail", detail_data);
+  console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />
@@ -99,9 +99,7 @@ const PaperDetail = () => {
             {/* 블로거 프로필 이미지 */}
             <ProfileImgBox
               src={
-                detail_data?.Users.profileImage === "null"
-                  ? defaultUserImage
-                  : S3
+                detail_data?.Users.profileImage === null ? defaultUserImage : S3
               }
               onClick={() => {
                 navigate(`/paper/${detail_data?.Users.blogId}`);
@@ -156,7 +154,7 @@ const PaperDetail = () => {
                     setOpenComment(!openComment);
                   }}
                 >
-                  <img src={Comments} alt="comment_image" />
+                  <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
                   <img src={Line_1} alt="Line"></img>
                   <img src={ArrowDown} alt="Arrow"></img>
@@ -173,7 +171,7 @@ const PaperDetail = () => {
                     setOpenComment(!openComment);
                   }}
                 >
-                  <img src={Comments} alt="comment_image" />
+                  <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
                   <img src={Line_1} alt="Line" />
                   <img src={ArrowUp} alt="Arrow" />
@@ -190,7 +188,7 @@ const PaperDetail = () => {
 
 const Container = styled.div`
   max-width: 1920px;
-  background-color: white;
+  background-color: #fffdf7;
 `;
 const ContainerContents = styled.div`
   width: 899px;
