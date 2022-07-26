@@ -39,7 +39,6 @@ const ContentBox = (props) => {
 };
 
 const Container = styled.div`
-  height: 316px;
   width: 438px;
 `;
 const Thumbnail = styled.img`
