@@ -11,6 +11,7 @@ import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
 /*그 외 */
 import defaultUserImage from "../public/images/default_profile.png";
+import { useEffect } from "react";
 
 const Paper = () => {
   const { blogId } = useParams();
@@ -18,7 +19,6 @@ const Paper = () => {
   const queryClient = useQueryClient();
   // Cookies
   const isHostId = getCookie("blogId");
-  // const profileImage = getCookie("profileimage");
   // State
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(true);
@@ -50,6 +50,7 @@ const Paper = () => {
       alert("error");
     },
   });
+
   //## 개인 페이지 데이터  useQuery get
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}`);
@@ -57,7 +58,7 @@ const Paper = () => {
   };
 
   const { data: mypaper_data, status } = useQuery(
-    "paper_data",
+    ["paper_data", blogId],
     GetMyPaperData,
     {
       onSuccess: (data) => {

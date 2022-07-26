@@ -13,7 +13,7 @@ import { getCookie } from "../../shared/Cookie";
 
 const CommentList = (props) => {
   const { commentId, text, postId, CommentUserId, createdAt } = props;
-
+  // State
   const [modifyText, setModifyText] = useState(text);
   const [ifEdit, setIfEdit] = useState(false);
   const [closeEdit, setCloseEdit] = useState(false);
@@ -23,6 +23,7 @@ const CommentList = (props) => {
   // console.log("CommentUserId", CommentUserId);
   // console.log("EditUserId", EditUserId);
   // console.log("commentId", commentId);
+
   // ## useMutation 댓글 patch 함수
   const PatchComment = async () => {
     const response = await apiToken.patch(
@@ -31,7 +32,6 @@ const CommentList = (props) => {
         text: modifyText,
       }
     );
-    // setComment("");
     // console.log(response);
     return response?.data;
   };
@@ -134,54 +134,6 @@ const CommentList = (props) => {
         </>
       )}
     </div>
-
-    //      <div>
-    //         {modify ? (
-    //           <>
-    //             <input
-    //               type="text"
-    //               value={value.text}
-    //               onChange={(e) => {
-    //                 setModifyComment(e.target.value);
-    //               }}
-    //             />
-    //             <span>{value.commentId}</span>
-    //             <div>{value.createdAt}</div>
-    //             <button
-    //               // key={value.commentId}
-    //               onClick={(e) => {
-    //                 console.log(e.target.value.commentId);
-    //                 onPatch();
-    //                 setOnModify(!modify);
-    //               }}
-    //             >
-    //               수정하기!
-    //             </button>
-    //             <button
-    //               onClick={() => {
-    //                 setOnModify(!modify);
-    //               }}
-    //             >
-    //               취소하기!
-    //             </button>
-    //           </>
-    //         ) : (
-    //           <>
-    //             <span>{value.text}</span>
-    //             <span>{value.commentId}</span>
-    //             <div>{value.createdAt}</div>
-    //             <button
-    //               onClick={() => {
-    //                 setOnModify(!modify);
-    //               }}
-    //             >
-    //               수정하기!
-    //             </button>
-    //           </>
-    //         )}
-    //       </div>
-    //   <button onClick={onPatch}>수정하기!</button>
-    // </div>
   );
 };
 

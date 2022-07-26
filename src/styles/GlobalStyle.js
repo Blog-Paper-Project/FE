@@ -19,6 +19,7 @@ const GlobalStyle = createGlobalStyle`
         cursor: pointer;
         border: none;
         font-family: "Gmarket Sans";
+        background-color: white;
     };
     img{
         cursor: pointer;

@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import ViewEdit from "../components/editor/ViewEdit";
 import Header from "../components/main/Header";
-import CommentContainer from "../components/paper/CommentContainer";
+import Comment from "../components/paper/Comment";
 import Like from "../components/paper/Like";
 import { apiToken } from "../shared/apis/Apis";
 import { getCookie } from "../shared/Cookie";
 import defaultUserImage from "../public/images/default_profile.png";
 import styled from "styled-components";
+import Footer from "../components/main/Footer";
+//imgage
+import Comments from "../public/images/icons/comments.png";
+import ArrowDown from "../public/images/icons/Keyboard_down.png";
+import ArrowUp from "../public/images/icons/Keyboard_up.png";
+import Line_1 from "../public/images/icons/Line_1.png";
 
 /*해야할 것*/
 
@@ -23,7 +29,8 @@ const PaperDetail = () => {
   // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
-
+  //state
+  const [openComment, setOpenComment] = useState(false);
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
@@ -36,7 +43,6 @@ const PaperDetail = () => {
     onSuccess: () => {
       queryClient.invalidateQueries("paper_data", "detail_data");
       navigate(`/paper/${blogId}`);
-      console.log();
     },
   });
 
@@ -49,7 +55,7 @@ const PaperDetail = () => {
         userId: userId,
       },
     });
-    console.log("PaperDetail page", response);
+    // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
 
@@ -63,7 +69,7 @@ const PaperDetail = () => {
 
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -79,86 +85,125 @@ const PaperDetail = () => {
   }
   const S3 =
     process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
-  console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />
 
       {/* 아래 글*/}
-      <Title>{detail_data?.title}</Title>
-      <Line />
-      <Wrap>
-        <div className="wrap">
-          {/* 블로거 프로필 이미지 */}
-          <ProfileImgBox
-            src={
-              detail_data?.Users.profileImage === "null" ? defaultUserImage : S3
-            }
-            onClick={() => {
-              navigate(`/paper/${detail_data?.Users.blogId}`);
-            }}
-          />
-          <Nickname>{detail_data?.Users.nickname}</Nickname>
-        </div>
-        <div className="wrap">
-          {isHostId === blogId ? (
+      <ContainerContents>
+        <Title>{detail_data?.title}</Title>
+        <Line />
+        <UserDataWrap>
+          <div className="wrap">
+            {/* 블로거 프로필 이미지 */}
+            <ProfileImgBox
+              src={
+                detail_data?.Users.profileImage === "null"
+                  ? defaultUserImage
+                  : S3
+              }
+              onClick={() => {
+                navigate(`/paper/${detail_data?.Users.blogId}`);
+              }}
+            />
+            <Nickname>{detail_data?.Users.nickname}</Nickname>
+            <CreatedAt>{detail_data?.createdAt}</CreatedAt>
+          </div>
+          <div className="wrap">
+            {isHostId === blogId ? (
+              <>
+                {/* 아래 글 수정 버튼*/}
+
+                <button
+                  onClick={() => {
+                    navigate(`/modify/${blogId}/${postId}`);
+                  }}
+                >
+                  글 수정하기
+                </button>
+
+                {/* 아래 글 삭제 버튼*/}
+
+                <button
+                  onClick={() => {
+                    onDelete();
+                  }}
+                >
+                  글 삭제하기
+                </button>
+              </>
+            ) : null}
+          </div>
+        </UserDataWrap>
+        <ViewEditWarp>
+          <ViewEdit contents={detail_data?.contents} />
+        </ViewEditWarp>
+        {/* 아래 해시태그 */}
+        <TagWrap>
+          {detail_data?.Tags.map((value, index) => {
+            return <Tag key={index}>{value.name}</Tag>;
+          })}
+        </TagWrap>
+        {/* 아래 댓글 */}
+        <div>
+          {openComment ? (
             <>
-              {/* 아래 글 수정 버튼*/}
-
-              <button
-                onClick={() => {
-                  navigate(`/modify/${blogId}/${postId}`);
-                }}
-              >
-                글 수정하기
-              </button>
-
-              {/* 아래 글 삭제 버튼*/}
-
-              <button
-                onClick={() => {
-                  onDelete();
-                }}
-              >
-                글 삭제하기
-              </button>
+              <CommentLikeWrap>
+                <Like postId={postId} Likes={detail_data?.Likes} />
+                <CommentButton
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
+                >
+                  <img src={Comments} alt="comment_image" />
+                  <div> 댓글</div>
+                  <img src={Line_1} alt="Line"></img>
+                  <img src={ArrowDown} alt="Arrow"></img>
+                </CommentButton>
+              </CommentLikeWrap>
+              <Comment postId={postId} Comments={detail_data?.Comments} />
             </>
-          ) : null}
+          ) : (
+            <>
+              <CommentLikeWrap>
+                <Like postId={postId} Likes={detail_data?.Likes} />
+                <CommentButton
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
+                >
+                  <img src={Comments} alt="comment_image" />
+                  <div> 댓글</div>
+                  <img src={Line_1} alt="Line" />
+                  <img src={ArrowUp} alt="Arrow" />
+                </CommentButton>
+              </CommentLikeWrap>
+            </>
+          )}
         </div>
-      </Wrap>
-      <div>{detail_data?.createdAt}</div>
-      <ViewEditWarp>
-        <ViewEdit contents={detail_data?.contents} />
-      </ViewEditWarp>
-      {/* 아래 해시태그 */}
-      <TagWrap>
-        {detail_data?.Tags.map((value, index) => {
-          return <Tag key={index}>{value.name}</Tag>;
-        })}
-      </TagWrap>
-      {/* 아래 댓글 */}
-      <div>
-        <CommentContainer postId={postId} Comments={detail_data?.Comments} />
-      </div>
-      {/* 아래 좋아요 */}
-      <div>
-        <Like postId={postId} Likes={detail_data?.Likes} />
-      </div>
+      </ContainerContents>
+      <Footer />
     </Container>
   );
 };
 
 const Container = styled.div`
   max-width: 1920px;
+  background-color: white;
 `;
-
-const Wrap = styled.div`
+const ContainerContents = styled.div`
+  width: 899px;
+  padding: 160px 511px 160px 510px;
+`;
+const UserDataWrap = styled.div`
   width: 898px;
   display: flex;
   justify-content: space-between;
   .wrap > {
     display: flex;
   }
+  margin-bottom: 59px;
 `;
 
 const ProfileImgBox = styled.img`
@@ -179,13 +224,15 @@ const Title = styled.div`
   font-weight: 400;
   line-height: 60px;
   color: #333333;
+  margin-bottom: 10px;
 `;
 const Line = styled.div`
   width: 898px;
   border-bottom: 1px solid #000000;
+  margin-bottom: 20px;
 `;
+const CreatedAt = styled.div``;
 const ViewEditWarp = styled.div`
-  height: 500px;
   width: 898px;
   background-color: #efefef;
 `;
@@ -193,10 +240,10 @@ const TagWrap = styled.div`
   height: 20px;
   width: 300px;
   display: flex;
-  /* flex-direction: row; */
   justify-content: flex-start;
   gap: 0 10px;
-  margin-bottom: 40px;
+  margin-top: 24px;
+  margin-bottom: 50px;
 `;
 const Tag = styled.div`
   display: flex;
@@ -207,6 +254,23 @@ const Tag = styled.div`
   border: 2px solid black;
   border-radius: 30px;
   font-size: 12px;
+`;
+const CommentLikeWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 36px;
+  width: 284px;
+  gap: 24px;
+`;
+const CommentButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  width: 130px;
+  outline: 1px solid;
+  border: 1px solid;
 `;
 
 export default PaperDetail;
