@@ -147,7 +147,7 @@ const Paper = () => {
           Tag
         </p>
       </SortType>
-      <Container_Middle>
+      <ContainerMiddle>
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
           <>
@@ -220,7 +220,7 @@ const Paper = () => {
             </TagSort>
           </TagSortWrap>
         )}
-      </Container_Middle>
+      </ContainerMiddle>
     </Container>
   );
 };
@@ -231,7 +231,7 @@ const Container = styled.div`
   margin: 0 auto;
   /* overflow-x: hidden; */
 `;
-const Container_Middle = styled.div`
+const ContainerMiddle = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;

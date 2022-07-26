@@ -19,7 +19,7 @@ import { getCookie, setCookie } from "../../shared/Cookie";
 //3. 상세페이지 post로 보낼 때 배열로 보내드릴 것 ( 배열로가 정확히 무슨 뜻일까?)
 
 const ModifyEdit = (props) => {
-  const { postId, userId } = props;
+  const { postId, blogId } = props;
   // console.log(postId);
   // console.log(props.postId);
   //## 글 작성 데이터 관련 state
@@ -31,14 +31,14 @@ const ModifyEdit = (props) => {
   const [openModal, setOpenModal] = useState(false); // # 모달
   const [previewImg, setPreviewImg] = useState(thumbImage);
 
-  const PastTagList = detail_data?.Tags;
-  const hostId = getCookie("userId");
-  const blogId = getCookie("blogId");
+  // const PastTagList = detail_data?.Tags;
+  // const hostId = getCookie("userId");
+  const hostId = getCookie("blogId");
   const editorRef = useRef();
   const navigate = useNavigate();
   // const BeforeTags = detail_data?.Tags;
   // console.log(detail_data?.Tags);
-  console.log(PastTagList);
+  // console.log(PastTagList);
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -101,8 +101,38 @@ const ModifyEdit = (props) => {
     setCookie("Temporary_Content", markdown_data, 10);
   };
 
+  //## useMutation write 데이터 post의 함수
+  const postfecher = async () => {
+    let formData = new FormData();
+    formData.append("image", thumbImage);
+    // console.log(formData.get("image"));
+    const image_data = await apiToken.post("/api/paper/image", formData);
+    console.log(image_data?.data.imageUrl);
+
+    const response = await apiToken.post("/api/paper", {
+      contents: markdown_data,
+      title: head_data,
+      thumbnail: image_data?.data.imageUrl,
+      tags: tagList,
+    });
+    console.log(response?.data);
+    return response?.data.paper;
+  };
+  //## useMutation write 데이터 post
+  const { data: res, mutate: onPost } = useMutation(postfecher, {
+    onSuccess: (res) => {
+      // console.log(res?.blogId);
+
+      navigate(`/paper/${blogId}`);
+      alert("post 성공!");
+    },
+    // onError: (data === null) => {
+    //   alert("post 실패!");
+    // },
+  });
+
   const GetDetailtData = async () => {
-    const response = await apiToken.get(`/api/paper/users/${blogId}/${postId}`);
+    const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
     // console.log("PaperDetail page", response);
     return response?.data.paper;
   };
@@ -121,146 +151,251 @@ const ModifyEdit = (props) => {
   if (status === "error") {
     return alert("error");
   }
-  if (hostId !== userId) {
-    navigate("/");
-    alert("블로거 주인만 수정할 수 있습니다.");
-  }
+  // if (hostId !== userId) {
+  //   navigate("/");
+  //   alert("블로거 주인만 수정할 수 있습니다.");
+  // }
 
-  // console.log("Modify", detail_data.Tags);
-
-  //   //## useMutation write 데이터 post의 함수
-  //   const postfecher = async () => {
-  //     let formData = new FormData();
-  //     formData.append("image", thumbImage);
-  //     // console.log(formData.get("image"));
-  //     const image_data = await apiToken.post("/api/paper/image", formData);
-  //     console.log(image_data?.data.imageUrl);
-
-  //     const response = await apiToken.post("/api/paper", {
-  //       contents: markdown_data,
-  //       title: head_data,
-  //       thumbnail: image_data?.data.imageUrl,
-  //       tags: tagList,
-  //     });
-  //     console.log(response?.data);
-  //     return response?.data.paper;
-  //   };
-  //   //## useMutation write 데이터 post
-  //   const { data: res, mutate: onPost } = useMutation(postfecher, {
-  //     onSuccess: (res) => {
-  //       console.log(res?.userId);
-
-  //       navigate(`/paper/${res?.userId}`);
-  //       alert("post 성공!");
-  //     },
-  //     // onError: (data === null) => {
-  //     //   alert("post 실패!");
-  //     // },
-  //   });
+  console.log("Modify", detail_data);
 
   return (
-    <>
-      {openModal ? (
-        <div
-          style={{
-            box_sizing: "border-box",
-            border: "solid #5B6DCD 10px",
-            height: "800px",
-          }}
-        >
-          <img src={previewImg !== null ? previewImg : null} alt="썸네일" />
-          <input
-            type="file"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-              encodeFileToBase64(e.target.files[0]);
-            }}
-          ></input>
-          <button
+    <Container>
+      <Head>
+        <div>
+          <Logo
+            src={Paper_Logo}
             onClick={() => {
-              setOpenModal(!openModal);
+              navigate("/");
+            }}
+          ></Logo>
+        </div>
+        <div>
+          <Button
+            width="96px"
+            background_color="#FFFFFF"
+            border_color="white"
+            outline_color="white"
+            onClick={() => {
+              navigate(`/paper/${mypaper_data?.user.blogId}`);
             }}
           >
-            x
-          </button>
-          {/* <button onClick={onPost}>click</button> */}
+            나가기
+          </Button>
+          <Button
+            width="96px"
+            background_color="#FFFFFF"
+            color="#A7ACA1"
+            border_color="white"
+            outline_color="white"
+            onClick={onTemporary}
+          >
+            임시저장
+          </Button>
+          <Button color="white" onClick={onModal}>
+            {openModal ? "취소" : "발행하기"}
+          </Button>
         </div>
-      ) : (
-        <div
-          //## 마우스 오른쪽 클릭 이벤트
-          onContextMenu={(e) => {
-            e.preventDefault();
-            alert("붙혀넣기 금지");
-          }}
+      </Head>
+      <ModalBoxWrap>
+        {openModal ? (
+          <ModalBox>
+            {editCategory ? (
+              <>
+                <CategoryWarp className="openInput">
+                  <div className="category_name2">카테고리</div>
+                  <input
+                    type="text"
+                    className="input_plus"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                  />
+                  <button
+                    className="btn_plus"
+                    onClick={() => {
+                      setCategoryList([...categoryList, category]);
+                      setCategory(category);
+                      setEditCategory(!editCategory);
+                      setSelectOption(category);
+                    }}
+                  >
+                    추가
+                  </button>
+                  <button
+                    className="btn_plus"
+                    onClick={() => {
+                      setEditCategory(!editCategory);
+                    }}
+                  >
+                    취소
+                  </button>
+                </CategoryWarp>
+                <Box></Box>
+              </>
+            ) : (
+              <CategorySelectWrap>
+                <CategoryWarp>
+                  <div className="category_name1">카테고리</div>
+                  <select
+                    onChange={(e) => {
+                      setSelectOption(e.target.value);
+                    }}
+                    autoFocus
+                    required
+                  >
+                    {categoryList ? (
+                      <>
+                        {categoryList?.map((value, idx) => {
+                          return (
+                            <option key={idx} value={value}>
+                              {value}
+                            </option>
+                          );
+                        })}
+                        {mypaper_data?.categories.length === 0 ? (
+                          <>
+                            <option value="etc">etc</option>
+                          </>
+                        ) : (
+                          <>
+                            {mypaper_data?.categories.map((value, index) => {
+                              return (
+                                <option key={index} value={value}>
+                                  {value}
+                                </option>
+                              );
+                            })}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {mypaper_data?.categories.map((value, index) => {
+                          return (
+                            <option key={index} value={value}>
+                              {value}
+                            </option>
+                          );
+                        })}
+                      </>
+                    )}
+                  </select>
+                </CategoryWarp>
+                <button
+                  onClick={() => {
+                    setEditCategory(!editCategory);
+                  }}
+                >
+                  카테고리 추가
+                </button>
+              </CategorySelectWrap>
+            )}
+
+            <ThumbmailWrap>
+              <div>
+                <div className="thumnail">썸네일</div>
+                <label for="file">
+                  <div className="btn-upload">파일 선택</div>
+                </label>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    encodeFileToBase64(e.target.files[0]);
+                  }}
+                ></input>
+              </div>
+              <Thumbmail
+                src={previewImg !== null ? previewImg : Meiyou_thumnail}
+                alt=""
+              />
+            </ThumbmailWrap>
+            <ButtonWrap>
+              <PostButton
+                height="36px"
+                width="120px"
+                background_color="white"
+                onClick={onPost}
+              >
+                <PostImg src={Post_Icon} />
+                발행
+              </PostButton>
+            </ButtonWrap>
+          </ModalBox>
+        ) : null}
+      </ModalBoxWrap>
+      <SpaceWrap>
+        <Space />
+        <EditWrap
+        // //## 마우스 오른쪽 클릭 이벤트
+        // onContextMenu={(e) => {
+        //   e.preventDefault();
+        //   alert("붙혀넣기 금지");
+        // }}
         >
-          {/* 아래 글 제목 */}
-          <textarea
-            placeholder={detail_data.title}
-            onChange={(e) => {
-              setHead(e.target.value);
-            }}
-          ></textarea>
-          {/* 아래 해시태그 */}
-          <input
-            name="HashTagInput"
-            type="text"
-            value={tag || ""}
-            placeholder="Enter를 누르시면 태그가 추가됩니다!"
-            maxLength="10"
-            onKeyUp={onKeyUp}
-            onChange={(e) => {
-              setTag(e.target.value);
-            }}
-          ></input>
-          <HashWrapOuter>
-            {/* 바로 아래 해시태그 get 기존 것들 넣을 계획이었으나 실패 */}
-            {/* {detail_data.Tags.length > 0
-              ? detail_data.Tags.map((value, idx) => {
+          <TitleWrap>
+            <Title
+              placeholder="제목을 입력하세요"
+              onChange={(e) => {
+                setHead(e.target.value);
+              }}
+            ></Title>
+            <Line />
+            <HashTagInput
+              name="HashTagInput"
+              type="text"
+              value={tag || ""}
+              placeholder="태그를 입력하세요"
+              maxLength="10"
+              onKeyUp={onKeyUp}
+              onChange={(e) => {
+                setTag(e.target.value);
+              }}
+            ></HashTagInput>
+            <HashWrapOuter>
+              {tagList.length > 0 ? (
+                tagList.map((value, index) => {
                   return (
-                    <div key={value.length} onClick={onClcik_tag}>
-                      <p id={idx}>{value}</p>
-                    </div>
+                    <Tag key={value + index} onClick={onClcik_tag}>
+                      <p id={index}>{value}</p>
+                    </Tag>
                   );
                 })
-              : null} */}
-            {tagList.length > 0 ? (
-              tagList.map((value, index) => {
-                return (
-                  <div key={value + index} onClick={onClcik_tag}>
-                    <p id={index}>{value}</p>
-                  </div>
-                );
-              })
-            ) : (
-              <div>태그를 추가하실 수 있습니다.</div>
-            )}
-          </HashWrapOuter>
+              ) : (
+                <div>'Enter'을 누르면 태그를 추가할 수 있습니다.</div>
+              )}
+            </HashWrapOuter>
+          </TitleWrap>
           <Editor
             previewStyle="vertical"
-            placeholder="Paper에 자신의 생각을 적어주세요..."
-            height="900px"
-            minHeight="600px"
+            placeholder="당신의 이야기를 적어보세요 ..."
+            height="auto"
+            minHeight="500px"
             initialEditType="markdown"
-            initialValue={detail_data.contents}
+            initialValue={markdown_data}
             ref={editorRef}
             onChange={onchange}
             useCommandShortcut={false}
-            onKeydown={onKeyDown}
+            // onKeydown={onKeyDown}
             usageStatistics={false}
+            language="ko-KR"
+            toolbarItems={[
+              ["heading", "bold", "italic"],
+              ["hr", "quote", "task"],
+              ["code", "codeblock"],
+              ["ul", "ol", "image"],
+            ]}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
-                // console.log(blob.name.split(".")[0]); // File {name: '.png', ... }
-
                 // 1. 첨부된 이미지 파일을 서버로 전송후, 이미지 경로 url을 받아온다.
                 let formData = new FormData();
                 formData.append("image", blob);
-
                 const response = await apiToken.post(
                   "/api/paper/image",
                   formData
                 );
-                console.log(response?.data.imageUrl);
-                // console.log(process.env.REACT_APP_S3_URL);
 
                 // 2. 첨부된 이미지를 화면에 표시(경로는 임의로 넣었다.)
                 callback(
@@ -269,47 +404,276 @@ const ModifyEdit = (props) => {
                 );
               },
             }}
-
-            // plugins={[
-            //   [
-            //     colorSyntax,
-            //     // 기본 색상 preset 적용
-            //     {
-            //       preset: ["#1F2E3D", "#4c5864", "#ED7675"],
-            //     },
-            //   ],
-            // ]} // colorSyntax 플러그인 적용
           />
-          <button onClick={onModal}>Click!</button>
-          <button
-            onClick={() => {
-              navigate(`/paper/${props.userId}`);
-            }}
-          >
-            나가기!
-          </button>
-          <button onClick={onTemporary}>임시저장!</button>
-        </div>
-      )}
-    </>
+        </EditWrap>
+        <Space />
+      </SpaceWrap>
+    </Container>
   );
 };
+const Container = styled.div`
+  max-width: 1920px;
+  background-color: white;
+`;
+const SpaceWrap = styled.div`
+  max-width: 1920px;
+  display: flex;
+`;
+const Space = styled.div`
+  height: 1000px;
+  width: 356px;
+  background-color: #f8f8f8;
+`;
+const EditWrap = styled.div`
+  height: 1000px;
+  width: 1208px;
+  padding-left: 154px;
+  padding-right: 154px;
+`;
+// 헤더 관련 - 2
+const Head = styled.div`
+  width: 100%;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 48px;
+  padding-right: 50px;
+  /* border-bottom: 1px solid #a7aca1; */
+  outline: 1px solid #a7aca1;
+  background-color: white;
+  position: fixed;
+  z-index: 1;
+`;
+const ModalBoxWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 49px;
+  padding-top: 72px;
+`;
+const ModalBox = styled.div`
+  height: 359px;
+  width: 424px;
+  border: 1px solid #a7aca1;
+  background-color: #ffffff;
+  position: absolute;
+  z-index: 1;
 
+  input[type="file"] {
+  }
+
+  .category_name1 {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 65px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+    padding-left: 4px;
+  }
+  .category_name2 {
+    display: flex;
+    align-items: center;
+    height: 20px;
+    width: 65px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+    /* padding-left: 4px; */
+  }
+`;
+const CategorySelectWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  select {
+    width: 248px;
+    padding-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+  }
+  button {
+    height: 14px;
+    width: 85px;
+    justify-content: space-between;
+    margin-top: 13px;
+    margin-bottom: 26px;
+    margin-right: 24px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Gmarket Sans";
+    text-decoration-line: underline;
+    line-height: 14px;
+  }
+`;
+const Box = styled.div`
+  height: 14px;
+  width: 85px;
+  margin-top: 13px;
+  margin-bottom: 26px;
+  margin-right: 24px;
+`;
+const CategoryWarp = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 36px;
+  width: 362px;
+  margin-top: 31px;
+  margin-left: 40px;
+  margin-right: 24px;
+  .btn_plus {
+    background-color: white;
+  }
+  .input_plus {
+    margin-left: 29px;
+    height: 20px;
+    width: 170px;
+    outline: 1px solid #eee;
+    border: 1px solid #eee;
+  }
+`;
+
+const TitleWrap = styled.div`
+  width: 898px;
+  height: 146px;
+  margin-top: 120px;
+  margin-bottom: 32px;
+`;
+const Title = styled.input`
+  height: 60px;
+  width: 100%;
+  color: #333333;
+  font-weight: 400;
+  font-size: 40px;
+  /* line-height: 60px; */
+  padding-bottom: 10px;
+  padding-left: 1px;
+`;
+const Line = styled.div`
+  width: 100%;
+  height: 0px;
+  border-bottom: 2px solid #000000;
+`;
 const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-top: 20px;
+`;
+const ThumbmailWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 140px;
+  width: 362px;
+  margin-left: 40px;
+  margin-right: 24px;
+  input[type="file"] {
+    display: none;
+  }
+  .btn-upload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 24px;
+    width: 86px;
+    color: #333333;
+    outline: 1px solid black;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 400;
+    margin-top: 16px;
+  }
+  .thumnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 42px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Noto Sans KR";
+    line-height: 20px;
+  }
+`;
+const Thumbmail = styled.img`
+  display: block;
+  width: 248px;
+  height: 140px;
 `;
 
-// const HashInput = styled.input`
-//   width: auto;
-//   margin: 10px;
-//   display: inline-flex;
-//   outline: none;
-//   cursor: text;
-//   line-height: 2rem;
-//   margin-bottom: 0.75rem;
-//   min-width: 8rem;
-//   border: none;
-// `;
+const HashTagInput = styled.input`
+  height: 25px;
+  width: 100%;
+  margin-top: 15px;
+  outline: none;
+  cursor: text;
+  border: none;
+  color: #333333;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24.52px;
+  padding: 0;
+`;
+
+const Tag = styled.div`
+  height: 21px;
+  width: 90px;
+  box-sizing: border-box;
+  outline: 1px solid;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px, 10px, 5px, 10px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`;
+
+// 기본 모음
+// Button
+const ButtonWrap = styled.div`
+  height: 70px;
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+`;
+const PostImg = styled.img`
+  height: 20px;
+  width: 20px;
+`;
+const Button = styled.button`
+  height: ${(props) => props.height || "40px"};
+  width: ${(props) => props.width || "154px"};
+  color: ${(props) => props.color || "black"};
+  background-color: ${(props) => props.background_color || "black"};
+  border: 1px solid ${(props) => props.border_color || "black"};
+  font-family: "Gmarket Sans";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  outline: 1px solid ${(props) => props.outline_color || "black"};
+`;
+const PostButton = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+const Logo = styled.img`
+  height: 28px;
+  width: 153px;
+`;
 
 export default ModifyEdit;
