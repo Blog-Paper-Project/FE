@@ -286,7 +286,6 @@ const ListTitle = styled.div`
     border-radius: 4px;
     margin-right: 20px;
     gap: 3%;
-    border: 1px solid;
 
     .userName {
       width: 15%;
@@ -306,7 +305,6 @@ const ListTitle = styled.div`
       text-align: center;
       display: flex;
       align-items: center;
-      border: 1px solid;
       gap: 40px;
         span {
           display: inline-block;
@@ -314,12 +312,10 @@ const ListTitle = styled.div`
         }
         .dayInfo {
           min-width: 200px;
-          border: 1px solid;
         }
 
         .timeInfo {
           min-width: 200px;
-          border: 1px solid;
         }
     }
   }

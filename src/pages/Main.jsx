@@ -22,6 +22,7 @@ import { api } from "../shared/apis/Apis";
 import Footer from "../components/main/Footer";
 import ViewEdit from "../components/editor/ViewEdit";
 import defaultUserImage from "../public/images/default_profile.png";
+import { alpha } from "@material-ui/core";
 
 
 const Main = () => {
@@ -89,6 +90,7 @@ const Main = () => {
                   />
                 )}
               </div>
+              <br/>
               <div
                 style={{
                   marginLeft: "56px",
@@ -99,16 +101,7 @@ const Main = () => {
                   navigate(`/paper/${aPapers?.blogId}`);
                 }}>
                 by. {aPapers?.nickname}
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }}
-                  size="12px" />
-                {aPapers?.likes}
-              </p>
+              </div>              
             </Post1st>
 
             <Post2st style={{
@@ -121,7 +114,7 @@ const Main = () => {
               <img
                 src={process.env.REACT_APP_S3_URL + `/${bPapers?.thumbnail}`}
                 alt="img"
-                style={{ width: "100%", height: "100%", padding: "5px" }}
+                style={{ width: "100%", height: "100%", opacity: "0.5", filter: "alpha(opacity=50)" }}
                 onClick={() => {
                   navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                 }}
@@ -161,13 +154,7 @@ const Main = () => {
                     navigate(`/paper/${bPapers?.blogId}`);
                   }}>
                   by. {bPapers?.nickname}
-                </div>
-                <span style={{ cursor: "auto" }}>
-                  <FaHeart
-                    style={{ marginRight: "5px" }}
-                    size="12px" />
-                  {bPapers?.likes}
-                </span>
+                </div>                
               </div>
             </Post2st>
 
@@ -213,16 +200,7 @@ const Main = () => {
                   }}>
                   by. {cPapers?.nickname}
                 </div>
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }}
-                  size="12px" />
-                {cPapers?.likes}
-              </p>
+              </div>              
             </Post3st>
 
             <Post4st>
@@ -258,16 +236,7 @@ const Main = () => {
                   navigate(`/paper/${dPapers?.blogId}`);
                 }}>
                 by. {dPapers?.nickname}
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "56px"
-                  }}
-                  size="12px" />
-                {dPapers?.likes}
-              </p>
+              </div>              
             </Post4st>
 
             <Post5st style={{
@@ -327,13 +296,7 @@ const Main = () => {
                     navigate(`/paper/${ePapers?.blogId}`);
                   }}>
                   by. {ePapers?.nickname}
-                </div>
-                <p style={{ cursor: "auto" }}>
-                  <FaHeart
-                    style={{ marginRight: "5px" }}
-                    size="12px" />
-                  {ePapers?.likes}
-                </p>
+                </div>                
               </div>
             </Post5st>
 
@@ -433,13 +396,7 @@ const Main = () => {
                     navigate(`/paper/${fPapers?.blogId}`);
                   }}>
                   by. {fPapers?.nickname}
-                </div>
-                <span style={{ cursor: "auto" }}>
-                  <FaHeart
-                    style={{ marginRight: "5px" }}
-                    size="12px" />
-                  {fPapers?.likes}
-                </span>
+                </div>                
               </div>
             </Post6st>
 
@@ -465,6 +422,7 @@ const Main = () => {
                   />
                 )}
               </div>
+              <br/>
               <div
                 style={{
                   marginLeft: "56px",
@@ -475,16 +433,7 @@ const Main = () => {
                   navigate(`/paper/${gPapers?.blogId}`);
                 }}>
                 by. {gPapers?.nickname}
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }}
-                  size="12px" />
-                {gPapers?.likes}
-              </p>
+              </div>              
             </Post7st>
 
             <Post8st>
@@ -529,16 +478,7 @@ const Main = () => {
                   }}>
                   by. {hPapers?.nickname}
                 </div>
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }}
-                  size="12px" />
-                {hPapers?.likes}
-              </p>
+              </div>              
             </Post8st>
 
             <Post9st>
@@ -583,16 +523,7 @@ const Main = () => {
                   }}>
                   by. {iPapers?.nickname}
                 </div>
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }}
-                  size="12px" />
-                {iPapers?.likes}
-              </p>
+              </div>              
             </Post9st>
 
             <Post10st>
@@ -636,15 +567,7 @@ const Main = () => {
                   cursor: "pointer"
                 }}>
                 by. {bPapers?.nickname}
-              </div>
-              <p>
-                <FaHeart
-                  style={{
-                    marginRight: "5px",
-                    marginLeft: "57px"
-                  }} />
-                {jPapers?.likes}
-              </p>
+              </div>              
             </Post10st>
           </PostBox>
         </PostWrap>
@@ -738,6 +661,8 @@ const Post1st = styled.div`
   height: 400px;
   float: left;
   border: 1px solid #A7ACA1;
+  border-top: none;
+  border-bottom: none;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -750,7 +675,7 @@ const Post2st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
