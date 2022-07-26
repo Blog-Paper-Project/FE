@@ -34,7 +34,7 @@ const WriteEdit = () => {
   // console.log(categoryList);
   const editorRef = useRef();
   const navigate = useNavigate();
-  const HostIdCheck = getCookie("userId");
+  // const HostIdCheck = getCookie("userId");
   const blogId = getCookie("blogId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
@@ -311,16 +311,7 @@ const WriteEdit = () => {
                 alt=""
               />
             </ThumbmailWrap>
-
-            {/* <button
-              onClick={() => {
-                setOpenModal(!openModal);
-              }}
-            >
-              x
-            </button> */}
             <ButtonWrap>
-              {/* <PostImg src={Post_Icon} /> */}
               <PostButton
                 height="36px"
                 width="120px"
@@ -337,11 +328,11 @@ const WriteEdit = () => {
       <SpaceWrap>
         <Space />
         <EditWrap
-          //## 마우스 오른쪽 클릭 이벤트
-          onContextMenu={(e) => {
-            e.preventDefault();
-            alert("붙혀넣기 금지");
-          }}
+        // //## 마우스 오른쪽 클릭 이벤트
+        // onContextMenu={(e) => {
+        //   e.preventDefault();
+        //   alert("붙혀넣기 금지");
+        // }}
         >
           <TitleWrap>
             <Title
