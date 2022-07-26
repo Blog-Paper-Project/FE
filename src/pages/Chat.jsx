@@ -10,28 +10,26 @@ import Header from "../components/main/Header";
 import styled from "styled-components";
 import { getCookie } from "../shared/Cookie";
 import { SocketContext } from "../Context";
+import AudioOff from "../public/images/AudioOff.svg";
+import AudioOn from "../public/images/AudioOn.svg";
+import VideoOff from "../public/images/VideoOff.svg";
+import VideoOn from "../public/images/VideoOn.svg";
+import ShareScreen from "../public/images/ShareScreen.svg";
 
 const Chat = () => {
-  const { socket, setStream, myVideo, setCall, setMe } = useContext(SocketContext);
+  const {
+    socket,
+    audioOn,
+    videoOn,
+    audioHandler,
+    videoHandler,
+    shareScreen,
+    leaveCall,
+  } = useContext(SocketContext);
   const nickname = getCookie("nickname");
 
   const { hostId } = useParams();
   const { guestId } = useParams();
-
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream);
-
-        myVideo.current.srcObject = currentStream;
-      });
-    socket.on("me", (id) => setMe(id));
-
-    socket.on("callUser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivingCall: true, from, name: callerName, signal });
-    });
-  },[]);
 
   useEffect(() => {
     const roomData = {
@@ -58,6 +56,35 @@ const Chat = () => {
       <ChatBox>
         <VideoBox>
           <VideoPlayer />
+          <ButtonList>
+            <div>
+              {audioOn ? (
+                <button size={25} onClick={audioHandler}>
+                  <img src={AudioOff} alt="" />
+                </button>
+              ) : (
+                <button size={25} onClick={audioHandler}>
+                  <img src={AudioOn} alt="" />
+                </button>
+              )}
+            </div>
+            <div>
+              {videoOn ? (
+                <button size={25} onClick={videoHandler}>
+                  <img src={VideoOff} alt="" />
+                </button>
+              ) : (
+                <button size={25} onClick={videoHandler}>
+                  <img src={VideoOn} alt="" />
+                </button>
+              )}
+            </div>
+            <div>
+              <button size={25} onClick={shareScreen}>
+                <img src={ShareScreen} />
+              </button>
+            </div>
+          </ButtonList>
           <Sidebar>
             <Notifications />
           </Sidebar>
@@ -79,6 +106,17 @@ const VideoBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const ButtonList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 50px;
+  border-top: 1px solid gray;
+  gap: 50px;
+  padding-top: 30px;
 `;
 
 export default Chat;
