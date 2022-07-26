@@ -24,7 +24,6 @@ const Chat = () => {
     audioHandler,
     videoHandler,
     shareScreen,
-    leaveCall,
   } = useContext(SocketContext);
   const nickname = getCookie("nickname");
 
@@ -41,12 +40,12 @@ const Chat = () => {
     socket.emit("newUser", roomData);
     console.log(roomData);
 
-    socket.on("me", (id) => {
-      console.log(id);
-    });
-
     socket.on("roomfull", (data) => {
       window.alert("hi");
+    });
+
+    socket.on("mysocket", (data) => {
+      console.log(data);
     });
   }, []);
 
