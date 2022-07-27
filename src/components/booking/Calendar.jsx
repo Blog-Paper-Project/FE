@@ -426,7 +426,7 @@ const CalendarTemplate = ({
       // alert('선택하실수 있는 갯수를 초과 하셨습니다.');
       Swal.fire({
         // text: '선택하실수 있는 갯수를 초과 하셨습니다.',
-        text: "선택하실수 있는 갯수를 초과 하셨습니다.",
+        text: "선택하실수 있는 갯수를 초과 하셨습니다!",
         icon: "warning",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "확인",

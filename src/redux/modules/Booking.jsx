@@ -22,7 +22,7 @@ const initialState = {
 
 //---------청크--------------//
 // 예약하기
-let userName = getCookie("blogId");
+const userName = getCookie("blogId");
 export const setBookingDB = (data, blogId) => {
   return function (dispatch, getCookie) {
     console.log(blogId);
@@ -108,6 +108,30 @@ export const setBookingDB = (data, blogId) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.data.msg === " 보유한 나뭇잎이 부족합니다.") {
+          Swal.fire({
+            title: "예약에 필요한 나뭇잎이 부족합니다!",
+            icon: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "확인",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        }
+        if (err.response.data.msg === "이미 지나간 시간대에는 예약할 수 없습니다.") {
+          Swal.fire({
+            title: "이미 지나간 시간에는 예약 하실 수 없습니다!",
+            icon: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "확인",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        }
       });
   };
 };
