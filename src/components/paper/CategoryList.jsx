@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
 
 const CategoryList = (props) => {
-  const { categories, blogId } = props;
+  const { categories } = props;
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
@@ -14,7 +14,7 @@ const CategoryList = (props) => {
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/${blogId}/categories/${categories}`,
+      `/api/paper/categories/${categories}`,
       {
         newCategory: CategoryInput,
       }
@@ -34,7 +34,7 @@ const CategoryList = (props) => {
   // ## useMutation 카테고리 patch(delete 역할) 함수
   const DeleteCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/${blogId}/categories/${categories}`,
+      `/api/paper/categories/${categories}`,
       {
         newCategory: "etc",
       }
