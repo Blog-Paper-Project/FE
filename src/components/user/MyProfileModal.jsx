@@ -22,14 +22,13 @@ const MyProfileModal = (props) => {
   const [CHGintroduction, setCHGIntroduction] = useState(introduction);
   const [CHGnickname, setCHGnickname] = useState(nickname);
   const [previewImg, setpreviewImg] = useState(profileImage);
-  const [CHGprofileImg, setCHGprofileImg] = useState();
+  const [CHGprofileImg, setCHGprofileImg] = useState(profileImage);
   const fileInputRef = useRef();
   const PreNickname = getCookie("nickname");
   const [LeafCount, setLeafCount] = useState();
   const dispatch = useDispatch();
   const userId = getCookie("userId");
 
-  console.log(PreNickname);
   //닉네임 중복체크
   const getNickCheck = async () => {
     if (!nicknameCheck(CHGnickname)) {
@@ -120,7 +119,7 @@ const MyProfileModal = (props) => {
       close();
     },
     onError: () => {
-      window.alert("닉네임중복임!!!");
+      window.alert("!!!!");
       return;
     },
   });
@@ -208,7 +207,7 @@ const MyProfileModal = (props) => {
             <footer>
               <button onClick={close}>취소하기</button>
               {PreNickname === CHGnickname ? (
-                <button onClick={onsubmit1}>수정</button>
+                <button onClick={onsubmit1}>닉넴빼고수정</button>
               ) : (
                 <button onClick={onsubmit}>수정</button>
               )}
