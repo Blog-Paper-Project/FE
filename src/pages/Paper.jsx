@@ -62,7 +62,7 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -83,8 +83,9 @@ const Paper = () => {
   const isSubscribe = mypaper_data.user.Followers.find((value) => {
     return value.blogId === isHostId;
   });
-  console.log("isSubscribe", isSubscribe);
-  console.log(mypaper_data.user.Followers);
+  // console.log("isSubscribe", isSubscribe);
+  // console.log(mypaper_data.user.Followers);
+  console.log(mypaper_data?.categories);
   return (
     <Container>
       <Header />
@@ -140,12 +141,8 @@ const Paper = () => {
         )}
       </MyProfile>
       <SortType>
-        <p style={{ cursor: "pointer" }} onClick={onAll}>
-          All
-        </p>
-        <p style={{ cursor: "pointer" }} onClick={onTag}>
-          Tag
-        </p>
+        <button onClick={onAll}>전체 정렬</button>
+        <button onClick={onTag}>태그 모음</button>
       </SortType>
       <ContainerMiddle>
         {/* 아래 전체 정렬 렌더링*/}
@@ -170,13 +167,7 @@ const Paper = () => {
                   </button>
                   <div>
                     {mypaper_data?.categories.map((value, index) => {
-                      return (
-                        <CategoryList
-                          key={index}
-                          categories={value}
-                          blogId={blogId}
-                        />
-                      );
+                      return <CategoryList key={index} categories={value} />;
                     })}
                   </div>
                 </>
@@ -311,26 +302,22 @@ const Subscribe = styled.div`
   width: 100%;
   height: 19px;
 `;
-const Tree = styled.div``;
-// Subscribe 박스
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
-  height: 100px;
-  width: 100%;
+  height: 155px;
+  width: 155px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
-  font-size: x-large;
-  gap: 1%;
-
-  > p:hover {
-    position: relative;
-
-    text-decoration: underline;
-    text-underline-position: under;
-    text-decoration-thickness: 2px;
+  font-weight: 400;
+  font-size: 16px;
+  gap: 10px;
+  button {
+    height: 30px;
+    width: 154px;
+    color: #333333;
+    border-bottom: 2px solid;
   }
 `;
 
@@ -376,20 +363,12 @@ const Tag = styled.div`
   }
 `;
 
-const ContainerAllSort = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: calc(100% - 653px);
-  width: 100%;
-`;
-
-// AllSortWrap wrap - 4
+// AllSortWrap wrap - 4 / 각 포스트들 간의 간격 gap
 const AllSortWrap = styled.div`
   width: 1078px;
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 70px 70px;
 `;
 
 const CategoryWrap = styled.div`

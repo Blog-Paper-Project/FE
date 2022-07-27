@@ -24,7 +24,6 @@ import ViewEdit from "../components/editor/ViewEdit";
 import defaultUserImage from "../public/images/default_profile.png";
 import { alpha } from "@material-ui/core";
 
-
 const Main = () => {
   const navigate = useNavigate();
 
@@ -64,19 +63,17 @@ const Main = () => {
           />
         </MainTop>
 
-
-
         <PostWrap>
           <PostBox>
             <Post1st>
-            <div
+              <div
                 style={{
                   width: "259px",
                   height: "234px",
                   marginLeft: "56px",
                   marginTop: "56px",
                   overflow: "hidden",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
@@ -90,31 +87,38 @@ const Main = () => {
                   />
                 )}
               </div>
-              <br/>
+              <br />
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 className="writer"
                 onClick={() => {
                   navigate(`/paper/${aPapers?.blogId}`);
-                }}>
+                }}
+              >
                 by. {aPapers?.nickname}
-              </div>              
+              </div>
             </Post1st>
 
-            <Post2st style={{
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            <Post2st
+              style={{
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <img
                 src={process.env.REACT_APP_S3_URL + `/${bPapers?.thumbnail}`}
                 alt="img"
-                style={{ width: "100%", height: "100%", opacity: "0.5", filter: "alpha(opacity=50)" }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  opacity: "0.5",
+                  filter: "alpha(opacity=50)",
+                }}
                 onClick={() => {
                   navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                 }}
@@ -127,18 +131,19 @@ const Main = () => {
                   backgroundColor: "rgba(255, 255, 255, 0.8)",
                   width: "260px",
                   height: "304px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
                   style={{
                     width: "260px",
                     height: "250px",
-                    overflow: "hidden"
+                    overflow: "hidden",
                   }}
                   onClick={() => {
                     navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
-                  }}>
+                  }}
+                >
                   <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
                   <br />
                   {bPapers?.contents && (
@@ -149,17 +154,19 @@ const Main = () => {
                   )}
                 </div>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${bPapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {bPapers?.nickname}
-                </div>                
+                </div>
               </div>
             </Post2st>
 
             <Post3st>
-            <div
+              <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -167,9 +174,7 @@ const Main = () => {
                 }}
               >
                 <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
-                  }
+                  src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}
                   alt="img"
                   style={{
                     width: "253px",
@@ -184,23 +189,27 @@ const Main = () => {
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <h2
                   style={{ fontSize: "40px" }}
                   onClick={() => {
                     navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
-                  }}>
-                  {cPapers?.title}</h2>
+                  }}
+                >
+                  {cPapers?.title}
+                </h2>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${cPapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {cPapers?.nickname}
                 </div>
-              </div>              
+              </div>
             </Post3st>
 
             <Post4st>
@@ -211,7 +220,7 @@ const Main = () => {
                   marginLeft: "56px",
                   marginTop: "56px",
                   overflow: "hidden",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
@@ -229,28 +238,31 @@ const Main = () => {
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 className="writer"
                 onClick={() => {
                   navigate(`/paper/${dPapers?.blogId}`);
-                }}>
+                }}
+              >
                 by. {dPapers?.nickname}
-              </div>              
+              </div>
             </Post4st>
 
-            <Post5st style={{
-              position: "relative",
-              paddingLeft: "68px",
-              paddingTop: "69px",
-            }}
-            >
-              <div style={{
-                width: "622px",
-                height: "481px",
-                overflow: "hidden",
-                cursor: "pointer"
+            <Post5st
+              style={{
+                position: "relative",
+                paddingLeft: "68px",
+                paddingTop: "69px",
               }}
+            >
+              <div
+                style={{
+                  width: "622px",
+                  height: "481px",
+                  overflow: "hidden",
+                  cursor: "pointer",
+                }}
                 onClick={() => {
                   navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                 }}
@@ -269,7 +281,7 @@ const Main = () => {
                   backgroundColor: "rgb(255, 255, 255, 0.8)",
                   width: "343px",
                   height: "304px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
@@ -280,7 +292,8 @@ const Main = () => {
                   }}
                   onClick={() => {
                     navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
-                  }}>
+                  }}
+                >
                   <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
                   <br />
                   {ePapers?.contents && (
@@ -291,52 +304,64 @@ const Main = () => {
                   )}
                 </div>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${ePapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {ePapers?.nickname}
-                </div>                
+                </div>
               </div>
             </Post5st>
 
             <Information>
-              <div style={{
-                position: "relative",
-                padding: "53px 56px",
-              }}>
+              <div
+                style={{
+                  position: "relative",
+                  padding: "53px 56px",
+                }}
+              >
                 <div>
-                  <div style={{
-                    fontWeight: "400",
-                    fontSize: "60px",
-                    lineHeight: "60px",
-                  }}>
-                    The PAPER
-                    <span style={{
-                      fontWeight: "300",
+                  <div
+                    style={{
+                      fontWeight: "400",
                       fontSize: "60px",
                       lineHeight: "60px",
-                    }}>
+                    }}
+                  >
+                    The PAPER
+                    <span
+                      style={{
+                        fontWeight: "300",
+                        fontSize: "60px",
+                        lineHeight: "60px",
+                      }}
+                    >
                       | write
                     </span>
                   </div>
-                  <div style={{
-                    fontWeight: "300",
-                    fontSize: "25px",
-                    marginTop: "27px"
-                  }}>
+                  <div
+                    style={{
+                      fontWeight: "300",
+                      fontSize: "25px",
+                      marginTop: "27px",
+                    }}
+                  >
                     PAPER에 담긴 아름다운 작품을 감상해 보세요.
                   </div>
-                  <span style={{
-                    fontWeight: "400",
-                    fontSize: "25px",
-                  }}>
+                  <span
+                    style={{
+                      fontWeight: "400",
+                      fontSize: "25px",
+                    }}
+                  >
                     글을 써서 나뭇잎을 모아 나무로 만드세요.
                   </span>
                 </div>
                 <img
                   style={{
-                    padding: "0px 0px 0px 212px"
+                    padding: "0px 0px 0px 212px",
                   }}
                   className="paperInfo"
                   src={process.env.PUBLIC_URL + "/Frame 182.png"}
@@ -346,12 +371,13 @@ const Main = () => {
               </div>
             </Information>
 
-            <Post6st style={{
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            <Post6st
+              style={{
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <img
                 src={process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`}
@@ -369,18 +395,19 @@ const Main = () => {
                   backgroundColor: "rgba(255, 255, 255, 0.8)",
                   width: "260px",
                   height: "304px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
                   style={{
                     width: "260px",
                     height: "250px",
-                    overflow: "hidden"
+                    overflow: "hidden",
                   }}
                   onClick={() => {
                     navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
-                  }}>
+                  }}
+                >
                   <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
                   <br />
                   {fPapers?.contents && (
@@ -391,12 +418,14 @@ const Main = () => {
                   )}
                 </div>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${fPapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {fPapers?.nickname}
-                </div>                
+                </div>
               </div>
             </Post6st>
 
@@ -408,7 +437,7 @@ const Main = () => {
                   marginLeft: "56px",
                   marginTop: "56px",
                   overflow: "hidden",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 onClick={() => {
                   navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
@@ -422,18 +451,19 @@ const Main = () => {
                   />
                 )}
               </div>
-              <br/>
+              <br />
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
                 className="writer"
                 onClick={() => {
                   navigate(`/paper/${gPapers?.blogId}`);
-                }}>
+                }}
+              >
                 by. {gPapers?.nickname}
-              </div>              
+              </div>
             </Post7st>
 
             <Post8st>
@@ -445,9 +475,7 @@ const Main = () => {
                 }}
               >
                 <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`
-                  }
+                  src={process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`}
                   alt="img"
                   style={{
                     width: "253px",
@@ -462,23 +490,27 @@ const Main = () => {
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <h2
                   style={{ fontSize: "40px" }}
                   onClick={() => {
                     navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
-                  }}>
-                  {hPapers?.title}</h2>
+                  }}
+                >
+                  {hPapers?.title}
+                </h2>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${hPapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {hPapers?.nickname}
                 </div>
-              </div>              
+              </div>
             </Post8st>
 
             <Post9st>
@@ -490,9 +522,7 @@ const Main = () => {
                 }}
               >
                 <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`
-                  }
+                  src={process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`}
                   alt="img"
                   style={{
                     width: "253px",
@@ -507,23 +537,27 @@ const Main = () => {
               <div
                 style={{
                   marginLeft: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
-
               >
-                <h2 style={{ fontSize: "40px" }}
+                <h2
+                  style={{ fontSize: "40px" }}
                   onClick={() => {
                     navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
-                  }}>
-                  {iPapers?.title}</h2>
+                  }}
+                >
+                  {iPapers?.title}
+                </h2>
                 <br />
-                <div className="writer"
+                <div
+                  className="writer"
                   onClick={() => {
                     navigate(`/paper/${iPapers?.blogId}`);
-                  }}>
+                  }}
+                >
                   by. {iPapers?.nickname}
                 </div>
-              </div>              
+              </div>
             </Post9st>
 
             <Post10st>
@@ -533,14 +567,14 @@ const Main = () => {
                   height: "298px",
                   paddingLeft: "56px",
                   paddingTop: "56px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
                   style={{
                     width: "698px",
                     height: "250px",
-                    overflow: "hidden"
+                    overflow: "hidden",
                   }}
                   onClick={() => {
                     navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
@@ -558,20 +592,21 @@ const Main = () => {
                 </div>
               </div>
               <br />
-              <div className="writer"
+              <div
+                className="writer"
                 onClick={() => {
                   navigate(`/paper/${jPapers?.blogId}`);
                 }}
                 style={{
                   marginLeft: "57px",
-                  cursor: "pointer"
-                }}>
+                  cursor: "pointer",
+                }}
+              >
                 by. {bPapers?.nickname}
-              </div>              
+              </div>
             </Post10st>
           </PostBox>
         </PostWrap>
-
 
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
@@ -592,19 +627,26 @@ const Main = () => {
           >
             {paper_query &&
               paper_query?.data.popularUsers.map((popularUsers) => {
-                const S3 = process.env.REACT_APP_S3_URL + `/${popularUsers.profileImage}`;
+                const S3 =
+                  process.env.REACT_APP_S3_URL +
+                  `/${popularUsers.profileImage}`;
                 return (
-                  <SwiperSlide
-                    key={popularUsers.blogId}
-                  >
+                  <SwiperSlide key={popularUsers.blogId}>
                     <Popular>
                       <PopularImg
                         onClick={() => {
                           navigate(`/paper/${popularUsers.blogId}`);
                         }}
-                        src={popularUsers.profileImage === null ? defaultUserImage : S3} />
+                        src={
+                          popularUsers.profileImage === null
+                            ? defaultUserImage
+                            : S3
+                        }
+                      />
                       <div className="popularNick">{popularUsers.nickname}</div>
-                      <div className="popularIntro">{popularUsers.introduction}</div>
+                      <div className="popularIntro">
+                        {popularUsers.introduction}
+                      </div>
                       <div>인기도 {popularUsers.popularity}</div>
                     </Popular>
                   </SwiperSlide>
@@ -616,10 +658,7 @@ const Main = () => {
           <div className="enTitle">
             PAPER에 담긴 아름다운 작품을 감상해 보세요.
           </div>
-          <div className="enText">
-
-            글을 써서 나뭇잎을 모아 나무로 만드세요
-          </div>
+          <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
         </EndBox>
         <Footer />
       </MainBox>
@@ -628,7 +667,8 @@ const Main = () => {
 };
 
 const MainBox = styled.div`
-  background-color: #fffdf7;
+  background-color: white;
+  /* background-color: #fffdf7; */
   height: 3909px;
 `;
 const MainTop = styled.div`
@@ -642,29 +682,27 @@ const MainTop = styled.div`
   font-size: 160px;
   font-weight: 600;
   line-height: 90px;
-  border-bottom: 1px solid #A7ACA1;
+  border-bottom: 1px solid #a7aca1;
 `;
 const PostWrap = styled.div`
   height: 1680px;
   display: flex;
   justify-content: center;
-`
+`;
 const PostBox = styled.div`
   width: 1516px;
   height: 1680px;
 `;
 
-
-
 const Post1st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   border-top: none;
   border-bottom: none;
-  .writer{
-    font-family: 'Gmarket Sans';
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -675,9 +713,9 @@ const Post2st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border-right: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -688,9 +726,9 @@ const Post3st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -701,9 +739,9 @@ const Post4st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -713,10 +751,10 @@ const Post4st = styled.div`
 const Post5st = styled.div`
   width: 758px;
   height: 880px;
-  border: 1px solid #A7ACA1;
-  float:left;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  float: left;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -727,18 +765,18 @@ const Information = styled.div`
   width: 758px;
   height: 480px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   background-color: white;
-  font-family: 'Gmarket Sans';
+  font-family: "Gmarket Sans";
   font-style: normal;
 `;
 const Post6st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -749,9 +787,9 @@ const Post7st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -762,9 +800,9 @@ const Post8st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -775,9 +813,9 @@ const Post9st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -788,9 +826,9 @@ const Post10st = styled.div`
   width: 758px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
-  .writer{
-    font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  .writer {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -798,18 +836,16 @@ const Post10st = styled.div`
   }
 `;
 
-
-
 const PopularBloger = styled.div`
   width: 100%;
   height: 260px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
   padding-bottom: 25px;
-  font-family: 'Gmarket Sans';
+  font-family: "Gmarket Sans";
   font-style: normal;
   float: left;
   .poTitle {
@@ -837,24 +873,24 @@ const Popular = styled.div`
   padding-top: 50px;
   width: 506px;
   height: 410px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   flex-direction: column;
   float: left;
-  .popularNick{
+  .popularNick {
     margin-top: 20px;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 30px;
   }
-  .popularIntro{
+  .popularIntro {
     margin-top: 20px;
     margin-bottom: 40px;
     width: 212px;
     height: 76px;
     overflow: hidden;
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -869,7 +905,7 @@ const PopularImg = styled.img`
   margin: 0 0 0 0;
   border-radius: 100px;
   align-items: center;
-`
+`;
 const EndBox = styled.div`
   width: 100%;
   height: 10%;
@@ -877,8 +913,8 @@ const EndBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #A7ACA1;
-  font-family: 'Gmarket Sans';
+  border: 1px solid #a7aca1;
+  font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
     font-weight: 300;

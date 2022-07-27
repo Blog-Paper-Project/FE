@@ -11,12 +11,12 @@ const Like = ({ postId, Likes }) => {
   // console.log(postId);
   const [like, setLike] = useState(false);
   const userId = getCookie("userId");
-  console.log(Likes);
+  // console.log(Likes);
   const LikesCheck = Likes?.find((value) => {
     // console.log(value.likes.userId);
     return value.likes.userId == userId;
   });
-  console.log(LikesCheck);
+  // console.log(LikesCheck);
   // ## useMutation 좋아요 post 함수
   const queryClient = useQueryClient();
 

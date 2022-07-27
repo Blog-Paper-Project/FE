@@ -15,6 +15,8 @@ import CommentsImg from "../public/images/icons/comments.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import Line_1 from "../public/images/icons/Line_1.png";
+import ModifyImg from "../public/images/icons/modify.png";
+import DeleteImg from "../public/images/icons/Delete_forever.png";
 
 /*해야할 것*/
 
@@ -30,7 +32,7 @@ const PaperDetail = () => {
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
   //state
-  const [openComment, setOpenComment] = useState(false);
+  const [openComment, setOpenComment] = useState(true);
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
@@ -56,7 +58,7 @@ const PaperDetail = () => {
       },
     });
     // console.log("PaperDetail page", response);
-    return response?.data.paper;
+    return response?.data?.paper;
   };
 
   // ## useQuery 글 get
@@ -70,7 +72,6 @@ const PaperDetail = () => {
     {
       onSuccess: (data) => {
         // console.log(data);
-        return data;
       },
       staleTime: 0,
       cacheTime: 0,
@@ -106,29 +107,38 @@ const PaperDetail = () => {
               }}
             />
             <Nickname>{detail_data?.Users.nickname}</Nickname>
+            <span>·</span>
             <CreatedAt>{detail_data?.createdAt}</CreatedAt>
           </div>
-          <div className="wrap">
+          <div className="EditDeleteBtnWrap">
             {isHostId === blogId ? (
               <>
                 {/* 아래 글 수정 버튼*/}
 
                 <button
+                  className="ModfyBtn"
                   onClick={() => {
                     navigate(`/modify/${blogId}/${postId}`);
                   }}
                 >
-                  글 수정하기
+                  <img src={ModifyImg} alt="" />
+                  수정하기
                 </button>
 
                 {/* 아래 글 삭제 버튼*/}
 
                 <button
+                  className="ModfyBtn"
                   onClick={() => {
-                    onDelete();
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      onDelete();
+                    } else {
+                      return;
+                    }
                   }}
                 >
-                  글 삭제하기
+                  <img src={DeleteImg} alt="" />
+                  삭제하기
                 </button>
               </>
             ) : null}
@@ -139,7 +149,7 @@ const PaperDetail = () => {
         </ViewEditWarp>
         {/* 아래 해시태그 */}
         <TagWrap>
-          {detail_data?.Tags.map((value, index) => {
+          {detail_data?.Tags?.map((value, index) => {
             return <Tag key={index}>{value.name}</Tag>;
           })}
         </TagWrap>
@@ -150,9 +160,9 @@ const PaperDetail = () => {
               <CommentLikeWrap>
                 <Like postId={postId} Likes={detail_data?.Likes} />
                 <CommentButton
-                  onClick={() => {
-                    setOpenComment(!openComment);
-                  }}
+                // onClick={() => {
+                //   setOpenComment(!openComment);
+                // }}
                 >
                   <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
@@ -167,9 +177,9 @@ const PaperDetail = () => {
               <CommentLikeWrap>
                 <Like postId={postId} Likes={detail_data?.Likes} />
                 <CommentButton
-                  onClick={() => {
-                    setOpenComment(!openComment);
-                  }}
+                // onClick={() => {
+                //   setOpenComment(!openComment);
+                // }}
                 >
                   <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
@@ -188,38 +198,66 @@ const PaperDetail = () => {
 
 const Container = styled.div`
   max-width: 1920px;
-  background-color: #fffdf7;
+  background-color: white;
+  /* background-color: #fffdf7; */
 `;
 const ContainerContents = styled.div`
   width: 899px;
-  padding: 160px 511px 160px 510px;
+  padding: 100px 511px 160px 510px;
 `;
 const UserDataWrap = styled.div`
   width: 898px;
   display: flex;
   justify-content: space-between;
-  .wrap > {
+  .wrap {
     display: flex;
+    align-items: center;
+    height: 32px;
+    width: 400px;
   }
+  .EditDeleteBtnWrap {
+    display: flex;
+    justify-content: space-between;
+
+    height: 36px;
+    width: 280px;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      height: 36px;
+      width: 130px;
+      border: 1px solid;
+      outline: 1px solid;
+      margin-left: 10px;
+    }
+  }
+
   margin-bottom: 59px;
 `;
 
 const ProfileImgBox = styled.img`
   width: 30px;
   height: 30px;
-  margin: 0 0 0 0;
+  margin: 0 10px 0 0;
   border-radius: 50%;
 `;
 
 const Nickname = styled.span`
-  height: 40px;
-  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  margin-right: 8px;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
 `;
 const Title = styled.div`
   height: 60px;
   width: 896px;
   font-size: 40px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 60px;
   color: #333333;
   margin-bottom: 10px;
@@ -229,17 +267,24 @@ const Line = styled.div`
   border-bottom: 1px solid #000000;
   margin-bottom: 20px;
 `;
-const CreatedAt = styled.div``;
+const CreatedAt = styled.div`
+  display: flex;
+  align-items: center;
+  height: 19px;
+  margin-left: 7px;
+  font-family: "Noto Sans KR";
+`;
 const ViewEditWarp = styled.div`
   width: 898px;
-  background-color: #efefef;
+  min-height: 500px;
+  /* background-color: #efefef; */
 `;
 const TagWrap = styled.div`
   height: 20px;
   width: 300px;
   display: flex;
   justify-content: flex-start;
-  gap: 0 10px;
+  gap: 0 6px;
   margin-top: 24px;
   margin-bottom: 50px;
 `;

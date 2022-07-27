@@ -419,18 +419,18 @@ const Container = styled.div`
   background-color: white;
 `;
 const SpaceWrap = styled.div`
-  max-width: 1920px;
   display: flex;
+  justify-content: space-between;
 `;
 const Space = styled.div`
-  width: 356px;
+  width: 320px;
   background-color: #f8f8f8;
 `;
 const EditWrap = styled.div`
   width: 1208px;
   min-height: 1000px;
-  padding-left: 85px;
-  padding-right: 85px;
+  padding-left: 40px;
+  padding-right: 40px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
@@ -552,7 +552,7 @@ const Title = styled.input`
   height: 60px;
   width: 100%;
   color: #333333;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 40px;
   /* line-height: 60px; */
   padding-bottom: 10px;
@@ -567,6 +567,7 @@ const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
+  gap: 7px;
 `;
 const ThumbmailWrap = styled.div`
   display: flex;

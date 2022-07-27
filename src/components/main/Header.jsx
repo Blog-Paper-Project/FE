@@ -126,9 +126,7 @@ const Header = () => {
                     )}
                   </DropDownContainer>
                 </BtnBox>
-                <NickBox>
-                  {nickName}
-                </NickBox>
+                <NickBox>{nickName}</NickBox>
               </>
             ) : (
               <>
@@ -148,7 +146,8 @@ const Header = () => {
 };
 
 const HeaderBox = styled.div`
-  background-color: #fffdf7;
+  background-color: white;
+  /* background-color: #fffdf7; */
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -235,7 +234,7 @@ const ListItem = styled.li`
   cursor: pointer;
 `;
 const NickBox = styled.div`
-  font-family: 'Gmarket Sans';
+  font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
