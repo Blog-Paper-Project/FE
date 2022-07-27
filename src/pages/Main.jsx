@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { FaHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { api } from "../shared/apis/Apis";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,12 +18,9 @@ import { Grid, Pagination } from "swiper";
 
 /* 컴포넌트 */
 import Header from "../components/main/Header";
-import { useNavigate } from "react-router-dom";
-import { api } from "../shared/apis/Apis";
 import Footer from "../components/main/Footer";
 import ViewEdit from "../components/editor/ViewEdit";
 import defaultUserImage from "../public/images/default_profile.png";
-import { alpha } from "@material-ui/core";
 
 
 const Main = () => {
@@ -68,208 +66,37 @@ const Main = () => {
 
         <PostWrap>
           <PostBox>
-            <Post1st>
-            <div
-                style={{
-                  width: "259px",
-                  height: "234px",
-                  marginLeft: "56px",
-                  marginTop: "56px",
-                  overflow: "hidden",
-                  cursor: "pointer"
-                }}
-                onClick={() => {
-                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
-                }}
-              >
-                <h2 style={{ fontSize: "40px" }}>{aPapers?.title}</h2>
-                {aPapers?.contents && (
-                  <ViewEdit
-                    contents={aPapers?.contents}
-                    style={{ height: "200px" }}
-                  />
-                )}
-              </div>
-              <br/>
-              <div
-                style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
-                }}
-                className="writer"
-                onClick={() => {
-                  navigate(`/paper/${aPapers?.blogId}`);
-                }}>
-                by. {aPapers?.nickname}
-              </div>              
-            </Post1st>
-
-            <Post2st style={{
+            <Post1st style={{
               position: "relative",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "#000033"
             }}
             >
-              <img
-                src={process.env.REACT_APP_S3_URL + `/${bPapers?.thumbnail}`}
+              {aPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
                 alt="img"
-                style={{ width: "100%", height: "100%", opacity: "0.5", filter: "alpha(opacity=50)" }}
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
                 onClick={() => {
-                  navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
                 }}
-              />
+              />)}
               <div
                 style={{
                   position: "absolute",
                   bottom: "56px",
                   left: "56px",
-                  backgroundColor: "rgba(255, 255, 255, 0.8)",
                   width: "260px",
                   height: "304px",
-                  cursor: "pointer"
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden"
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
-                  }}>
-                  <h2 style={{ fontSize: "40px" }}>{bPapers?.title}</h2>
-                  <br />
-                  {bPapers?.contents && (
-                    <ViewEdit
-                      contents={bPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
-                </div>
-                <br />
-                <div className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${bPapers?.blogId}`);
-                  }}>
-                  by. {bPapers?.nickname}
-                </div>                
-              </div>
-            </Post2st>
-
-            <Post3st>
-            <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`
-                  }
-                  alt="img"
-                  style={{
-                    width: "253px",
-                    height: "108px",
-                    margin: "56px auto 56px auto",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
-                }}
-              >
-                <h2
-                  style={{ fontSize: "40px" }}
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
-                  }}>
-                  {cPapers?.title}</h2>
-                <br />
-                <div className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}`);
-                  }}>
-                  by. {cPapers?.nickname}
-                </div>
-              </div>              
-            </Post3st>
-
-            <Post4st>
-              <div
-                style={{
-                  width: "259px",
-                  height: "234px",
-                  marginLeft: "56px",
-                  marginTop: "56px",
-                  overflow: "hidden",
-                  cursor: "pointer"
-                }}
-                onClick={() => {
-                  navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
-                }}
-              >
-                <h2 style={{ fontSize: "40px" }}>{dPapers?.title}</h2>
-                {dPapers?.contents && (
-                  <ViewEdit
-                    contents={dPapers?.contents}
-                    style={{ height: "200px" }}
-                  />
-                )}
-              </div>
-              <br />
-              <div
-                style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
-                }}
-                className="writer"
-                onClick={() => {
-                  navigate(`/paper/${dPapers?.blogId}`);
-                }}>
-                by. {dPapers?.nickname}
-              </div>              
-            </Post4st>
-
-            <Post5st style={{
-              position: "relative",
-              paddingLeft: "68px",
-              paddingTop: "69px",
-            }}
-            >
-              <div style={{
-                width: "622px",
-                height: "481px",
-                overflow: "hidden",
-                cursor: "pointer"
-              }}
-                onClick={() => {
-                  navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
-                }}
-              >
-                {ePapers?.contents && (
-                  <ViewEdit
-                    contents={ePapers?.contents}
-                    style={{ width: "100%", height: "100%", padding: "5px" }}
-                  />
-                )}
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "80px",
-                  backgroundColor: "rgb(255, 255, 255, 0.8)",
-                  width: "343px",
-                  height: "304px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
@@ -277,18 +104,262 @@ const Main = () => {
                     width: "260px",
                     height: "250px",
                     overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{aPapers?.title}</h2>
+                  <br />
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${aPapers?.blogId}`);
+                  }}>
+                  by. {aPapers?.nickname}
+                </div>
+              </div>
+            </Post1st>
+
+            <Post2st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+             
+            }}
+            >
+              {bPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${bPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
+                }}
+              />)}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{bPapers?.title}</h2>
+                  <br />
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${bPapers?.blogId}`);
+                  }}>
+                  by. {bPapers?.nickname}
+                </div>
+              </div>
+            </Post2st>
+
+            <Post3st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {cPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
+                }}
+              />)}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{dPapers?.title}</h2>
+                  <br />
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${cPapers?.blogId}`);
+                  }}>
+                  by. {cPapers?.nickname}
+                </div>
+              </div>
+            </Post3st>
+
+            <Post4st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            >
+              {dPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)",opacity: "0.4" }}
+                onClick={() => {
+                  navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
+                }}
+              />)}
+
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{dPapers?.title}</h2>
+                  <br />
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${dPapers?.blogId}`);
+                  }}>
+                  by. {dPapers?.nickname}
+                </div>
+              </div>
+            </Post4st>
+
+            <Post5st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {ePapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${ePapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
+                }}
+              />)}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "646px",
+                  height: "646px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: "646px",
+                    height: "646px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                   }}
                   onClick={() => {
                     navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                   }}>
-                  <h2 style={{ fontSize: "40px" }}>{ePapers?.title}</h2>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{ePapers?.title}</h2>
                   <br />
-                  {ePapers?.contents && (
-                    <ViewEdit
-                      contents={ePapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
                 </div>
                 <br />
                 <div className="writer"
@@ -296,7 +367,7 @@ const Main = () => {
                     navigate(`/paper/${ePapers?.blogId}`);
                   }}>
                   by. {ePapers?.nickname}
-                </div>                
+                </div>
               </div>
             </Post5st>
 
@@ -351,44 +422,51 @@ const Main = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              backgroundColor: "#000033"
             }}
             >
-              <img
+              {fPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
                 src={process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`}
                 alt="img"
-                style={{ width: "100%", height: "100%" }}
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
                 onClick={() => {
                   navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
                 }}
-              />
+              />)}
               <div
                 style={{
                   position: "absolute",
                   bottom: "56px",
                   left: "56px",
-                  backgroundColor: "rgba(255, 255, 255, 0.8)",
                   width: "260px",
                   height: "304px",
-                  cursor: "pointer"
+                  cursor: "pointer",
                 }}
               >
                 <div
                   style={{
                     width: "260px",
                     height: "250px",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                   }}
                   onClick={() => {
                     navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
                   }}>
-                  <h2 style={{ fontSize: "40px" }}>{fPapers?.title}</h2>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{fPapers?.title}</h2>
                   <br />
-                  {fPapers?.contents && (
-                    <ViewEdit
-                      contents={fPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
                 </div>
                 <br />
                 <div className="writer"
@@ -396,126 +474,183 @@ const Main = () => {
                     navigate(`/paper/${fPapers?.blogId}`);
                   }}>
                   by. {fPapers?.nickname}
-                </div>                
+                </div>
               </div>
             </Post6st>
 
-            <Post7st>
-              <div
-                style={{
-                  width: "259px",
-                  height: "234px",
-                  marginLeft: "56px",
-                  marginTop: "56px",
-                  overflow: "hidden",
-                  cursor: "pointer"
-                }}
+            <Post7st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {gPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
                 onClick={() => {
                   navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
                 }}
-              >
-                <h2 style={{ fontSize: "40px" }}>{gPapers?.title}</h2>
-                {gPapers?.contents && (
-                  <ViewEdit
-                    contents={gPapers?.contents}
-                    style={{ height: "200px" }}
-                  />
-                )}
-              </div>
-              <br/>
+              />)}
               <div
                 style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
-                }}
-                className="writer"
-                onClick={() => {
-                  navigate(`/paper/${gPapers?.blogId}`);
-                }}>
-                by. {gPapers?.nickname}
-              </div>              
-            </Post7st>
-
-            <Post8st>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
                 }}
               >
-                <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`
-                  }
-                  alt="img"
+                <div
                   style={{
-                    width: "253px",
-                    height: "108px",
-                    margin: "56px auto 56px auto",
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                   }}
                   onClick={() => {
-                    navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
-                  }}
-                />
-              </div>
-              <div
-                style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
-                }}
-              >
-                <h2
-                  style={{ fontSize: "40px" }}
-                  onClick={() => {
-                    navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
+                    navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
                   }}>
-                  {hPapers?.title}</h2>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{gPapers?.title}</h2>
+                  <br />
+                </div>
                 <br />
                 <div className="writer"
                   onClick={() => {
-                    navigate(`/paper/${hPapers?.blogId}`);
+                    navigate(`/paper/${gPapers?.blogId}`);
+                  }}>
+                  by. {gPapers?.nickname}
+                </div>
+              </div>
+            </Post7st>
+
+            <Post8st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {hPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
+                }}
+              />)}
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
+                  onClick={() => {
+                    navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{hPapers?.title}</h2>
+                  <br />
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${iPapers?.blogId}`);
                   }}>
                   by. {hPapers?.nickname}
                 </div>
-              </div>              
+              </div>
             </Post8st>
 
-            <Post9st>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
+            <Post9st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {iPapers?.thumbnail === null ? (
                 <img
-                  src={
-                    process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`
-                  }
-                  alt="img"
-                  style={{
-                    width: "253px",
-                    height: "108px",
-                    margin: "56px auto 56px auto",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
-                  }}
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
                 />
-              </div>
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
+                }}
+              />)}
               <div
                 style={{
-                  marginLeft: "56px",
-                  cursor: "pointer"
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "260px",
+                  height: "304px",
+                  cursor: "pointer",
                 }}
-
               >
-                <h2 style={{ fontSize: "40px" }}
+                <div
+                  style={{
+                    width: "260px",
+                    height: "250px",
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
                   onClick={() => {
                     navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
                   }}>
-                  {iPapers?.title}</h2>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{iPapers?.title}</h2>
+                  <br />
+                </div>
                 <br />
                 <div className="writer"
                   onClick={() => {
@@ -523,51 +658,68 @@ const Main = () => {
                   }}>
                   by. {iPapers?.nickname}
                 </div>
-              </div>              
+              </div>
             </Post9st>
 
-            <Post10st>
+            <Post10st style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#000033"
+            }}
+            >
+              {jPapers?.thumbnail === null ? (
+                <img
+                  className="postImg"
+                  src={process.env.PUBLIC_URL + "/post.jpg"}
+                  style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                  alt="back"
+                />
+              ) : (<img
+                src={process.env.REACT_APP_S3_URL + `/${jPapers?.thumbnail}`}
+                alt="img"
+                style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                onClick={() => {
+                  navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
+                }}
+              />)}
               <div
                 style={{
-                  width: "698px",
-                  height: "298px",
-                  paddingLeft: "56px",
-                  paddingTop: "56px",
-                  cursor: "pointer"
+                  position: "absolute",
+                  bottom: "56px",
+                  left: "56px",
+                  width: "646px",
+                  height: "304px",
+                  cursor: "pointer",
                 }}
               >
                 <div
                   style={{
-                    width: "698px",
+                    width: "646px",
                     height: "250px",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                   }}
                   onClick={() => {
                     navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
-                  }}
-                >
-                  <h2 style={{ fontSize: "40px" }}>{jPapers?.title}</h2>
+                  }}>
+                  <h2 style={{
+                    fontSize: "40px",
+                  }}>{jPapers?.title}</h2>
                   <br />
-                  <br />
-                  {jPapers?.contents && (
-                    <ViewEdit
-                      contents={jPapers?.contents}
-                      style={{ height: "200px" }}
-                    />
-                  )}
+                </div>
+                <br />
+                <div className="writer"
+                  onClick={() => {
+                    navigate(`/paper/${jPapers?.blogId}`);
+                  }}>
+                  by. {jPapers?.nickname}
                 </div>
               </div>
-              <br />
-              <div className="writer"
-                onClick={() => {
-                  navigate(`/paper/${jPapers?.blogId}`);
-                }}
-                style={{
-                  marginLeft: "57px",
-                  cursor: "pointer"
-                }}>
-                by. {bPapers?.nickname}
-              </div>              
             </Post10st>
           </PostBox>
         </PostWrap>
@@ -660,36 +812,41 @@ const Post1st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  /* border: 1px solid #A7ACA1; */
   border-top: none;
   border-bottom: none;
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
+    opacity: 0.8;
   }
 `;
 const Post2st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
+    opacity: 0.8;
   }
 `;
 const Post3st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -701,8 +858,9 @@ const Post4st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -713,9 +871,10 @@ const Post4st = styled.div`
 const Post5st = styled.div`
   width: 758px;
   height: 880px;
-  border: 1px solid #A7ACA1;
+  /* border: 1px solid #A7ACA1; */
   float:left;
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -727,7 +886,7 @@ const Information = styled.div`
   width: 758px;
   height: 480px;
   float: left;
-  border: 1px solid #A7ACA1;
+  /* border: 1px solid #A7ACA1; */
   border-left: none;
   font-family: 'Gmarket Sans';
   font-style: normal;
@@ -736,9 +895,10 @@ const Post6st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;  
-  border-bottom: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1;  
+  border-bottom: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -750,9 +910,10 @@ const Post7st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
-  border-bottom: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1;
+  border-bottom: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -764,9 +925,10 @@ const Post8st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-left: 1px solid #A7ACA1;
-  border-right: 1px solid #A7ACA1;
+  /* border-left: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -778,8 +940,9 @@ const Post9st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
@@ -791,8 +954,9 @@ const Post10st = styled.div`
   width: 758px;
   height: 400px;
   float: left;
-  border-right: 1px solid #A7ACA1;
+  /* border-right: 1px solid #A7ACA1; */
   .writer{
+    color: white;
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
