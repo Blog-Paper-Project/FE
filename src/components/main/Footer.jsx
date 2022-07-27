@@ -53,7 +53,6 @@ const FooterBox = styled.div`
   line-height: 22px;
   width: 100%;
   height: 270px;
-  border: 1px solid #A7ACA1;
   border-collapse: collapse;
   padding-top: 50px;
 `;
@@ -62,6 +61,7 @@ const Footer1 = styled.div`
   width: 25%;
   height: 220px;
   border: 1px solid #A7ACA1;
+  border-right: none;
   float: left;
   display: flex;
   align-items: center;
@@ -77,6 +77,7 @@ const Footer2 = styled.div`
   width: 25%;
   height: 220px;
   border: 1px solid #A7ACA1;
+  border-right: none;
   float: left;
   display: flex;
   align-items: center;
@@ -92,6 +93,7 @@ const Footer3 = styled.div`
   width: 25%;
   height: 220px;
   border: 1px solid #A7ACA1;
+  border-right: none;
   float: left;
   display: flex;
   align-items: center;

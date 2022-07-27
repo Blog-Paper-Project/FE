@@ -356,7 +356,7 @@ const Main = () => {
               <img
                 src={process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`}
                 alt="img"
-                style={{ width: "100%", height: "100%", padding: "5px" }}
+                style={{ width: "100%", height: "100%" }}
                 onClick={() => {
                   navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
                 }}
@@ -605,7 +605,7 @@ const Main = () => {
                         src={popularUsers.profileImage === null ? defaultUserImage : S3} />
                       <div className="popularNick">{popularUsers.nickname}</div>
                       <div className="popularIntro">{popularUsers.introduction}</div>
-                      <div>인기도 {popularUsers.popularity}</div>
+                      {/* <div>인기도 {popularUsers.popularity}</div> */}
                     </Popular>
                   </SwiperSlide>
                 );
@@ -688,7 +688,7 @@ const Post3st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -701,7 +701,7 @@ const Post4st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -728,7 +728,7 @@ const Information = styled.div`
   height: 480px;
   float: left;
   border: 1px solid #A7ACA1;
-  background-color: white;
+  border-left: none;
   font-family: 'Gmarket Sans';
   font-style: normal;
 `;
@@ -736,7 +736,8 @@ const Post6st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;  
+  border-bottom: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -749,7 +750,8 @@ const Post7st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
+  border-bottom: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -762,7 +764,8 @@ const Post8st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-left: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -775,7 +778,7 @@ const Post9st = styled.div`
   width: 379px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
@@ -788,7 +791,7 @@ const Post10st = styled.div`
   width: 758px;
   height: 400px;
   float: left;
-  border: 1px solid #A7ACA1;
+  border-right: 1px solid #A7ACA1;
   .writer{
     font-family: 'Gmarket Sans';
     font-style: normal;
