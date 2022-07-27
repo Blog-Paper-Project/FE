@@ -57,14 +57,14 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {start} - {end}
                 </span>
               </div>
             </div>
-
+                  
             <button className="waitBtn">수락대기</button>
             <button
               className="delBtn"
@@ -92,10 +92,10 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {start} - {end}
                 </span>
               </div>
             </div>
@@ -129,10 +129,10 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {start} - {end}
                 </span>
               </div>
             </div>
@@ -172,10 +172,10 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {week} &nbsp; {month} &nbsp; {day} &nbsp; {year} &emsp;
+                {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
-                  {start}&emsp;~&emsp;{end}
+                  {start} - {end}
                 </span>
               </div>
             </div>

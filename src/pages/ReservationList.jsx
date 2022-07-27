@@ -15,6 +15,36 @@ const ReservationList = () => {
   useEffect(() => {
     dispatch(getBookingDB());
   }, [dispatch, leafChange]);
+  const [tab, setTab] = useState(true)
+  const [color, setColor] = useState('#fff');
+  const [color2, setColor2] = useState('#ACACAC');
+  const [backgroundColor, setBackColor] = useState('#889175');
+  const [backgroundColor2, setBackColor2] = useState('var(--main)');
+
+  const changeColor = () => {
+    if (color2 === '#fff') {
+      setColor2('#ACACAC')
+      setColor('#fff')
+    }
+  }
+  const changeColor2 = () => {
+    if (color === '#fff') {
+      setColor('#ACACAC')
+      setColor2('#fff')
+    }
+  }
+  const changeBackColor = () => {
+    if (backgroundColor2 === '#889175') {
+      setBackColor2('var(--main)')
+      setBackColor('#889175')
+    }
+  }
+  const changeBackColor2 = () => {
+    if (backgroundColor === '#889175') {
+      setBackColor('var(--main)')
+      setBackColor2('#889175')
+    }
+  }
 
   return (
     <>
@@ -22,63 +52,111 @@ const ReservationList = () => {
       <Wrap>
         <div className="innerWrap">
           <div className="bookingWrap">
-            <p className="bookingTitle">
-              예약 리스트 <span>/ 예약 한 내역</span>
-            </p>
-            <ListTitle>
-              <div className="bookingInfo">
-                <div className="userName">
-                  예약상대
-                </div>
-                <div className="userBookingWrap">
-                  <span className="dayInfo">
-                    날짜
-                  </span>
-                  <span className="timeInfo">
-                    시간
-                  </span>
-                </div>
+            <BookingTitle>
+              <div className="bookingTitle">
+                예약 리스트
               </div>
-            </ListTitle>
-            <ul className="bookingList">
-              {bookingList?.guestBookingList.length === 0 && (
-                <li className="noBookingText">예약된 내역이 없습니다!</li>
-              )}
-              {bookingList?.guestBookingList.map((item, idx) => {
-                return (
-                  <BookingItem
-                    leafChange={leafChange}
-                    setLeafChange={setLeafChange}
-                    item={item}
-                    key={idx}
-                  />
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-        <div className="innerWrap">
-          <div className="bookingWrap">
-            <p className="bookingTitle">
-              예약 리스트 <span>/ 예약 받은 내역</span>
-            </p>
-            <ListTitle>타이틀</ListTitle>
-            <ul className="bookingList">
+              <div className="bookingSubTitle">Reservation List</div>
+            </BookingTitle>
+            <TabBox>
+              <ScCategory
+                color={color}
+                backgroundColor={backgroundColor}
+                onClick={() => {
+                  setTab(true);
+                  changeColor();
+                  changeBackColor();
+                }}
+              >
+                예약 신청 내역
+              </ScCategory>
+              <ScCategory2
+                color={color2}
+                backgroundColor={backgroundColor2}
+                onClick={() => {
+                  setTab(false);
+                  changeColor2();
+                  changeBackColor2();
+                }}
+              >
+                예약 받은 내역
+              </ScCategory2>
+            </TabBox>
+            {tab === true &&
+              <>
+                <ListTitle>
+                  <div className="bookingInfo">
+                    <div className="userName">
+                      예약상대
+                    </div>
+                    <div className="userBookingWrap">
+                      <span className="dayInfo">
+                        날짜
+                      </span>
+                      <span className="timeInfo">
+                        시간
+                      </span>
+                      <span className="start">
+                        채팅입장
+                      </span>
+                    </div>
+                  </div>
+                </ListTitle>
+                <ul className="bookingList">
+                  {bookingList?.guestBookingList.length === 0 && (
+                    <li className="noBookingText">예약된 내역이 없습니다!</li>
+                  )}
+                  {bookingList?.guestBookingList.map((item, idx) => {
+                    return (
+                      <BookingItem
+                        leafChange={leafChange}
+                        setLeafChange={setLeafChange}
+                        item={item}
+                        key={idx}
+                      />
+                    );
+                  })}
+                </ul>
+              </>
+            }
+            {tab === false &&
+              <>
+                <ListTitle>
+                  <div className="bookingInfo">
+                    <div className="userName">
+                      예약상대
+                    </div>
+                    <div className="userBookingWrap">
+                      <span className="dayInfo">
+                        날짜
+                      </span>
+                      <span className="timeInfo">
+                        시간
+                      </span>
+                      <span className="start">
+                        채팅입장
+                      </span>
+                    </div>
+                  </div>
+                </ListTitle>
+                <ul className="bookingList">
 
-              {bookingList?.hostBookingList.length === 0 && (
-                <li className="noBookingText">예약된 내역이 없습니다!</li>
-              )}
-              {bookingList?.hostBookingList.map((item, idx) => {
-                return (
-                  <BookingItem
-                    leafChange={leafChange}
-                    setLeafChange={setLeafChange}
-                    item={item}
-                    key={idx}
-                  />
-                );
-              })}
-            </ul>
+                  {bookingList?.hostBookingList.length === 0 && (
+                    <li className="noBookingText">예약된 내역이 없습니다!</li>
+                  )}
+                  {bookingList?.hostBookingList.map((item, idx) => {
+                    return (
+                      <BookingItem
+                        leafChange={leafChange}
+                        setLeafChange={setLeafChange}
+                        item={item}
+                        key={idx}
+                      />
+                    );
+                  })}
+                </ul>
+              </>
+            }
           </div>
         </div>
       </Wrap>
@@ -89,51 +167,35 @@ const ReservationList = () => {
 
 const Wrap = styled.div`
   width: 100%;
-  min-height: 904px;
+  min-height: 1800px;
   margin-bottom: 100px;
 
   .innerWrap {
-    max-width: 1280px;
-    width: 80%;
+    width: 592px;
     margin: auto;
     
     /* 예약 리스트 Wrap */
     .bookingWrap {
-      width: 90%;
+      width: 100%;
       height: auto;
-      margin: 70px auto;
       min-height: 100px;
-      padding: 10px;
-      border-top: 1px solid #ACACAC;
-
-      /* 예약 리스트 타이틀 */
-      .bookingTitle {
-        font-size: 38px;
-        font-weight: bolder;
-        margin-bottom: 60px;
-
-        span {
-          font-size: 26px;
-          color: #969696;
-          margin-left: 15px;
-        }
-      }
+      
+      
 
       /* 예약 리스트 */
       .bookingList {
         width: 100%;
         margin: auto;
-        max-height: 400px;
+        max-height: 880px;
         min-height: 260px;
         border: 1px solid #E1E1E1;
-        padding: 20px 10px 20px 20px;
         overflow-y: scroll;
         background-color: #fff;
 
         /* 스크롤 버튼 조절 */
         ::-webkit-scrollbar {
           /*스크롤바의 너비*/
-          width: 20px;
+          width: 8px;
         }
         ::-webkit-scrollbar-thumb {
           /*스크롤바의 색상*/
@@ -144,7 +206,6 @@ const Wrap = styled.div`
         ::-webkit-scrollbar-track {
           /*스크롤바 트랙 색상 */
           background-color: rgba(217, 217, 217, 0.5);
-          border-radius: 15px;
         }
         .noBookingText {
           text-align: center;
@@ -157,54 +218,47 @@ const Wrap = styled.div`
         /* 예약 카드 */
         .booking {
           width: 100%;
-          border-radius: 10px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-
-          + .booking {
-            margin-top: 10px;
-          }
+          border-bottom: 1px solid #c7c7c7;  
 
           /* 예약 정보 */
           .bookingInfo {
-            width: 100%;
-            height: 50px;
-            padding: 10px;
+            width: 67%;
+            height: 72px;
             display: flex;
             text-align: center;
-            border: 1px solid #c7c7c7;
-            border-radius: 4px;
-            margin-right: 20px;
-            gap: 3%;
+            margin-right: 0px;
+            gap: 1%;
 
             .userName {
-              width: 20%;
+              width: 10%;
               width: auto;
               min-width: 100px;
-              font-size: 16px;
+              font-weight: 700;
+              font-size: 18px;
               display: flex;
               align-items: center;
               justify-content: flex-start;
               margin-left: 10px;
-              margin-right: 30px;
-              padding-left: 10px;
+              margin-right: 8px;
             }
 
             .userBookingWrap {
-              width: 70%;
+              width: 77%;
               text-align: left;
               display: flex;
               align-items: center;
-              gap: 50px;
+              gap: 5px;
 
               span {
                 display: inline-block;
-                font-size: 16px;
+                font-size: 14px;
               }
 
               .dayInfo {
-                min-width: 200px;
+                min-width: 150px;
               }
 
               .timeInfo {
@@ -213,8 +267,8 @@ const Wrap = styled.div`
           }
 
           .videoBtn {
-            width: 15%;
-            max-width: 92px;
+            width: 14%;
+            max-width: 80px;
             height: 34px;
             border: 1px solid;
             padding: 10px 8px 9px;
@@ -230,8 +284,8 @@ const Wrap = styled.div`
           }
 
           .waitBtn {
-            width: 15%;
-            max-width: 92px;
+            width: 14%;
+            max-width: 80px;
             height: 34px;
             border: 1px solid;
             padding: 10px 8px 9px;
@@ -243,15 +297,15 @@ const Wrap = styled.div`
           }
 
           .delBtn {
-            width: 15%;
-            max-width: 92px;
+            width: 14%;
+            max-width: 80px;
             height: 34px;
             border: 1px solid;
             padding: 10px 8px 9px;
             font-size: 14px;
             font-weight: 400;
             color: #000;
-            margin-left: 5px;
+            margin-right: 8px;
             cursor: pointer;
             background-color: #fff;
             &:hover {
@@ -264,6 +318,69 @@ const Wrap = styled.div`
     }
   }
 `;
+const BookingTitle = styled.div`
+  width: 592px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-direction: column;
+  padding-bottom: 25px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ACACAC;
+  /* 예약 리스트 타이틀 */
+  .bookingTitle {
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    font-weight: bolder;        
+  }
+  .bookingSubTitle {     
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 150%;
+  }
+`
+const TabBox = styled.div`
+  width: 268px;
+  height: 52px;
+  padding: 8px;
+  gap: 16px;
+  border: 1px solid #ACACAC;
+  margin-bottom: 16px;
+  display: flsex;
+  align-items: center;
+  justify-content: center;
+  
+`
+const ScCategory = styled.div`
+width: 118px;
+  height: 36px;
+  display: flsex;
+  align-items: center;
+  justify-content: center;
+  color: ${props => props.color};
+  background-color: ${props => props.backgroundColor};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const ScCategory2 = styled.div`
+  width: 118px;
+  height: 36px;
+  display: flsex;
+  align-items: center;
+  justify-content: center;
+  color: ${props => props.color};
+  background-color: ${props => props.backgroundColor};
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const ListTitle = styled.div`
   width: 100%;
   height: 44px;
@@ -280,24 +397,20 @@ const ListTitle = styled.div`
   overflow: hidden;
   .bookingInfo {
     width: 100%;
-    padding: 20px;
     display: flex;
     text-align: center;
-    border-radius: 4px;
-    margin-right: 20px;
-    gap: 3%;
+    gap: 1%;
 
     .userName {
-      width: 15%;
+      width: 100%;
       width: auto;
       min-width: 100px;
       font-size: 16px;
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      margin-left: 10px;
+      margin-left: 8px;
       margin-right: 5px;
-      padding-left: 10px;
     }
 
     .userBookingWrap {
@@ -311,14 +424,17 @@ const ListTitle = styled.div`
           font-size: 16px;
         }
         .dayInfo {
-          min-width: 200px;
+          min-width: 110px;
         }
-
         .timeInfo {
-          min-width: 200px;
+          min-width: 110px;
+        }
+        .start {
+          min-width: 130px;
         }
     }
   }
 `
+
 
 export default ReservationList;
