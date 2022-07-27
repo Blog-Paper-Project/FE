@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, [callAccepted, call]);
+  }, [call, callAccepted]);
 
   //화상
   const answerCall = () => {
@@ -92,21 +92,21 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  // // 오디오 온오프
-  // const audioHandler = () => {
-  //   myVideo.current.srcObject
-  //     .getAudioTracks()
-  //     .forEach((track) => (track.enabled = !track.enabled));
-  //   setAudioOn(!audioOn);
-  // };
+  // 오디오 온오프
+  const audioHandler = () => {
+    myVideo.current.srcObject
+      .getAudioTracks()
+      .forEach((track) => (track.enabled = !track.enabled));
+    setAudioOn(!audioOn);
+  };
 
-  // // 비디오 온오프
-  // const videoHandler = () => {
-  //   myVideo.current.srcObject
-  //     .getVideoTracks()
-  //     .forEach((track) => (track.enabled = !track.enabled));
-  //   setVideoOn(!videoOn);
-  // };
+  // 비디오 온오프
+  const videoHandler = () => {
+    myVideo.current.srcObject
+      .getVideoTracks()
+      .forEach((track) => (track.enabled = !track.enabled));
+    setVideoOn(!videoOn);
+  };
 
   // // 화면 공유
   // const shareScreen = () => {
@@ -115,9 +115,9 @@ const ContextProvider = ({ children }) => {
   //       video: { cursor: "always" },
   //       audio: { echoCancellation: true, noiseSuppression: true },
   //     })
-  //     .then((stream) => {
-  //       myVideo.current.srcObject = stream; // 내 비디오 공유 화면으로 변경
-  //       const videoTrack = stream.getVideoTracks()[0];
+  //     .then((currentStream) => {
+  //       myVideo.current.srcObject = currentStream; // 내 비디오 공유 화면으로 변경
+  //       const videoTrack = currentStream.getVideoTracks()[0];
   //       connectionRef.current
   //         .getSenders()
   //         .find((sender) => sender.track.kind === videoTrack.kind)
@@ -175,6 +175,7 @@ const ContextProvider = ({ children }) => {
     setCallEnded(true);
     connectionRef.current.destroy();
     socket.emit("leaveRoom");
+    window.location.reload();
     navigate(-1);
   };
 
@@ -202,8 +203,8 @@ const ContextProvider = ({ children }) => {
         nickname,
         callToUser,
         setCallToUser,
-        // audioHandler,
-        // videoHandler,
+        audioHandler,
+        videoHandler,
         // shareScreen,
         audioOn,
         videoOn,
