@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 const Kakao = () => {
   const navigate = useNavigate();
   let code = new URL(window.location.href).searchParams.get("code");
+  console.log(code)
 
   useEffect(() => {
     if (code) {
@@ -14,6 +15,7 @@ const Kakao = () => {
         api
           .get(`/user/login/kakao/callback?code=${code}`)
           .then((data) => {
+            console.log(data)
             if (data.data.blogId === null || data.data.blogId === undefined) {
               setCookie("token", data.data.token, 2);
               setCookie("nickname", data.data.nickname, 2);

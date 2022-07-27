@@ -26,16 +26,12 @@ const Chat = () => {
     socket.emit("user-connected");
 
     socket.emit("newUser", roomData);
-    console.log(roomData);
 
-    socket.on("roomfull", (data) => {
-      window.alert("hi");
-    });
+    socket.on("roomfull");
 
     socket.on("mysocket", (data) => {
       if ((data.length = 2)) {
         const usersocketId = data.filter((id) => id !== socket.id);
-        console.log(usersocketId[0]);
         setCallToUser(usersocketId[0]);
       }
     });

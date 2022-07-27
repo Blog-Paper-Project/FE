@@ -56,8 +56,8 @@ const Sidebar = ({ children }) => {
     callAccepted,
     callEnded,
     idToCall,
-    audioOn,
-    videoOn,
+    audio,
+    video,
     audioHandler,
     videoHandler,
     shareScreen,
@@ -72,7 +72,7 @@ const Sidebar = ({ children }) => {
           <Grid container className={classes.gridContainer}>
             <ButtonList>
               <div>
-                {audioOn ? (
+                {audio ? (
                   <button size={25} onClick={audioHandler}>
                     <img src={AudioOff} alt="" />
                   </button>
@@ -83,7 +83,7 @@ const Sidebar = ({ children }) => {
                 )}
               </div>
               <div>
-                {videoOn ? (
+                {video ? (
                   <button size={25} onClick={videoHandler}>
                     <img src={VideoOff} alt="" />
                   </button>
