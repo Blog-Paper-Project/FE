@@ -1,14 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Button,
-  TextField,
   Grid,
-  Typography,
   Container,
   Paper,
 } from "@material-ui/core";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Assignment, Phone, PhoneDisabled } from "@material-ui/icons";
+// import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Phone, PhoneDisabled } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
@@ -18,7 +16,7 @@ import AudioOff from "../../public/images/AudioOff.svg";
 import AudioOn from "../../public/images/AudioOn.svg";
 import VideoOff from "../../public/images/VideoOff.svg";
 import VideoOn from "../../public/images/VideoOn.svg";
-import ShareScreen from "../../public/images/ShareScreen.svg";
+// import ShareScreen from "../../public/images/ShareScreen.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,11 +54,11 @@ const Sidebar = ({ children }) => {
     callAccepted,
     callEnded,
     idToCall,
-    audio,
-    video,
+    audioOn,
+    videoOn,
     audioHandler,
     videoHandler,
-    shareScreen,
+    // shareScreen,
     leaveCall,
     callUser,
   } = useContext(SocketContext);
@@ -72,7 +70,7 @@ const Sidebar = ({ children }) => {
           <Grid container className={classes.gridContainer}>
             <ButtonList>
               <div>
-                {audio ? (
+                {audioOn ? (
                   <button size={25} onClick={audioHandler}>
                     <img src={AudioOff} alt="" />
                   </button>
@@ -83,7 +81,7 @@ const Sidebar = ({ children }) => {
                 )}
               </div>
               <div>
-                {video ? (
+                {videoOn ? (
                   <button size={25} onClick={videoHandler}>
                     <img src={VideoOff} alt="" />
                   </button>
@@ -93,11 +91,11 @@ const Sidebar = ({ children }) => {
                   </button>
                 )}
               </div>
-              <div>
+              {/* <div>
                 <button size={25} onClick={shareScreen}>
                   <img src={ShareScreen} />
                 </button>
-              </div>
+              </div> */}
             </ButtonList>
             {callAccepted && !callEnded ? (
               <Button
@@ -108,7 +106,7 @@ const Sidebar = ({ children }) => {
                 onClick={leaveCall}
                 className={classes.margin}
               >
-                Hang Up
+                나가기
               </Button>
             ) : (
               <Button
@@ -119,7 +117,7 @@ const Sidebar = ({ children }) => {
                 onClick={() => callUser(idToCall)}
                 className={classes.margin}
               >
-                Call
+                화상 연결하기
               </Button>
             )}
           </Grid>

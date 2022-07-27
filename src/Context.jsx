@@ -21,8 +21,8 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  const [video, setVideoOn] = useState(true);
-  const [audio, setAudioOn] = useState(true);
+  const [videoOn, setVideoOn] = useState(true);
+  const [audioOn, setAudioOn] = useState(true);
 
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -34,7 +34,7 @@ const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     navigator.mediaDevices
-      .getUserMedia({ video, audio })
+      .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
         setStream(currentStream);
 
@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, []);
+  }, [call, callAccepted, audioOn, videoOn]);
 
   //화상
   const answerCall = () => {
@@ -97,7 +97,7 @@ const ContextProvider = ({ children }) => {
     myVideo.current.srcObject
       .getAudioTracks()
       .forEach((track) => (track.enabled = !track.enabled));
-    setAudioOn(!audio);
+    setAudioOn(!audioOn);
   };
 
   // 비디오 온오프
@@ -105,34 +105,34 @@ const ContextProvider = ({ children }) => {
     myVideo.current.srcObject
       .getVideoTracks()
       .forEach((track) => (track.enabled = !track.enabled));
-    setVideoOn(!video);
+    setVideoOn(!videoOn);
   };
 
-  // 화면 공유
-  const shareScreen = () => {
-    navigator.mediaDevices
-      .getDisplayMedia({
-        video: { cursor: "always" },
-        audio: { echoCancellation: true, noiseSuppression: true },
-      })
-      .then((currentStream) => {
-        myVideo.current.srcObject = currentStream; // 내 비디오 공유 화면으로 변경
-        const videoTrack = currentStream.getVideoTracks()[0];
-        connectionRef.current
-          .getSenders()
-          .find((sender) => sender.track.kind === videoTrack.kind)
-          .replaceTrack(videoTrack);
-        videoTrack.onended = function () {
-          const screenTrack = myVideo.current.getVideoTracks()[0];
-          connectionRef.current
-            .getSenders()
-            .find((sender) => sender.track.kind === screenTrack.kind)
-            .replaceTrack(screenTrack);
-          stream.getTracks().forEach((track) => track.stop());
-        };
-        myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
-      });
-  };
+  // // 화면 공유
+  // const shareScreen = () => {
+  //   navigator.mediaDevices
+  //     .getDisplayMedia({
+  //       video: { cursor: "always" },
+  //       audio: { echoCancellation: true, noiseSuppression: true },
+  //     })
+  //     .then((currentStream) => {
+  //       myVideo.current.srcObject = currentStream; // 내 비디오 공유 화면으로 변경
+  //       const videoTrack = currentStream.getVideoTracks()[0];
+  //       connectionRef.current
+  //         .getSenders()
+  //         .find((sender) => sender.track.kind === videoTrack.kind)
+  //         .replaceTrack(videoTrack);
+  //       videoTrack.onended = function () {
+  //         const screenTrack = myVideo.current.getVideoTracks()[0];
+  //         connectionRef.current
+  //           .getSenders()
+  //           .find((sender) => sender.track.kind === screenTrack.kind)
+  //           .replaceTrack(screenTrack);
+  //         stream.getTracks().forEach((track) => track.stop());
+  //       };
+  //       myVideo.current.srcObject = myVideo.current; // 내 비디오로 변경
+  //     });
+  // };
 
   //채팅보내기
   const sendMessage = () => {
@@ -205,9 +205,9 @@ const ContextProvider = ({ children }) => {
         setCallToUser,
         audioHandler,
         videoHandler,
-        shareScreen,
-        audio,
-        video,
+        // shareScreen,
+        audioOn,
+        videoOn,
       }}
     >
       {children}
