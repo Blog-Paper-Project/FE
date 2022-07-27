@@ -54,10 +54,10 @@ const Sidebar = ({ children }) => {
     callAccepted,
     callEnded,
     idToCall,
-    audioOn,
-    videoOn,
-    audioHandler,
-    videoHandler,
+    // audioOn,
+    // videoOn,
+    // audioHandler,
+    // videoHandler,
     // shareScreen,
     leaveCall,
     callUser,
@@ -68,7 +68,7 @@ const Sidebar = ({ children }) => {
       <Paper elevation={10} className={classes.paper}>
         <form className={classes.root} noValidate autoComplete="off">
           <Grid container className={classes.gridContainer}>
-            <ButtonList>
+            {/* <ButtonList>
               <div>
                 {audioOn ? (
                   <button size={25} onClick={audioHandler}>
@@ -91,12 +91,12 @@ const Sidebar = ({ children }) => {
                   </button>
                 )}
               </div>
-              {/* <div>
+              <div>
                 <button size={25} onClick={shareScreen}>
                   <img src={ShareScreen} />
                 </button>
-              </div> */}
-            </ButtonList>
+              </div>
+            </ButtonList> */}
             {callAccepted && !callEnded ? (
               <Button
                 variant="contained"

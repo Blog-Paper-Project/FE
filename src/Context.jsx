@@ -92,21 +92,21 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  // 오디오 온오프
-  const audioHandler = () => {
-    myVideo.current.srcObject
-      .getAudioTracks()
-      .forEach((track) => (track.enabled = !track.enabled));
-    setAudioOn(!audioOn);
-  };
+  // // 오디오 온오프
+  // const audioHandler = () => {
+  //   myVideo.current.srcObject
+  //     .getAudioTracks()
+  //     .forEach((track) => (track.enabled = !track.enabled));
+  //   setAudioOn(!audioOn);
+  // };
 
-  // 비디오 온오프
-  const videoHandler = () => {
-    myVideo.current.srcObject
-      .getVideoTracks()
-      .forEach((track) => (track.enabled = !track.enabled));
-    setVideoOn(!videoOn);
-  };
+  // // 비디오 온오프
+  // const videoHandler = () => {
+  //   myVideo.current.srcObject
+  //     .getVideoTracks()
+  //     .forEach((track) => (track.enabled = !track.enabled));
+  //   setVideoOn(!videoOn);
+  // };
 
   // // 화면 공유
   // const shareScreen = () => {
@@ -203,11 +203,11 @@ const ContextProvider = ({ children }) => {
         nickname,
         callToUser,
         setCallToUser,
-        audioHandler,
-        videoHandler,
+        // audioHandler,
+        // videoHandler,
         // shareScreen,
-        audioOn,
-        videoOn,
+        // audioOn,
+        // videoOn,
       }}
     >
       {children}
