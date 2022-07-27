@@ -21,8 +21,8 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  const [videoOn, setVideoOn] = useState(true);
-  const [audioOn, setAudioOn] = useState(true);
+  // const [videoOn, setVideoOn] = useState(true);
+  // const [audioOn, setAudioOn] = useState(true);
 
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -171,9 +171,15 @@ const ContextProvider = ({ children }) => {
     scrollToBottom();
   });
 
-  const leaveCall = () => {
+  const leaveCall = (currentStream) => {
     setCallEnded(true);
     connectionRef.current.destroy();
+    myVideo.remove();
+    myVideo.destroy();
+    userVideo.remove();
+    userVideo.destroy();
+    currentStream.remove();
+    currentStream.destroy();
     socket.emit("leaveRoom");
     window.location.reload();
     navigate(-1);
