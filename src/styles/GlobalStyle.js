@@ -6,23 +6,32 @@ const GlobalStyle = createGlobalStyle`
     * {
     margin: 0;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing : border-box;
     };
     body{
-        padding: 0;
-        margin: 0;
+        /* width:100%; */
         font-family: 'Noto Sans KR', sans-serif;
+        background-color:  #FFFDF7;
     };
     button{
-        display: flex;
         cursor: pointer;
-        outline: none;
-        border-radius: 3px;
+        border: none;
+        font-family: "Gmarket Sans";
+        background-color: white;
+    };
+    img{
+        cursor: pointer;
     };
     input{
-        display: flex;
-        outline: none;
+        outline: none; 
         padding-left: 10px;
-    }
+        padding-right: 10px;
+        margin: 0;
+        border:none;
+    };
+    a{ color: inherit; }
 `;
 
 export default GlobalStyle;

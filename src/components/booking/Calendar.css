@@ -1,0 +1,104 @@
+.calendarTitle {
+    margin: 10px;
+  }
+  
+  .saveBtn {
+    margin-top: 81px;
+    position: relative;
+  }
+  
+  .saveBtn > button {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    width: 384px;
+    height: 50px;
+  }
+  
+  .resetBtn {
+    /* background-color: rgb(207, 0, 0); */
+    background-color: #d11010;
+  
+    height: 30.38px;
+    width: 130px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 34px;
+    font-size: 12px;
+    font-weight: 600;
+    position: absolute;
+    border-radius: 4px;
+    color: #fff;
+    right: -80px;
+    top: 0px;
+    cursor: pointer;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+      0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  }
+  
+  .calendarTextWrap {
+    max-width: 1280px;
+    width: 45%;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .calendarTextInner {
+    margin-bottom: 8px;
+  }
+  .calendarInfo {
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 16px;
+  }
+  
+  .redColor {
+    background-color: #ff1512;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .blueColor {
+    background-color: #08a9ff;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 350;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .calendarText {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+  
+  .btnWrap {
+    height: 50px;
+  }
+  

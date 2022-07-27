@@ -1,0 +1,99 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal>section {
+  width: 90%;
+  max-width: 606px;
+  margin: 0 auto;
+  border-radius: 5px;
+  background-color: #fffdf7;
+  animation: modal-show 0.3s;
+  overflow: hidden;
+}
+
+.modal>section>header {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  border-bottom: solid 1px #acacac;
+  margin: 10px 20px;
+  padding-bottom: 25px;
+}
+
+.modal>section>header>h2 {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 45px;
+}
+
+.modal>section>header>p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.modal>section>main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  margin: 15px auto;
+}
+
+.modal>section>footer {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.modal>section>footer button {
+  width: 184px;
+  height: 50px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: 0em;
+  margin-top: 41px;
+}
+
+.modal.openModal {
+  display: flex;
+  align-items: center;
+  animation: modal-bg-show 0.5s;
+}
+
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

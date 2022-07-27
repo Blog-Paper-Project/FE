@@ -1,2 +1,40 @@
-// 1. 깃헙에 올릴 때 api key 안 올라가게 유의 할 것.
-// 2. 아직 정확히 어떻게 올려야하는지 모름 ( 깃헙 push 할 시 일단 팀원에게 먼저 얘기하자.)
+import axios from "axios";
+import { getCookie } from "../Cookie";
+
+/* 기본 api */
+export const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+/* token이 들어간 api */
+export const apiToken = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+apiToken.interceptors.request.use(
+  (config) => {
+    const authorization = getCookie("token");
+    config.headers.Authorization = `Bearer ${authorization}`;
+    return config;
+  },
+  (error) => {
+    alert("apiToken 에러입니다.");
+  }
+);
+
+/* formData용 api */
+export const apiForm = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+});
+
+apiForm.interceptors.request.use(
+  (config) => {
+    const authorization = getCookie("token");
+    config.headers.Authorization = `Bearer ${authorization}`;
+    config.headers = {
+      "content-type": "multipart/form-data",
+    };
+    return config;
+  },
+  (error) => {}
+);

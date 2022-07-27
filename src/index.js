@@ -16,7 +16,21 @@ import { BrowserRouter } from "react-router-dom";
 /* Cookies settings */
 import { CookiesProvider } from "react-cookie";
 
-const queryClient = new QueryClient();
+/* redux */
+import store from "./redux/configStore";
+import { Provider } from "react-redux";
+
+/* socket */
+import { ContextProvider } from "./Context";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // window focus 설정
+      // refetchOnMount: true,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +38,11 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <GlobalStyle />
-        <App />
+        <Provider store={store}>
+          <ContextProvider>
+            <App />
+          </ContextProvider>
+        </Provider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
