@@ -46,7 +46,7 @@ const ContextProvider = ({ children }) => {
     socket.on("callUser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivingCall: true, from, name: callerName, signal });
     });
-  }, [call, callAccepted, audioOn, videoOn]);
+  }, [call, callAccepted]);
 
   //화상
   const answerCall = () => {
