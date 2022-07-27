@@ -10,7 +10,7 @@ const Kakao = () => {
   console.log(code)
 
   useEffect(() => {
-    if (code) {
+    if (!!code) {
       const kakaoLogin = () => {
         api
           .get(`/user/login/kakao/callback?code=${code}`)
@@ -49,7 +49,7 @@ const Kakao = () => {
       };
       kakaoLogin();
     }
-  }, [code]);
+  }, []);
   return <div>Kakao</div>;
 };
 
