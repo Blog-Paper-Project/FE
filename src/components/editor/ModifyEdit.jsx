@@ -85,7 +85,7 @@ const ModifyEdit = (props) => {
     if (
       e.target.value.length !== 0 &&
       e.keyCode === 13 &&
-      tagList.length < 10
+      tagList.length < 20
     ) {
       // 새 태그 배열(array) 안에 넣기 < 그래야 map으로 돌릴 수 있음 >
       setTagList([...tagList, tag]);
@@ -664,13 +664,14 @@ const HashTagInput = styled.input`
 `;
 
 const Tag = styled.div`
-  height: 21px;
-  width: 90px;
+  height: 25px;
+  min-width: 60px;
   box-sizing: border-box;
+  white-space: nowrap;
   outline: 1px solid;
   border: 1px solid;
   border-radius: 5px;
-  padding: 5px, 10px, 5px, 10px;
+  padding: 12px 15px 12px 15px;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;

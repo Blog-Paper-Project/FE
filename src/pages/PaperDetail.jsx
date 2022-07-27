@@ -289,14 +289,22 @@ const TagWrap = styled.div`
   margin-bottom: 50px;
 `;
 const Tag = styled.div`
+  height: 25px;
+  width: auto;
+  box-sizing: border-box;
+  white-space: nowrap;
+  outline: 1px solid;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 12px 15px 12px 15px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
-  width: 85px;
-  border: 2px solid black;
-  border-radius: 30px;
-  font-size: 12px;
 `;
 const CommentLikeWrap = styled.div`
   display: flex;

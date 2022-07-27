@@ -220,12 +220,15 @@ const Paper = () => {
 const Container = styled.div`
   max-width: 1920px;
   margin: 0 auto;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 `;
 const ContainerMiddle = styled.div`
+  width: 1920px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-left: 40px;
+  overflow-y: hidden;
 `;
 // MyProfile 박스
 const MyProfile = styled.div`
@@ -313,6 +316,7 @@ const SortType = styled.div`
   font-weight: 400;
   font-size: 16px;
   gap: 10px;
+  margin-left: 510px;
   button {
     height: 30px;
     width: 154px;
@@ -323,30 +327,30 @@ const SortType = styled.div`
 
 // TagSortWrap wrap - 3
 const TagSortWrap = styled.div`
-  height: 80vh;
-  width: 100%;
+  max-width: 900px;
+  min-height: 600px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 // TagSort box - 3
 const TagSort = styled.div`
-  height: 80vh;
-  width: 50vw;
+  max-width: 900px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  top: 110px;
-  gap: 1%;
+  margin-top: 40px;
+  gap: 10px 7px;
 `;
 // Tag div - 3
 const Tag = styled.div`
   height: 25px;
-  width: 90px;
+  min-width: 60px;
   box-sizing: border-box;
+  white-space: nowrap;
   border: 2px solid black;
   border-radius: 20px;
-  padding: 5px;
+  padding: 12px 15px 12px 15px;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
@@ -368,7 +372,7 @@ const AllSortWrap = styled.div`
   width: 1078px;
   display: flex;
   flex-wrap: wrap;
-  gap: 70px 70px;
+  gap: 20px;
 `;
 
 const CategoryWrap = styled.div`

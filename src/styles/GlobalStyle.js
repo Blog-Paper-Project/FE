@@ -13,8 +13,8 @@ const GlobalStyle = createGlobalStyle`
     body{
         /* width:100%; */
         font-family: 'Noto Sans KR', sans-serif;
-        /* background-color:  #FFFDF7; */
-        background-color:  white;
+        background-color:  #FFFDF7;
+        /* background-color:  white; */
     };
     button{
         cursor: pointer;

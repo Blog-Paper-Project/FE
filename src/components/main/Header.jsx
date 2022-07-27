@@ -146,8 +146,7 @@ const Header = () => {
 };
 
 const HeaderBox = styled.div`
-  background-color: white;
-  /* background-color: #fffdf7; */
+  background-color: #fffdf7;
   flex-direction: row;
   align-items: center;
   justify-content: center;

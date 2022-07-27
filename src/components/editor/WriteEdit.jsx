@@ -74,6 +74,15 @@ const WriteEdit = () => {
       }
     };
   };
+  //## 'Enter'시 카테고리 추가 이벤트
+  const onEnter = (e) => {
+    if (e.target.value.length !== 0 && e.keyCode === 13) {
+      setCategoryList([...categoryList, category]);
+      setSelectOption(category);
+      setCategory("");
+      setEditCategory(!editCategory);
+    }
+  };
   //## 'Enter'시 태그 추가 이벤트
   const onKeyUp = (e) => {
     if (
@@ -212,6 +221,7 @@ const WriteEdit = () => {
                     onChange={(e) => {
                       setCategory(e.target.value);
                     }}
+                    onKeyUp={onEnter}
                   />
                   <button
                     className="btn_plus"
@@ -351,7 +361,7 @@ const WriteEdit = () => {
               type="text"
               value={tag || ""}
               placeholder="태그를 입력하세요"
-              maxLength="10"
+              maxLength="20"
               onKeyUp={onKeyUp}
               onChange={(e) => {
                 setTag(e.target.value);
@@ -625,13 +635,14 @@ const HashTagInput = styled.input`
 `;
 
 const Tag = styled.div`
-  height: 21px;
-  width: 90px;
+  height: 25px;
+  min-width: 60px;
   box-sizing: border-box;
+  white-space: nowrap;
   outline: 1px solid;
   border: 1px solid;
   border-radius: 5px;
-  padding: 5px, 10px, 5px, 10px;
+  padding: 12px 15px 12px 15px;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
