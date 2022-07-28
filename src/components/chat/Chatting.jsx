@@ -9,13 +9,14 @@ const Chatting = () => {
     useContext(SocketContext);
 
   const nickname = getCookie("nickname");
+  console.log(messageList)
 
   return (
     <>
       <ChatBox>
         <ChatBack>
           <ChatList ref={boxRef}>
-            {messageList.map((messageContent, index, me, you) => {
+            {messageList.map((messageContent, index) => {
               return (
                 <div key={index}>
                   {messageContent.type === "connect" ? (
@@ -26,29 +27,19 @@ const Chatting = () => {
                   ) : null}
                   {messageContent.nick === nickname ? (
                     <div>
-                      <p style={{ color: "blue" }}>{messageContent.nick}</p>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <p>{messageContent.message}</p>
+                      <Mynick>{messageContent.nick}</Mynick>
+                      <MessageBox>
+                        <Message>{messageContent.message}</Message>
                         <p id="time">{messageContent.time}</p>
-                      </div>
+                      </MessageBox>
                     </div>
                   ) : (
                     <div>
-                      <p style={{ color: "red" }}>{messageContent.nick}</p>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <p>{messageContent.message}</p>
+                      <Othernick>{messageContent.nick}</Othernick>
+                      <Message>
+                        <Message>{messageContent.message}</Message>
                         <p id="time">{messageContent.time}</p>
-                      </div>
+                      </Message>
                     </div>
                   )}
                 </div>
@@ -56,7 +47,7 @@ const Chatting = () => {
             })}
           </ChatList>
 
-          <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+          <div style={{ position: "absolute", bottom: "10px", width: "100%" }}>
             <input
               type="text"
               placeholder="대화를 입력하세요."
@@ -85,7 +76,7 @@ const ChatBack = styled.div`
   height: 615.41px;
   flex-direction: column;
   position: relative;
-  width: 283px;
+  width: 300px;
   padding: 10px;
 `;
 
@@ -94,6 +85,35 @@ const ChatList = styled.div`
   padding: 10px;
   height: 550px;
   overflow-y: auto;
+  line-height: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Mynick = styled.p`
+  display: flex;
+  /* justify-content: flex-end; */
+  color: blue;
+  margin-bottom: 8px;
+`;
+
+const Othernick = styled.p`
+  display: flex;
+  justify-content: flex-end;
+  color: blue;
+  margin-bottom: 8px;
+`;
+
+const MessageBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid gray;
+  width: 100%;
+`;
+
+const Message = styled.p`
+  word-break: break-all;
 `;
 
 export default Chatting;
