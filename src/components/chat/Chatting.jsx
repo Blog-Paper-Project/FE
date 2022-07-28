@@ -46,9 +46,8 @@ const Chatting = () => {
               );
             })}
           </ChatList>
-
-          <div style={{ position: "absolute", bottom: "10px", width: "100%" }}>
-            <input
+          <InputWrap>
+            <Input1
               type="text"
               placeholder="대화를 입력하세요."
               onChange={(e) => setCurrentMessage(e.target.value)}
@@ -57,8 +56,8 @@ const Chatting = () => {
               }}
               ref={inputRef}
             />
-            <button onClick={sendMessage}>보내기</button>
-          </div>
+            <SendButton onClick={sendMessage}>전송</SendButton>
+          </InputWrap>
         </ChatBack>
       </ChatBox>
     </>
@@ -114,6 +113,33 @@ const MessageBox = styled.div`
 
 const Message = styled.p`
   word-break: break-all;
+`;
+
+const InputWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: white;
+  border-bottom: solid 1px #acacac;
+`;
+
+const Input1 = styled.input`
+  width: 100%;
+  height: 50px;
+`;
+
+const SendButton = styled.button`
+  width: 96px;
+  height: 34px;
+  background-color: #fffdf7;
+  color: black;
+  border: 1px solid gray;
+  margin: 8px 8px 8px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 80px;
 `;
 
 export default Chatting;
