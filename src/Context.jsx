@@ -10,7 +10,7 @@ const socket = io("https://first-sw.shop");
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
+  // const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [name, setName] = useState("");
   const [call, setCall] = useState({});
@@ -30,7 +30,9 @@ const ContextProvider = ({ children }) => {
   const boxRef = useRef();
 
   const nickname = getCookie("nickname");
+  const blogId = getCookie("blogId");
   const navigate = useNavigate();
+  console.log(blogId);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -172,17 +174,10 @@ const ContextProvider = ({ children }) => {
   });
 
   const leaveCall = (currentStream) => {
-    setCallEnded(true);
-    connectionRef.current.destroy();
-    myVideo.remove();
-    myVideo.destroy();
-    userVideo.remove();
-    userVideo.destroy();
-    currentStream.remove();
-    currentStream.destroy();
+    // setCallEnded(true);
     socket.emit("leaveRoom");
-    window.location.reload();
-    navigate(-1);
+    navigate("/");
+    window.location.replace("/");
   };
 
   return (
@@ -196,7 +191,7 @@ const ContextProvider = ({ children }) => {
         stream,
         name,
         setName,
-        callEnded,
+        // callEnded,
         me,
         callUser,
         leaveCall,

@@ -232,7 +232,7 @@ const InputBox = styled.div`
 `;
 
 const OKEmail = styled.div`
-  width: calc(100% - 20px);
+  width: 100%;
   height: 50px;
   padding: 0 10px;
   background-color: #efefef;

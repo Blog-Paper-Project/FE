@@ -1,10 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Button,
-  Grid,
-  Container,
-  Paper,
-} from "@material-ui/core";
+import { Button, Grid, Container, Paper } from "@material-ui/core";
 // import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Phone, PhoneDisabled } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,10 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { SocketContext } from "../../Context";
 
 import styled from "styled-components";
-import AudioOff from "../../public/images/AudioOff.svg";
-import AudioOn from "../../public/images/AudioOn.svg";
-import VideoOff from "../../public/images/VideoOff.svg";
-import VideoOn from "../../public/images/VideoOn.svg";
+// import AudioOff from "../../public/images/AudioOff.svg";
+// import AudioOn from "../../public/images/AudioOn.svg";
+// import VideoOff from "../../public/images/VideoOff.svg";
+// import VideoOn from "../../public/images/VideoOn.svg";
 // import ShareScreen from "../../public/images/ShareScreen.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
       width: "80%",
     },
   },
-  margin: {
-    marginTop: 20,
-  },
   padding: {
     padding: 20,
   },
@@ -52,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ children }) => {
   const {
     callAccepted,
-    callEnded,
+    // callEnded,
     idToCall,
     // audioOn,
     // videoOn,
@@ -61,6 +53,8 @@ const Sidebar = ({ children }) => {
     // shareScreen,
     leaveCall,
     callUser,
+    call,
+    answerCall,
   } = useContext(SocketContext);
   const classes = useStyles();
   return (
@@ -97,7 +91,7 @@ const Sidebar = ({ children }) => {
                 </button>
               </div>
             </ButtonList> */}
-            {callAccepted && !callEnded ? (
+            {callAccepted ? (
               <Button
                 variant="contained"
                 color="secondary"
@@ -107,6 +101,16 @@ const Sidebar = ({ children }) => {
                 className={classes.margin}
               >
                 나가기
+              </Button>
+            ) : call.isReceivingCall && !callAccepted ? (
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={answerCall}
+                className={classes.margin}
+              >
+                Answer
               </Button>
             ) : (
               <Button
@@ -128,15 +132,15 @@ const Sidebar = ({ children }) => {
   );
 };
 
-const ButtonList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 50px;
-  border-top: 1px solid gray;
-  gap: 50px;
-  padding-top: 30px;
-`;
+// const ButtonList = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   margin: 50px;
+//   border-top: 1px solid gray;
+//   gap: 50px;
+//   padding-top: 30px;
+// `;
 
 export default Sidebar;
