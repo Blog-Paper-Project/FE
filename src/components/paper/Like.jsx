@@ -6,11 +6,13 @@ import { getCookie } from "../../shared/Cookie";
 //image
 import TrueHeart from "../../public/images/icons/Favorite_border.png";
 import FalseHeart from "../../public/images/icons/Favorite.png";
+import { useNavigate } from "react-router-dom";
 
 const Like = ({ postId, Likes }) => {
   // console.log(postId);
   const [like, setLike] = useState(false);
   const userId = getCookie("userId");
+  const navigate = useNavigate("");
   // console.log(Likes);
   const LikesCheck = Likes?.find((value) => {
     // console.log(value.likes.userId);
@@ -33,15 +35,17 @@ const Like = ({ postId, Likes }) => {
       queryClient.invalidateQueries("detail_data");
       // console.log(data);
     },
-    onError: () => {
-      alert("자신의 글엔 좋아요를 할 수 없습니다.");
+    onError: (err) => {
+      alert(err.response.data.errorMessage);
+      navigate("/login");
+      window.scrollTo(0, 0);
     },
   });
   // console.log(likeData);
   const onLike = useCallback(() => {
     setLike(!like);
     onPost();
-  }, [onPost]);
+  }, [like]);
 
   return (
     <>
@@ -51,9 +55,9 @@ const Like = ({ postId, Likes }) => {
         }}
       >
         {LikesCheck === undefined ? (
-          <img src={TrueHeart} alt="좋아요" />
+          <img src={like ? FalseHeart : TrueHeart} alt="좋아요" />
         ) : (
-          <img src={FalseHeart} alt="좋아요" />
+          <img src={like ? TrueHeart : FalseHeart} alt="좋아요" />
         )}
         좋아요
       </Button>
