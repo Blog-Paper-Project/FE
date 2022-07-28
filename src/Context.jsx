@@ -173,6 +173,7 @@ const ContextProvider = ({ children }) => {
 
   const leaveCall = (currentStream) => {
     setCallEnded(true);
+    navigate(-1);
     connectionRef.current.destroy();
     myVideo.remove();
     myVideo.destroy();
@@ -182,7 +183,6 @@ const ContextProvider = ({ children }) => {
     currentStream.destroy();
     socket.emit("leaveRoom");
     window.location.reload();
-    navigate(-1);
   };
 
   return (
