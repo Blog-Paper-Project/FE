@@ -9,7 +9,7 @@ const Chatting = () => {
     useContext(SocketContext);
 
   const nickname = getCookie("nickname");
-  console.log(messageList)
+  console.log(messageList);
 
   return (
     <>
@@ -36,10 +36,10 @@ const Chatting = () => {
                   ) : (
                     <div>
                       <Othernick>{messageContent.nick}</Othernick>
-                      <Message>
+                      <MessageBox>
                         <Message>{messageContent.message}</Message>
                         <p id="time">{messageContent.time}</p>
-                      </Message>
+                      </MessageBox>
                     </div>
                   )}
                 </div>
@@ -101,7 +101,7 @@ const Mynick = styled.p`
 const Othernick = styled.p`
   display: flex;
   justify-content: flex-end;
-  color: blue;
+  color: red;
   margin-bottom: 8px;
 `;
 

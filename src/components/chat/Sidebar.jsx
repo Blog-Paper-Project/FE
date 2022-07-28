@@ -106,7 +106,12 @@ const Sidebar = ({ children }) => {
                 나가기
               </Button>
             ) : call.isReceivingCall && !callAccepted ? (
-              <Button variant="contained" color="primary" onClick={answerCall}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={answerCall}
+              >
                 Answer
               </Button>
             ) : (
@@ -129,15 +134,15 @@ const Sidebar = ({ children }) => {
   );
 };
 
-const ButtonList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 50px;
-  border-top: 1px solid gray;
-  gap: 50px;
-  padding-top: 30px;
-`;
+// const ButtonList = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   margin: 50px;
+//   border-top: 1px solid gray;
+//   gap: 50px;
+//   padding-top: 30px;
+// `;
 
 export default Sidebar;
