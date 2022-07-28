@@ -151,8 +151,11 @@ const CommentList = (props) => {
                 </button>
                 <button
                   onClick={() => {
-                    onDelete();
-                    alert("댓글이 삭제 되었습니다.");
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      onDelete();
+                    } else {
+                      return;
+                    }
                   }}
                 >
                   삭제
@@ -207,9 +210,9 @@ const CommentWrap = styled.div`
   }
   .UserNickname {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 14px;
-    font-family: "Gmarket Sans";
+    font-family: "Noto Sans KR";
   }
   .NicknameCreateWrap {
     display: flex;
@@ -230,17 +233,6 @@ const CommentWrap = styled.div`
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
   }
-  /* .TextWrap_Edit {
-    display: flex;
-    justify-content: flex-start;
-    gap: 10px;
-    width: 898px;
-    height: 100px;
-    margin-top: 10px;
-    outline: 1px solid #acacac;
-    border: 1px solid #acacac;
-    background-color: white;
-  } */
   .Text {
     width: 483px;
     padding: 10px 0px 10px 15px;
@@ -269,8 +261,9 @@ const EditButtonWrap = styled.div`
     outline: 1px solid;
     font-weight: 500;
     font-size: 13px;
-    /* background-color: black;
-    color: white; */
+    &:hover {
+      background: #acacac;
+    }
   }
 `;
 //## 대댓글 가능할 때 이런 방식으로

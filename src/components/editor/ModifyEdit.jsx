@@ -19,6 +19,7 @@ import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const ModifyEdit = (props) => {
   const { postId, blogId } = props;
+
   // console.log(postId);
   // console.log(props.postId);
   //## 글 작성 데이터 관련 state
@@ -33,7 +34,8 @@ const ModifyEdit = (props) => {
   const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState("");
-  console.log(head_data);
+  console.log(selectOption);
+  // console.log(head_data);
   // const PastTagList = detail_data?.Tags;
   const userId = getCookie("userId");
   const hostId = Number(userId);
@@ -83,7 +85,7 @@ const ModifyEdit = (props) => {
     if (
       e.target.value.length !== 0 &&
       e.keyCode === 13 &&
-      tagList.length < 10
+      tagList.length < 20
     ) {
       // 새 태그 배열(array) 안에 넣기 < 그래야 map으로 돌릴 수 있음 >
       setTagList([...tagList, tag]);
@@ -115,8 +117,9 @@ const ModifyEdit = (props) => {
       title: head_data,
       thumbnail: image_data?.data.imageUrl,
       tags: tagList,
+      category: selectOption,
     });
-    return response?.data.paper;
+    // return response?.data.paper;
   };
   //## useMutation write 데이터 post
   const { mutate: onPost } = useMutation(postfecher, {
@@ -128,24 +131,56 @@ const ModifyEdit = (props) => {
     //   alert("post 실패!");
     // },
   });
-
+  // ## 글 데이터 useQuery  get
   const GetDetailtData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
     return response?.data.paper;
   };
 
-  //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
-  //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
     ["detail_data", postId],
     GetDetailtData,
     // { staleTime: Infinity }
     {
-      onSuccess: () => {
-        setHeadData(detail_data?.title);
-        // setImage(detail_data?.thumbnail);
-        // setCategoryList(detail_data?.)
+      onSuccess: (data) => {
+        const TagAll = data?.Tags.map((value) => {
+          return value.name;
+        });
+
+        setHeadData(data.title);
+        setTagList([...TagAll]);
+        setSelectOption(data.category);
+        setCategoryList([]);
+        setData(data.contents);
+        setPreviewImg(data.thumbnail);
+
+        if (hostId !== data?.userId) {
+          navigate("/");
+          alert("블로거 주인만 수정할 수 있습니다.");
+        }
       },
+      staleTime: 0,
+      cacheTime: 0,
+    }
+  );
+
+  // 카테고리 데이터 useQuery get
+  const GetCategoryData = async () => {
+    const response = await apiToken.get(`/api/paper/categories`);
+    return response?.data;
+  };
+
+  const { data: category_data } = useQuery(
+    ["category_data", blogId],
+    GetCategoryData,
+    // { staleTime: Infinity }
+    {
+      onSuccess: (data) => {
+        const CategoriesAll = data?.categories;
+        setCategoryList([...CategoriesAll]);
+      },
+      staleTime: 0,
+      cacheTime: 0,
     }
   );
 
@@ -156,14 +191,9 @@ const ModifyEdit = (props) => {
   if (status === "error") {
     return alert("error");
   }
-  if (hostId !== detail_data?.userId) {
-    navigate("/");
-    alert("블로거 주인만 수정할 수 있습니다.");
-  }
-  // const TagAll = detail_data?.Tags;
-  // console.log(...TagAll);
-  // console.log("Modify", detail_data);
-  // console.log(Object.values(...TagAll));
+
+  console.log("category_data", category_data);
+  console.log("detail_data", detail_data);
 
   return (
     <Container>
@@ -259,16 +289,16 @@ const ModifyEdit = (props) => {
                             </option>
                           );
                         })}
-                        {detail_data?.category.length === 0 ? (
+                        {category_data?.categories.length === 0 ? (
                           <>
                             <option value="etc">etc</option>
                           </>
                         ) : (
                           <>
-                            {detail_data?.category.map((value, index) => {
+                            {category_data?.categories.map((value, index) => {
                               return (
                                 <option key={index} value={value}>
-                                  {value}
+                                  {selectOption}
                                 </option>
                               );
                             })}
@@ -277,7 +307,7 @@ const ModifyEdit = (props) => {
                       </>
                     ) : (
                       <>
-                        {detail_data?.category.map((value, index) => {
+                        {category_data?.categories.map((value, index) => {
                           return (
                             <option key={index} value={value}>
                               {value}
@@ -558,7 +588,7 @@ const Title = styled.textarea`
   height: 60px;
   width: 100%;
   color: #333333;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 40px;
   /* line-height: 60px; */
   padding-bottom: 10px;
@@ -576,6 +606,7 @@ const HashWrapOuter = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
+  gap: 7px;
 `;
 const ThumbmailWrap = styled.div`
   display: flex;
@@ -633,13 +664,14 @@ const HashTagInput = styled.input`
 `;
 
 const Tag = styled.div`
-  height: 21px;
-  width: 90px;
+  height: 25px;
+  min-width: 60px;
   box-sizing: border-box;
+  white-space: nowrap;
   outline: 1px solid;
   border: 1px solid;
   border-radius: 5px;
-  padding: 5px, 10px, 5px, 10px;
+  padding: 12px 15px 12px 15px;
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;

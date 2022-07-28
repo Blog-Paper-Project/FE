@@ -6,7 +6,7 @@ import styled from "styled-components";
 const ContentBox = (props) => {
   const { title, thumbnail, blogId, postId, createdAt } = props;
   const navigate = useNavigate();
-  console.log(thumbnail);
+  // console.log(thumbnail);
   return (
     <Container>
       {thumbnail === null ? (
@@ -40,6 +40,7 @@ const ContentBox = (props) => {
 
 const Container = styled.div`
   width: 438px;
+  /* margin-bottom: 10px; */
 `;
 const Thumbnail = styled.img`
   height: 250px;
@@ -54,12 +55,13 @@ const Meiyou = styled.div`
 const Title = styled.div`
   height: 54px;
   width: 100%;
-  font-weight: 540;
-  font-size: 25px;
+  font-weight: 600;
+  font-size: 22px;
   line-height: 50px;
 `;
 const CreatedAt = styled.div`
   height: 16px;
+  font-size: 14px;
   width: 100%;
 `;
 export default ContentBox;
