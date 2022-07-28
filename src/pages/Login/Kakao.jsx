@@ -10,19 +10,14 @@ const Kakao = () => {
   console.log(code)
 
   useEffect(() => {
-    if (!!code) {
+    if (code) {
       const kakaoLogin = () => {
         api
           .get(`/user/login/kakao/callback?code=${code}`)
           .then((data) => {
             console.log(data)
             if (data.data.blogId === null || data.data.blogId === undefined) {
-              setCookie("token", data.data.token, 2);
-              setCookie("nickname", data.data.nickname, 2);
-              setCookie("userId", data.data.userId, 2);
-              setCookie("profileimage", data.data.profileImage, 2);
               setCookie("email", data.data.email, 2);
-
               navigate("/socialsignup");
             } else if (
               data.data.blogId !== null &&
@@ -49,7 +44,7 @@ const Kakao = () => {
       };
       kakaoLogin();
     }
-  }, []);
+  }, [code]);
   return <div>Kakao</div>;
 };
 

@@ -82,6 +82,9 @@ const Header = () => {
             {is_cookie ? (
               <>
                 <BtnBox>
+                  <Link to="/paper/allpapers">
+                    <Btn>전체글</Btn>
+                  </Link>
                   <Link to="/write">
                     <Btn>작성하기</Btn>
                   </Link>
@@ -130,12 +133,17 @@ const Header = () => {
               </>
             ) : (
               <>
-                <Link
-                  to="/login"
-                  style={{ color: "inherit", textDecoration: "none" }}
-                >
-                  <Btn>로그인</Btn>
-                </Link>
+                <BtnBox>
+                  <Link to="/paper/allpapers">
+                    <Btn>전체글</Btn>
+                  </Link>
+                  <Link
+                    to="/login"
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    <Btn>로그인</Btn>
+                  </Link>
+                </BtnBox>
               </>
             )}
           </Login>

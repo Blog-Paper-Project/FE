@@ -23,12 +23,13 @@ const Reservation = () => {
 
     apiToken({
       method: "get",
-      url: `/api/booking`, // 학생 또는 선생님
+      url: `/api/booking`, 
     })
       .then((doc) => {
-        // console.log(doc.data.totalList);
+        console.log(doc.data.totalList);
         setAvailability(doc?.data.totalList.guestBookingList);
       })
+      
       .catch((err) => {
         console.log(err);
       });
