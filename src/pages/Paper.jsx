@@ -13,6 +13,7 @@ import CategoryList from "../components/paper/CategoryList";
 import defaultUserImage from "../public/images/default_profile.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
+import Footer from "../components/main/Footer";
 
 const Paper = () => {
   const { blogId } = useParams();
@@ -26,12 +27,20 @@ const Paper = () => {
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-
+  const [SelectCategory, setSelectCategory] = useState(null);
+  console.log(SelectCategory);
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(!allSort);
+    setCategoty_Toggle(false);
   }, [allSort]);
 
+  const onCategory = (e) => {
+    setSelectCategory(e);
+  };
+  // const onCategory = (e) => {
+  //   console.log(e.target.value);
+  // };
   const onAll = useCallback(() => {
     setAllSort(true);
   }, []);
@@ -47,8 +56,10 @@ const Paper = () => {
       queryClient.invalidateQueries("paper_data");
       // console.log(data);
     },
-    onError: () => {
-      alert("error");
+    onError: (err) => {
+      alert(err.response.data.errorMessage);
+      navigate("/login");
+      window.scrollTo(0, 0);
     },
   });
 
@@ -84,9 +95,14 @@ const Paper = () => {
   const isSubscribe = mypaper_data.user.Followers.find((value) => {
     return value.blogId === isHostId;
   });
-  // console.log("isSubscribe", isSubscribe);
-  console.log(mypaper_data.user.Followers);
+  const SelectCategoryData = mypaper_data?.user.Papers.filter(
+    (PostsData) => PostsData.category === SelectCategory
+  );
+  console.log(SelectCategoryData);
+  console.log("isSubscribe", isSubscribe);
+  // console.log(mypaper_data.user.Followers);
   // console.log(mypaper_data?.categories);
+  console.log(mypaper_data?.user.Papers);
   return (
     <Container>
       <Header />
@@ -132,7 +148,13 @@ const Paper = () => {
 
             <Button
               onClick={() => {
-                navigate(`/paper/${blogId}/reservation`);
+                if (isHostId == null) {
+                  alert("로그인 후 이용 가능한 기능입니다.");
+                  navigate("/login");
+                  window.scrollTo(0, 0);
+                } else {
+                  navigate(`/paper/${blogId}/reservation`);
+                }
               }}
               background_color="#FFFDF7"
             >
@@ -164,7 +186,13 @@ const Paper = () => {
               </button> */}
               <div className="OptionWrap">
                 {mypaper_data?.categories.map((value, index) => {
-                  return <CategoryList key={index} categories={value} />;
+                  return (
+                    <CategoryList
+                      onCategory={onCategory}
+                      key={index}
+                      categories={value}
+                    />
+                  );
                 })}
               </div>
             </>
@@ -195,24 +223,49 @@ const Paper = () => {
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
           <>
-            <AllSortWrap>
-              {mypaper_data?.user.Papers.map((value, idx) => {
-                // console.log(mypaper_data);
+            {SelectCategory === null ? (
+              <>
+                <AllSortWrap>
+                  {mypaper_data?.user.Papers.map((value, idx) => {
+                    // console.log(mypaper_data);
 
-                return (
-                  <ContentBox
-                    key={idx}
-                    title={value.title}
-                    thumbnail={value.thumbnail}
-                    tags={value.tags}
-                    createdAt={value.createdAt}
-                    blogId={blogId}
-                    postId={value.postId}
-                    content={value.contents}
-                  />
-                );
-              })}
-            </AllSortWrap>
+                    return (
+                      <ContentBox
+                        key={idx}
+                        title={value.title}
+                        thumbnail={value.thumbnail}
+                        tags={value.tags}
+                        createdAt={value.createdAt}
+                        blogId={blogId}
+                        postId={value.postId}
+                        content={value.contents}
+                      />
+                    );
+                  })}
+                </AllSortWrap>
+              </>
+            ) : (
+              <>
+                <AllSortWrap>
+                  {SelectCategoryData?.map((value, idx) => {
+                    // console.log(mypaper_data);
+
+                    return (
+                      <ContentBox
+                        key={idx}
+                        title={value.title}
+                        thumbnail={value.thumbnail}
+                        tags={value.tags}
+                        createdAt={value.createdAt}
+                        blogId={blogId}
+                        postId={value.postId}
+                        content={value.contents}
+                      />
+                    );
+                  })}
+                </AllSortWrap>
+              </>
+            )}
           </>
         ) : (
           <TagSortWrap>
@@ -224,6 +277,7 @@ const Paper = () => {
           </TagSortWrap>
         )}
       </ContainerMiddle>
+      <Footer />
     </Container>
   );
 };
@@ -236,6 +290,7 @@ const Container = styled.div`
 `;
 const ContainerMiddle = styled.div`
   width: 1920px;
+  min-height: 1000px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -315,12 +370,14 @@ const Nickname = styled.div`
   font-weight: 400;
   font-family: "Gmarket Sans";
   color: #333333;
+  /* opacity: 0.9; */
 `;
 const Introduction = styled.div`
-  width: 542px;
-  min-height: 60px;
-  max-height: 60px;
+  width: 540px;
+  min-height: 70px;
+  max-height: 70px;
   padding-top: 15px;
+  padding-right: 15px;
   margin-bottom: 25px;
   overflow: hidden;
   font-size: 14px;
@@ -364,10 +421,10 @@ const SortType = styled.div`
 
 // TagSortWrap wrap - 3
 const TagSortWrap = styled.div`
-  max-width: 1078px;
+  width: 1078px;
   min-height: 600px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
 `;
 // TagSort box - 3
@@ -393,11 +450,12 @@ const Tag = styled.div`
   font-family: "Noto Sans";
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgb(0 0 0 / 6%) 0px 4px 15px 0px;
   :hover {
     cursor: pointer;
     color: white;
@@ -409,9 +467,10 @@ const Tag = styled.div`
 // AllSortWrap wrap - 4 / 각 포스트들 간의 간격 gap
 const AllSortWrap = styled.div`
   width: 1078px;
+  /* min-height: 1200px; */
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px 40px;
 `;
 
 const CategoryWrap = styled.div`
@@ -444,17 +503,20 @@ const CategoryWrap = styled.div`
   .SelectWrap {
     height: 32px;
     width: 154px;
+
     z-index: 4;
   }
   .OptionWrap {
     width: 154px;
-    min-height: 300px;
+    min-height: 0px;
     max-height: 300px;
     width: 154px;
     margin-top: 8px;
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     overflow-y: scroll;
+    position: relative;
+    z-index: 99;
   }
   .OptionWrap::-webkit-scrollbar {
     width: 10px;

@@ -19,31 +19,26 @@ import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const ModifyEdit = (props) => {
   const { postId, blogId } = props;
+  const userId = getCookie("userId");
+  const hostId = Number(userId);
+  const HostIdCheck = getCookie("blogId");
+  const editorRef = useRef();
+  const navigate = useNavigate();
 
-  // console.log(postId);
-  // console.log(props.postId);
   //## 글 작성 데이터 관련 state
   const [markdown_data, setData] = useState("");
   const [head_data, setHeadData] = useState(null);
-  const [thumbImage, setImage] = useState(null);
+  const [basicThumbImage, setBasicThumbImage] = useState("");
+  const [thumbImage, setImage] = useState(basicThumbImage);
+  const [previewImg, setPreviewImg] = useState(""); // # 썸네일
   const [tag, setTag] = useState("");
   const [tagList, setTagList] = useState([]);
   const [openModal, setOpenModal] = useState(false); // # 썸네일, 카테고리 고르는 모달 오픈
-  const [previewImg, setPreviewImg] = useState(thumbImage); // # 썸네일
   const [editCategory, setEditCategory] = useState(false);
   const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState("");
-  console.log(selectOption);
-  // console.log(head_data);
-  // const PastTagList = detail_data?.Tags;
-  const userId = getCookie("userId");
-  const hostId = Number(userId);
-  const editorRef = useRef();
-  const navigate = useNavigate();
-  // const BeforeTags = detail_data?.Tags;
-  // console.log(detail_data?.Tags);
-  // console.log(PastTagList);
+  const [selectOption, setSelectOption] = useState("etc");
+
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
@@ -80,16 +75,57 @@ const ModifyEdit = (props) => {
       }
     };
   };
+  //## 'Enter'시 카테고리 추가 이벤트
+  const onEnter = (e) => {
+    if (
+      e.target.value.length !== 0 &&
+      e.keyCode === 13 &&
+      categoryList.includes(e.target.value) !== true
+    ) {
+      setCategoryList([...categoryList, category]);
+      setSelectOption(category);
+      setCategory("");
+      setEditCategory(!editCategory);
+    } else if (
+      e.keyCode === 13 &&
+      categoryList.includes(e.target.value) == true
+    ) {
+      setCategory("");
+    }
+  };
+  //## 'Click'시 카테고리 추가 이벤트
+  const onClick_categoty = () => {
+    if (
+      category.length !== 0 &&
+      category !== "etc" &&
+      categoryList.includes(category) !== true
+    ) {
+      setCategoryList([...categoryList, category]);
+      setSelectOption(category);
+      setCategory("");
+      setEditCategory(!editCategory);
+    } else if (
+      category.length === 0 &&
+      category === "etc" &&
+      categoryList.includes(category) == true
+    ) {
+      setCategory("");
+    }
+  };
+
   //## 'Enter'시 태그 추가 이벤트
   const onKeyUp = (e) => {
     if (
       e.target.value.length !== 0 &&
       e.keyCode === 13 &&
-      tagList.length < 20
+      tagList.length < 10 &&
+      tagList.includes(e.target.value) !== true
     ) {
       // 새 태그 배열(array) 안에 넣기 < 그래야 map으로 돌릴 수 있음 >
       setTagList([...tagList, tag]);
       setTag(""); // input에 value는 enter 후에 input 창 글 없애기 위함
+    } else if (e.keyCode === 13 && tagList.includes(e.target.value) == true) {
+      setTag("");
     }
   };
   //## 'Click'시 태그 삭제 이벤트
@@ -119,17 +155,16 @@ const ModifyEdit = (props) => {
       tags: tagList,
       category: selectOption,
     });
-    // return response?.data.paper;
   };
   //## useMutation write 데이터 patch
   const { mutate: onPost } = useMutation(postfecher, {
     onSuccess: () => {
       navigate(`/paper/${blogId}`);
-      alert("post 성공!");
+      // alert("발행하기 성공!");
     },
-    // onError: (data === null) => {
-    //   alert("post 실패!");
-    // },
+    onError: (err) => {
+      alert("발행하기 실패!");
+    },
   });
   // ## 글 데이터 useQuery  get
   const GetDetailtData = async () => {
@@ -150,13 +185,13 @@ const ModifyEdit = (props) => {
         setHeadData(data.title);
         setTagList([...TagAll]);
         setSelectOption(data.category);
-        setCategoryList([]);
+
         setData(data.contents);
-        setImage(data.thumbnail);
+        setBasicThumbImage(data.thumbnail);
 
         if (hostId !== data?.userId) {
           navigate("/");
-          alert("블로거 주인만 수정할 수 있습니다.");
+          alert(" 자신의 게시글만 수정할 수 있습니다.");
         }
       },
       staleTime: 0,
@@ -247,14 +282,12 @@ const ModifyEdit = (props) => {
                     onChange={(e) => {
                       setCategory(e.target.value);
                     }}
+                    onKeyUp={onEnter}
                   />
                   <button
                     className="btn_plus"
                     onClick={() => {
-                      setCategoryList([...categoryList, category]);
-                      setCategory(category);
-                      setEditCategory(!editCategory);
-                      setSelectOption(category);
+                      onClick_categoty(category);
                     }}
                   >
                     추가
@@ -281,36 +314,27 @@ const ModifyEdit = (props) => {
                     autoFocus
                     required
                   >
-                    {categoryList ? (
+                    {category_data?.categories.length === 0 ? (
+                      <>
+                        <>
+                          <option value="etc">etc</option>
+                        </>
+
+                        <>
+                          {categoryList?.map((value, idx) => {
+                            return (
+                              <option key={idx} value={value}>
+                                {value}
+                              </option>
+                            );
+                          })}
+                        </>
+                      </>
+                    ) : (
                       <>
                         {categoryList?.map((value, idx) => {
                           return (
                             <option key={idx} value={value}>
-                              {value}
-                            </option>
-                          );
-                        })}
-                        {category_data?.categories.length === 0 ? (
-                          <>
-                            <option value="etc">etc</option>
-                          </>
-                        ) : (
-                          <>
-                            {category_data?.categories.map((value, index) => {
-                              return (
-                                <option key={index} value={value}>
-                                  {selectOption}
-                                </option>
-                              );
-                            })}
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {category_data?.categories.map((value, index) => {
-                          return (
-                            <option key={index} value={value}>
                               {value}
                             </option>
                           );
@@ -345,10 +369,21 @@ const ModifyEdit = (props) => {
                   }}
                 ></input>
               </div>
-              <Thumbmail
-                src={thumbImage !== null ? thumbImage && S3 : Meiyou_thumnail}
-                alt=""
-              />
+              {previewImg ? (
+                <>
+                  <Thumbmail
+                    src={previewImg !== null ? previewImg : Meiyou_thumnail}
+                    alt=""
+                  />
+                </>
+              ) : (
+                <>
+                  <Thumbmail
+                    src={basicThumbImage !== null ? S3 : Meiyou_thumnail}
+                    alt=""
+                  />
+                </>
+              )}
             </ThumbmailWrap>
             <ButtonWrap>
               <PostButton
