@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Header from "../components/main/Header";
+import Footer from "../components/main/Footer";
 import { __searchPost } from "../redux/modules/Search";
+import defaultUserImage from "../public/images/default_profile.png";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -15,39 +17,95 @@ const Search = () => {
   useEffect(() => {
     dispatch(__searchPost(payload));
   }, [dispatch]);
-  console.log(datas)
+  console.log(datas);
   return (
     <>
-      <Header />
-      <PostBox>
+      <Wrap>
+        <Header />
         <HeadTitle>"{payload}"로 검색</HeadTitle>
-        <Wrap>
-          {datas?.papers?.map((data) => (
-            <Post
-              key={data}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              <Title>{data.title}</Title>
-              <Contents>{data.contents}</Contents>
-              <Create>{data.createdAt}</Create>
-              <Update>{data.updatedAt}</Update>
-            </Post>
-          ))}
-        </Wrap>
-      </PostBox>
+        <Bigbox>
+          {datas?.papers?.map((data, i) => {
+            console.log(data);
+            return (
+              <Card
+                key={i}
+                onClick={() => {
+                  navigate(`/paper/${data?.Users.blogId}/${data?.postId}`);
+                }}
+              >
+                <Box>
+                  {data?.thumbnail === null ? (
+                    <img
+                      className="postImg"
+                      src={"https://picsum.photos/200/300"}
+                      style={{ width: "100%", height: "100%" }}
+                      alt="back"
+                    />
+                  ) : (
+                    <img
+                      src={process.env.REACT_APP_S3_URL + `/${data?.thumbnail}`}
+                      alt="img"
+                      style={{ width: "100%", height: "100%" }}
+                      // onClick={() => {
+                      //   navigate(
+                      //     `/paper/${data?.Users.blogId}/${data?.postId}`
+                      //   );
+                      // }}
+                    />
+                  )}
+                </Box>
+                <Box1>
+                  <H4>{data?.title}</H4>
+                  <P>{data?.contents}</P>
+                </Box1>
+                <Box2>{data?.createdAt}</Box2>
+                <Box3>
+                  <div className="by">
+                    {/* {data?.thumbnail === null ? (
+                      <img
+                        className="userProfile"
+                        src={defaultUserImage}
+                        alt="back"
+                      />
+                    ) : (
+                      <img
+                        className="userProfile"
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${datas?.papers?.Users.profileImage}`
+                        }
+                        alt="img"
+                        onClick={() => {
+                          navigate(`/paper/${datas?.papers?.Users.blogId}`);
+                        }}
+                      />
+                    )}{" "} */}
+                    by <span>{data?.Users?.nickname}</span>
+                  </div>
+                  <div>
+                    <img
+                      className="heart"
+                      src={process.env.PUBLIC_URL + "/Vector.png"}
+                      back_size="100% 100%"
+                      alt="icon"
+                    />{" "}
+                    {data?.Likes?.length}
+                  </div>
+                </Box3>
+              </Card>
+            );
+          })}
+        </Bigbox>
+        <Footer />
+      </Wrap>
     </>
   );
 };
 
-const PostBox = styled.div`
-  padding-top: 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 100px;
+const Wrap = styled.div`
+  display: block;
+  height: auto;
+  width: 100%;
 `;
 
 const HeadTitle = styled.h2`
@@ -57,71 +115,143 @@ const HeadTitle = styled.h2`
   text-align: center;
 `;
 
-const Wrap = styled.div`
+const Box = styled.div`
+  height: 180px;
+  cursor: pointer;
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
   flex-wrap: wrap;
-  width: 980px;
-  margin: 0 auto;
-  gap: 30px;
+  justify-content: center;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
 `;
-
-const Post = styled.div`
-  background-color: gray;
-  width: calc(25% - 44px);
-  margin-bottom: 56px;
-  display: block;
-`;
-
-// const Image = styled.div`
-//   width: 100%;
-//   padding-top: 100%;
-//   position: relative;
-//   overflow: hidden;
-//   border-radius: 12px;
-//   box-shadow: inset 0px 0px 0px 1px rgb(0 0 0 / 15%);
-//   box-sizing: border-box;
-// `;
-
-// const Desc = styled.div`
-//   margin-top: 12px;
-// `;
-
-const Title = styled.p`
+const Box1 = styled.div`
   font-size: 16px;
-  letter-spacing: -0.02px;
-  overflow: hidden;
-  text-overflow: nowrap;
-  margin-bottom: 4px;
-  line-height: 1.5;
-  font-weight: normal;
+  text-decoration: none solid rgb(33, 37, 41);
+  background-color: #f8f9fa;
+  background-position: 0% 0%;
+  position: color;
+  height: 130px;
+  width: 320px;
+  cursor: pointer;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10px;
 `;
-
-const Contents = styled.p`
-  font-size: 15px;
+const H4 = styled.p`
+  font-size: 19px;
   font-weight: 700;
-  margin-bottom: 4px;
-  line-height: 1.5;
+  line-height: 24px;
+  white-space: nowrap;
+  word-spacing: 0px;
+  height: 23%;
+  width: 320px;
+  padding: 0px 15px;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+`;
+const P = styled.div`
+  font-size: 14px;
+  line-height: 21px;
+  text-decoration: none solid rgb(73, 80, 87);
+  word-spacing: 0px;
+  height: 68%;
+  width: 320px;
+  margin-top: 10px;
+  padding: 0px 15px;
+  display: -webkit-box;
+  overflow: hidden;
+  cursor: pointer;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+`;
+const Box2 = styled.div`
+  color: gray;
+  height: 40px;
+  line-height: 50px;
+  width: 320px;
+  min-height: auto;
+  min-width: auto;
+  display: block;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  padding-left: 20px;
+  font-size: 14px;
 `;
 
-const Create = styled.p`
-  font-size: 16px;
-  letter-spacing: -0.02px;
-  overflow: hidden;
-  text-overflow: nowrap;
-  margin-bottom: 4px;
-  line-height: 1.5;
-  font-weight: normal;
+const Box3 = styled.div`
+  height: 13%;
+  width: 100%;
+  border-top: 1px solid #f1f3f5;
+  padding: 10px 16px 10px 16px;
+  min-height: auto;
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  font-size: 12px;
+  text-decoration: none solid rgb(33, 37, 41);
+  word-spacing: 0px;
+  cursor: pointer;
+  justify-content: space-between;
+  box-sizing: border-box;
+  .by {
+    display: flex;
+    align-items: center;
+    color: gray;
+    gap: 5px;
+  }
+  span {
+    color: black;
+    font-weight: 600;
+  }
+
+  .userinfo {
+    display: flex;
+  }
+  .heart {
+    width: 14px;
+  }
+  .userProfile {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+  }
 `;
 
-const Update = styled.p`
-  font-size: 16px;
-  letter-spacing: -0.02px;
+const Bigbox = styled.div`
+  gap: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+`;
+const Card = styled.div`
+  width: 320px;
+  height: 405px;
+  box-shadow: rgb(0 0 0 / 7%) 0px 4px 16px 0px;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   overflow: hidden;
-  text-overflow: nowrap;
-  margin-bottom: 4px;
-  line-height: 1.5;
-  font-weight: normal;
+  border-radius: 5px;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
 `;
 
 export default Search;
