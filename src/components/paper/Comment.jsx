@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
+import { getCookie } from "../../shared/Cookie";
 import CommentList from "./CommentList";
 /*해야할 것 */
 const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
+
+  const navigate = useNavigate("");
   // console.log(props.Comments);
   // ## useMutation 댓글 post 함수
   const PostComment = async (comment) => {
@@ -15,7 +19,7 @@ const Comment = (props) => {
       text: comment,
     });
     setComment("");
-    console.log(response);
+    // console.log(response);
     return response?.data;
   };
 
@@ -42,7 +46,14 @@ const Comment = (props) => {
         </div>
         <button
           onClick={() => {
-            onPost(comment);
+            const LoginIdCheck = getCookie("blogId");
+            if (LoginIdCheck == undefined) {
+              alert("로그인 후 이용 가능한 기능입니다.");
+              navigate("/login");
+              window.scrollTo(0, 0);
+            } else {
+              onPost(comment);
+            }
           }}
         >
           댓글 작성

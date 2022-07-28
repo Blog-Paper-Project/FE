@@ -26,13 +26,11 @@ const PaperDetail = () => {
   const { postId } = useParams();
   const StringUserId = getCookie("userId");
   const userId = Number(StringUserId);
-  // console.log(typeof userId);
-  // console.log(blogId);
-  // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
-  //state
+  // 댓글 state
   const [openComment, setOpenComment] = useState(true);
+
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
@@ -48,7 +46,7 @@ const PaperDetail = () => {
     },
   });
 
-  // console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data).paper;
 
   // ## useQuery 글 get 함수
   const GetDetailtData = async () => {
@@ -58,7 +56,7 @@ const PaperDetail = () => {
       },
     });
     // console.log("PaperDetail page", response);
-    return response?.data?.paper;
+    return response?.data;
   };
 
   // ## useQuery 글 get
@@ -85,30 +83,39 @@ const PaperDetail = () => {
     return alert("error");
   }
   const S3 =
-    process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
-  console.log("PaperDeTail", detail_data);
+    process.env.REACT_APP_S3_URL + `/${detail_data?.paper.Users.profileImage}`;
+
+  const ViewCountTotal = detail_data?.count + detail_data?.paper.viewCount;
+  // console.log(ViewCountTotal);
+  // console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />
 
       {/* 아래 글*/}
       <ContainerContents>
-        <Title>{detail_data?.title}</Title>
+        <Title>{detail_data?.paper.title}</Title>
         <Line />
         <UserDataWrap>
           <div className="wrap">
             {/* 블로거 프로필 이미지 */}
             <ProfileImgBox
               src={
-                detail_data?.Users.profileImage === null ? defaultUserImage : S3
+                detail_data?.paper.Users.profileImage === null
+                  ? defaultUserImage
+                  : S3
               }
               onClick={() => {
-                navigate(`/paper/${detail_data?.Users.blogId}`);
+                navigate(`/paper/${detail_data?.paper.Users.blogId}`);
               }}
             />
-            <Nickname>{detail_data?.Users.nickname}</Nickname>
+            <Nickname>{detail_data?.paper.Users.nickname}</Nickname>
             <span>·</span>
-            <CreatedAt>{detail_data?.createdAt}</CreatedAt>
+            <CreatedAt>{detail_data?.paper.createdAt}</CreatedAt>
+            <span>·</span>
+            <div className="ViewCountName">
+              조회수 {ViewCountTotal ? ViewCountTotal : null}
+            </div>
           </div>
           <div className="EditDeleteBtnWrap">
             {isHostId === blogId ? (
@@ -145,11 +152,11 @@ const PaperDetail = () => {
           </div>
         </UserDataWrap>
         <ViewEditWarp>
-          <ViewEdit contents={detail_data?.contents} />
+          <ViewEdit contents={detail_data?.paper.contents} />
         </ViewEditWarp>
         {/* 아래 해시태그 */}
         <TagWrap>
-          {detail_data?.Tags?.map((value, index) => {
+          {detail_data?.paper.Tags.map((value, index) => {
             return <Tag key={index}>{value.name}</Tag>;
           })}
         </TagWrap>
@@ -158,7 +165,7 @@ const PaperDetail = () => {
           {openComment ? (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper.Likes} />
                 <CommentButton
                 // onClick={() => {
                 //   setOpenComment(!openComment);
@@ -170,12 +177,12 @@ const PaperDetail = () => {
                   <img src={ArrowDown} alt="Arrow"></img>
                 </CommentButton>
               </CommentLikeWrap>
-              <Comment postId={postId} Comments={detail_data?.Comments} />
+              <Comment postId={postId} Comments={detail_data?.paper.Comments} />
             </>
           ) : (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper.Likes} />
                 <CommentButton
                 // onClick={() => {
                 //   setOpenComment(!openComment);
@@ -197,13 +204,15 @@ const PaperDetail = () => {
 };
 
 const Container = styled.div`
-  max-width: 1920px;
+  width: 1920px;
   /* background-color: white; */
   background-color: #fffdf7;
+  overflow-x: hidden;
 `;
 const ContainerContents = styled.div`
-  width: 899px;
+  width: 900px;
   padding: 100px 511px 160px 510px;
+  /* overflow-x: hidden; */
 `;
 const UserDataWrap = styled.div`
   width: 898px;
@@ -220,7 +229,7 @@ const UserDataWrap = styled.div`
     justify-content: space-between;
 
     height: 36px;
-    width: 280px;
+    width: 240px;
     button {
       display: flex;
       justify-content: center;
@@ -232,6 +241,12 @@ const UserDataWrap = styled.div`
       outline: 1px solid;
       margin-left: 10px;
     }
+  }
+  .ViewCountName {
+    display: flex;
+    justify-content: center;
+    width: 60px;
+    font-size: 14px;
   }
 
   margin-bottom: 59px;
@@ -254,13 +269,14 @@ const Nickname = styled.span`
   font-size: 18px;
 `;
 const Title = styled.div`
-  height: 60px;
+  height: 75px;
   width: 896px;
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 60px;
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 44pt;
   color: #333333;
   margin-bottom: 10px;
+  margin-top: 20px;
 `;
 const Line = styled.div`
   width: 898px;
@@ -272,11 +288,15 @@ const CreatedAt = styled.div`
   align-items: center;
   height: 19px;
   margin-left: 7px;
+  margin-right: 7px;
+  font-size: 14px;
   font-family: "Noto Sans KR";
 `;
 const ViewEditWarp = styled.div`
   width: 898px;
-  min-height: 500px;
+  min-height: 900px;
+
+  /* font-size: 18px; */
   /* background-color: #efefef; */
 `;
 const TagWrap = styled.div`

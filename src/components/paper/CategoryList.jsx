@@ -5,11 +5,11 @@ import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
 
 const CategoryList = (props) => {
-  const { categories } = props;
+  const { categories, onCategory } = props;
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-  console.log("category", categories);
+  // console.log("category", categories);
   // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
@@ -64,7 +64,13 @@ const CategoryList = (props) => {
         </>
       ) : (
         <>
-          <option>{categories}</option>
+          <option
+            onClick={(e) => {
+              onCategory(e.target.value);
+            }}
+          >
+            {categories}
+          </option>
         </>
       )}
       {/* 위 Edit 변경하기 끝 */}
@@ -119,6 +125,7 @@ const Wrap = styled.div`
     font-size: 14px;
     font-family: "Noto Sans";
     line-height: 20px;
+
     cursor: pointer;
     :hover {
       background-color: #f8f8f8;
