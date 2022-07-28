@@ -973,6 +973,7 @@ const MainBox = styled.div`
   background-color: #fffdf7;
   height: 3909px;
 `;
+
 const MainTop = styled.div`
   display: flex;
   justify-content: center;
@@ -986,11 +987,13 @@ const MainTop = styled.div`
   line-height: 90px;
   border-bottom: 1px solid #a7aca1;
 `;
+
 const PostWrap = styled.div`
   height: 1680px;
   display: flex;
   justify-content: center;
 `;
+
 const PostBox = styled.div`
   width: 1516px;
   height: 1680px;
@@ -1013,6 +1016,7 @@ const Post1st = styled.div`
     opacity: 0.8;
   }
 `;
+
 const Post2st = styled.div`
   width: 379px;
   height: 400px;
@@ -1028,6 +1032,7 @@ const Post2st = styled.div`
     opacity: 0.8;
   }
 `;
+
 const Post3st = styled.div`
   width: 379px;
   height: 400px;
@@ -1042,6 +1047,7 @@ const Post3st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post4st = styled.div`
   width: 379px;
   height: 400px;
@@ -1056,6 +1062,7 @@ const Post4st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post5st = styled.div`
   width: 758px;
   height: 880px;
@@ -1070,6 +1077,7 @@ const Post5st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Information = styled.div`
   width: 758px;
   height: 480px;
@@ -1079,6 +1087,7 @@ const Information = styled.div`
   font-family: "Gmarket Sans";
   font-style: normal;
 `;
+
 const Post6st = styled.div`
   width: 379px;
   height: 400px;
@@ -1094,6 +1103,7 @@ const Post6st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post7st = styled.div`
   width: 379px;
   height: 400px;
@@ -1109,6 +1119,7 @@ const Post7st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post8st = styled.div`
   width: 379px;
   height: 400px;
@@ -1124,6 +1135,7 @@ const Post8st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post9st = styled.div`
   width: 379px;
   height: 400px;
@@ -1138,6 +1150,7 @@ const Post9st = styled.div`
     line-height: 18px;
   }
 `;
+
 const Post10st = styled.div`
   width: 758px;
   height: 400px;
@@ -1176,6 +1189,7 @@ const PopularBloger = styled.div`
     line-height: 150%;
   }
 `;
+
 const PopularBox = styled.div`
   display: flex;
   width: 90%;
@@ -1183,6 +1197,7 @@ const PopularBox = styled.div`
   padding: 20px 0 0 0;
   float: left;
 `;
+
 const Popular = styled.div`
   background-color: #fffdf7;
   display: flex;

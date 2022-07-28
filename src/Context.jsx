@@ -10,7 +10,7 @@ const socket = io("https://first-sw.shop");
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
+  // const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [name, setName] = useState("");
   const [call, setCall] = useState({});
@@ -174,7 +174,7 @@ const ContextProvider = ({ children }) => {
   });
 
   const leaveCall = (currentStream) => {
-    setCallEnded(true);
+    // setCallEnded(true);
     socket.emit("leaveRoom");
     navigate("/");
     window.location.replace("/");
@@ -191,7 +191,7 @@ const ContextProvider = ({ children }) => {
         stream,
         name,
         setName,
-        callEnded,
+        // callEnded,
         me,
         callUser,
         leaveCall,

@@ -17,7 +17,7 @@ import { patchLeafDB } from "../../redux/modules/Leaf";
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
 
-  const { open, close, header, profileImage, introduction, nickname } = props;
+  const { open, close, profileImage, introduction, nickname } = props;
 
   const [CHGintroduction, setCHGIntroduction] = useState(introduction);
   const [CHGnickname, setCHGnickname] = useState(nickname);

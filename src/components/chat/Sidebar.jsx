@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ children }) => {
   const {
     callAccepted,
-    callEnded,
+    // callEnded,
     idToCall,
     // audioOn,
     // videoOn,
@@ -94,7 +94,7 @@ const Sidebar = ({ children }) => {
                 </button>
               </div>
             </ButtonList> */}
-            {callAccepted && !callEnded ? (
+            {callAccepted ? (
               <Button
                 variant="contained"
                 color="secondary"
