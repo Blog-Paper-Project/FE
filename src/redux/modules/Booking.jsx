@@ -132,6 +132,18 @@ export const setBookingDB = (data, blogId) => {
             }
           });
         }
+        if (err.response.data.msg === "예약 가능 횟수를 초과하였습니다.") {
+          Swal.fire({
+            title: "예약은 최대 12개 까지 가능합니다!",
+            icon: "warning",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "확인",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        }
       });
   };
 };
