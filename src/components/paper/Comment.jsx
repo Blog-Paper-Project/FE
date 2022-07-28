@@ -19,7 +19,7 @@ const Comment = (props) => {
       text: comment,
     });
     setComment("");
-    console.log(response);
+    // console.log(response);
     return response?.data;
   };
 

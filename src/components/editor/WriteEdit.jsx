@@ -32,7 +32,7 @@ const WriteEdit = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState("etc");
   // console.log(selectOption);
-  console.log(categoryList);
+  // console.log(categoryList);
   // console.log(category);
   const editorRef = useRef();
   const navigate = useNavigate();
@@ -192,7 +192,7 @@ const WriteEdit = () => {
       onSuccess: (data) => {
         const categoriesAll = data?.categories;
         setCategoryList([...categoriesAll]);
-        console.log(categoriesAll);
+        // console.log(categoriesAll);
       },
       staleTime: 0,
     }
@@ -205,7 +205,7 @@ const WriteEdit = () => {
   if (status === "error") {
     return alert("error");
   }
-  console.log(mypaper_data);
+  // console.log(mypaper_data);
   // 변수
   // const isSameTag = tagList.find((value) => value === tag);
   // console.log(isSameTag);

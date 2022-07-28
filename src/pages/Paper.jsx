@@ -28,7 +28,7 @@ const Paper = () => {
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
   const [SelectCategory, setSelectCategory] = useState(null);
-  console.log(SelectCategory);
+  // console.log(SelectCategory);
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(!allSort);
@@ -98,11 +98,11 @@ const Paper = () => {
   const SelectCategoryData = mypaper_data?.user.Papers.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
-  console.log(SelectCategoryData);
-  console.log("isSubscribe", isSubscribe);
+  // console.log(SelectCategoryData);
+  // console.log("isSubscribe", isSubscribe);
   // console.log(mypaper_data.user.Followers);
   // console.log(mypaper_data?.categories);
-  console.log(mypaper_data?.user.Papers);
+  // console.log(mypaper_data?.user.Papers);
   return (
     <Container>
       <Header />
