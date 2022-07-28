@@ -28,7 +28,6 @@ const Reservation = () => {
       .then((doc) => {
         console.log(doc.data.totalList);
         setAvailability(doc?.data.totalList.guestBookingList);
-        setAvailability(doc?.data.totalList.hostBookingList);
       })
       
       .catch((err) => {
