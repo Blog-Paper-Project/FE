@@ -62,7 +62,7 @@ const AllPaper = () => {
                   <P>{Papers.contents}</P>
                 </Box1>
                 <Box2>
-                 {Papers.createdAt}
+                  {Papers.createdAt}
                 </Box2>
                 <Box3>
                   <div className='by'>
