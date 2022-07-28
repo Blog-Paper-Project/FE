@@ -62,8 +62,6 @@ const Main = () => {
           />
         </MainTop>
 
-
-
         <PostWrap>
           <PostBox>
             <Post1st style={{
