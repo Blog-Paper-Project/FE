@@ -86,8 +86,8 @@ const PaperDetail = () => {
     process.env.REACT_APP_S3_URL + `/${detail_data?.paper.Users.profileImage}`;
 
   const ViewCountTotal = detail_data?.count + detail_data?.paper.viewCount;
-  console.log(ViewCountTotal);
-  console.log("PaperDeTail", detail_data);
+  // console.log(ViewCountTotal);
+  // console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />

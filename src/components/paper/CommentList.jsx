@@ -41,7 +41,7 @@ const CommentList = (props) => {
   // console.log("EditUserId", EditUserId);
   // console.log("commentId", commentId);
   const S3 = process.env.REACT_APP_S3_URL + `/${profileImage}`;
-  console.log(S3);
+  // console.log(S3);
   // ## useMutation 댓글 patch 함수
   const PatchComment = async () => {
     const response = await apiToken.patch(

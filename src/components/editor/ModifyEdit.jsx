@@ -228,8 +228,8 @@ const ModifyEdit = (props) => {
   }
 
   const S3 = process.env.REACT_APP_S3_URL + `/${detail_data?.thumbnail}`;
-  console.log("category_data", category_data);
-  console.log("detail_data", detail_data);
+  // console.log("category_data", category_data);
+  // console.log("detail_data", detail_data);
 
   return (
     <Container>
