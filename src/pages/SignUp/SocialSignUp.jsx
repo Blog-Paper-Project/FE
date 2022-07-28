@@ -23,7 +23,7 @@ const SocialSignUp = () => {
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
 
-  console.log(email)
+  console.log(email);
 
   //닉네임 중복체크
   const postDupNick = async () => {
@@ -107,6 +107,10 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
+        setCookie("token", data.data.token, 2);
+        setCookie("nickname", data.data.nickname, 2);
+        setCookie("userId", data.data.userId, 2);
+        setCookie("profileimage", data.data.profileImage, 2);
         setCookie("blodId", blogId);
         deleteCookie("email");
         navigate("/");
