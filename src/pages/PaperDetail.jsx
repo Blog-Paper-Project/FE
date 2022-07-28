@@ -41,7 +41,7 @@ const PaperDetail = () => {
   // ## useMutation 글 delete
   const { mutate: onDelete } = useMutation(DeleteDetail, {
     onSuccess: () => {
-      queryClient.invalidateQueries("paper_data", "detail_data".paper);
+      queryClient.invalidateQueries("paper_data", "detail_data");
       navigate(`/paper/${blogId}`);
     },
   });
@@ -64,7 +64,7 @@ const PaperDetail = () => {
   //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
   //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
-    ["detail_data".paper, postId],
+    ["detail_data", postId],
     GetDetailtData,
 
     {
