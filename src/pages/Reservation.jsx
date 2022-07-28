@@ -23,11 +23,11 @@ const Reservation = () => {
 
     apiToken({
       method: "get",
-      url: `/api/booking`, 
+      url: `/api/booking/blog/${blogId}`, 
     })
       .then((doc) => {
-        console.log(doc.data.totalList);
-        setAvailability(doc?.data.totalList.guestBookingList);
+        console.log(doc.data);
+        setAvailability(doc?.data.bookingList);
       })
       
       .catch((err) => {
