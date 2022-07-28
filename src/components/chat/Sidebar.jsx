@@ -32,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
       width: "80%",
     },
   },
-  margin: {
-    marginTop: 20,
-  },
   padding: {
     padding: 20,
   },
@@ -111,6 +108,7 @@ const Sidebar = ({ children }) => {
                 color="primary"
                 fullWidth
                 onClick={answerCall}
+                className={classes.margin}
               >
                 Answer
               </Button>

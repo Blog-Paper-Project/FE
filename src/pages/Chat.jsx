@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import Sidebar from "../components/chat/Sidebar";
-import Notifications from "../components/chat/Notifications";
 import VideoPlayer from "../components/chat/VideoPlayer";
 import Chatting from "../components/chat/Chatting";
 
@@ -43,9 +42,7 @@ const Chat = () => {
       <ChatBox>
         <VideoBox>
           <VideoPlayer />
-          <Sidebar>
-            <Notifications />
-          </Sidebar>
+          <Sidebar />
         </VideoBox>
         <Chatting />
       </ChatBox>
