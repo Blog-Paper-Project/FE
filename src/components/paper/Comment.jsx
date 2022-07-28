@@ -8,7 +8,7 @@ const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
-  console.log(props.Comments);
+  // console.log(props.Comments);
   // ## useMutation 댓글 post 함수
   const PostComment = async (comment) => {
     const response = await apiToken.post(`/api/paper/${postId}/comments`, {
