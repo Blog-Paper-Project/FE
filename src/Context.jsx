@@ -30,7 +30,9 @@ const ContextProvider = ({ children }) => {
   const boxRef = useRef();
 
   const nickname = getCookie("nickname");
+  const blogId = getCookie("blogId");
   const navigate = useNavigate();
+  console.log(blogId);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -173,16 +175,9 @@ const ContextProvider = ({ children }) => {
 
   const leaveCall = (currentStream) => {
     setCallEnded(true);
-    navigate(-1);
-    connectionRef.current.destroy();
-    myVideo.remove();
-    myVideo.destroy();
-    userVideo.remove();
-    userVideo.destroy();
-    currentStream.remove();
-    currentStream.destroy();
     socket.emit("leaveRoom");
-    window.location.reload();
+    navigate("/");
+    window.location.replace("/");
   };
 
   return (
