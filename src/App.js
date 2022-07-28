@@ -17,6 +17,7 @@ import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao";
 import Google from "./pages/Login/Google";
 import Naver from "./pages/Login/Naver";
+import AllPaper from "./pages/AllPaper";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat/:hostId/:guestId" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
+        <Route path="/paper/allpapers" element={<AllPaper/>} />
         <Route
           path="/paper/:blogId/reservationList"
           element={<ReservationList />}

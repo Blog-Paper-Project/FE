@@ -167,7 +167,7 @@ const ReservationList = () => {
 
 const Wrap = styled.div`
   width: 100%;
-  min-height: 1800px;
+  min-height: 1500px;
   margin-bottom: 100px;
 
   .innerWrap {
@@ -266,8 +266,16 @@ const Wrap = styled.div`
             }
           }
 
+          .btnBox {
+            width: 200px;
+            padding-left: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
           .videoBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -276,6 +284,25 @@ const Wrap = styled.div`
             font-weight: 400;
             color: #000;
             cursor: pointer;
+            margin-right: 8px;
+            background-color: #fff;
+            &:hover {
+              color: #fff;
+              background-color: #153587;
+            }
+          }
+
+          .startBtn {
+            width: 80px;
+            max-width: 80px;
+            height: 34px;
+            border: 1px solid;
+            padding: 10px 8px 9px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+            cursor: pointer;
+            margin-right: 8px;
             background-color: #fff;
             &:hover {
               color: #fff;
@@ -284,7 +311,7 @@ const Wrap = styled.div`
           }
 
           .waitBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -293,11 +320,12 @@ const Wrap = styled.div`
             font-weight: 400;
             color: #000;
             cursor: auto;
+            margin-right: 8px;
             background-color: #969696;
           }
 
           .delBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -305,7 +333,6 @@ const Wrap = styled.div`
             font-size: 14px;
             font-weight: 400;
             color: #000;
-            margin-right: 8px;
             cursor: pointer;
             background-color: #fff;
             &:hover {

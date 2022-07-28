@@ -19,7 +19,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item?.bokingId;
- 
+
   const enterChat = () => {
     navigate(`/chat/${Host}/${Guest}`);
   };
@@ -35,9 +35,9 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let start = sTime.substr(0, 5);
   let end = endTime.substr(-17, 5);
 
- 
 
-  
+
+
 
   // 게스트일때
   if (Guest === Bloger) {
@@ -57,25 +57,26 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-                  
-            <button className="waitBtn">수락대기</button>
-            <button
-              className="delBtn"
-              onClick={(e) => {
-                dispatch(deleteGuestBookingDB(Guest, bookingId));
-                dispatch(getBookingDB());
-                setLeafChange(!leafChange);
-              }}
-            >
-              예약 취소
-            </button>
+            <div className="btnBox">
+              <button className="waitBtn">수락대기</button>
+              <button
+                className="delBtn"
+                onClick={(e) => {
+                  dispatch(deleteGuestBookingDB(Guest, bookingId));
+                  dispatch(getBookingDB());
+                  setLeafChange(!leafChange);
+                }}
+              >
+                예약취소
+              </button>
+            </div>
           </li>
         )}
         {item?.accepted === true && (
@@ -92,21 +93,23 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-            <button
-              className="videoBtn"
-              onClick={() => {
-                enterChat();
-              }}
-            >
-              Start
-            </button>
+            <div className="btnBox">
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+            </div>
           </li>
         )}
       </>
@@ -129,13 +132,14 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
+            <div className="btnBox">
             <button
               className="videoBtn"
               onClick={(e) => {
@@ -156,6 +160,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
             >
               예약취소
             </button>
+            </div>            
           </li>
         )}
         {item?.accepted === true && (
@@ -172,21 +177,23 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
+            <div className="btnBox">
             <button
-              className="videoBtn"
+              className="startBtn"
               onClick={() => {
                 enterChat();
               }}
             >
               Start
             </button>
+            </div>            
           </li>
         )}
       </>
