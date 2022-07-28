@@ -7,6 +7,8 @@ import { api } from "../shared/apis/Apis";
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
+import defaultUserImage from "../public/images/default_profile.png";
+
 
 const AllPaper = () => {
   const navigate = useNavigate();
@@ -42,14 +44,14 @@ const AllPaper = () => {
                   {Papers?.thumbnail === null ? (
                     <img
                       className="postImg"
-                      src={process.env.PUBLIC_URL + "/post.jpg"}
-                      style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                      src={'https://picsum.photos/200/300'}
+                      style={{ width: "100%", height: "100%" }}
                       alt="back"
                     />
                   ) : (<img
                     src={process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`}
                     alt="img"
-                    style={{ width: "100%", height: "100%", filter: "brightness(75%)" }}
+                    style={{ width: "100%", height: "100%" }}
                     onClick={() => {
                       navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
                     }}
@@ -60,15 +62,27 @@ const AllPaper = () => {
                   <P>{Papers.contents}</P>
                 </Box1>
                 <Box2>
-                  조회수: {Papers.viewCount}
+                 {Papers.createdAt}
                 </Box2>
                 <Box3>
                   <div className='by'>
-                    by <span>
+                    {Papers?.thumbnail === null ? (
+                      <img
+                        className="userProfile"
+                        src={defaultUserImage}
+                        alt="back"
+                      />
+                    ) : (<img
+                      className='userProfile'
+                      src={process.env.REACT_APP_S3_URL + `/${Papers?.Users.profileImage}`}
+                      alt="img"
+                      onClick={() => {
+                        navigate(`/paper/${Papers?.Users.blogId}`);
+                      }}
+                    />)} by <span>
                       {Papers.Users.nickname}
                     </span>
                   </div>
-
                   <div>
                     <img
                       className="heart"
@@ -161,7 +175,7 @@ const P = styled.div`
 const Box2 = styled.div`
   color: gray;
   height: 40px;
-  line-height: 40px;
+  line-height: 50px;
   width: 320px;
   min-height: auto;
   min-width: auto;
@@ -170,6 +184,7 @@ const Box2 = styled.div`
   background-color: #f8f9fa;
   box-sizing: border-box;
   padding-left: 20px;
+  font-size: 14px;
 `;
 
 const Box3 = styled.div`
@@ -189,7 +204,10 @@ const Box3 = styled.div`
   justify-content: space-between;
   box-sizing: border-box;
   .by {
+    display: flex;
+    align-items: center;
     color: gray;
+    gap: 5px;
   }
   span {
     color: black;
@@ -201,6 +219,11 @@ const Box3 = styled.div`
   }
   .heart {
     width: 14px;
+  }
+  .userProfile {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
   }
 `;
 
