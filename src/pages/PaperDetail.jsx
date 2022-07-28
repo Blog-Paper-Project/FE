@@ -198,8 +198,8 @@ const PaperDetail = () => {
 
 const Container = styled.div`
   max-width: 1920px;
-  background-color: white;
-  /* background-color: #fffdf7; */
+  /* background-color: white; */
+  background-color: #fffdf7;
 `;
 const ContainerContents = styled.div`
   width: 899px;

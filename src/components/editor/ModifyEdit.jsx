@@ -106,13 +106,13 @@ const ModifyEdit = (props) => {
     setCookie("Temporary_Content", markdown_data, 10);
   };
 
-  //## useMutation write 데이터 post의 함수
+  //## useMutation write 데이터 patch의 함수
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
     const image_data = await apiToken.post("/api/paper/image", formData);
 
-    const response = await apiToken.post("/api/paper", {
+    const response = await apiToken.patch(`/api/paper/${postId}`, {
       contents: markdown_data,
       title: head_data,
       thumbnail: image_data?.data.imageUrl,
@@ -121,7 +121,7 @@ const ModifyEdit = (props) => {
     });
     // return response?.data.paper;
   };
-  //## useMutation write 데이터 post
+  //## useMutation write 데이터 patch
   const { mutate: onPost } = useMutation(postfecher, {
     onSuccess: () => {
       navigate(`/paper/${blogId}`);
@@ -152,7 +152,7 @@ const ModifyEdit = (props) => {
         setSelectOption(data.category);
         setCategoryList([]);
         setData(data.contents);
-        setPreviewImg(data.thumbnail);
+        setImage(data.thumbnail);
 
         if (hostId !== data?.userId) {
           navigate("/");
@@ -192,6 +192,7 @@ const ModifyEdit = (props) => {
     return alert("error");
   }
 
+  const S3 = process.env.REACT_APP_S3_URL + `/${detail_data?.thumbnail}`;
   console.log("category_data", category_data);
   console.log("detail_data", detail_data);
 
@@ -345,7 +346,7 @@ const ModifyEdit = (props) => {
                 ></input>
               </div>
               <Thumbmail
-                src={previewImg !== null ? previewImg : Meiyou_thumnail}
+                src={thumbImage !== null ? thumbImage && S3 : Meiyou_thumnail}
                 alt=""
               />
             </ThumbmailWrap>

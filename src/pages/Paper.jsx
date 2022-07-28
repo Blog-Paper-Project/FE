@@ -9,9 +9,10 @@ import { apiToken } from "../shared/apis/Apis";
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
-/*그 외 */
+/*그외 */
 import defaultUserImage from "../public/images/default_profile.png";
-import { useEffect } from "react";
+import ArrowUp from "../public/images/icons/Keyboard_up.png";
+import ArrowDown from "../public/images/icons/Keyboard_down.png";
 
 const Paper = () => {
   const { blogId } = useParams();
@@ -28,8 +29,8 @@ const Paper = () => {
 
   //## 이벤트
   const onTag = useCallback(() => {
-    setAllSort(false);
-  }, []);
+    setAllSort(!allSort);
+  }, [allSort]);
 
   const onAll = useCallback(() => {
     setAllSort(true);
@@ -84,8 +85,8 @@ const Paper = () => {
     return value.blogId === isHostId;
   });
   // console.log("isSubscribe", isSubscribe);
-  // console.log(mypaper_data.user.Followers);
-  console.log(mypaper_data?.categories);
+  console.log(mypaper_data.user.Followers);
+  // console.log(mypaper_data?.categories);
   return (
     <Container>
       <Header />
@@ -141,48 +142,59 @@ const Paper = () => {
         )}
       </MyProfile>
       <SortType>
-        <button onClick={onAll}>전체 정렬</button>
-        <button onClick={onTag}>태그 모음</button>
+        <CategoryWrap>
+          {categoty_Toggle ? (
+            <>
+              <div className="SelectWrap">
+                <button
+                  className="SelectBox"
+                  onClick={() => {
+                    setCategoty_Toggle(!categoty_Toggle);
+                  }}
+                >
+                  카테고리 <img src={ArrowUp} alt="카테고리" />
+                </button>
+              </div>
+              {/* <button
+                onClick={() => {
+                  setCategoryEdit(!CategoryEdit);
+                }}
+              >
+                수정
+              </button> */}
+              <div className="OptionWrap">
+                {mypaper_data?.categories.map((value, index) => {
+                  return <CategoryList key={index} categories={value} />;
+                })}
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => {
+                  setCategoty_Toggle(!categoty_Toggle);
+                  setAllSort(true);
+                }}
+              >
+                카테고리
+                <img src={ArrowDown} alt="카테고리" />
+              </button>
+            </>
+          )}
+        </CategoryWrap>
+        <button className="TagBtn" onClick={onTag}>
+          태그 모음{" "}
+          {allSort ? (
+            <img src={ArrowDown} alt="태그모음" />
+          ) : (
+            <img src={ArrowUp} alt="태그모음" />
+          )}
+        </button>
       </SortType>
       <ContainerMiddle>
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
           <>
-            <CategoryWrap>
-              {categoty_Toggle ? (
-                <>
-                  <button
-                    onClick={() => {
-                      setCategoty_Toggle(!categoty_Toggle);
-                    }}
-                  >
-                    카테고리 토글 버튼
-                  </button>
-                  <button
-                    onClick={() => {
-                      setCategoryEdit(!CategoryEdit);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <div>
-                    {mypaper_data?.categories.map((value, index) => {
-                      return <CategoryList key={index} categories={value} />;
-                    })}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <button
-                    onClick={() => {
-                      setCategoty_Toggle(!categoty_Toggle);
-                    }}
-                  >
-                    카테고리
-                  </button>
-                </>
-              )}
-            </CategoryWrap>
             <AllSortWrap>
               {mypaper_data?.user.Papers.map((value, idx) => {
                 // console.log(mypaper_data);
@@ -227,7 +239,7 @@ const ContainerMiddle = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-left: 40px;
+  margin-left: 135px;
   overflow-y: hidden;
 `;
 // MyProfile 박스
@@ -296,38 +308,63 @@ const ProfileImg = styled.img`
 const Nickname = styled.div`
   width: 100%;
   height: 24px;
+  display: flex;
+  justify-content: flex-start;
+  height: 24px;
+  font-size: 24px;
+  font-weight: 400;
+  font-family: "Gmarket Sans";
+  color: #333333;
 `;
 const Introduction = styled.div`
-  width: 100%;
-  height: 38px;
+  width: 542px;
+  min-height: 60px;
+  max-height: 60px;
+  padding-top: 15px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  font-size: 14px;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  line-height: 19px;
 `;
 const Subscribe = styled.div`
-  width: 100%;
+  width: 542px;
   height: 19px;
+  font-size: 14px;
+  font-family: "Noto Sans";
+  font-weight: 500;
+  line-height: 19px;
+  padding-top: 5px;
+  /* margin-top: 15px; */
 `;
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
   height: 155px;
-  width: 155px;
+  width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 400;
-  font-size: 16px;
-  gap: 10px;
-  margin-left: 510px;
-  button {
-    height: 30px;
+  gap: 18px;
+  margin-left: 470px;
+  .TagBtn {
+    display: flex;
+    justify-content: space-between;
+    height: 32px;
     width: 154px;
     color: #333333;
     border-bottom: 2px solid;
+    background-color: #fffdf7;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
   }
 `;
 
 // TagSortWrap wrap - 3
 const TagSortWrap = styled.div`
-  max-width: 900px;
+  max-width: 1078px;
   min-height: 600px;
   display: flex;
   justify-content: center;
@@ -335,21 +372,23 @@ const TagSortWrap = styled.div`
 `;
 // TagSort box - 3
 const TagSort = styled.div`
-  max-width: 900px;
+  max-width: 1078px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 40px;
-  gap: 10px 7px;
+  justify-content: flex-start;
+  margin-top: 10px;
+  padding-right: 150px;
+  gap: 15px 8px;
 `;
 // Tag div - 3
 const Tag = styled.div`
   height: 25px;
-  min-width: 60px;
+  width: auto;
   box-sizing: border-box;
   white-space: nowrap;
-  border: 2px solid black;
-  border-radius: 20px;
+  outline: 1px solid;
+  border: 1px solid;
+  border-radius: 5px;
   padding: 12px 15px 12px 15px;
   font-family: "Noto Sans";
   font-style: normal;
@@ -376,7 +415,58 @@ const AllSortWrap = styled.div`
 `;
 
 const CategoryWrap = styled.div`
-  height: 36px;
+  height: 32px;
   width: 154px;
+  position: relative;
+  /* overflow-y: ; */
+  select {
+    -webkit-appearance: none;
+
+    -moz-appearance: none;
+
+    appearance: none;
+  }
+  button {
+    display: flex;
+    justify-content: space-between;
+    height: 32px;
+    width: 154px;
+    color: #333333;
+    border-bottom: 2px solid;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    font-family: "Gmarket Sans";
+    background-color: #fffdf7;
+  }
+
+  .SelectWrap {
+    height: 32px;
+    width: 154px;
+    z-index: 4;
+  }
+  .OptionWrap {
+    width: 154px;
+    min-height: 300px;
+    max-height: 300px;
+    width: 154px;
+    margin-top: 8px;
+    outline: 1px solid #acacac;
+    border: 1px solid #acacac;
+    overflow-y: scroll;
+  }
+  .OptionWrap::-webkit-scrollbar {
+    width: 10px;
+    background-color: white;
+  }
+  .OptionWrap::-webkit-scrollbar-thumb {
+    background-color: #acacac;
+  }
+
+  .OptionWrap::::-webkit-scrollbar-track {
+    background-color: #acacac;
+    box-shadow: inset 0px 0px 5px white;
+  }
 `;
 export default Paper;
