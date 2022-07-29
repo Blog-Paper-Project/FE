@@ -18,12 +18,6 @@ const Chatting = () => {
             {messageList.map((messageContent, index) => {
               return (
                 <div key={index}>
-                  {messageContent.type === "connect" ? (
-                    <p>{messageContent.name} 님이 입장하였습니다</p>
-                  ) : null}
-                  {messageContent.type === "disconnect" ? (
-                    <p>{messageContent.name} 님이 퇴장하였습니다</p>
-                  ) : null}
                   {messageContent.nick === nickname ? (
                     <div>
                       <Mynick>{messageContent.nick}</Mynick>
