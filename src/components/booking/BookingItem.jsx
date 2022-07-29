@@ -33,7 +33,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   }
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
-  let end = endTime.substr(-17, 5);
+  let end = endTime.substr(16, 5);
 
 
 

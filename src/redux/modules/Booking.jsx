@@ -28,7 +28,7 @@ export const setBookingDB = (data, blogId) => {
     console.log(blogId);
     console.log(userName);
     console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
-    if (!userName) {
+    if (userName === null) {
       Swal.fire({
         icon: "error",
         text: `로그인후 예약해주세요~!`,
@@ -81,7 +81,7 @@ export const setBookingDB = (data, blogId) => {
 
         let [week, month, day, year, sTime] = startTime.toString().split(" ");
         let start = sTime.substr(0, 5);
-        let end = endTime.toString().substr(-17, 5);
+        let end = endTime.toString().substr(16, 5);
         let Month = (month) => {
           if (month === "Jan") return "1";
           if (month === "Feb") return "2";
@@ -183,6 +183,10 @@ export const patchBookingDB = (hostId) => {
           text: `예약을 수락 하셨 습니다!`,
           showConfirmButton: true,
           confirmButtonColor: "#3085d6",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
       })
       .catch((err) => {
@@ -206,8 +210,11 @@ export const deleteHostBookingDB = (hostId) => {
         text: `예약을 취소 하셨 습니다!`,
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
-      });
-      
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
+      });      
     })
     .catch((err) => {
       console.log(err);
@@ -230,6 +237,10 @@ export const deleteGuestBookingDB = (Guest, bookingId) => {
         text: `예약을 취소 하셨 습니다!`,
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        }
       });
     })
     .catch((err) => {
