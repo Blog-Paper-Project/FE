@@ -4,323 +4,118 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/grid";
-import "swiper/css/pagination";
-import "./Main.css";
-
-// import required modules
-import { Grid, Pagination } from "swiper";
-
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
-import ViewEdit from "../components/editor/ViewEdit";
 import defaultUserImage from "../public/images/default_profile.png";
 
-const Main = () => {
+const AllPaper = () => {
   const navigate = useNavigate();
 
-  const paperList = async () => {
-    const res = await api.get("/api/paper");
+  const paperLists = async () => {
+    const res = await api.get("/api/paper/posts");
     return res;
   };
 
-  const { data: paper_query } = useQuery("paper_list", paperList, {
+  const { data: paper_query } = useQuery("paper_lists", paperLists, {
     staleTime: 0,
     onSuccess: (data) => {
+      console.log(paper_query);
       return data;
     },
   });
-
-  const BestPapers = paper_query?.data.papers;
-  console.log(BestPapers);
-
+  const Papers = paper_query?.data.papers;
   return (
     <>
-      <MainBox>
+      <Wrap>
         <Header />
-        <MainTop>
-          <img
-            className="paperTitle"
-            src={process.env.PUBLIC_URL + "/Group 365.png"}
-            back_size="100% 100%"
-            alt="icon"
-          />
-        </MainTop>
-
-        <PostWrap>
-          <PostBox>
-            <Bigbox>
-              {BestPapers?.map((BestPapers, i) => {
-                return (
-                  <Card key={i}>
-                    <Box
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      {BestPapers?.thumbnail === null ? (
-                        <img
-                          className="postImg"
-                          src={"https://picsum.photos/200/300"}
-                          style={{ width: "100%", height: "100%" }}
-                          alt="back"
-                        />
-                      ) : (
-                        <img
-                          src={
-                            process.env.REACT_APP_S3_URL +
-                            `/${BestPapers?.thumbnail}`
-                          }
-                          alt="img"
-                          style={{ width: "100%", height: "100%" }}
-                        />
-                      )}
-                    </Box>
-                    <Box1
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      <H4>{BestPapers.title}</H4>
-                      <P>{BestPapers.contents}</P>
-                    </Box1>
-                    <Box2>{BestPapers.createdAt}</Box2>
-                    <Box3
-                      onClick={() => {
-                        navigate(`/paper/${BestPapers?.blogId}`);
-                      }}
-                    >
-                      <div className="by">
-                        {BestPapers?.thumbnail === null ? (
-                          <img
-                            className="userProfile"
-                            src={defaultUserImage}
-                            alt="back"
-                          />
-                        ) : (
-                          <img
-                            className="userProfile"
-                            src={
-                              process.env.REACT_APP_S3_URL +
-                              `/${BestPapers?.profileImage}`
-                            }
-                            alt="img"
-                          />
-                        )}{" "}
-                        by <span>{BestPapers.nickname}</span>
-                      </div>
-                      <div>
-                        <img
-                          className="heart"
-                          src={process.env.PUBLIC_URL + "/Vector.png"}
-                          back_size="100% 100%"
-                          alt="icon"
-                        />{" "}
-                        {BestPapers?.likes}
-                      </div>
-                    </Box3>
-                  </Card>
-                );
-              })}
-            </Bigbox>
-          </PostBox>
-        </PostWrap>
-
-        <PopularBloger>
-          <div className="poTitle">인기 블로거</div>
-          <div className="poText">Popular Bloger</div>
-        </PopularBloger>
-        <PopularBox>
-          <Swiper
-            slidesPerView={3}
-            grid={{
-              rows: 2,
-            }}
-            spaceBetween={0}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Grid, Pagination]}
-            className="mySwiper"
-          >
-            {paper_query &&
-              paper_query?.data.popularUsers.map((popularUsers) => {
-                const S3 =
-                  process.env.REACT_APP_S3_URL +
-                  `/${popularUsers.profileImage}`;
-                return (
-                  <SwiperSlide key={popularUsers.blogId}>
-                    <Popular>
-                      <PopularImg
-                        onClick={() => {
-                          navigate(`/paper/${popularUsers.blogId}`);
-                        }}
-                        src={
-                          popularUsers.profileImage === null
-                            ? defaultUserImage
-                            : S3
-                        }
+        <Bigbox>
+          {Papers?.map((Papers, i) => {
+            return (
+              <Card key={i}>
+                <Box
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
+                >
+                  {Papers?.thumbnail === null ? (
+                    <img
+                      className="postImg"
+                      src={"https://picsum.photos/200/300"}
+                      style={{ width: "100%", height: "100%" }}
+                      alt="back"
+                    />
+                  ) : (
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  )}
+                </Box>
+                <Box1
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
+                >
+                  <H4>{Papers.title}</H4>
+                  <P>{Papers.contents}</P>
+                </Box1>
+                <Box2>{Papers.createdAt}</Box2>
+                <Box3
+                  onClick={() => {
+                    navigate(`/paper/${Papers?.Users.blogId}`);
+                  }}
+                >
+                  <div className="by">
+                    {Papers?.thumbnail === null ? (
+                      <img
+                        className="userProfile"
+                        src={defaultUserImage}
+                        alt="back"
                       />
-                      <div className="popularNick">{popularUsers.nickname}</div>
-                      <div className="popularIntro">
-                        {popularUsers.introduction}
-                      </div>
-                      {/* <div>인기도 {popularUsers.popularity}</div> */}
-                    </Popular>
-                  </SwiperSlide>
-                );
-              })}
-          </Swiper>
-        </PopularBox>
-        <EndBox>
-          <div className="enTitle">
-            PAPER에 담긴 아름다운 작품을 감상해 보세요.
-          </div>
-          <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
-        </EndBox>
+                    ) : (
+                      <img
+                        className="userProfile"
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${Papers?.Users.profileImage}`
+                        }
+                        alt="img"
+                      />
+                    )}{" "}
+                    by <span>{Papers.Users.nickname}</span>
+                  </div>
+                  <div>
+                    <img
+                      className="heart"
+                      src={process.env.PUBLIC_URL + "/Vector.png"}
+                      back_size="100% 100%"
+                      alt="icon"
+                    />{" "}
+                    {Papers.Likes.length}
+                  </div>
+                </Box3>
+              </Card>
+            );
+          })}
+        </Bigbox>
         <Footer />
-      </MainBox>
+      </Wrap>
     </>
   );
 };
 
-const MainBox = styled.div`
-  background-color: #fffdf7;
-  height: 3909px;
-`;
-
-const MainTop = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 266px;
-  width: 1904px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 160px;
-  font-weight: 600;
-  line-height: 90px;
-  border-bottom: 1px solid #a7aca1;
-`;
-
-const PostWrap = styled.div`
-  height: 1680px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
-
-const PostBox = styled.div`
-  width: 1516px;
-  height: 1680px;
-  flex-wrap: wrap;
-`;
-
-const PopularBloger = styled.div`
+const Wrap = styled.div`
+  display: block;
+  height: auto;
   width: 100%;
-  height: 260px;
-  border: 1px solid #a7aca1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: end;
-  padding-bottom: 25px;
-  font-family: "Gmarket Sans";
-  font-style: normal;
-  float: left;
-  flex-wrap: wrap;
-  .poTitle {
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 150%;
-  }
-  .poText {
-    font-weight: 300;
-    font-size: 20px;
-    line-height: 150%;
-  }
-`;
-
-const PopularBox = styled.div`
-  display: flex;
-  width: 90%;
-  height: 920px;
-  padding: 20px 0 0 0;
-  float: left;
-  flex-wrap: wrap;
-`;
-
-const Popular = styled.div`
-  background-color: #fffdf7;
-  display: flex;
-  align-items: center;
-  padding-top: 50px;
-  width: 506px;
-  height: 410px;
-  border: 1px solid #a7aca1;
-  flex-direction: column;
-  float: left;
-  .popularNick {
-    margin-top: 20px;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 30px;
-  }
-  .popularIntro {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    width: 212px;
-    height: 76px;
-    overflow: hidden;
-    font-family: "Noto Sans";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 19px;
-    text-align: center;
-    color: #333333;
-  }
-`;
-const PopularImg = styled.img`
-  width: 100px;
-  height: 100px;
-  margin: 0 0 0 0;
-  border-radius: 100px;
-  align-items: center;
-`;
-const EndBox = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #a7aca1;
-  font-family: "Gmarket Sans";
-  font-style: normal;
-  .enTitle {
-    font-weight: 300;
-    font-size: 30px;
-    line-height: 150%;
-  }
-  .enText {
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 150%;
-  }
 `;
 const Box = styled.div`
   height: 180px;
@@ -460,4 +255,4 @@ const Card = styled.div`
   }
 `;
 
-export default Main;
+export default AllPaper;

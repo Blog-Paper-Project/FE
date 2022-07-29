@@ -71,7 +71,7 @@ const Search = () => {
                   }}
                 >
                   <div className="by">
-                    {SearchPaper?.thumbnail === null ? (
+                    {SearchPaper?.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
