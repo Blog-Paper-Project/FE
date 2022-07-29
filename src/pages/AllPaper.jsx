@@ -34,13 +34,12 @@ const AllPaper = () => {
 
           {Papers?.map((Papers, i) => {
             return (
-              <Card
-                key={i}
+              <Card key={i} >
+                <Box
                 onClick={() => {
                   navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
                 }}
-              >
-                <Box>
+                >
                   {Papers?.thumbnail === null ? (
                     <img
                       className="postImg"
@@ -51,20 +50,25 @@ const AllPaper = () => {
                   ) : (<img
                     src={process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`}
                     alt="img"
-                    style={{ width: "100%", height: "100%" }}
-                    onClick={() => {
-                      navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
-                    }}
+                    style={{ width: "100%", height: "100%" }}                    
                   />)}
                 </Box>
-                <Box1>
+                <Box1
+                onClick={() => {
+                  navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
+                }}
+                >
                   <H4>{Papers.title}</H4>
                   <P>{Papers.contents}</P>
                 </Box1>
                 <Box2>
-                 {Papers.createdAt}
+                  {Papers.createdAt}
                 </Box2>
-                <Box3>
+                <Box3
+                onClick={() => {
+                  navigate(`/paper/${Papers?.Users.blogId}`);
+                }}
+                >
                   <div className='by'>
                     {Papers?.thumbnail === null ? (
                       <img
@@ -75,10 +79,7 @@ const AllPaper = () => {
                     ) : (<img
                       className='userProfile'
                       src={process.env.REACT_APP_S3_URL + `/${Papers?.Users.profileImage}`}
-                      alt="img"
-                      onClick={() => {
-                        navigate(`/paper/${Papers?.Users.blogId}`);
-                      }}
+                      alt="img"                      
                     />)} by <span>
                       {Papers.Users.nickname}
                     </span>
@@ -180,7 +181,6 @@ const Box2 = styled.div`
   min-height: auto;
   min-width: auto;
   display: block;
-  cursor: pointer;
   background-color: #f8f9fa;
   box-sizing: border-box;
   padding-left: 20px;

@@ -37,16 +37,8 @@ const Main = () => {
     },
   });
 
-  const aPapers = paper_query?.data.papers[0];
-  const bPapers = paper_query?.data.papers[1];
-  const cPapers = paper_query?.data.papers[2];
-  const dPapers = paper_query?.data.papers[3];
-  const ePapers = paper_query?.data.papers[4];
-  const fPapers = paper_query?.data.papers[5];
-  const gPapers = paper_query?.data.papers[6];
-  const hPapers = paper_query?.data.papers[7];
-  const iPapers = paper_query?.data.papers[8];
-  const jPapers = paper_query?.data.papers[9];
+  const BestPapers = paper_query?.data.papers
+  console.log(BestPapers)
 
   return (
     <>
@@ -63,851 +55,71 @@ const Main = () => {
 
         <PostWrap>
           <PostBox>
-            <Post1st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {aPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {aPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${aPapers?.blogId}`);
-                  }}
-                >
-                  by. {aPapers?.nickname}
-                </div>
-              </div>
-            </Post1st>
-
-            <Post2st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {bPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${bPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {bPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${bPapers?.blogId}`);
-                  }}
-                >
-                  by. {bPapers?.nickname}
-                </div>
-              </div>
-            </Post2st>
-
-            <Post3st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {cPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${cPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {dPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${cPapers?.blogId}`);
-                  }}
-                >
-                  by. {cPapers?.nickname}
-                </div>
-              </div>
-            </Post3st>
-
-            <Post4st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {dPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                    opacity: "0.4",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
-                  }}
-                />
-              )}
-
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {dPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${dPapers?.blogId}`);
-                  }}
-                >
-                  by. {dPapers?.nickname}
-                </div>
-              </div>
-            </Post4st>
-
-            <Post5st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {ePapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${ePapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "646px",
-                  height: "646px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "646px",
-                    height: "646px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {ePapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${ePapers?.blogId}`);
-                  }}
-                >
-                  by. {ePapers?.nickname}
-                </div>
-              </div>
-            </Post5st>
-
-            <Information>
-              <div
-                style={{
-                  position: "relative",
-                  padding: "53px 56px",
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "60px",
-                      lineHeight: "60px",
-                    }}
-                  >
-                    The PAPER
-                    <span
-                      style={{
-                        fontWeight: "300",
-                        fontSize: "60px",
-                        lineHeight: "60px",
+            <Bigbox>
+              {BestPapers?.map((BestPapers, i) => {
+                return (
+                  <Card key={i} >
+                    <Box
+                      onClick={() => {
+                        navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
+                      }}>
+                      {BestPapers?.thumbnail === null ? (
+                        <img
+                          className="postImg"
+                          src={'https://picsum.photos/200/300'}
+                          style={{ width: "100%", height: "100%" }}
+                          alt="back"
+                        />
+                      ) : (<img
+                        src={process.env.REACT_APP_S3_URL + `/${BestPapers?.thumbnail}`}
+                        alt="img"
+                        style={{ width: "100%", height: "100%" }}
+                      />)}
+                    </Box>
+                    <Box1
+                      onClick={() => {
+                        navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
                       }}
                     >
-                      | write
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontWeight: "300",
-                      fontSize: "25px",
-                      marginTop: "27px",
-                    }}
-                  >
-                    PAPER에 담긴 아름다운 작품을 감상해 보세요.
-                  </div>
-                  <span
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "25px",
-                    }}
-                  >
-                    글을 써서 나뭇잎을 모아 나무로 만드세요.
-                  </span>
-                </div>
-                <img
-                  style={{
-                    padding: "0px 0px 0px 212px",
-                  }}
-                  className="paperInfo"
-                  src={process.env.PUBLIC_URL + "/Frame 182.png"}
-                  back_size="100% 100%"
-                  alt="icon"
-                />
-              </div>
-            </Information>
-
-            <Post6st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {fPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${fPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {fPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${fPapers?.blogId}`);
-                  }}
-                >
-                  by. {fPapers?.nickname}
-                </div>
-              </div>
-            </Post6st>
-
-            <Post7st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {gPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {gPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${gPapers?.blogId}`);
-                  }}
-                >
-                  by. {gPapers?.nickname}
-                </div>
-              </div>
-            </Post7st>
-
-            <Post8st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {hPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${hPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${hPapers?.blogId}/${hPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {hPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.blogId}`);
-                  }}
-                >
-                  by. {hPapers?.nickname}
-                </div>
-              </div>
-            </Post8st>
-
-            <Post9st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {iPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${iPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "260px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "260px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.blogId}/${iPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {iPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${iPapers?.blogId}`);
-                  }}
-                >
-                  by. {iPapers?.nickname}
-                </div>
-              </div>
-            </Post9st>
-
-            <Post10st
-              style={{
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#000033",
-              }}
-            >
-              {jPapers?.thumbnail === null ? (
-                <img
-                  className="postImg"
-                  src={process.env.PUBLIC_URL + "/post.jpg"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  alt="back"
-                />
-              ) : (
-                <img
-                  src={process.env.REACT_APP_S3_URL + `/${jPapers?.thumbnail}`}
-                  alt="img"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    filter: "brightness(75%)",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
-                  }}
-                />
-              )}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "56px",
-                  left: "56px",
-                  width: "646px",
-                  height: "304px",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  style={{
-                    width: "646px",
-                    height: "250px",
-                    overflow: "hidden",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onClick={() => {
-                    navigate(`/paper/${jPapers?.blogId}/${jPapers?.postId}`);
-                  }}
-                >
-                  <h2
-                    style={{
-                      fontSize: "40px",
-                    }}
-                  >
-                    {jPapers?.title}
-                  </h2>
-                  <br />
-                </div>
-                <br />
-                <div
-                  className="writer"
-                  onClick={() => {
-                    navigate(`/paper/${jPapers?.blogId}`);
-                  }}
-                >
-                  by. {jPapers?.nickname}
-                </div>
-              </div>
-            </Post10st>
+                      <H4>{BestPapers.title}</H4>
+                      <P>{BestPapers.contents}</P>
+                    </Box1>
+                    <Box2>
+                      {BestPapers.createdAt}
+                    </Box2>
+                    <Box3
+                      onClick={() => {
+                        navigate(`/paper/${BestPapers?.blogId}`);
+                      }}
+                    >
+                      <div className='by'>
+                        {BestPapers?.thumbnail === null ? (
+                          <img
+                            className="userProfile"
+                            src={defaultUserImage}
+                            alt="back"
+                          />
+                        ) : (<img
+                          className='userProfile'
+                          src={process.env.REACT_APP_S3_URL + `/${BestPapers?.profileImage}`}
+                          alt="img"
+                        />)} by <span>
+                          {BestPapers.nickname}
+                        </span>
+                      </div>
+                      <div>
+                        <img
+                          className="heart"
+                          src={process.env.PUBLIC_URL + "/Vector.png"}
+                          back_size="100% 100%"
+                          alt="icon"
+                        /> {BestPapers?.likes}
+                      </div>
+                    </Box3>
+                  </Card>
+                )
+              })}
+            </Bigbox>
           </PostBox>
         </PostWrap>
 
@@ -979,6 +191,7 @@ const MainTop = styled.div`
   justify-content: center;
   align-items: center;
   height: 266px;
+  width: 1904px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -992,178 +205,13 @@ const PostWrap = styled.div`
   height: 1680px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const PostBox = styled.div`
   width: 1516px;
   height: 1680px;
-`;
-
-const Post1st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border: 1px solid #A7ACA1; */
-  border-top: none;
-  border-bottom: none;
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    opacity: 0.8;
-  }
-`;
-
-const Post2st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    opacity: 0.8;
-  }
-`;
-
-const Post3st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post4st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post5st = styled.div`
-  width: 758px;
-  height: 880px;
-  /* border: 1px solid #A7ACA1; */
-  float: left;
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Information = styled.div`
-  width: 758px;
-  height: 480px;
-  float: left;
-  /* border: 1px solid #A7ACA1; */
-  border-left: none;
-  font-family: "Gmarket Sans";
-  font-style: normal;
-`;
-
-const Post6st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1;  
-  border-bottom: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post7st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1;
-  border-bottom: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post8st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-left: 1px solid #A7ACA1;
-  border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post9st = styled.div`
-  width: 379px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
-`;
-
-const Post10st = styled.div`
-  width: 758px;
-  height: 400px;
-  float: left;
-  /* border-right: 1px solid #A7ACA1; */
-  .writer {
-    color: white;
-    font-family: "Gmarket Sans";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-  }
+  flex-wrap: wrap;
 `;
 
 const PopularBloger = styled.div`
@@ -1178,6 +226,7 @@ const PopularBloger = styled.div`
   font-family: "Gmarket Sans";
   font-style: normal;
   float: left;
+  flex-wrap: wrap;
   .poTitle {
     font-weight: 400;
     font-size: 30px;
@@ -1196,6 +245,7 @@ const PopularBox = styled.div`
   height: 920px;
   padding: 20px 0 0 0;
   float: left;
+  flex-wrap: wrap;
 `;
 
 const Popular = styled.div`
@@ -1259,5 +309,142 @@ const EndBox = styled.div`
     line-height: 150%;
   }
 `;
+const Box = styled.div`
+  height: 180px; 
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  background-position: center;
+  background-size: cover;
+`;
+const Box1 = styled.div`
+  font-size: 16px;
+  text-decoration: none solid rgb(33, 37, 41);
+  background-color: #f8f9fa;
+  background-position: 0% 0%;
+  position: color;
+  height: 130px;
+  width: 320px;
+  cursor: pointer;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10px;
+`;
+const H4 = styled.p`
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 24px;
+  white-space: nowrap;
+  word-spacing: 0px;
+  height: 23%;
+  width: 320px;
+  padding: 0px 15px;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+`;
+const P = styled.div`
+  font-size: 14px;
+  line-height: 21px;
+  text-decoration: none solid rgb(73, 80, 87);
+  word-spacing: 0px;
+  height: 68%;
+  width: 320px;
+  margin-top: 10px;
+  padding: 0px 15px;
+  display: -webkit-box;
+  overflow: hidden;
+  cursor: pointer;
+  transform: none;
+  transition: all 0s ease 0s;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+`;
+const Box2 = styled.div`
+  color: gray;
+  height: 40px;
+  line-height: 50px;
+  width: 320px;
+  min-height: auto;
+  min-width: auto;
+  display: block;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  padding-left: 20px;
+  font-size: 14px;
+`;
+
+const Box3 = styled.div`
+  height: 13%;
+  width: 100%;
+  border-top: 1px solid #f1f3f5;
+  padding: 10px 16px 10px 16px;
+  min-height: auto;
+  min-width: auto;
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  font-size: 12px;
+  text-decoration: none solid rgb(33, 37, 41);
+  word-spacing: 0px;
+  cursor: pointer;
+  justify-content: space-between;
+  box-sizing: border-box;
+  .by {
+    display: flex;
+    align-items: center;
+    color: gray;
+    gap: 5px;
+  }
+  span {
+    color: black;
+    font-weight: 600;
+  }
+  
+  .userinfo {
+    display: flex;
+  }
+  .heart {
+    width: 14px;
+  }
+  .userProfile {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+  }
+`;
+
+const Bigbox = styled.div`
+  gap: 40px;  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px;
+`;
+const Card = styled.div`
+  width: 320px;
+  height: 405px;
+  box-shadow: rgb(0 0 0 / 7%) 0px 4px 16px 0px;
+  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  overflow: hidden;
+  border-radius: 5px;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`
 
 export default Main;
