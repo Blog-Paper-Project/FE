@@ -31,21 +31,21 @@ const Like = ({ postId, Likes }) => {
 
   // ## useMutation 좋아요 post
   const { mutate: onPost } = useMutation(PostLike, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries("detail_data");
       // console.log(data);
+      setLike(data.result);
     },
     onError: (err) => {
       alert(err.response.data.errorMessage);
-      navigate("/login");
-      window.scrollTo(0, 0);
+      // navigate("/login");
+      // window.scrollTo(0, 0);
     },
   });
   // console.log(likeData);
   const onLike = useCallback(() => {
-    setLike(!like);
     onPost();
-  }, [like]);
+  }, []);
 
   return (
     <>
