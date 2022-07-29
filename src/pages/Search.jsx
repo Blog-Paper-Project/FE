@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Header from "../components/main/Header";
-import Footer from "../components/main/Footer";
 import { __searchPost } from "../redux/modules/Search";
 import defaultUserImage from "../public/images/default_profile.png";
+import Footer from "../components/main/Footer";
 
 const Search = () => {
   const navigate = useNavigate();
@@ -18,23 +18,25 @@ const Search = () => {
     dispatch(__searchPost(payload));
   }, [dispatch]);
   console.log(datas);
+  const SearchPaper = datas.papers;
+
   return (
     <>
       <Wrap>
         <Header />
-        <HeadTitle>"{payload}"로 검색</HeadTitle>
+        <HeadTitle>"{payload}"로 검색한 결과</HeadTitle>
         <Bigbox>
-          {datas?.papers?.map((data, i) => {
-            console.log(data);
+          {SearchPaper?.map((SearchPaper, i) => {
             return (
-              <Card
-                key={i}
-                onClick={() => {
-                  navigate(`/paper/${data?.Users.blogId}/${data?.postId}`);
-                }}
-              >
-                <Box>
-                  {data?.thumbnail === null ? (
+              <Card key={i}>
+                <Box
+                  onClick={() => {
+                    navigate(
+                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                    );
+                  }}
+                >
+                  {SearchPaper?.thumbnail === null ? (
                     <img
                       className="postImg"
                       src={"https://picsum.photos/200/300"}
@@ -43,25 +45,33 @@ const Search = () => {
                     />
                   ) : (
                     <img
-                      src={process.env.REACT_APP_S3_URL + `/${data?.thumbnail}`}
+                      src={
+                        process.env.REACT_APP_S3_URL +
+                        `/${SearchPaper?.thumbnail}`
+                      }
                       alt="img"
                       style={{ width: "100%", height: "100%" }}
-                      // onClick={() => {
-                      //   navigate(
-                      //     `/paper/${data?.Users.blogId}/${data?.postId}`
-                      //   );
-                      // }}
                     />
                   )}
                 </Box>
-                <Box1>
-                  <H4>{data?.title}</H4>
-                  <P>{data?.contents}</P>
+                <Box1
+                  onClick={() => {
+                    navigate(
+                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                    );
+                  }}
+                >
+                  <H4>{SearchPaper.title}</H4>
+                  <P>{SearchPaper.contents}</P>
                 </Box1>
-                <Box2>{data?.createdAt}</Box2>
-                <Box3>
+                <Box2>{SearchPaper.createdAt}</Box2>
+                <Box3
+                  onClick={() => {
+                    navigate(`/paper/${SearchPaper?.Users.blogId}`);
+                  }}
+                >
                   <div className="by">
-                    {data?.profileImage === null ? (
+                    {SearchPaper?.thumbnail === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
@@ -72,15 +82,12 @@ const Search = () => {
                         className="userProfile"
                         src={
                           process.env.REACT_APP_S3_URL +
-                          `/${data?.Users.profileImage}`
+                          `/${SearchPaper?.Users.profileImage}`
                         }
                         alt="img"
-                        onClick={() => {
-                          navigate(`/paper/${data?.Users.blogId}`);
-                        }}
                       />
-                    )}
-                    by <span>{data?.Users?.nickname}</span>
+                    )}{" "}
+                    by <span>{SearchPaper.Users.nickname}</span>
                   </div>
                   <div>
                     <img
@@ -89,7 +96,7 @@ const Search = () => {
                       back_size="100% 100%"
                       alt="icon"
                     />{" "}
-                    {data?.Likes?.length}
+                    {SearchPaper.Likes.length}
                   </div>
                 </Box3>
               </Card>
@@ -102,19 +109,19 @@ const Search = () => {
   );
 };
 
-const Wrap = styled.div`
-  display: block;
-  height: auto;
-  width: 100%;
-`;
-
 const HeadTitle = styled.h2`
   font-size: 32px;
   font-weight: 600;
   letter-spacing: -0.6px;
   text-align: center;
+  margin-top: 100px;
 `;
 
+const Wrap = styled.div`
+  display: block;
+  height: auto;
+  width: 100%;
+`;
 const Box = styled.div`
   height: 180px;
   cursor: pointer;
@@ -186,7 +193,6 @@ const Box2 = styled.div`
   min-height: auto;
   min-width: auto;
   display: block;
-  cursor: pointer;
   background-color: #f8f9fa;
   box-sizing: border-box;
   padding-left: 20px;
@@ -240,6 +246,7 @@ const Bigbox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 50px;
+  min-height: 700px;
 `;
 const Card = styled.div`
   width: 320px;
