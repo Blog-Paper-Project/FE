@@ -226,7 +226,8 @@ const PostBox = styled.div`
 const PopularBloger = styled.div`
   width: 100%;
   height: 260px;
-  border: 1px solid #a7aca1;
+  border-top: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -304,7 +305,8 @@ const EndBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #a7aca1;
+  border-top: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
   font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
