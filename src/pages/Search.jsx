@@ -8,7 +8,6 @@ import { __searchPost } from "../redux/modules/Search";
 import defaultUserImage from "../public/images/default_profile.png";
 import Footer from "../components/main/Footer";
 
-
 const Search = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,8 +17,9 @@ const Search = () => {
   useEffect(() => {
     dispatch(__searchPost(payload));
   }, [dispatch]);
-  console.log(datas)
-  const SearchPaper = datas.papers
+  console.log(datas);
+  const SearchPaper = datas.papers;
+  console.log(SearchPaper)
 
   return (
     <>
@@ -27,13 +27,14 @@ const Search = () => {
         <Header />
         <HeadTitle>"{payload}"로 검색한 결과</HeadTitle>
         <Bigbox>
-
           {SearchPaper?.map((SearchPaper, i) => {
             return (
-              <Card key={i} >
+              <Card key={i}>
                 <Box
                   onClick={() => {
-                    navigate(`/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`);
+                    navigate(
+                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                    );
                   }}
                 >
                   {SearchPaper?.thumbnail === null ? (
@@ -43,42 +44,51 @@ const Search = () => {
                       style={{ width: "100%", height: "100%" }}
                       alt="back"
                     />
-                  ) : (<img
-                    src={process.env.REACT_APP_S3_URL + `/${SearchPaper?.thumbnail}`}
-                    alt="img"
-                    style={{ width: "100%", height: "100%" }}
-                  />)}
+                  ) : (
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL +
+                        `/${SearchPaper?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  )}
                 </Box>
                 <Box1
                   onClick={() => {
-                    navigate(`/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`);
+                    navigate(
+                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                    );
                   }}
                 >
                   <H4>{SearchPaper.title}</H4>
                   <P>{SearchPaper.contents}</P>
                 </Box1>
-                <Box2>
-                  {SearchPaper.createdAt}
-                </Box2>
+                <Box2>{SearchPaper.createdAt}</Box2>
                 <Box3
                   onClick={() => {
                     navigate(`/paper/${SearchPaper?.Users.blogId}`);
                   }}
                 >
-                  <div className='by'>
-                    {SearchPaper?.thumbnail === null ? (
+                  <div className="by">
+                    {SearchPaper?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
                         alt="back"
                       />
-                    ) : (<img
-                      className='userProfile'
-                      src={process.env.REACT_APP_S3_URL + `/${SearchPaper?.Users.profileImage}`}
-                      alt="img"
-                    />)} by <span>
-                      {SearchPaper.Users.nickname}
-                    </span>
+                    ) : (
+                      <img
+                        className="userProfile"
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${SearchPaper?.Users.profileImage}`
+                        }
+                        alt="img"
+                      />
+                    )}{" "}
+                    by <span>{SearchPaper.Users.nickname}</span>
                   </div>
                   <div>
                     <img
@@ -86,12 +96,12 @@ const Search = () => {
                       src={process.env.PUBLIC_URL + "/Vector.png"}
                       back_size="100% 100%"
                       alt="icon"
-                    /> {SearchPaper.Likes.length}
+                    />{" "}
+                    {SearchPaper.Likes.length}
                   </div>
-
                 </Box3>
               </Card>
-            )
+            );
           })}
         </Bigbox>
         <Footer />
@@ -99,7 +109,6 @@ const Search = () => {
     </>
   );
 };
-
 
 const HeadTitle = styled.h2`
   font-size: 32px;
@@ -112,10 +121,10 @@ const HeadTitle = styled.h2`
 const Wrap = styled.div`
   display: block;
   height: auto;
-  width: 100%;  
+  width: 100%;
 `;
 const Box = styled.div`
-  height: 180px; 
+  height: 180px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -217,7 +226,7 @@ const Box3 = styled.div`
     color: black;
     font-weight: 600;
   }
-  
+
   .userinfo {
     display: flex;
   }
@@ -232,7 +241,7 @@ const Box3 = styled.div`
 `;
 
 const Bigbox = styled.div`
-  gap: 40px;  
+  gap: 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -251,11 +260,6 @@ const Card = styled.div`
     transform: translateY(-8px);
     box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
   }
-`
-
-
-
-
-
+`;
 
 export default Search;

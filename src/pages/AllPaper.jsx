@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import { api } from "../shared/apis/Apis";
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
 import defaultUserImage from "../public/images/default_profile.png";
-
 
 const AllPaper = () => {
   const navigate = useNavigate();
@@ -21,24 +20,25 @@ const AllPaper = () => {
   const { data: paper_query } = useQuery("paper_lists", paperLists, {
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(paper_query)
+      console.log(paper_query);
       return data;
     },
   });
-  const Papers = paper_query?.data.papers
+  const Papers = paper_query?.data.papers;
   return (
     <>
       <Wrap>
         <Header />
         <Bigbox>
-
           {Papers?.map((Papers, i) => {
             return (
-              <Card key={i} >
+              <Card key={i}>
                 <Box
-                onClick={() => {
-                  navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
-                }}
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
                 >
                   {Papers?.thumbnail === null ? (
                     <img
@@ -47,42 +47,50 @@ const AllPaper = () => {
                       style={{ width: "100%", height: "100%" }}
                       alt="back"
                     />
-                  ) : (<img
-                    src={process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`}
-                    alt="img"
-                    style={{ width: "100%", height: "100%" }}                    
-                  />)}
+                  ) : (
+                    <img
+                      src={
+                        process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`
+                      }
+                      alt="img"
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  )}
                 </Box>
                 <Box1
-                onClick={() => {
-                  navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
-                }}
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
                 >
                   <H4>{Papers.title}</H4>
                   <P>{Papers.contents}</P>
                 </Box1>
-                <Box2>
-                  {Papers.createdAt}
-                </Box2>
+                <Box2>{Papers.createdAt}</Box2>
                 <Box3
-                onClick={() => {
-                  navigate(`/paper/${Papers?.Users.blogId}`);
-                }}
+                  onClick={() => {
+                    navigate(`/paper/${Papers?.Users.blogId}`);
+                  }}
                 >
-                  <div className='by'>
-                    {Papers?.thumbnail === null ? (
+                  <div className="by">
+                    {Papers?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
                         alt="back"
                       />
-                    ) : (<img
-                      className='userProfile'
-                      src={process.env.REACT_APP_S3_URL + `/${Papers?.Users.profileImage}`}
-                      alt="img"                      
-                    />)} by <span>
-                      {Papers.Users.nickname}
-                    </span>
+                    ) : (
+                      <img
+                        className="userProfile"
+                        src={
+                          process.env.REACT_APP_S3_URL +
+                          `/${Papers?.Users.profileImage}`
+                        }
+                        alt="img"
+                      />
+                    )}{" "}
+                    by <span>{Papers.Users.nickname}</span>
                   </div>
                   <div>
                     <img
@@ -90,28 +98,27 @@ const AllPaper = () => {
                       src={process.env.PUBLIC_URL + "/Vector.png"}
                       back_size="100% 100%"
                       alt="icon"
-                    /> {Papers.Likes.length}
+                    />{" "}
+                    {Papers.Likes.length}
                   </div>
-
                 </Box3>
               </Card>
-            )
+            );
           })}
-
         </Bigbox>
         <Footer />
       </Wrap>
     </>
-  )
-}
+  );
+};
 
 const Wrap = styled.div`
   display: block;
   height: auto;
   width: 100%;
-`
+`;
 const Box = styled.div`
-  height: 180px; 
+  height: 180px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -213,7 +220,7 @@ const Box3 = styled.div`
     color: black;
     font-weight: 600;
   }
-  
+
   .userinfo {
     display: flex;
   }
@@ -228,7 +235,7 @@ const Box3 = styled.div`
 `;
 
 const Bigbox = styled.div`
-  gap: 40px;  
+  gap: 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -246,6 +253,6 @@ const Card = styled.div`
     transform: translateY(-8px);
     box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
   }
-`
+`;
 
-export default AllPaper
+export default AllPaper;
