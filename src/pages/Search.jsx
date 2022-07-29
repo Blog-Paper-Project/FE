@@ -61,7 +61,7 @@ const Search = () => {
                 <Box2>{data?.createdAt}</Box2>
                 <Box3>
                   <div className="by">
-                    {/* {data?.thumbnail === null ? (
+                    {data?.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
@@ -72,14 +72,14 @@ const Search = () => {
                         className="userProfile"
                         src={
                           process.env.REACT_APP_S3_URL +
-                          `/${datas?.papers?.Users.profileImage}`
+                          `/${data?.Users.profileImage}`
                         }
                         alt="img"
                         onClick={() => {
                           navigate(`/paper/${datas?.papers?.Users.blogId}`);
                         }}
                       />
-                    )}{" "} */}
+                    )}
                     by <span>{data?.Users?.nickname}</span>
                   </div>
                   <div>
