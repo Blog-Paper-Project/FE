@@ -104,6 +104,11 @@ export const setBookingDB = (data, blogId) => {
           )}월  ${day}일   ${start} - ${end} 예약 되었습니다!!`,
           showConfirmButton: true,
           confirmButtonColor: "#3085d6",
+          confirmButtonText: "확인",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
       })
       .catch((err) => {
