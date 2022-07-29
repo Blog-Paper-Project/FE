@@ -58,12 +58,7 @@ const Main = () => {
             <Bigbox>
               {BestPapers?.map((BestPapers, i) => {
                 return (
-                  <Card
-                    key={i}
-                    onClick={() => {
-                      navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
-                    }}
-                  >
+                  <Card key={i} >
                     <Box
                       onClick={() => {
                         navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
@@ -81,14 +76,22 @@ const Main = () => {
                         style={{ width: "100%", height: "100%" }}
                       />)}
                     </Box>
-                    <Box1>
+                    <Box1
+                      onClick={() => {
+                        navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
+                      }}
+                    >
                       <H4>{BestPapers.title}</H4>
                       <P>{BestPapers.contents}</P>
                     </Box1>
                     <Box2>
                       {BestPapers.createdAt}
                     </Box2>
-                    <Box3>
+                    <Box3
+                      onClick={() => {
+                        navigate(`/paper/${BestPapers?.blogId}`);
+                      }}
+                    >
                       <div className='by'>
                         {BestPapers?.thumbnail === null ? (
                           <img
@@ -100,9 +103,6 @@ const Main = () => {
                           className='userProfile'
                           src={process.env.REACT_APP_S3_URL + `/${BestPapers?.profileImage}`}
                           alt="img"
-                          onClick={() => {
-                            navigate(`/paper/${BestPapers?.blogId}`);
-                          }}
                         />)} by <span>
                           {BestPapers.nickname}
                         </span>
@@ -190,6 +190,7 @@ const MainTop = styled.div`
   justify-content: center;
   align-items: center;
   height: 266px;
+  width: 1904px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,10 +203,12 @@ const PostWrap = styled.div`
   height: 1680px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 const PostBox = styled.div`
   width: 1516px;
   height: 1680px;
+  flex-wrap: wrap;
 `;
 
 const PopularBloger = styled.div`
@@ -372,7 +375,6 @@ const Box2 = styled.div`
   min-height: auto;
   min-width: auto;
   display: block;
-  cursor: pointer;
   background-color: #f8f9fa;
   box-sizing: border-box;
   padding-left: 20px;
