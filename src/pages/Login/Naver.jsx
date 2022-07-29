@@ -14,6 +14,7 @@ const Naver = () => {
         api
           .get(`/user/login/naver/callback?code=${code}`)
           .then((data) => {
+            console.log(data);
             if (data.data.blogId === null || data.data.blogId === undefined) {
               setCookie("email", data.data.email, 2);
               setCookie("token", data.data.token, 2);
