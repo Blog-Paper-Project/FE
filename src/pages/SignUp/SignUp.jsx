@@ -30,20 +30,20 @@ const SignUp = () => {
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
   const [emailAuthCHK, setEmailAuthCHK] = useState(false);
-  const [term, setTerm] = useState(false);
+  // const [term, setTerm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    if (isModalOpen === true) return setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   if (isModalOpen === true) return setIsModalOpen(false);
+  // };
 
-  const onChangeTerm = (e) => {
-    setTerm(e.target.checked);
-  };
+  // const onChangeTerm = (e) => {
+  //   setTerm(e.target.checked);
+  // };
 
   //이메일 중복체크
   const postDupEmail = async () => {
@@ -282,7 +282,7 @@ const SignUp = () => {
           <p>Sign Up</p>
         </Title>
 
-        {isModalOpen === true ? (
+        {/* {isModalOpen === true ? (
           <SignUpModal
             term={term}
             onChangeTerm={onChangeTerm}
@@ -290,7 +290,7 @@ const SignUp = () => {
             close={closeModal}
             header="이용약관"
           />
-        ) : null}
+        ) : null} */}
         <InputBox>
           {emailAuthCHK ? (
             <OKEmail>{email}</OKEmail>
@@ -382,7 +382,7 @@ const SignUp = () => {
             <p style={{ color: "red" }}>비밀번호가 일치하지 않습니다.</p>
           )}
         </InputBox>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <TermButton
             onClick={() => {
               setIsModalOpen(true);
@@ -390,9 +390,9 @@ const SignUp = () => {
           >
             약관보기
           </TermButton>
-        </div>
+        </div> */}
 
-        {term === false ? (
+        {/* {term === false ? (
           <SignUpButton
             onClick={() => {
               Swal.fire({
@@ -405,9 +405,9 @@ const SignUp = () => {
           >
             회원가입
           </SignUpButton>
-        ) : (
-          <SignUpButton onClick={onsubmit}>회원가입</SignUpButton>
-        )}
+        ) : ( */}
+        <SignUpButton onClick={onsubmit}>회원가입</SignUpButton>
+        {/* )} */}
       </SignUpBox>
       <Footer />
     </SignUpContainer>
