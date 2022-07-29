@@ -33,7 +33,7 @@ const Like = ({ postId, Likes }) => {
   const { mutate: onPost } = useMutation(PostLike, {
     onSuccess: (data) => {
       queryClient.invalidateQueries("detail_data");
-      console.log(data);
+      // console.log(data);
       setLike(data.result);
     },
     onError: (err) => {
