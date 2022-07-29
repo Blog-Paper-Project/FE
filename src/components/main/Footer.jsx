@@ -42,9 +42,9 @@ const Footer = () => {
             <div className="title">Git-hub Address </div>
             <div className="text">
               <div>Front: </div>
-              <a href="https://www.naver.com/">• https://github.com/Blog-Paper-Project/FE</a>
+              <a href="https://github.com/Blog-Paper-Project/FE">• https://github.com/Blog-Paper-Project/FE</a>
               <div>Back: </div>
-              <a href="https://www.naver.com/">• https://github.com/Blog-Paper-Project/BE</a>
+              <a href="https://github.com/Blog-Paper-Project/BE">• https://github.com/Blog-Paper-Project/BE</a>
             </div>
           </Footer4T>
         </Footer4>
@@ -136,6 +136,7 @@ const Footer4 = styled.div`
   width: 25%;
   height: 220px;
   border: 1px solid #A7ACA1;
+  border-right: none;
   float: left;
   display: flex;
   align-items: center;
