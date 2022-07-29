@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
     // toast Edit 
     .toastui-editor-contents p {
         /* font-family: "Noto Sans Light","Malgun Gothic",sans-serif !important; */
-        font-size: 11pt !important;
+        font-size: 13pt !important;
         letter-spacing: .8px !important;
         line-height: 22pt !important;
         color: #333 !important;

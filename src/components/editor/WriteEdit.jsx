@@ -453,7 +453,8 @@ const WriteEdit = () => {
   );
 };
 const Container = styled.div`
-  max-width: 1920px;
+  width: 100%;
+  /* min-height: 2000px; */
   background-color: white;
 `;
 const SpaceWrap = styled.div`
@@ -465,10 +466,10 @@ const Space = styled.div`
   background-color: #f8f8f8;
 `;
 const EditWrap = styled.div`
-  width: 1440px;
-  min-height: 1000px;
-  padding-left: 20px;
-  padding-right: 20px;
+  width: 78%;
+  min-height: 1200px;
+  padding-left: 40px;
+  padding-right: 40px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
