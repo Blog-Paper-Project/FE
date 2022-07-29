@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -34,7 +35,9 @@ const Footer = () => {
         </Footer3>
         <Footer4>
           <Footer4T>
-            <div>푸터 4</div>
+            <div>Git-hub Address </div>
+            <div>Front: </div>
+            <div>Back: </div>
           </Footer4T>
         </Footer4>
       </FooterBox>
