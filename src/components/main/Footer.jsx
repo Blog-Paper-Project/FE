@@ -104,7 +104,7 @@ const Footer2T = styled.div`
     margin-bottom: 10px;
   }
   .text {
-    padding-left: 10px;
+    padding-left: 5px;
   }
 `;
 
@@ -128,7 +128,7 @@ const Footer3T = styled.div`
     margin-bottom: 10px;
   }
   .text {
-    padding-left: 10px;
+    padding-left: 5px;
   }
 `;
 
@@ -151,7 +151,7 @@ const Footer4T = styled.div`
     margin-bottom: 10px;
   }
   .text {
-    padding-left: 10px;
+    padding-left: 5px;
   }
 `;
 

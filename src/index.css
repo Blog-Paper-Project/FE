@@ -27,3 +27,9 @@
   src: url("/src/public/fonts/GmarketSansTTFLight.ttf") ;
  
 }
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/src/public/fonts/DMSerifDisplay-Regular.ttf") ;
+ 
+}
