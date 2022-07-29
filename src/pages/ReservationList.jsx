@@ -20,7 +20,7 @@ const ReservationList = () => {
   const [color2, setColor2] = useState('#ACACAC');
   const [backgroundColor, setBackColor] = useState('#889175');
   const [backgroundColor2, setBackColor2] = useState('var(--main)');
-
+console.log(bookingList)
   const changeColor = () => {
     if (color2 === '#fff') {
       setColor2('#ACACAC')
