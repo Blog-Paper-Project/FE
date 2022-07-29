@@ -114,16 +114,6 @@ const Sidebar = ({ children }) => {
               >
                 Answer
               </Button>
-            ) : calling ? (
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<Phone fontSize="large" />}
-                fullWidth
-                className={classes.margin}
-              >
-                ...연결중...
-              </Button>
             ) : (
               <Button
                 variant="contained"
