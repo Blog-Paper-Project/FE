@@ -55,8 +55,10 @@ const Sidebar = ({ children }) => {
     callUser,
     call,
     answerCall,
+    calling,
   } = useContext(SocketContext);
   const classes = useStyles();
+  console.log(calling);
   return (
     <Container className={classes.container}>
       <Paper elevation={10} className={classes.paper}>

@@ -122,6 +122,7 @@ const Wrap = styled.div`
   display: block;
   height: auto;
   width: 100%;
+  background-color: #fffdf7;
 `;
 const Box = styled.div`
   height: 180px;
