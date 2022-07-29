@@ -198,8 +198,7 @@ const MainTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 266px;
-  width: 1904px;
+  height: 266px; 
   display: flex;
   align-items: center;
   justify-content: center;

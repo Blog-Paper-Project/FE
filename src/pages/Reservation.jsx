@@ -245,6 +245,7 @@ const HostImgBox = styled.img`
   margin: 0 0 0 0;
   border-radius: 100px;
   align-items: center;
+  cursor: auto;
 `
 const CalendarBox = styled.div`
 margin-top: 66.6px;
