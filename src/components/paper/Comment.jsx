@@ -39,6 +39,7 @@ const Comment = (props) => {
           <textarea
             value={comment}
             placeholder="댓글을 작성하세요"
+            maxLength="100"
             onChange={(e) => {
               setComment(e.target.value);
             }}
@@ -49,8 +50,8 @@ const Comment = (props) => {
             const LoginIdCheck = getCookie("blogId");
             if (LoginIdCheck == undefined) {
               alert("로그인 후 이용 가능한 기능입니다.");
-              navigate("/login");
-              window.scrollTo(0, 0);
+              // navigate("/login");
+              // window.scrollTo(0, 0);
             } else {
               onPost(comment);
             }

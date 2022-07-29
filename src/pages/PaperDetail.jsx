@@ -167,9 +167,9 @@ const PaperDetail = () => {
               <CommentLikeWrap>
                 <Like postId={postId} Likes={detail_data?.paper.Likes} />
                 <CommentButton
-                // onClick={() => {
-                //   setOpenComment(!openComment);
-                // }}
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
                 >
                   <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
@@ -184,9 +184,9 @@ const PaperDetail = () => {
               <CommentLikeWrap>
                 <Like postId={postId} Likes={detail_data?.paper.Likes} />
                 <CommentButton
-                // onClick={() => {
-                //   setOpenComment(!openComment);
-                // }}
+                  onClick={() => {
+                    setOpenComment(!openComment);
+                  }}
                 >
                   <img src={CommentsImg} alt="comment_image" />
                   <div> 댓글</div>
@@ -204,14 +204,17 @@ const PaperDetail = () => {
 };
 
 const Container = styled.div`
-  width: 1920px;
+  max-width: 1920px;
+
   /* background-color: white; */
+  margin: 0 auto;
   background-color: #fffdf7;
   overflow-x: hidden;
 `;
 const ContainerContents = styled.div`
   width: 900px;
   padding: 100px 511px 160px 510px;
+
   /* overflow-x: hidden; */
 `;
 const UserDataWrap = styled.div`

@@ -486,23 +486,22 @@ const ModifyEdit = (props) => {
   );
 };
 const Container = styled.div`
-  max-width: 1920px;
+  width: 100%;
   background-color: white;
 `;
 const SpaceWrap = styled.div`
-  max-width: 1920px;
   display: flex;
+  justify-content: space-between;
 `;
 const Space = styled.div`
-  height: 1000px;
-  width: 356px;
+  width: 180px;
   background-color: #f8f8f8;
 `;
 const EditWrap = styled.div`
-  height: 1000px;
-  width: 1208px;
-  padding-left: 154px;
-  padding-right: 154px;
+  width: 78%;
+  min-height: 1200px;
+  padding-left: 40px;
+  padding-right: 40px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
