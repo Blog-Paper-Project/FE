@@ -45,12 +45,7 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <img
-            className="paperTitle"
-            src={process.env.PUBLIC_URL + "/Group 365.png"}
-            back_size="100% 100%"
-            alt="icon"
-          />
+          PAPER
         </MainTop>
 
         <PostWrap>
@@ -211,7 +206,8 @@ const MainTop = styled.div`
   font-size: 160px;
   font-weight: 600;
   line-height: 90px;
-  border-bottom: 1px solid #a7aca1;
+  font-family: "DM Serif Display";
+  /* border-bottom: 1px solid #a7aca1; */
 `;
 
 const PostWrap = styled.div`
@@ -268,7 +264,7 @@ const Popular = styled.div`
   padding-top: 50px;
   width: 506px;
   height: 410px;
-  border: 1px solid #a7aca1;
+  /* border: 1px solid #a7aca1; */
   flex-direction: column;
   float: left;
   .popularNick {
