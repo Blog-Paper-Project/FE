@@ -107,8 +107,8 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
-        setCookie("nickname", data.data.nickname, 2);
-        setCookie("blodId", blogId);
+        setCookie("nickname", nickname, 2);
+        setCookie("blodId", blogId, 2);
         deleteCookie("email");
 
         navigate("/");
