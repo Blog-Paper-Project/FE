@@ -1,3 +1,7 @@
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+
 const getCookie = (name) => {
   // 쿠키 값을 가져옵니다.
   let value = "; " + document.cookie;
@@ -10,12 +14,11 @@ const getCookie = (name) => {
 };
 
 // 쿠키에 저장하는 함수
-const setCookie = (name, value, exp) => {
-  let date = new Date();
-  // 날짜를 만들어줍니다.
-  date.setTime(date.getTime() + exp * 60 * 60 * 1000);
-  // 저장!
-  document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
+const setCookie = (name, value, option) => {
+  cookies.set(name, value, {
+    path: "/",
+    expires: new Date(Date.now() + option * 60 * 60 * 1000),
+  });
 };
 
 // 만료일을 예전으로 설정해 쿠키를 지웁니다.
