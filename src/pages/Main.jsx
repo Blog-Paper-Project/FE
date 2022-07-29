@@ -66,7 +66,7 @@ const Main = () => {
                       {BestPapers?.thumbnail === null ? (
                         <img
                           className="postImg"
-                          src={'https://picsum.photos/200/300'}
+                          src={`https://source.unsplash.com/collection/${i}`}
                           style={{ width: "100%", height: "100%" }}
                           alt="back"
                         />
@@ -174,16 +174,16 @@ const Main = () => {
             PAPER에 담긴 아름다운 작품을 감상해 보세요.
           </div>
           <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
-        </EndBox>
-        <Footer />
+        </EndBox>        
       </MainBox>
+      <Footer />
     </>
   );
 };
 
 const MainBox = styled.div`
   background-color: #fffdf7;
-  height: 3909px;
+  height: 3550px;
 `;
 
 const MainTop = styled.div`

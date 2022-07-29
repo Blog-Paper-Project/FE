@@ -39,7 +39,7 @@ const Search = () => {
                   {SearchPaper?.thumbnail === null ? (
                     <img
                       className="postImg"
-                      src={'https://picsum.photos/200/300'}
+                      src={`https://source.unsplash.com/collection/${i}`}
                       style={{ width: "100%", height: "100%" }}
                       alt="back"
                     />
