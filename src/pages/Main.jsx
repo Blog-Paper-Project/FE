@@ -101,7 +101,7 @@ const Main = () => {
                       }}
                     >
                       <div className="by">
-                        {BestPapers?.thumbnail === null ? (
+                        {BestPapers?.profileImage === null ? (
                           <img
                             className="userProfile"
                             src={defaultUserImage}

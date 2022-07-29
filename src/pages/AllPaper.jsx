@@ -74,7 +74,7 @@ const AllPaper = () => {
                   }}
                 >
                   <div className="by">
-                    {Papers?.thumbnail === null ? (
+                    {Papers?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}

@@ -19,6 +19,7 @@ const Search = () => {
   }, [dispatch]);
   console.log(datas);
   const SearchPaper = datas.papers;
+  console.log(SearchPaper)
 
   return (
     <>
@@ -71,7 +72,7 @@ const Search = () => {
                   }}
                 >
                   <div className="by">
-                    {SearchPaper?.profileImage === null ? (
+                    {SearchPaper?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
