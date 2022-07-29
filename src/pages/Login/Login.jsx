@@ -11,6 +11,7 @@ import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
 import kakao from "../../public/images/kakao.svg";
 import google from "../../public/images/google.svg";
+import naver from "../../public/images/naver.svg";
 import { KAKAO_AUTH_URL } from "../../shared/SocialOauth";
 import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
 import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
@@ -95,7 +96,7 @@ const Login = () => {
             lineHeight: "14px",
           }}
         >
-          <Link to="/">
+          <Link to="/findpassword">
             <p>아이디 및 비밀번호 찾기</p>
           </Link>
         </div>
@@ -124,7 +125,7 @@ const Login = () => {
           </a>
 
           <a href={NAVER_AUTH_URL}>
-            <img src={kakao} alt="ssss" />
+            <img src={naver} alt="naver" />
           </a>
         </SocialLogin>
         <div
