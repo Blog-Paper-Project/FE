@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
 
-import styled from "styled-components";
 // import AudioOff from "../../public/images/AudioOff.svg";
 // import AudioOn from "../../public/images/AudioOn.svg";
 // import VideoOff from "../../public/images/VideoOff.svg";
@@ -55,10 +54,8 @@ const Sidebar = ({ children }) => {
     callUser,
     call,
     answerCall,
-    calling,
   } = useContext(SocketContext);
   const classes = useStyles();
-  console.log(calling);
   return (
     <Container className={classes.container}>
       <Paper elevation={10} className={classes.paper}>

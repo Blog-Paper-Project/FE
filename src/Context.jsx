@@ -17,9 +17,6 @@ const ContextProvider = ({ children }) => {
   const [me, setMe] = useState("");
   const [callToUser, setCallToUser] = useState("");
 
-  const [calling, setCalling] = useState(false);
-  console.log(calling);
-
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
@@ -74,8 +71,6 @@ const ContextProvider = ({ children }) => {
   //화상
   const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
-    setCalling(true);
-    console.log(calling);
     peer.on("signal", (data) => {
       socket.emit("callUser", {
         userToCall: callToUser,
@@ -208,7 +203,6 @@ const ContextProvider = ({ children }) => {
         nickname,
         callToUser,
         setCallToUser,
-        calling,
         // audioHandler,
         // videoHandler,
         // shareScreen,
