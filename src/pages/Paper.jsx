@@ -29,7 +29,7 @@ const Paper = () => {
   const [EditButton, setEditButton] = useState(false);
   const [SelectCategory, setSelectCategory] = useState(null);
   const [SubScribe, setSubScribe] = useState(false);
-  console.log(SelectCategory);
+  // console.log(SelectCategory);
   //## 이벤트
   const onTag = useCallback(() => {
     setAllSort(!allSort);
@@ -56,7 +56,7 @@ const Paper = () => {
     onSuccess: (data) => {
       setSubScribe(!SubScribe);
       queryClient.invalidateQueries("paper_data");
-      console.log(data.result);
+      // console.log(data.result);
     },
     onError: (err) => {
       alert(err.response.data.errorMessage);
@@ -100,13 +100,13 @@ const Paper = () => {
   const SelectCategoryData = mypaper_data?.user.Papers.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
-  console.log("SelectCategoryData", SelectCategoryData);
-  console.log("isSubscribe", isSubscribe);
-  console.log(mypaper_data.user.Followers);
-  console.log("isHostId", isHostId);
-  console.log("blogId", blogId);
+  // console.log("SelectCategoryData", SelectCategoryData);
+  // console.log("isSubscribe", isSubscribe);
+  // console.log(mypaper_data.user.Followers);
+  // console.log("isHostId", isHostId);
+  // console.log("blogId", blogId);
   // console.log(mypaper_data?.categories);
-  console.log(mypaper_data?.user.Papers);
+  // console.log(mypaper_data?.user.Papers);
   return (
     <Container>
       <Header />
@@ -505,11 +505,15 @@ const Tag = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #333333;
   box-shadow: rgb(0 0 0 / 6%) 0px 4px 15px 0px;
   :hover {
     cursor: pointer;
     color: white;
+    outline: 1px solid;
+    border: 1px solid;
     background-color: black;
+    opacity: 0.85;
     transition: all 0.3s;
   }
 `;
