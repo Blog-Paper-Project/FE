@@ -55,8 +55,10 @@ const Sidebar = ({ children }) => {
     callUser,
     call,
     answerCall,
+    calling,
   } = useContext(SocketContext);
   const classes = useStyles();
+  console.log(calling);
   return (
     <Container className={classes.container}>
       <Paper elevation={10} className={classes.paper}>
@@ -111,6 +113,16 @@ const Sidebar = ({ children }) => {
                 className={classes.margin}
               >
                 Answer
+              </Button>
+            ) : calling ? (
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<Phone fontSize="large" />}
+                fullWidth
+                className={classes.margin}
+              >
+                ...연결중...
               </Button>
             ) : (
               <Button
