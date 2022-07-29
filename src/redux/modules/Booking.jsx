@@ -4,16 +4,20 @@ import Swal from "sweetalert2";
 
 //액션타입
 const GET_BOOKING = "GET_BOOKING";
-// const DEL_BOOKING = "DEL_BOOKING";
+const GUESTDEL_BOOKING = "DEL_BOOKING";
+const HOSTDEL_BOOKING ="HOSTDEL_BOOKING"
 
 //액션 크리에이터
 const getBooking = (data) => {
   // console.log(data);
   return { type: GET_BOOKING, data };
 };
-// const delBooking =(data) => {
-//   return { type: DEL_BOOKING, data}
-// }
+const delBooking =(data) => {
+  return { type: GUESTDEL_BOOKING, data}
+}
+const delBooking2 =(data) => {
+  return { type: HOSTDEL_BOOKING, data}
+}
 
 
 const initialState = {
@@ -161,7 +165,7 @@ export const getBookingDB = () => {
       url: `/api/booking`, // 학생 또는 선생님
     })
       .then((doc) => {
-        // console.log(doc.data.totalList);
+        console.log(doc.data.totalList);
         dispatch(getBooking(doc.data.totalList));
       })
       .catch((err) => {
@@ -172,21 +176,18 @@ export const getBookingDB = () => {
 
 // 예약 수락하기
 export const patchBookingDB = (hostId) => {
-    return function () {
+    return function (dispatch) {
     apiToken({
       method: "patch",
       url: `/api/booking/${hostId.hostId}/${hostId.bookingId}`,
     })
       .then(() => {
+        dispatch(getBooking())
         Swal.fire({
           icon: "success",
           text: `예약을 수락 하셨 습니다!`,
           showConfirmButton: true,
           confirmButtonColor: "#3085d6",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
         });
       })
       .catch((err) => {
@@ -198,23 +199,19 @@ export const patchBookingDB = (hostId) => {
 // 호스트 예약 취소
 export const deleteHostBookingDB = (hostId) => {
   console.log(hostId)
-  return function () {
+  return function (dispatch) {
     apiToken({
       method: "delete",
       url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
     })
-    .then(() => {
-      // dispatch(delBooking())
+    .then((hostId) => {
+      dispatch(delBooking2(hostId.bookingId))      
       Swal.fire({
         icon: "success",
         text: `예약을 취소 하셨 습니다!`,
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        }
-      });      
+      });  
     })
     .catch((err) => {
       console.log(err);
@@ -224,23 +221,19 @@ export const deleteHostBookingDB = (hostId) => {
 
 // 게스트 예약 취소
 export const deleteGuestBookingDB = (Guest, bookingId) => {
-  return function () {
+  return function (dispatch) {
     console.log(Guest, bookingId)
     apiToken({
       method: "delete",
       url: `/api/booking/guest/${Guest}/${bookingId}`,
     })
-    .then((bookingId) => {
-      // dispatch(delBooking(bookingId))
+    .then(() => {
+      dispatch(delBooking(bookingId))
       Swal.fire({
         icon: "success",
         text: `예약을 취소 하셨 습니다!`,
         showConfirmButton: true,
         confirmButtonColor: "#3085d6",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        }
       });
     })
     .catch((err) => {
@@ -255,9 +248,17 @@ const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKING:
       return { data: action.data };
-    // case DEL_BOOKING:
-    //   const newList = state.list.filter((state) => {return state.bookingId !== action.id});
-    //   return {...state,list:[...newList]};
+      case GUESTDEL_BOOKING:
+        const newDeletedata = state?.data.guestBookingList.filter((value) => {
+          return value.bookingId !== Number(action.data);         
+        });console.log(newDeletedata)
+        return { ...state, data:{guestBookingList:[...newDeletedata],hostBookingList:[...state.data.hostBookingList] } };
+        case HOSTDEL_BOOKING:
+        const newDeletedata2 = state?.data.hostBookingList.filter((value) => {
+          return value.bookingId !== Number(action.data);         
+        });console.log(newDeletedata2)
+        return { ...state, data:{guestBookingList:[...state.data.guestBookingList],hostBookingList:[...newDeletedata2] } };
+        
       default:
       return state;
   }
