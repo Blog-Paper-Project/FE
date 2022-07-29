@@ -107,12 +107,12 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
-        setCookie("token", data.data.token, 2);
-        setCookie("nickname", data.data.nickname, 2);
-        setCookie("userId", data.data.userId, 2);
-        setCookie("profileimage", data.data.profileImage, 2);
-        setCookie("blodId", blogId);
+        console.log(nickname);
+        setCookie("nickname", nickname, 2);
+        console.log(blogId);
+        setCookie("blogId", blogId, 2);
         deleteCookie("email");
+
         navigate("/");
       } else {
         Swal.fire({

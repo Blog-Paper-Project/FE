@@ -32,17 +32,18 @@ const AllPaper = () => {
         <Bigbox>
           {Papers?.map((Papers, i) => {
             return (
-              <Card
-                key={i}
-                onClick={() => {
-                  navigate(`/paper/${Papers?.Users.blogId}/${Papers?.postId}`);
-                }}
-              >
-                <Box>
+              <Card key={i}>
+                <Box
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
+                >
                   {Papers?.thumbnail === null ? (
                     <img
                       className="postImg"
-                      src={"https://picsum.photos/200/300"}
+                      src={`https://source.unsplash.com/collection/${i}`}
                       style={{ width: "100%", height: "100%" }}
                       alt="back"
                     />
@@ -53,22 +54,27 @@ const AllPaper = () => {
                       }
                       alt="img"
                       style={{ width: "100%", height: "100%" }}
-                      onClick={() => {
-                        navigate(
-                          `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
-                        );
-                      }}
                     />
                   )}
                 </Box>
-                <Box1>
+                <Box1
+                  onClick={() => {
+                    navigate(
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
+                    );
+                  }}
+                >
                   <H4>{Papers.title}</H4>
                   <P>{Papers.contents}</P>
                 </Box1>
                 <Box2>{Papers.createdAt}</Box2>
-                <Box3>
+                <Box3
+                  onClick={() => {
+                    navigate(`/paper/${Papers?.Users.blogId}`);
+                  }}
+                >
                   <div className="by">
-                    {Papers?.thumbnail === null ? (
+                    {Papers?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
@@ -82,9 +88,6 @@ const AllPaper = () => {
                           `/${Papers?.Users.profileImage}`
                         }
                         alt="img"
-                        onClick={() => {
-                          navigate(`/paper/${Papers?.Users.blogId}`);
-                        }}
                       />
                     )}{" "}
                     by <span>{Papers.Users.nickname}</span>
@@ -185,7 +188,6 @@ const Box2 = styled.div`
   min-height: auto;
   min-width: auto;
   display: block;
-  cursor: pointer;
   background-color: #f8f9fa;
   box-sizing: border-box;
   padding-left: 20px;
