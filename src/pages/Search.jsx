@@ -76,7 +76,7 @@ const Search = () => {
                         }
                         alt="img"
                         onClick={() => {
-                          navigate(`/paper/${datas?.papers?.Users.blogId}`);
+                          navigate(`/paper/${data?.Users.blogId}`);
                         }}
                       />
                     )}
