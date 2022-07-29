@@ -37,8 +37,8 @@ const Main = () => {
     },
   });
 
-  const BestPapers = paper_query?.data.papers
-  console.log(BestPapers)
+  const BestPapers = paper_query?.data.papers;
+  console.log(BestPapers);
 
   return (
     <>
@@ -58,54 +58,66 @@ const Main = () => {
             <Bigbox>
               {BestPapers?.map((BestPapers, i) => {
                 return (
-                  <Card key={i} >
+                  <Card key={i}>
                     <Box
                       onClick={() => {
-                        navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
-                      }}>
+                        navigate(
+                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
+                        );
+                      }}
+                    >
                       {BestPapers?.thumbnail === null ? (
                         <img
                           className="postImg"
-                          src={'https://picsum.photos/200/300'}
+                          src={"https://picsum.photos/200/300"}
                           style={{ width: "100%", height: "100%" }}
                           alt="back"
                         />
-                      ) : (<img
-                        src={process.env.REACT_APP_S3_URL + `/${BestPapers?.thumbnail}`}
-                        alt="img"
-                        style={{ width: "100%", height: "100%" }}
-                      />)}
+                      ) : (
+                        <img
+                          src={
+                            process.env.REACT_APP_S3_URL +
+                            `/${BestPapers?.thumbnail}`
+                          }
+                          alt="img"
+                          style={{ width: "100%", height: "100%" }}
+                        />
+                      )}
                     </Box>
                     <Box1
                       onClick={() => {
-                        navigate(`/paper/${BestPapers?.blogId}/${BestPapers?.postId}`);
+                        navigate(
+                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
+                        );
                       }}
                     >
                       <H4>{BestPapers.title}</H4>
                       <P>{BestPapers.contents}</P>
                     </Box1>
-                    <Box2>
-                      {BestPapers.createdAt}
-                    </Box2>
+                    <Box2>{BestPapers.createdAt}</Box2>
                     <Box3
                       onClick={() => {
                         navigate(`/paper/${BestPapers?.blogId}`);
                       }}
                     >
-                      <div className='by'>
+                      <div className="by">
                         {BestPapers?.thumbnail === null ? (
                           <img
                             className="userProfile"
                             src={defaultUserImage}
                             alt="back"
                           />
-                        ) : (<img
-                          className='userProfile'
-                          src={process.env.REACT_APP_S3_URL + `/${BestPapers?.profileImage}`}
-                          alt="img"
-                        />)} by <span>
-                          {BestPapers.nickname}
-                        </span>
+                        ) : (
+                          <img
+                            className="userProfile"
+                            src={
+                              process.env.REACT_APP_S3_URL +
+                              `/${BestPapers?.profileImage}`
+                            }
+                            alt="img"
+                          />
+                        )}{" "}
+                        by <span>{BestPapers.nickname}</span>
                       </div>
                       <div>
                         <img
@@ -113,11 +125,12 @@ const Main = () => {
                           src={process.env.PUBLIC_URL + "/Vector.png"}
                           back_size="100% 100%"
                           alt="icon"
-                        /> {BestPapers?.likes}
+                        />{" "}
+                        {BestPapers?.likes}
                       </div>
                     </Box3>
                   </Card>
-                )
+                );
               })}
             </Bigbox>
           </PostBox>
@@ -310,7 +323,7 @@ const EndBox = styled.div`
   }
 `;
 const Box = styled.div`
-  height: 180px; 
+  height: 180px;
   cursor: pointer;
   display: flex;
   flex-direction: row;
@@ -412,7 +425,7 @@ const Box3 = styled.div`
     color: black;
     font-weight: 600;
   }
-  
+
   .userinfo {
     display: flex;
   }
@@ -427,7 +440,7 @@ const Box3 = styled.div`
 `;
 
 const Bigbox = styled.div`
-  gap: 40px;  
+  gap: 40px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -445,6 +458,6 @@ const Card = styled.div`
     transform: translateY(-8px);
     box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
   }
-`
+`;
 
 export default Main;
