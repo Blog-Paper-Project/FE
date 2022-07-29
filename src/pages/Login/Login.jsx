@@ -39,6 +39,7 @@ const Login = () => {
       setCookie("userId", data.data.userId, 2);
       setCookie("blogId", data.data.blogId, 2);
       setCookie("profileimage", data.data.profileImage, 2);
+      
       navigate("/");
     },
     onError: () => {
