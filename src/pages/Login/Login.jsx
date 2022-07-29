@@ -39,7 +39,7 @@ const Login = () => {
       setCookie("userId", data.data.userId, 2);
       setCookie("blogId", data.data.blogId, 2);
       setCookie("profileimage", data.data.profileImage, 2);
-      
+
       navigate("/");
     },
     onError: () => {
@@ -117,17 +117,17 @@ const Login = () => {
           <p>SNS계정으로 로그인</p>
         </div>
         <SocialLogin>
-          <a href={GOOGLE_AUTH_URL}>
+          {/* <a href={GOOGLE_AUTH_URL}>
             <img src={google} alt="google" />
-          </a>
+          </a> */}
 
           <a href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </a>
 
-          <a href={NAVER_AUTH_URL}>
+          {/* <a href={NAVER_AUTH_URL}>
             <img src={naver} alt="naver" />
-          </a>
+          </a> */}
         </SocialLogin>
         <div
           style={{
