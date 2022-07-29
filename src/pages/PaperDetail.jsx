@@ -56,7 +56,7 @@ const PaperDetail = () => {
       },
     });
     // console.log("PaperDetail page", response);
-    return response?.data;
+    return response.data;
   };
 
   // ## useQuery 글 get
@@ -68,8 +68,9 @@ const PaperDetail = () => {
     GetDetailtData,
 
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         // console.log(data);
+        // return data;
       },
       staleTime: 0,
       cacheTime: 0,
@@ -83,9 +84,9 @@ const PaperDetail = () => {
     return alert("error");
   }
   const S3 =
-    process.env.REACT_APP_S3_URL + `/${detail_data?.paper.Users.profileImage}`;
+    process.env.REACT_APP_S3_URL + `/${detail_data?.paper?.Users.profileImage}`;
 
-  const ViewCountTotal = detail_data?.count + detail_data?.paper.viewCount;
+  const ViewCountTotal = detail_data?.count + detail_data?.paper?.viewCount;
   // console.log(ViewCountTotal);
   // console.log("PaperDeTail", detail_data);
   return (
@@ -94,24 +95,24 @@ const PaperDetail = () => {
 
       {/* 아래 글*/}
       <ContainerContents>
-        <Title>{detail_data?.paper.title}</Title>
+        <Title>{detail_data?.paper?.title}</Title>
         <Line />
         <UserDataWrap>
           <div className="wrap">
             {/* 블로거 프로필 이미지 */}
             <ProfileImgBox
               src={
-                detail_data?.paper.Users.profileImage === null
+                detail_data?.paper?.Users.profileImage === null
                   ? defaultUserImage
                   : S3
               }
               onClick={() => {
-                navigate(`/paper/${detail_data?.paper.Users.blogId}`);
+                navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
               }}
             />
-            <Nickname>{detail_data?.paper.Users.nickname}</Nickname>
+            <Nickname>{detail_data?.paper?.Users.nickname}</Nickname>
             <span>·</span>
-            <CreatedAt>{detail_data?.paper.createdAt}</CreatedAt>
+            <CreatedAt>{detail_data?.paper?.createdAt}</CreatedAt>
             <span>·</span>
             <div className="ViewCountName">
               조회수 {ViewCountTotal ? ViewCountTotal : null}
@@ -152,11 +153,11 @@ const PaperDetail = () => {
           </div>
         </UserDataWrap>
         <ViewEditWarp>
-          <ViewEdit contents={detail_data?.paper.contents} />
+          <ViewEdit contents={detail_data?.paper?.contents} />
         </ViewEditWarp>
         {/* 아래 해시태그 */}
         <TagWrap>
-          {detail_data?.paper.Tags.map((value, index) => {
+          {detail_data?.paper?.Tags.map((value, index) => {
             return <Tag key={index}>{value.name}</Tag>;
           })}
         </TagWrap>
@@ -165,7 +166,7 @@ const PaperDetail = () => {
           {openComment ? (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.paper.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
                 <CommentButton
                   onClick={() => {
                     setOpenComment(!openComment);
@@ -177,12 +178,15 @@ const PaperDetail = () => {
                   <img src={ArrowDown} alt="Arrow"></img>
                 </CommentButton>
               </CommentLikeWrap>
-              <Comment postId={postId} Comments={detail_data?.paper.Comments} />
+              <Comment
+                postId={postId}
+                Comments={detail_data?.paper?.Comments}
+              />
             </>
           ) : (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.paper.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
                 <CommentButton
                   onClick={() => {
                     setOpenComment(!openComment);
