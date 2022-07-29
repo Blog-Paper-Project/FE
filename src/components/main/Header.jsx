@@ -91,7 +91,7 @@ const Header = () => {
                   <DropDownContainer ref={el}>
                     <ProfileImgBox
                       src={
-                        profileImage === null || profileImage === undefined
+                        profileImage === "null" || profileImage === "undefined"
                           ? defaultUserImage
                           : S3
                       }
