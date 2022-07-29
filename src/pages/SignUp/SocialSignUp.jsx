@@ -23,8 +23,6 @@ const SocialSignUp = () => {
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
 
-  console.log(email);
-
   //닉네임 중복체크
   const postDupNick = async () => {
     if (!nicknameCheck(nickname)) {
@@ -91,7 +89,12 @@ const SocialSignUp = () => {
   const patchSignUp = async () => {
     //공백일 시
     if (nickname === "" || blogId === "") {
-      window.alert("닉네임, 블로그주소를 모두 입력해주세요!");
+      Swal.fire({
+        text: "닉네임, 블로그아이디를 확인해주세요.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
@@ -107,9 +110,7 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
-        console.log(nickname);
         setCookie("nickname", nickname, 2);
-        console.log(blogId);
         setCookie("blogId", blogId, 2);
         deleteCookie("email");
 
@@ -124,7 +125,12 @@ const SocialSignUp = () => {
       }
     },
     onError: (err) => {
-      console.log(err);
+      Swal.fire({
+        text: "error",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });

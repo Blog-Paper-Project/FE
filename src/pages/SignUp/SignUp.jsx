@@ -104,7 +104,12 @@ const SignUp = () => {
       });
     },
     onError: () => {
-      console.log("error");
+      Swal.fire({
+        text: "error",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
     },
   });
 
@@ -219,7 +224,12 @@ const SignUp = () => {
       password === "" ||
       confirmPassword === ""
     ) {
-      window.alert("이메일, 닉네임, 블로그주소, 비밀번호를 모두 입력해주세요!");
+      Swal.fire({
+        text: "이메일, 닉네임, 블로그아이디, 비밀번호를 입력해주세요",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     }
     //비밀번호 일치
@@ -264,7 +274,12 @@ const SignUp = () => {
       }
     },
     onError: (err) => {
-      console.log(err);
+      Swal.fire({
+        text: "error",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
