@@ -32,9 +32,6 @@ const useStyles = makeStyles((theme) => ({
       width: "80%",
     },
   },
-  margin: {
-    marginTop: 20,
-  },
   padding: {
     padding: 20,
   },
@@ -47,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ children }) => {
   const {
     callAccepted,
-    callEnded,
+    // callEnded,
     idToCall,
     // audioOn,
     // videoOn,
@@ -94,7 +91,7 @@ const Sidebar = ({ children }) => {
                 </button>
               </div>
             </ButtonList> */}
-            {callAccepted && !callEnded ? (
+            {callAccepted ? (
               <Button
                 variant="contained"
                 color="secondary"
@@ -111,6 +108,7 @@ const Sidebar = ({ children }) => {
                 color="primary"
                 fullWidth
                 onClick={answerCall}
+                className={classes.margin}
               >
                 Answer
               </Button>

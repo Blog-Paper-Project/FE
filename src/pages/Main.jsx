@@ -185,6 +185,7 @@ const MainBox = styled.div`
   background-color: #fffdf7;
   height: 3909px;
 `;
+
 const MainTop = styled.div`
   display: flex;
   justify-content: center;
@@ -199,12 +200,14 @@ const MainTop = styled.div`
   line-height: 90px;
   border-bottom: 1px solid #a7aca1;
 `;
+
 const PostWrap = styled.div`
   height: 1680px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 `;
+
 const PostBox = styled.div`
   width: 1516px;
   height: 1680px;
@@ -235,6 +238,7 @@ const PopularBloger = styled.div`
     line-height: 150%;
   }
 `;
+
 const PopularBox = styled.div`
   display: flex;
   width: 90%;
@@ -243,6 +247,7 @@ const PopularBox = styled.div`
   float: left;
   flex-wrap: wrap;
 `;
+
 const Popular = styled.div`
   background-color: #fffdf7;
   display: flex;

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
+import FindPassword from "./pages/FindPassword";
 import Main from "./pages/Main";
 import Write from "./pages/Write";
 import Modify from "./pages/Modify";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/socialsignup" element={<SocialSignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/user/login/kakao/callback" element={<Kakao />} />
         <Route path="/user/login/google/callback" element={<Google />} />
         <Route path="/user/login/naver/callback" element={<Naver />} />

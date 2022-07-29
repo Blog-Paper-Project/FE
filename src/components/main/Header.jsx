@@ -31,7 +31,7 @@ const Header = () => {
   /* 쿠키 */
   const cookie = getCookie("token");
   const blogId = getCookie("blogId");
-  const nickName = getCookie("nickname");
+  const nickname = getCookie("nickname");
   const profileImage = getCookie("profileimage");
   const [is_cookie, setCookie] = React.useState(false);
 
@@ -90,7 +90,11 @@ const Header = () => {
                   </Link>
                   <DropDownContainer ref={el}>
                     <ProfileImgBox
-                      src={profileImage === "null" ? defaultUserImage : S3}
+                      src={
+                        profileImage === "null" || profileImage === "undefined"
+                          ? defaultUserImage
+                          : S3
+                      }
                       onClick={toggling}
                     />
                     {isOpen && (
@@ -129,7 +133,7 @@ const Header = () => {
                     )}
                   </DropDownContainer>
                 </BtnBox>
-                <NickBox>{nickName}</NickBox>
+                <NickBox>{nickname}</NickBox>
               </>
             ) : (
               <>

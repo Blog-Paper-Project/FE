@@ -30,13 +30,17 @@ const WriteEdit = () => {
   const [editCategory, setEditCategory] = useState(false);
   const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState("");
-  console.log(selectOption);
+  const [selectOption, setSelectOption] = useState("etc");
+  // console.log(selectOption);
   // console.log(categoryList);
-  console.log(category);
+  // console.log(category);
   const editorRef = useRef();
   const navigate = useNavigate();
-  // const HostIdCheck = getCookie("userId");
+  const LoginIdCheck = getCookie("blogId");
+  if (LoginIdCheck == undefined) {
+    alert("로그인 후 이용 가능한 기능입니다.");
+    navigate("/login");
+  }
   const blogId = getCookie("blogId");
   //## 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
@@ -76,11 +80,39 @@ const WriteEdit = () => {
   };
   //## 'Enter'시 카테고리 추가 이벤트
   const onEnter = (e) => {
-    if (e.target.value.length !== 0 && e.keyCode === 13) {
+    if (
+      e.target.value.length !== 0 &&
+      e.keyCode === 13 &&
+      categoryList.includes(e.target.value) !== true
+    ) {
       setCategoryList([...categoryList, category]);
       setSelectOption(category);
       setCategory("");
       setEditCategory(!editCategory);
+    } else if (
+      e.keyCode === 13 &&
+      categoryList.includes(e.target.value) == true
+    ) {
+      setCategory("");
+    }
+  };
+  //## 'Click'시 카테고리 추가 이벤트
+  const onClick_categoty = () => {
+    if (
+      category.length !== 0 &&
+      category !== "etc" &&
+      categoryList.includes(category) !== true
+    ) {
+      setCategoryList([...categoryList, category]);
+      setSelectOption(category);
+      setCategory("");
+      setEditCategory(!editCategory);
+    } else if (
+      category.length === 0 &&
+      category === "etc" &&
+      categoryList.includes(category) == true
+    ) {
+      setCategory("");
     }
   };
   //## 'Enter'시 태그 추가 이벤트
@@ -88,11 +120,14 @@ const WriteEdit = () => {
     if (
       e.target.value.length !== 0 &&
       e.keyCode === 13 &&
-      tagList.length < 10
+      tagList.length < 10 &&
+      tagList.includes(e.target.value) !== true
     ) {
       // 새 태그 배열(array) 안에 넣기 < 그래야 map으로 돌릴 수 있음 >
       setTagList([...tagList, tag]);
       setTag(""); // input에 value는 enter 후에 input 창 글 없애기 위함
+    } else if (e.keyCode === 13 && tagList.includes(e.target.value) == true) {
+      setTag("");
     }
   };
   //## 'Click'시 태그 삭제 이벤트
@@ -139,8 +174,8 @@ const WriteEdit = () => {
       navigate(`/paper/${blogId}`);
       alert("post 성공!");
     },
-    onError: (e) => {
-      alert(e.message);
+    onError: (err) => {
+      alert("제목은 2글자, 내용은 6글자 이상시 발행 가능합니다.");
     },
   });
   // ## useQuery 카테고리 데이터 get 함수
@@ -155,10 +190,11 @@ const WriteEdit = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        console.log(data);
-        return data;
+        const categoriesAll = data?.categories;
+        setCategoryList([...categoriesAll]);
+        // console.log(categoriesAll);
       },
-      staleTime: Infinity,
+      staleTime: 0,
     }
   );
 
@@ -170,6 +206,10 @@ const WriteEdit = () => {
     return alert("error");
   }
   // console.log(mypaper_data);
+  // 변수
+  // const isSameTag = tagList.find((value) => value === tag);
+  // console.log(isSameTag);
+
   return (
     <Container>
       <Head>
@@ -226,10 +266,7 @@ const WriteEdit = () => {
                   <button
                     className="btn_plus"
                     onClick={() => {
-                      setCategoryList([...categoryList, category]);
-                      setCategory(category);
-                      setEditCategory(!editCategory);
-                      setSelectOption(category);
+                      onClick_categoty(category);
                     }}
                   >
                     추가
@@ -256,36 +293,27 @@ const WriteEdit = () => {
                     autoFocus
                     required
                   >
-                    {categoryList ? (
+                    {mypaper_data?.categories.length === 0 ? (
+                      <>
+                        <>
+                          <option value="etc">etc</option>
+                        </>
+
+                        <>
+                          {categoryList?.map((value, idx) => {
+                            return (
+                              <option key={idx} value={value}>
+                                {value}
+                              </option>
+                            );
+                          })}
+                        </>
+                      </>
+                    ) : (
                       <>
                         {categoryList?.map((value, idx) => {
                           return (
                             <option key={idx} value={value}>
-                              {value}
-                            </option>
-                          );
-                        })}
-                        {mypaper_data?.categories.length === 0 ? (
-                          <>
-                            <option value="etc">etc</option>
-                          </>
-                        ) : (
-                          <>
-                            {mypaper_data?.categories.map((value, index) => {
-                              return (
-                                <option key={index} value={value}>
-                                  {value}
-                                </option>
-                              );
-                            })}
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        {mypaper_data?.categories.map((value, index) => {
-                          return (
-                            <option key={index} value={value}>
                               {value}
                             </option>
                           );
@@ -385,7 +413,7 @@ const WriteEdit = () => {
             previewStyle="vertical"
             placeholder="당신의 이야기를 적어보세요 ..."
             height="auto"
-            minHeight="500px"
+            minHeight="650px"
             initialEditType="markdown"
             initialValue={markdown_data}
             ref={editorRef}
@@ -433,14 +461,14 @@ const SpaceWrap = styled.div`
   justify-content: space-between;
 `;
 const Space = styled.div`
-  width: 320px;
+  width: 180px;
   background-color: #f8f8f8;
 `;
 const EditWrap = styled.div`
-  width: 1208px;
+  width: 1440px;
   min-height: 1000px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 // 헤더 관련 - 2
 const Head = styled.div`
@@ -574,9 +602,12 @@ const Line = styled.div`
   border-bottom: 2px solid #000000;
 `;
 const HashWrapOuter = styled.div`
+  width: 1400px;
+  min-height: 30px;
   display: flex;
   flex-wrap: wrap;
   margin-top: 20px;
+  margin-bottom: 20px;
   gap: 7px;
 `;
 const ThumbmailWrap = styled.div`
