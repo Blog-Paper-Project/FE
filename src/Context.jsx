@@ -71,7 +71,6 @@ const ContextProvider = ({ children }) => {
   //화상
   const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
-
     peer.on("signal", (data) => {
       socket.emit("callUser", {
         userToCall: callToUser,

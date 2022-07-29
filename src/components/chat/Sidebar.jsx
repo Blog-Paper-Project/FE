@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
 
-import styled from "styled-components";
 // import AudioOff from "../../public/images/AudioOff.svg";
 // import AudioOn from "../../public/images/AudioOn.svg";
 // import VideoOff from "../../public/images/VideoOff.svg";

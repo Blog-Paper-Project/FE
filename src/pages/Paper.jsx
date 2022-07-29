@@ -28,6 +28,7 @@ const Paper = () => {
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
   const [SelectCategory, setSelectCategory] = useState(null);
+  const [SubScribe, setSubScribe] = useState(false);
   // console.log(SelectCategory);
   //## 이벤트
   const onTag = useCallback(() => {
@@ -53,8 +54,9 @@ const Paper = () => {
 
   const { mutate: onSubscribe } = useMutation(PostSubscribeData, {
     onSuccess: (data) => {
+      setSubScribe(!SubScribe);
       queryClient.invalidateQueries("paper_data");
-      // console.log(data);
+      // console.log(data.result);
     },
     onError: (err) => {
       alert(err.response.data.errorMessage);
@@ -98,9 +100,11 @@ const Paper = () => {
   const SelectCategoryData = mypaper_data?.user.Papers.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
-  // console.log(SelectCategoryData);
+  // console.log("SelectCategoryData", SelectCategoryData);
   // console.log("isSubscribe", isSubscribe);
   // console.log(mypaper_data.user.Followers);
+  // console.log("isHostId", isHostId);
+  // console.log("blogId", blogId);
   // console.log(mypaper_data?.categories);
   // console.log(mypaper_data?.user.Papers);
   return (
@@ -118,49 +122,57 @@ const Paper = () => {
           <div className="MyProfileWrap_div2">
             <Nickname>{mypaper_data?.user.nickname}</Nickname>
             <Introduction>{mypaper_data?.user.introduction}</Introduction>
-            <Subscribe>구독자</Subscribe>
+            <Subscribe>
+              구독자<span>{mypaper_data?.user.Followers.length}</span>
+            </Subscribe>
           </div>
         </MyProfileWrap>
         {isHostId === blogId ? null : (
-          <div className="MyProfile_div1">
-            {isSubscribe === undefined ? (
-              <Button
-                onClick={() => {
-                  onSubscribe();
-                }}
-                color="#FFFFFF"
-              >
-                구독하기
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  onSubscribe();
-                }}
-                color="#ACACAC"
-                background_color="#E5E2DB"
-                border_color="#ACACAC"
-                outline_color="#ACACAC"
-              >
-                구독중
-              </Button>
-            )}
+          <>
+            <div className="MyProfile_div1">
+              {isSubscribe === undefined ? (
+                <>
+                  <Button
+                    onClick={() => {
+                      onSubscribe();
+                    }}
+                    color="#FFFFFF"
+                  >
+                    구독하기
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    onClick={() => {
+                      onSubscribe();
+                    }}
+                    color="#ACACAC"
+                    background_color="#E5E2DB"
+                    border_color="#ACACAC"
+                    outline_color="#ACACAC"
+                  >
+                    구독중
+                  </Button>
+                </>
+              )}
 
-            <Button
-              onClick={() => {
-                if (isHostId == null) {
-                  alert("로그인 후 이용 가능한 기능입니다.");
-                  navigate("/login");
-                  window.scrollTo(0, 0);
-                } else {
-                  navigate(`/paper/${blogId}/reservation`);
-                }
-              }}
-              background_color="#FFFDF7"
-            >
-              채팅 예약하기
-            </Button>
-          </div>
+              <Button
+                onClick={() => {
+                  if (isHostId == null) {
+                    alert("로그인 후 이용 가능한 기능입니다.");
+                    navigate("/login");
+                    window.scrollTo(0, 0);
+                  } else {
+                    navigate(`/paper/${blogId}/reservation`);
+                  }
+                }}
+                background_color="#FFFDF7"
+              >
+                채팅 예약하기
+              </Button>
+            </div>
+          </>
         )}
       </MyProfile>
       <SortType>
@@ -185,6 +197,14 @@ const Paper = () => {
                 수정
               </button> */}
               <div className="OptionWrap">
+                <option
+                  className="AllOption"
+                  onClick={(e) => {
+                    setSelectCategory(e.target.value);
+                  }}
+                >
+                  All
+                </option>
                 {mypaper_data?.categories.map((value, index) => {
                   return (
                     <CategoryList
@@ -247,22 +267,45 @@ const Paper = () => {
             ) : (
               <>
                 <AllSortWrap>
-                  {SelectCategoryData?.map((value, idx) => {
-                    // console.log(mypaper_data);
+                  {SelectCategoryData.length === 0 ? (
+                    <>
+                      {mypaper_data?.user.Papers.map((value, idx) => {
+                        // console.log(mypaper_data);
 
-                    return (
-                      <ContentBox
-                        key={idx}
-                        title={value.title}
-                        thumbnail={value.thumbnail}
-                        tags={value.tags}
-                        createdAt={value.createdAt}
-                        blogId={blogId}
-                        postId={value.postId}
-                        content={value.contents}
-                      />
-                    );
-                  })}
+                        return (
+                          <ContentBox
+                            key={idx}
+                            title={value.title}
+                            thumbnail={value.thumbnail}
+                            tags={value.tags}
+                            createdAt={value.createdAt}
+                            blogId={blogId}
+                            postId={value.postId}
+                            content={value.contents}
+                          />
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>
+                      {SelectCategoryData?.map((value, idx) => {
+                        // console.log(mypaper_data);
+
+                        return (
+                          <ContentBox
+                            key={idx}
+                            title={value.title}
+                            thumbnail={value.thumbnail}
+                            tags={value.tags}
+                            createdAt={value.createdAt}
+                            blogId={blogId}
+                            postId={value.postId}
+                            content={value.contents}
+                          />
+                        );
+                      })}
+                    </>
+                  )}
                 </AllSortWrap>
               </>
             )}
@@ -386,13 +429,20 @@ const Introduction = styled.div`
   line-height: 19px;
 `;
 const Subscribe = styled.div`
+  display: flex;
   width: 542px;
   height: 19px;
-  font-size: 14px;
+  font-size: 17px;
   font-family: "Noto Sans";
   font-weight: 500;
   line-height: 19px;
   padding-top: 5px;
+  gap: 10px;
+  span {
+    font-size: 15px;
+    font-family: "Noto Sans";
+  }
+
   /* margin-top: 15px; */
 `;
 
@@ -455,11 +505,15 @@ const Tag = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #333333;
   box-shadow: rgb(0 0 0 / 6%) 0px 4px 15px 0px;
   :hover {
     cursor: pointer;
     color: white;
+    outline: 1px solid;
+    border: 1px solid;
     background-color: black;
+    opacity: 0.85;
     transition: all 0.3s;
   }
 `;
@@ -529,6 +583,24 @@ const CategoryWrap = styled.div`
   .OptionWrap::::-webkit-scrollbar-track {
     background-color: #acacac;
     box-shadow: inset 0px 0px 5px white;
+  }
+  .AllOption {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    max-width: 166px;
+    height: 40px;
+    border-bottom: 1px solid #e8e8e8;
+    background-color: white;
+    color: #454545;
+    font-size: 14px;
+    font-family: "Noto Sans";
+    line-height: 20px;
+
+    cursor: pointer;
+    :hover {
+      background-color: #f8f8f8;
+    }
   }
 `;
 export default Paper;
