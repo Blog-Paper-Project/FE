@@ -234,7 +234,7 @@ const UserDataWrap = styled.div`
     display: flex;
     align-items: center;
     height: 32px;
-    width: 600px;
+    width: 890px;
   }
   .EditDeleteBtnWrap {
     display: flex;
@@ -257,7 +257,7 @@ const UserDataWrap = styled.div`
   .ViewCountName {
     display: flex;
     justify-content: center;
-    width: 60px;
+    width: 70px;
     font-size: 14px;
   }
 
