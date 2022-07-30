@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
@@ -19,6 +19,9 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item?.bokingId;
+  useEffect(() => {
+    dispatch(getBookingDB());
+  }, [dispatch, leafChange]);
 
   const enterChat = () => {
     navigate(`/chat/${Host}/${Guest}`);
@@ -70,7 +73,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 className="delBtn"
                 onClick={(e) => {
                   dispatch(deleteGuestBookingDB(Guest, bookingId));
-                  dispatch(getBookingDB());
                   setLeafChange(!leafChange);
                 }}
               >
@@ -144,7 +146,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               className="videoBtn"
               onClick={(e) => {
                 dispatch(patchBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB());
                 setLeafChange(!leafChange);
               }}
             >
@@ -154,7 +155,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               className="delBtn"
               onClick={(e) => {
                 dispatch(deleteHostBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB());
                 setLeafChange(!leafChange);
               }}
             >
