@@ -244,10 +244,8 @@ const MainTop = styled.div`
 
     font-size: 15px;
     line-height: 24px;
-    /* color: #4c4c4c; */
     color: #333;
     font-family: "Song Myung", serif;
-    /* font-style: italic; */
     font-weight: 400;
     text-align: right;
     opacity: 0.7;
@@ -317,6 +315,7 @@ const Popular = styled.div`
   float: left;
   gap: 10px;
   border-radius: 6px;
+  margin-top: 30px;
   .popularNick {
     margin-top: 20px;
     margin-bottom: 8px;
