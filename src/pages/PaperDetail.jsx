@@ -234,7 +234,7 @@ const UserDataWrap = styled.div`
     display: flex;
     align-items: center;
     height: 32px;
-    width: 600px;
+    width: 898px;
   }
   .EditDeleteBtnWrap {
     display: flex;
