@@ -19,10 +19,14 @@ import Kakao from "./pages/Login/Kakao";
 import Google from "./pages/Login/Google";
 import Naver from "./pages/Login/Naver";
 import AllPaper from "./pages/AllPaper";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   return (
     <>
+      <Helmet>
+        <title>PAPER</title>
+      </Helmet>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
@@ -40,7 +44,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat/:hostId/:guestId" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
-        <Route path="/paper/allpapers" element={<AllPaper/>} />
+        <Route path="/paper/allpapers" element={<AllPaper />} />
         <Route
           path="/paper/:blogId/reservationList"
           element={<ReservationList />}

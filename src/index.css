@@ -23,7 +23,13 @@
 }
 
 @font-face {
-  font-family: "Gmarket Sans Light";
-  src: url("/src/public/fonts/GmarketSansTTFLight.ttf") ;
+  font-family: "Dela Gothic One";
+  src: url("/src/public//fonts/DelaGothicOne-Regular.ttf") ;
+ 
+}
+
+@font-face {
+  font-family: "Rubik";
+  src: url("/src/public/fonts/RubikMonoOne-Regular.ttf") ;
  
 }

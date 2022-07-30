@@ -292,24 +292,24 @@ const CalendarTemplate = ({
         {save ? (
           <button
             style={{
-              color: '#fff',
-              background: '#aaaaaa',
-              margin: '10px',
-              minWidth: '200px',
-              padding: '5px 15px',
-              boxSizing: 'border-box',
+              color: "#fff",
+              background: "#aaaaaa",
+              margin: "10px",
+              minWidth: "200px",
+              padding: "5px 15px",
+              boxSizing: "border-box",
               transition:
-                'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-              borderRadius: '4px',
-              fontWeight: '500',
-              lineHeight: '1.75',
-              textTransform: 'uppercase',
+                "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+              borderRadius: "4px",
+              fontWeight: "500",
+              lineHeight: "1.75",
+              textTransform: "uppercase",
               boxShadow:
-                '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
-              border: 'none',
+                "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
+              border: "none",
             }}
             onClick={handleClick}
-            disabled={save ? 'disabled' : ''}
+            disabled={save ? "disabled" : ""}
           >
             {"이미 예약 되었습니다"}
           </button>
@@ -317,23 +317,23 @@ const CalendarTemplate = ({
           <button
             className={className}
             style={{
-              color: '#fff',
-              background: '#153587',
-              margin: '10px',
-              minWidth: '200px',
-              padding: '5px 15px',
-              boxSizing: 'border-box',
+              color: "#fff",
+              background: "#153587",
+              margin: "10px",
+              minWidth: "200px",
+              padding: "5px 15px",
+              boxSizing: "border-box",
               transition:
-                'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-              borderRadius: '4px',
-              fontWeight: '500',
-              lineHeight: '1.75',
-              textTransform: 'uppercase',
+                "background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+              borderRadius: "4px",
+              fontWeight: "500",
+              lineHeight: "1.75",
+              textTransform: "uppercase",
               boxShadow:
-                '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
-              border: 'none',
-              variant: 'contained',
-              cursor: 'pointer',
+                "0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)",
+              border: "none",
+              variant: "contained",
+              cursor: "pointer",
             }}
             onClick={handleClick}
           >
@@ -601,7 +601,7 @@ const CalendarTemplate = ({
       setSaving(true);
       let onePick1 = [];
       let onePick2 = [];
-      // console.log(isLogin)
+      console.log(isLogin);
       if (
         (isLogin === null && activeDay === null) ||
         (activeDay && isLogin === null)
@@ -662,7 +662,7 @@ const CalendarTemplate = ({
         // console.log('goDB : ', { goDB });
         // console.log({ data });
         dispatch(setBookingDB(goDB, blogId));
-        console.log(blogId)
+        console.log(blogId);
         setAvailability(data);
       }
     };
@@ -731,9 +731,9 @@ const CalendarTemplate = ({
                                           availabilityState[year][month][
                                             day
                                           ].filter((x) => x.available).length >
-                                          0
-                                          ? "secondary"
-                                          : "default"
+                                            0
+                                        ? "secondary"
+                                        : "default"
                                     }
                                     disabled={
                                       !day ||
@@ -849,9 +849,7 @@ const CalendarTemplate = ({
               </span>
             </div>
 
-            <p className="calendarText">
-              예약은 한시간에 한번만 가능합니다
-            </p>
+            <p className="calendarText">예약은 한시간에 한번만 가능합니다</p>
           </div>
           <Grid item className="btnWrap">
             <Grid

@@ -150,7 +150,7 @@ const WriteEdit = () => {
     formData.append("image", thumbImage);
     // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    // console.log(image_data?.data.imageUrl);
+    console.log(image_data?.data.imageUrl);
 
     const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -346,6 +346,7 @@ const WriteEdit = () => {
                     setImage(e.target.files[0]);
                     encodeFileToBase64(e.target.files[0]);
                   }}
+                  maxLength="20"
                 ></input>
               </div>
               <Thumbmail

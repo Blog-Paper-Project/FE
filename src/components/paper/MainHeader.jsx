@@ -7,9 +7,9 @@ import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 /* 컴포넌트 */
-import HeadPaperSearch from "./HeadPaperSearch";
+import HeadPaperSearch from "../main/HeadPaperSearch";
 
-const Header = () => {
+const MainHeader = () => {
   const onLogout = () => {
     deleteCookie("token");
     deleteCookie("nickname");
@@ -65,16 +65,7 @@ const Header = () => {
     <>
       <HeaderBox>
         <Svg>
-          <Logo>
-            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-              <img
-                className="paperTitle"
-                src={process.env.PUBLIC_URL + "/Frame.png"}
-                back_size="100% 100%"
-                alt="icon"
-              />
-            </Link>
-          </Logo>
+          <Logo></Logo>
           <Search>
             <HeadPaperSearch />
           </Search>
@@ -256,4 +247,4 @@ const NickBox = styled.div`
   line-height: 14px;
 `;
 
-export default Header;
+export default MainHeader;

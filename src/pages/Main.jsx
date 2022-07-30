@@ -19,7 +19,6 @@ import { Grid, Pagination } from "swiper";
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
-import ViewEdit from "../components/editor/ViewEdit";
 import defaultUserImage from "../public/images/default_profile.png";
 
 const Main = () => {
@@ -45,14 +44,16 @@ const Main = () => {
       <MainBox>
         <Header />
         <MainTop>
-          <img
-            className="paperTitle"
-            src={process.env.PUBLIC_URL + "/Group 365.png"}
-            back_size="100% 100%"
-            alt="icon"
-          />
+          <div className="MainTile">Welcome.</div>
+          <div className="MainContent">
+            자신의 생각을 글로 쓰고, 공감가는 글을 읽으면 블로거 주인과
+            소통해보아요, 댓글이 아닌 화상채팅으로 소통 할 수 있습니다, 자신의
+            생각을 글로 쓰고, 공감가는 글을 읽으면 블로거 주인과 소통해보아요,
+            댓글이 아닌 화상채팅으로 소통 할 수 있습니다, 자신의 생각을 글로
+            쓰고, 공감가는 글을 읽으면 블로거 주인과 소통해보아요, 댓글이 아닌
+            화상채팅으로 소통 할 수 있습니다,
+          </div>
         </MainTop>
-
         <PostWrap>
           <PostBox>
             <Bigbox>
@@ -187,7 +188,7 @@ const Main = () => {
             PAPER에 담긴 아름다운 작품을 감상해 보세요.
           </div>
           <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
-        </EndBox>        
+        </EndBox>
       </MainBox>
       <Footer />
     </>
@@ -203,52 +204,77 @@ const MainTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 266px;
   width: 1904px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 160px;
-  font-weight: 600;
-  line-height: 90px;
-  border-bottom: 1px solid #a7aca1;
+  justify-content: space-between;
+  color: #333;
+  padding-left: 80px;
+  padding-right: 140px;
+  margin-top: 60px;
+  .MainTile {
+    height: 85px;
+    width: 600px;
+    font-family: Georgia;
+    font-size: 95px;
+    font-weight: bold;
+  }
+  .MainContent {
+    display: flex;
+    align-items: flex-start;
+    width: 700px;
+
+    font-size: 15px;
+    line-height: 24px;
+    /* color: #4c4c4c; */
+    color: #333;
+    font-family: "Song Myung", serif;
+    /* font-style: italic; */
+    font-weight: 400;
+    text-align: left;
+    opacity: 0.7;
+  }
 `;
 
 const PostWrap = styled.div`
   height: 1680px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
 `;
 
 const PostBox = styled.div`
-  width: 1516px;
+  width: 1900px;
   height: 1680px;
+  display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
 `;
 
 const PopularBloger = styled.div`
   width: 100%;
   height: 260px;
-  border: 1px solid #a7aca1;
+  /* border: 1px solid #a7aca1; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
   padding-bottom: 25px;
-  font-family: "Gmarket Sans";
   font-style: normal;
   float: left;
   flex-wrap: wrap;
   .poTitle {
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 150%;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 170%;
+    font-family: "Gmarket Sans";
   }
   .poText {
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;
+    font-family: "Gmarket Sans";
   }
 `;
 
@@ -256,28 +282,31 @@ const PopularBox = styled.div`
   display: flex;
   width: 90%;
   height: 920px;
-  padding: 20px 0 0 0;
+  padding: 45px 0 0 0;
   float: left;
   flex-wrap: wrap;
 `;
 
 const Popular = styled.div`
-  background-color: #fffdf7;
+  background-color: #f7f5f0f6;
   display: flex;
   align-items: center;
   padding-top: 50px;
-  width: 506px;
+  width: 385px;
   height: 410px;
-  border: 1px solid #a7aca1;
   flex-direction: column;
   float: left;
+  gap: 10px;
+  border-radius: 6px;
   .popularNick {
     margin-top: 20px;
-    font-family: "Gmarket Sans";
+    margin-bottom: 8px;
+    font-family: "Noto Sans";
     font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 30px;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 35px;
+    color: #333;
   }
   .popularIntro {
     margin-top: 20px;
@@ -295,20 +324,20 @@ const Popular = styled.div`
   }
 `;
 const PopularImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   margin: 0 0 0 0;
-  border-radius: 100px;
+  border-radius: 50%;
   align-items: center;
 `;
 const EndBox = styled.div`
   width: 100%;
-  height: 10%;
+  height: 15%;
   display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #a7aca1;
+  /* border: 1px solid #a7aca1; */
   font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
@@ -450,7 +479,7 @@ const Bigbox = styled.div`
 const Card = styled.div`
   width: 320px;
   height: 405px;
-  box-shadow: rgb(0 0 0 / 7%) 0px 4px 16px 0px;
+  box-shadow: rgb(0 0 0 / 7%) 0px 3px 5px 0px;
   transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
   overflow: hidden;
   border-radius: 5px;
