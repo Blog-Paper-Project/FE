@@ -43,99 +43,103 @@ const Main = () => {
     <>
       <MainBox>
         <Header />
-        <MainTop>
-          <div className="MainTile">Welcome.</div>
-          <div className="MainContent">
-            자신의 생각을 글로 적어보아요.
-            <br />
-            공감 가는 글을 읽고 블로거 주인과 소통하고 싶나요? <br />
-            나의 생각을 공유해 나뭇잎을 모으고 댓글뿐만 아니라 화상채팅으로
-            소통할 수 있습니다. <br />
-            자신만의 이야기로 소통할 수 있는 블로그 PAPER
-          </div>
-        </MainTop>
-        <PostWrap>
-          <PostBox>
-            <Bigbox>
-              {BestPapers?.map((BestPapers, i) => {
-                return (
-                  <Card key={i}>
-                    <Box
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      {BestPapers?.thumbnail === null ? (
-                        <img
-                          className="postImg"
-                          src={`https://source.unsplash.com/collection/${i}`}
-                          style={{ width: "100%", height: "100%" }}
-                          alt="back"
-                        />
-                      ) : (
-                        <img
-                          src={
-                            process.env.REACT_APP_S3_URL +
-                            `/${BestPapers?.thumbnail}`
-                          }
-                          alt="img"
-                          style={{ width: "100%", height: "100%" }}
-                        />
-                      )}
-                    </Box>
-                    <Box1
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      <H4>{BestPapers.title}</H4>
-                      <P>{BestPapers.contents}</P>
-                    </Box1>
-                    <Box2>{BestPapers.createdAt}</Box2>
-                    <Box3
-                      onClick={() => {
-                        navigate(`/paper/${BestPapers?.blogId}`);
-                      }}
-                    >
-                      <div className="by">
-                        {BestPapers?.profileImage === null ? (
+        <div className="Title_Wrap">
+          <MainTop>
+            <div className="MainTile">Welcome.</div>
+            <div className="MainContent">
+              자신의 생각을 글로 적어보아요.
+              <br />
+              공감 가는 글을 읽고 블로거 주인과 소통하고 싶나요? <br />
+              나의 생각을 공유해 나뭇잎을 모으고 댓글뿐만 아니라 화상채팅으로
+              소통할 수 있습니다. <br />
+              자신만의 이야기로 소통할 수 있는 블로그 PAPER
+            </div>
+          </MainTop>
+        </div>
+        <div className="MainContents_Wrap">
+          <PostWrap>
+            <PostBox>
+              <Bigbox>
+                {BestPapers?.map((BestPapers, i) => {
+                  return (
+                    <Card key={i}>
+                      <Box
+                        onClick={() => {
+                          navigate(
+                            `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
+                          );
+                        }}
+                      >
+                        {BestPapers?.thumbnail === null ? (
                           <img
-                            className="userProfile"
-                            src={defaultUserImage}
+                            className="postImg"
+                            src={`https://source.unsplash.com/collection/${i}`}
+                            style={{ width: "100%", height: "100%" }}
                             alt="back"
                           />
                         ) : (
                           <img
-                            className="userProfile"
                             src={
                               process.env.REACT_APP_S3_URL +
-                              `/${BestPapers?.profileImage}`
+                              `/${BestPapers?.thumbnail}`
                             }
                             alt="img"
+                            style={{ width: "100%", height: "100%" }}
                           />
-                        )}{" "}
-                        by <span>{BestPapers.nickname}</span>
-                      </div>
-                      <div>
-                        <img
-                          className="heart"
-                          src={process.env.PUBLIC_URL + "/Vector.png"}
-                          back_size="100% 100%"
-                          alt="icon"
-                        />{" "}
-                        {BestPapers?.likes}
-                      </div>
-                    </Box3>
-                  </Card>
-                );
-              })}
-            </Bigbox>
-          </PostBox>
-        </PostWrap>
+                        )}
+                      </Box>
+                      <Box1
+                        onClick={() => {
+                          navigate(
+                            `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
+                          );
+                        }}
+                      >
+                        <H4>{BestPapers.title}</H4>
+                        <P>{BestPapers.contents}</P>
+                      </Box1>
+                      <Box2>{BestPapers.createdAt}</Box2>
+                      <Box3
+                        onClick={() => {
+                          navigate(`/paper/${BestPapers?.blogId}`);
+                        }}
+                      >
+                        <div className="by">
+                          {BestPapers?.profileImage === null ? (
+                            <img
+                              className="userProfile"
+                              src={defaultUserImage}
+                              alt="back"
+                            />
+                          ) : (
+                            <img
+                              className="userProfile"
+                              src={
+                                process.env.REACT_APP_S3_URL +
+                                `/${BestPapers?.profileImage}`
+                              }
+                              alt="img"
+                            />
+                          )}{" "}
+                          by <span>{BestPapers.nickname}</span>
+                        </div>
+                        <div>
+                          <img
+                            className="heart"
+                            src={process.env.PUBLIC_URL + "/Vector.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />{" "}
+                          {BestPapers?.likes}
+                        </div>
+                      </Box3>
+                    </Card>
+                  );
+                })}
+              </Bigbox>
+            </PostBox>
+          </PostWrap>
+        </div>
 
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
@@ -198,13 +202,26 @@ const Main = () => {
 const MainBox = styled.div`
   background-color: #fffdf7;
   height: 3550px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .Title_Wrap {
+    display: flex;
+    justify-content: center;
+    padding: 0 100px;
+  }
+  .MainContents_Wrap {
+    display: flex;
+    justify-content: center;
+    padding: 0 40px;
+  }
 `;
 
 const MainTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1904px;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -238,9 +255,10 @@ const MainTop = styled.div`
 `;
 
 const PostWrap = styled.div`
+  width: 95%;
   height: 1680px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
 `;
@@ -251,6 +269,7 @@ const PostBox = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  gap: 30px;
 `;
 
 const PopularBloger = styled.div`
