@@ -10,11 +10,11 @@ import styled from "styled-components";
 import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
 import kakao from "../../public/images/kakao.svg";
-import google from "../../public/images/google.svg";
-import naver from "../../public/images/naver.svg";
+// import google from "../../public/images/google.svg";
+// import naver from "../../public/images/naver.svg";
 import { KAKAO_AUTH_URL } from "../../shared/SocialOauth";
-import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
-import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
+// import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
+// import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
 
 const Login = () => {
   const queryClient = useQueryClient();
