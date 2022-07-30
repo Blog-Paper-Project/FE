@@ -124,9 +124,9 @@ const SocialSignUp = () => {
         });
       }
     },
-    onError: (err) => {
+    onError: () => {
       Swal.fire({
-        text: "error",
+        text: "닉네임, 블로그아이디를 기입해주세요.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "확인",

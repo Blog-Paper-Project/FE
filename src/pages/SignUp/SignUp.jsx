@@ -11,7 +11,7 @@ import {
   nicknameCheck,
   blogIdCheck,
 } from "../../shared/SignUpCheck";
-import SignUpModal from "../../components/user/SignUpModal";
+// import SignUpModal from "../../components/user/SignUpModal";
 import { api } from "../../shared/apis/Apis";
 import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
@@ -31,7 +31,7 @@ const SignUp = () => {
   const [blogIdCHK, setBlogIdCHK] = useState(false);
   const [emailAuthCHK, setEmailAuthCHK] = useState(false);
   // const [term, setTerm] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  // const [isModalOpen, setIsModalOpen] = useState(true);
 
   // const openModal = () => {
   //   setIsModalOpen(true);
@@ -105,7 +105,7 @@ const SignUp = () => {
     },
     onError: () => {
       Swal.fire({
-        text: "error",
+        text: "유효한 메일이 아닙니다.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "확인",
@@ -273,9 +273,9 @@ const SignUp = () => {
         });
       }
     },
-    onError: (err) => {
+    onError: () => {
       Swal.fire({
-        text: "error",
+        text: "블로그아이디, 닉네임, 비밀번호를 모두 기입해주세요.",
         icon: "error",
         confirmButtonColor: "#3085d6",
         confirmButtonText: "확인",
