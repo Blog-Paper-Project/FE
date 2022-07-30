@@ -11,7 +11,7 @@ import {
   nicknameCheck,
   blogIdCheck,
 } from "../../shared/SignUpCheck";
-import SignUpModal from "../../components/user/SignUpModal";
+// import SignUpModal from "../../components/user/SignUpModal";
 import { api } from "../../shared/apis/Apis";
 import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
@@ -30,20 +30,20 @@ const SignUp = () => {
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
   const [emailAuthCHK, setEmailAuthCHK] = useState(false);
-  const [term, setTerm] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  // const [term, setTerm] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    if (isModalOpen === true) return setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   if (isModalOpen === true) return setIsModalOpen(false);
+  // };
 
-  const onChangeTerm = (e) => {
-    setTerm(e.target.checked);
-  };
+  // const onChangeTerm = (e) => {
+  //   setTerm(e.target.checked);
+  // };
 
   //이메일 중복체크
   const postDupEmail = async () => {
@@ -104,7 +104,12 @@ const SignUp = () => {
       });
     },
     onError: () => {
-      console.log("error");
+      Swal.fire({
+        text: "유효한 메일이 아닙니다.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
     },
   });
 
@@ -219,7 +224,12 @@ const SignUp = () => {
       password === "" ||
       confirmPassword === ""
     ) {
-      window.alert("이메일, 닉네임, 블로그주소, 비밀번호를 모두 입력해주세요!");
+      Swal.fire({
+        text: "이메일, 닉네임, 블로그아이디, 비밀번호를 입력해주세요",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     }
     //비밀번호 일치
@@ -263,8 +273,13 @@ const SignUp = () => {
         });
       }
     },
-    onError: (err) => {
-      console.log(err);
+    onError: () => {
+      Swal.fire({
+        text: "블로그아이디, 닉네임, 비밀번호를 모두 기입해주세요.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
@@ -282,7 +297,7 @@ const SignUp = () => {
           <p>Sign Up</p>
         </Title>
 
-        {isModalOpen === true ? (
+        {/* {isModalOpen === true ? (
           <SignUpModal
             term={term}
             onChangeTerm={onChangeTerm}
@@ -290,7 +305,7 @@ const SignUp = () => {
             close={closeModal}
             header="이용약관"
           />
-        ) : null}
+        ) : null} */}
         <InputBox>
           {emailAuthCHK ? (
             <OKEmail>{email}</OKEmail>
@@ -382,7 +397,7 @@ const SignUp = () => {
             <p style={{ color: "red" }}>비밀번호가 일치하지 않습니다.</p>
           )}
         </InputBox>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <TermButton
             onClick={() => {
               setIsModalOpen(true);
@@ -390,9 +405,9 @@ const SignUp = () => {
           >
             약관보기
           </TermButton>
-        </div>
+        </div> */}
 
-        {term === false ? (
+        {/* {term === false ? (
           <SignUpButton
             onClick={() => {
               Swal.fire({
@@ -405,9 +420,9 @@ const SignUp = () => {
           >
             회원가입
           </SignUpButton>
-        ) : (
-          <SignUpButton onClick={onsubmit}>회원가입</SignUpButton>
-        )}
+        ) : ( */}
+        <SignUpButton onClick={onsubmit}>회원가입</SignUpButton>
+        {/* )} */}
       </SignUpBox>
       <Footer />
     </SignUpContainer>

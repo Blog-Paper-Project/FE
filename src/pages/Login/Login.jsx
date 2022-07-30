@@ -10,10 +10,11 @@ import styled from "styled-components";
 import Header from "../../components/main/Header";
 import Footer from "../../components/main/Footer";
 import kakao from "../../public/images/kakao.svg";
-import google from "../../public/images/google.svg";
+// import google from "../../public/images/google.svg";
+// import naver from "../../public/images/naver.svg";
 import { KAKAO_AUTH_URL } from "../../shared/SocialOauth";
-import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
-import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
+// import { GOOGLE_AUTH_URL } from "../../shared/SocialOauth";
+// import { NAVER_AUTH_URL } from "../../shared/SocialOauth";
 
 const Login = () => {
   const queryClient = useQueryClient();
@@ -38,6 +39,7 @@ const Login = () => {
       setCookie("userId", data.data.userId, 2);
       setCookie("blogId", data.data.blogId, 2);
       setCookie("profileimage", data.data.profileImage, 2);
+
       navigate("/");
     },
     onError: () => {
@@ -67,7 +69,7 @@ const Login = () => {
           <Input2
             type="email"
             label="이메일"
-            placeholder="아이디"
+            placeholder="이메일"
             value={email || ""}
             onChange={setEmail}
           />
@@ -95,7 +97,7 @@ const Login = () => {
             lineHeight: "14px",
           }}
         >
-          <Link to="/">
+          <Link to="/findpassword">
             <p>아이디 및 비밀번호 찾기</p>
           </Link>
         </div>
@@ -115,17 +117,17 @@ const Login = () => {
           <p>SNS계정으로 로그인</p>
         </div>
         <SocialLogin>
-          <a href={GOOGLE_AUTH_URL}>
+          {/* <a href={GOOGLE_AUTH_URL}>
             <img src={google} alt="google" />
-          </a>
+          </a> */}
 
           <a href={KAKAO_AUTH_URL}>
             <img src={kakao} alt="kakao" />
           </a>
 
-          <a href={NAVER_AUTH_URL}>
-            <img src={kakao} alt="ssss" />
-          </a>
+          {/* <a href={NAVER_AUTH_URL}>
+            <img src={naver} alt="naver" />
+          </a> */}
         </SocialLogin>
         <div
           style={{

@@ -14,7 +14,7 @@ const HeadPaperSearch = () => {
 
   return (
     <>
-      <form>
+      
         <SearchBox>
           <BiSearchAlt2 color="black" size="25px" />
           <Search1
@@ -33,18 +33,19 @@ const HeadPaperSearch = () => {
             }}
           />
         </SearchBox>
-      </form>
+      
     </>
   );
 };
 
 const SearchBox = styled.div`
-  width: 592px;
+  width: 60%;
   height: 52px;
   padding-left: 20px;
   display: flex;
   align-items: center !important;
-  border: 1px solid #A7ACA1;
+  outline: 1px solid #a7aca1;
+  border: 1px solid #a7aca1;
 `;
 
 const Search1 = styled.input`

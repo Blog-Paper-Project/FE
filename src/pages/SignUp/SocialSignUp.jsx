@@ -23,8 +23,6 @@ const SocialSignUp = () => {
   const [nicknameCHK, setNicknameCHK] = useState(false);
   const [blogIdCHK, setBlogIdCHK] = useState(false);
 
-  console.log(email)
-
   //닉네임 중복체크
   const postDupNick = async () => {
     if (!nicknameCheck(nickname)) {
@@ -91,7 +89,12 @@ const SocialSignUp = () => {
   const patchSignUp = async () => {
     //공백일 시
     if (nickname === "" || blogId === "") {
-      window.alert("닉네임, 블로그주소를 모두 입력해주세요!");
+      Swal.fire({
+        text: "닉네임, 블로그아이디를 확인해주세요.",
+        icon: "warning",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     }
 
@@ -107,8 +110,10 @@ const SocialSignUp = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data.data.result === true) {
-        setCookie("blodId", blogId);
+        setCookie("nickname", nickname, 2);
+        setCookie("blogId", blogId, 2);
         deleteCookie("email");
+
         navigate("/");
       } else {
         Swal.fire({
@@ -119,8 +124,13 @@ const SocialSignUp = () => {
         });
       }
     },
-    onError: (err) => {
-      console.log(err);
+    onError: () => {
+      Swal.fire({
+        text: "닉네임, 블로그아이디를 기입해주세요.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
@@ -228,7 +238,7 @@ const InputBox = styled.div`
 `;
 
 const OKEmail = styled.div`
-  width: calc(100% - 20px);
+  width: 100%;
   height: 50px;
   padding: 0 10px;
   background-color: #efefef;

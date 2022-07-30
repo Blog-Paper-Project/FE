@@ -5,16 +5,16 @@ import styled from "styled-components";
 import { apiToken } from "../../shared/apis/Apis";
 
 const CategoryList = (props) => {
-  const { categories, blogId } = props;
+  const { categories, onCategory } = props;
   const [CategoryInput, setCategoryInput] = useState("");
   const [Edit, setEdit] = useState(false);
   const queryClient = useQueryClient();
-  console.log("category", categories);
+  // console.log("category", categories);
   // console.log(EditButton);
   // ## useMutation 카테고리 patch 함수
   const PatchCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/${blogId}/categories/${categories}`,
+      `/api/paper/categories/${categories}`,
       {
         newCategory: CategoryInput,
       }
@@ -34,7 +34,7 @@ const CategoryList = (props) => {
   // ## useMutation 카테고리 patch(delete 역할) 함수
   const DeleteCategory = async () => {
     const response = await apiToken.patch(
-      `/api/paper/${blogId}/categories/${categories}`,
+      `/api/paper/categories/${categories}`,
       {
         newCategory: "etc",
       }
@@ -64,12 +64,18 @@ const CategoryList = (props) => {
         </>
       ) : (
         <>
-          <div>{categories}</div>
+          <option
+            onClick={(e) => {
+              onCategory(e.target.value);
+            }}
+          >
+            {categories}
+          </option>
         </>
       )}
       {/* 위 Edit 변경하기 끝 */}
       {/* 아래 Edit 변경하기 클릭시 변경완료로 버튼 변경 (여기 patch 기능) */}
-      {Edit ? (
+      {/* {Edit ? (
         <>
           <button
             onClick={() => {
@@ -91,19 +97,40 @@ const CategoryList = (props) => {
             변경하기!
           </button>
         </>
-      )}
+      )} */}
       {/* 위 Edit 변경하기 클릭시 변경완료로 버튼 변경 (여기 patch 기능) */}
-      <button
+      {/* <button
         onClick={() => {
           onDelete();
         }}
       >
         삭제하기
-      </button>
+      </button> */}
     </Wrap>
   );
 };
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  position: relative;
+  z-index: 4;
+  option {
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+    max-width: 166px;
+    height: 40px;
+    border-bottom: 1px solid #e8e8e8;
+    background-color: white;
+    color: #454545;
+    font-size: 14px;
+    font-family: "Noto Sans";
+    line-height: 20px;
+
+    cursor: pointer;
+    :hover {
+      background-color: #f8f8f8;
+    }
+  }
+`;
 
 export default CategoryList;

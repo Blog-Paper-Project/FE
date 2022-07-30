@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
+import FindPassword from "./pages/FindPassword";
 import Main from "./pages/Main";
 import Write from "./pages/Write";
 import Modify from "./pages/Modify";
@@ -17,15 +18,21 @@ import Paper from "./pages/Paper";
 import Kakao from "./pages/Login/Kakao";
 import Google from "./pages/Login/Google";
 import Naver from "./pages/Login/Naver";
+import AllPaper from "./pages/AllPaper";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   return (
     <>
+      <Helmet>
+        <title>PAPER</title>
+      </Helmet>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/socialsignup" element={<SocialSignUp />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/user/login/kakao/callback" element={<Kakao />} />
         <Route path="/user/login/google/callback" element={<Google />} />
         <Route path="/user/login/naver/callback" element={<Naver />} />
@@ -37,6 +44,7 @@ function App() {
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat/:hostId/:guestId" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
+        <Route path="/paper/allpapers" element={<AllPaper />} />
         <Route
           path="/paper/:blogId/reservationList"
           element={<ReservationList />}

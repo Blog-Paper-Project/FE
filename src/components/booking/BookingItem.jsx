@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
@@ -19,7 +19,10 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const hostId = item?.hostId;
   const bookingId = Number(item?.bookingId);
   const timeId = item?.bokingId;
- 
+  useEffect(() => {
+    dispatch(getBookingDB());
+  }, [dispatch, leafChange]);
+
   const enterChat = () => {
     navigate(`/chat/${Host}/${Guest}`);
   };
@@ -27,17 +30,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   // 예약 정보
   let startTime = item?.start;
   let endTime = item?.end;
-  console.log(item);
+  // console.log(item);
   if (!item) {
     return null;
   }
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
-  let end = endTime.substr(-17, 5);
-
- 
-
-  
+  let end = endTime.substr(16, 5);
 
   // 게스트일때
   if (Guest === Bloger) {
@@ -57,25 +56,25 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-                  
-            <button className="waitBtn">수락대기</button>
-            <button
-              className="delBtn"
-              onClick={(e) => {
-                dispatch(deleteGuestBookingDB(Guest, bookingId));
-                dispatch(getBookingDB());
-                setLeafChange(!leafChange);
-              }}
-            >
-              예약 취소
-            </button>
+            <div className="btnBox">
+              <button className="waitBtn">수락대기</button>
+              <button
+                className="delBtn"
+                onClick={(e) => {
+                  dispatch(deleteGuestBookingDB(Guest, bookingId));
+                  setLeafChange(!leafChange);
+                }}
+              >
+                예약취소
+              </button>
+            </div>
           </li>
         )}
         {item?.accepted === true && (
@@ -92,21 +91,23 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-            <button
-              className="videoBtn"
-              onClick={() => {
-                enterChat();
-              }}
-            >
-              Start
-            </button>
+            <div className="btnBox">
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+            </div>
           </li>
         )}
       </>
@@ -129,33 +130,33 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-            <button
-              className="videoBtn"
-              onClick={(e) => {
-                dispatch(patchBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB());
-                setLeafChange(!leafChange);
-              }}
-            >
-              수락하기
-            </button>
-            <button
-              className="delBtn"
-              onClick={(e) => {
-                dispatch(deleteHostBookingDB({ hostId, bookingId }));
-                dispatch(getBookingDB());
-                setLeafChange(!leafChange);
-              }}
-            >
-              예약취소
-            </button>
+            <div className="btnBox">
+              <button
+                className="videoBtn"
+                onClick={(e) => {
+                  dispatch(patchBookingDB({ hostId, bookingId }));
+                  setLeafChange(!leafChange);
+                }}
+              >
+                수락하기
+              </button>
+              <button
+                className="delBtn"
+                onClick={(e) => {
+                  dispatch(deleteHostBookingDB({ hostId, bookingId }));
+                  setLeafChange(!leafChange);
+                }}
+              >
+                예약취소
+              </button>
+            </div>
           </li>
         )}
         {item?.accepted === true && (
@@ -172,21 +173,23 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                {year}.{month}.{day}.{week}
+                  {year}.{month}.{day}.{week}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
                 </span>
               </div>
             </div>
-            <button
-              className="videoBtn"
-              onClick={() => {
-                enterChat();
-              }}
-            >
-              Start
-            </button>
+            <div className="btnBox">
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+            </div>
           </li>
         )}
       </>

@@ -15,6 +15,8 @@ import CommentsImg from "../public/images/icons/comments.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import Line_1 from "../public/images/icons/Line_1.png";
+import ModifyImg from "../public/images/icons/modify.png";
+import DeleteImg from "../public/images/icons/Delete_forever.png";
 
 /*해야할 것*/
 
@@ -24,13 +26,11 @@ const PaperDetail = () => {
   const { postId } = useParams();
   const StringUserId = getCookie("userId");
   const userId = Number(StringUserId);
-  // console.log(typeof userId);
-  // console.log(blogId);
-  // console.log(postId);
   const queryClient = useQueryClient();
   const isHostId = getCookie("blogId");
-  //state
-  const [openComment, setOpenComment] = useState(false);
+  // 댓글 state
+  const [openComment, setOpenComment] = useState(true);
+
   // ## useMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
@@ -46,7 +46,7 @@ const PaperDetail = () => {
     },
   });
 
-  // console.log("PaperDeTail", detail_data);
+  // console.log("PaperDeTail", detail_data).paper;
 
   // ## useQuery 글 get 함수
   const GetDetailtData = async () => {
@@ -56,7 +56,7 @@ const PaperDetail = () => {
       },
     });
     // console.log("PaperDetail page", response);
-    return response?.data.paper;
+    return response.data;
   };
 
   // ## useQuery 글 get
@@ -68,9 +68,9 @@ const PaperDetail = () => {
     GetDetailtData,
 
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         // console.log(data);
-        return data;
+        // return data;
       },
       staleTime: 0,
       cacheTime: 0,
@@ -84,62 +84,80 @@ const PaperDetail = () => {
     return alert("error");
   }
   const S3 =
-    process.env.REACT_APP_S3_URL + `/${detail_data?.Users.profileImage}`;
-  console.log("PaperDeTail", detail_data);
+    process.env.REACT_APP_S3_URL + `/${detail_data?.paper?.Users.profileImage}`;
+
+  const ViewCountTotal = detail_data?.count + detail_data?.paper?.viewCount;
+  // console.log(ViewCountTotal);
+  // console.log("PaperDeTail", detail_data);
   return (
     <Container>
       <Header />
 
       {/* 아래 글*/}
       <ContainerContents>
-        <Title>{detail_data?.title}</Title>
+        <Title>{detail_data?.paper?.title}</Title>
         <Line />
         <UserDataWrap>
           <div className="wrap">
             {/* 블로거 프로필 이미지 */}
             <ProfileImgBox
               src={
-                detail_data?.Users.profileImage === null ? defaultUserImage : S3
+                detail_data?.paper?.Users.profileImage === null
+                  ? defaultUserImage
+                  : S3
               }
               onClick={() => {
-                navigate(`/paper/${detail_data?.Users.blogId}`);
+                navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
               }}
             />
-            <Nickname>{detail_data?.Users.nickname}</Nickname>
-            <CreatedAt>{detail_data?.createdAt}</CreatedAt>
+            <Nickname>{detail_data?.paper?.Users.nickname}</Nickname>
+            <span>·</span>
+            <CreatedAt>{detail_data?.paper?.createdAt}</CreatedAt>
+            <span>·</span>
+            <div className="ViewCountName">
+              조회수 {ViewCountTotal ? ViewCountTotal : null}
+            </div>
           </div>
-          <div className="wrap">
+          <div className="EditDeleteBtnWrap">
             {isHostId === blogId ? (
               <>
                 {/* 아래 글 수정 버튼*/}
 
                 <button
+                  className="ModfyBtn"
                   onClick={() => {
                     navigate(`/modify/${blogId}/${postId}`);
                   }}
                 >
-                  글 수정하기
+                  <img src={ModifyImg} alt="" />
+                  수정하기
                 </button>
 
                 {/* 아래 글 삭제 버튼*/}
 
                 <button
+                  className="ModfyBtn"
                   onClick={() => {
-                    onDelete();
+                    if (window.confirm("정말 삭제하시겠습니까?")) {
+                      onDelete();
+                    } else {
+                      return;
+                    }
                   }}
                 >
-                  글 삭제하기
+                  <img src={DeleteImg} alt="" />
+                  삭제하기
                 </button>
               </>
             ) : null}
           </div>
         </UserDataWrap>
         <ViewEditWarp>
-          <ViewEdit contents={detail_data?.contents} />
+          <ViewEdit contents={detail_data?.paper?.contents} />
         </ViewEditWarp>
         {/* 아래 해시태그 */}
         <TagWrap>
-          {detail_data?.Tags.map((value, index) => {
+          {detail_data?.paper?.Tags.map((value, index) => {
             return <Tag key={index}>{value.name}</Tag>;
           })}
         </TagWrap>
@@ -148,7 +166,7 @@ const PaperDetail = () => {
           {openComment ? (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
                 <CommentButton
                   onClick={() => {
                     setOpenComment(!openComment);
@@ -160,12 +178,15 @@ const PaperDetail = () => {
                   <img src={ArrowDown} alt="Arrow"></img>
                 </CommentButton>
               </CommentLikeWrap>
-              <Comment postId={postId} Comments={detail_data?.Comments} />
+              <Comment
+                postId={postId}
+                Comments={detail_data?.paper?.Comments}
+              />
             </>
           ) : (
             <>
               <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.Likes} />
+                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
                 <CommentButton
                   onClick={() => {
                     setOpenComment(!openComment);
@@ -188,70 +209,129 @@ const PaperDetail = () => {
 
 const Container = styled.div`
   max-width: 1920px;
+
+  /* background-color: white; */
+  margin: 0 auto;
   background-color: #fffdf7;
+  overflow-x: hidden;
 `;
 const ContainerContents = styled.div`
-  width: 899px;
-  padding: 160px 511px 160px 510px;
+  width: 900px;
+  padding: 100px 511px 160px 510px;
+
+  /* overflow-x: hidden; */
 `;
 const UserDataWrap = styled.div`
   width: 898px;
   display: flex;
   justify-content: space-between;
-  .wrap > {
+  .wrap {
     display: flex;
+    align-items: center;
+    height: 32px;
+    width: 400px;
   }
+  .EditDeleteBtnWrap {
+    display: flex;
+    justify-content: space-between;
+
+    height: 36px;
+    width: 240px;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      height: 36px;
+      width: 130px;
+      border: 1px solid;
+      outline: 1px solid;
+      margin-left: 10px;
+    }
+  }
+  .ViewCountName {
+    display: flex;
+    justify-content: center;
+    width: 60px;
+    font-size: 14px;
+  }
+
   margin-bottom: 59px;
 `;
 
 const ProfileImgBox = styled.img`
   width: 30px;
   height: 30px;
-  margin: 0 0 0 0;
+  margin: 0 10px 0 0;
   border-radius: 50%;
 `;
 
 const Nickname = styled.span`
-  height: 40px;
-  width: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18px;
+  margin-right: 8px;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
 `;
 const Title = styled.div`
-  height: 60px;
+  height: 75px;
   width: 896px;
-  font-size: 40px;
-  font-weight: 400;
-  line-height: 60px;
+  font-size: 50px;
+  font-weight: 600;
+  line-height: 44pt;
   color: #333333;
   margin-bottom: 10px;
+  margin-top: 20px;
 `;
 const Line = styled.div`
   width: 898px;
   border-bottom: 1px solid #000000;
   margin-bottom: 20px;
 `;
-const CreatedAt = styled.div``;
+const CreatedAt = styled.div`
+  display: flex;
+  align-items: center;
+  height: 19px;
+  margin-left: 7px;
+  margin-right: 7px;
+  font-size: 14px;
+  font-family: "Noto Sans KR";
+`;
 const ViewEditWarp = styled.div`
   width: 898px;
-  background-color: #efefef;
+  min-height: 900px;
+
+  /* font-size: 18px; */
+  /* background-color: #efefef; */
 `;
 const TagWrap = styled.div`
   height: 20px;
   width: 300px;
   display: flex;
   justify-content: flex-start;
-  gap: 0 10px;
+  gap: 0 6px;
   margin-top: 24px;
   margin-bottom: 50px;
 `;
 const Tag = styled.div`
+  height: 25px;
+  width: auto;
+  box-sizing: border-box;
+  white-space: nowrap;
+  outline: 1px solid;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 12px 15px 12px 15px;
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25px;
-  width: 85px;
-  border: 2px solid black;
-  border-radius: 30px;
-  font-size: 12px;
 `;
 const CommentLikeWrap = styled.div`
   display: flex;

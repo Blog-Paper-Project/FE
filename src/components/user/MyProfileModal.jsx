@@ -13,11 +13,12 @@ import chgImg from "../../public/images/chgImg.svg";
 import LeafDrop from "../booking/LeafDrop";
 import { useDispatch } from "react-redux";
 import { patchLeafDB } from "../../redux/modules/Leaf";
+import Swal from "sweetalert2";
 
 const MyProfileModal = (props) => {
   const queryClient = useQueryClient();
 
-  const { open, close, header, profileImage, introduction, nickname } = props;
+  const { open, close, profileImage, introduction, nickname } = props;
 
   const [CHGintroduction, setCHGIntroduction] = useState(introduction);
   const [CHGnickname, setCHGnickname] = useState(nickname);
@@ -45,13 +46,28 @@ const MyProfileModal = (props) => {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
       if (data === null) {
-        window.alert("닉네임 형식을 지켜주세요");
+        Swal.fire({
+          text: "닉네임 형식을 지켜주세요.",
+          icon: "warning",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "확인",
+        });
       } else {
-        window.alert("사용가능한 닉네임 입니다");
+        Swal.fire({
+          text: "사용가능한 닉네임 입니다.",
+          icon: "success",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "확인",
+        });
       }
     },
     onError: () => {
-      window.alert("이미 사용중인 닉네임입니다");
+      Swal.fire({
+        text: "닉네임 중복입니다.",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
     },
   });
 
@@ -85,7 +101,12 @@ const MyProfileModal = (props) => {
   const { mutate: onsubmit } = useMutation(useProfile, {
     onSuccess: (data) => {
       queryClient.invalidateQueries();
-      window.alert("수정성공!!");
+      Swal.fire({
+        text: "변경이 완료되었습니다.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       deleteCookie("nickname");
       deleteCookie("profileimage");
       setCookie("nickname", CHGnickname);
@@ -93,7 +114,12 @@ const MyProfileModal = (props) => {
       close();
     },
     onError: () => {
-      window.alert("읭??에러!!!");
+      Swal.fire({
+        text: "error",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
@@ -115,11 +141,21 @@ const MyProfileModal = (props) => {
       queryClient.invalidateQueries();
       deleteCookie("profileimage");
       setCookie("profileimage", data.data.profileImage);
-      window.alert("수정성공!!");
+      Swal.fire({
+        text: "변경이 완료되었습니다.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       close();
     },
     onError: () => {
-      window.alert("!!!!");
+      Swal.fire({
+        text: "error",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "확인",
+      });
       return;
     },
   });
@@ -207,7 +243,7 @@ const MyProfileModal = (props) => {
             <footer>
               <button onClick={close}>취소하기</button>
               {PreNickname === CHGnickname ? (
-                <button onClick={onsubmit1}>닉넴빼고수정</button>
+                <button onClick={onsubmit1}>수정</button>
               ) : (
                 <button onClick={onsubmit}>수정</button>
               )}

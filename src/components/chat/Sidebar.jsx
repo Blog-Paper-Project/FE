@@ -1,21 +1,15 @@
 import React, { useContext } from "react";
-import {
-  Button,
-  Grid,
-  Container,
-  Paper,
-} from "@material-ui/core";
+import { Button, Grid, Container, Paper } from "@material-ui/core";
 // import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Phone, PhoneDisabled } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
 
-import styled from "styled-components";
-import AudioOff from "../../public/images/AudioOff.svg";
-import AudioOn from "../../public/images/AudioOn.svg";
-import VideoOff from "../../public/images/VideoOff.svg";
-import VideoOn from "../../public/images/VideoOn.svg";
+// import AudioOff from "../../public/images/AudioOff.svg";
+// import AudioOn from "../../public/images/AudioOn.svg";
+// import VideoOff from "../../public/images/VideoOff.svg";
+// import VideoOn from "../../public/images/VideoOn.svg";
 // import ShareScreen from "../../public/images/ShareScreen.svg";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,38 +31,36 @@ const useStyles = makeStyles((theme) => ({
       width: "80%",
     },
   },
-  margin: {
-    marginTop: 20,
-  },
   padding: {
     padding: 20,
   },
   paper: {
     padding: "10px 20px",
-    border: "2px solid black",
   },
 }));
 
 const Sidebar = ({ children }) => {
   const {
     callAccepted,
-    callEnded,
+    // callEnded,
     idToCall,
-    audioOn,
-    videoOn,
-    audioHandler,
-    videoHandler,
+    // audioOn,
+    // videoOn,
+    // audioHandler,
+    // videoHandler,
     // shareScreen,
     leaveCall,
     callUser,
+    call,
+    answerCall,
   } = useContext(SocketContext);
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Paper elevation={10} className={classes.paper}>
-        <form className={classes.root} noValidate autoComplete="off">
-          <Grid container className={classes.gridContainer}>
-            <ButtonList>
+      {/* <Paper elevation={10} className={classes.paper}> */}
+      <form className={classes.root} noValidate autoComplete="off">
+        <Grid container className={classes.gridContainer}>
+          {/* <ButtonList>
               <div>
                 {audioOn ? (
                   <button size={25} onClick={audioHandler}>
@@ -91,52 +83,62 @@ const Sidebar = ({ children }) => {
                   </button>
                 )}
               </div>
-              {/* <div>
+              <div>
                 <button size={25} onClick={shareScreen}>
                   <img src={ShareScreen} />
                 </button>
-              </div> */}
-            </ButtonList>
-            {callAccepted && !callEnded ? (
-              <Button
-                variant="contained"
-                color="secondary"
-                startIcon={<PhoneDisabled fontSize="large" />}
-                fullWidth
-                onClick={leaveCall}
-                className={classes.margin}
-              >
-                나가기
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<Phone fontSize="large" />}
-                fullWidth
-                onClick={() => callUser(idToCall)}
-                className={classes.margin}
-              >
-                화상 연결하기
-              </Button>
-            )}
-          </Grid>
-        </form>
-        {children}
-      </Paper>
+              </div>
+            </ButtonList> */}
+          {callAccepted ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<PhoneDisabled fontSize="large" />}
+              fullWidth
+              onClick={leaveCall}
+              className={classes.margin}
+            >
+              나가기
+            </Button>
+          ) : call.isReceivingCall && !callAccepted ? (
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={answerCall}
+              className={classes.margin}
+            >
+              Answer
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Phone fontSize="large" />}
+              fullWidth
+              onClick={() => callUser(idToCall)}
+              className={classes.margin}
+            >
+              화상 연결하기
+            </Button>
+          )}
+        </Grid>
+      </form>
+      {children}
+      {/* </Paper> */}
     </Container>
   );
 };
 
-const ButtonList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 50px;
-  border-top: 1px solid gray;
-  gap: 50px;
-  padding-top: 30px;
-`;
+// const ButtonList = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   margin: 50px;
+//   border-top: 1px solid gray;
+//   gap: 50px;
+//   padding-top: 30px;
+// `;
 
 export default Sidebar;

@@ -1,43 +1,46 @@
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { api } from "../shared/apis/Apis";
 
+/* 컴포넌트 */
 import Header from "../components/main/Header";
-import { __searchPost } from "../redux/modules/Search";
-import defaultUserImage from "../public/images/default_profile.png";
 import Footer from "../components/main/Footer";
+import defaultUserImage from "../public/images/default_profile.png";
 
-const Search = () => {
+const AllPaper = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const datas = useSelector((state) => state.searchReducer.data);
-  const { payload } = useParams();
 
-  useEffect(() => {
-    dispatch(__searchPost(payload));
-  }, [dispatch]);
-  // console.log(datas);
-  const SearchPaper = datas.papers;
-  // console.log(SearchPaper)
+  const paperLists = async () => {
+    const res = await api.get("/api/paper/posts");
+    return res;
+  };
 
+  const { data: paper_query } = useQuery("paper_lists", paperLists, {
+    staleTime: 0,
+    onSuccess: (data) => {
+      // console.log(paper_query);
+      return data;
+    },
+  });
+  const Papers = paper_query?.data.papers;
   return (
     <>
       <Wrap>
         <Header />
-        <HeadTitle>"{payload}"로 검색한 결과</HeadTitle>
         <Bigbox>
-          {SearchPaper?.map((SearchPaper, i) => {
+          {Papers?.map((Papers, i) => {
             return (
               <Card key={i}>
                 <Box
                   onClick={() => {
                     navigate(
-                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
                     );
                   }}
                 >
-                  {SearchPaper?.thumbnail === null ? (
+                  {Papers?.thumbnail === null ? (
                     <img
                       className="postImg"
                       src={`https://source.unsplash.com/collection/${i}`}
@@ -47,8 +50,7 @@ const Search = () => {
                   ) : (
                     <img
                       src={
-                        process.env.REACT_APP_S3_URL +
-                        `/${SearchPaper?.thumbnail}`
+                        process.env.REACT_APP_S3_URL + `/${Papers?.thumbnail}`
                       }
                       alt="img"
                       style={{ width: "100%", height: "100%" }}
@@ -58,21 +60,21 @@ const Search = () => {
                 <Box1
                   onClick={() => {
                     navigate(
-                      `/paper/${SearchPaper?.Users.blogId}/${SearchPaper?.postId}`
+                      `/paper/${Papers?.Users.blogId}/${Papers?.postId}`
                     );
                   }}
                 >
-                  <H4>{SearchPaper.title}</H4>
-                  <P>{SearchPaper.contents}</P>
+                  <H4>{Papers.title}</H4>
+                  <P>{Papers.contents}</P>
                 </Box1>
-                <Box2>{SearchPaper.createdAt}</Box2>
+                <Box2>{Papers.createdAt}</Box2>
                 <Box3
                   onClick={() => {
-                    navigate(`/paper/${SearchPaper?.Users.blogId}`);
+                    navigate(`/paper/${Papers?.Users.blogId}`);
                   }}
                 >
                   <div className="by">
-                    {SearchPaper?.Users.profileImage === null ? (
+                    {Papers?.Users.profileImage === null ? (
                       <img
                         className="userProfile"
                         src={defaultUserImage}
@@ -83,12 +85,12 @@ const Search = () => {
                         className="userProfile"
                         src={
                           process.env.REACT_APP_S3_URL +
-                          `/${SearchPaper?.Users.profileImage}`
+                          `/${Papers?.Users.profileImage}`
                         }
                         alt="img"
                       />
                     )}{" "}
-                    by <span>{SearchPaper.Users.nickname}</span>
+                    by <span>{Papers.Users.nickname}</span>
                   </div>
                   <div>
                     <img
@@ -97,7 +99,7 @@ const Search = () => {
                       back_size="100% 100%"
                       alt="icon"
                     />{" "}
-                    {SearchPaper.Likes.length}
+                    {Papers.Likes.length}
                   </div>
                 </Box3>
               </Card>
@@ -109,14 +111,6 @@ const Search = () => {
     </>
   );
 };
-
-const HeadTitle = styled.h2`
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.6px;
-  text-align: center;
-  margin-top: 100px;
-`;
 
 const Wrap = styled.div`
   display: block;
@@ -248,7 +242,6 @@ const Bigbox = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 50px;
-  min-height: 700px;
 `;
 const Card = styled.div`
   width: 320px;
@@ -263,4 +256,4 @@ const Card = styled.div`
   }
 `;
 
-export default Search;
+export default AllPaper;

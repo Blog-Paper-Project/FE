@@ -15,36 +15,36 @@ const ReservationList = () => {
   useEffect(() => {
     dispatch(getBookingDB());
   }, [dispatch, leafChange]);
-  const [tab, setTab] = useState(true)
-  const [color, setColor] = useState('#fff');
-  const [color2, setColor2] = useState('#ACACAC');
-  const [backgroundColor, setBackColor] = useState('#889175');
-  const [backgroundColor2, setBackColor2] = useState('var(--main)');
-
+  const [tab, setTab] = useState(true);
+  const [color, setColor] = useState("#fff");
+  const [color2, setColor2] = useState("#ACACAC");
+  const [backgroundColor, setBackColor] = useState("#889175");
+  const [backgroundColor2, setBackColor2] = useState("var(--main)");
+  // console.log(bookingList)
   const changeColor = () => {
-    if (color2 === '#fff') {
-      setColor2('#ACACAC')
-      setColor('#fff')
+    if (color2 === "#fff") {
+      setColor2("#ACACAC");
+      setColor("#fff");
     }
-  }
+  };
   const changeColor2 = () => {
-    if (color === '#fff') {
-      setColor('#ACACAC')
-      setColor2('#fff')
+    if (color === "#fff") {
+      setColor("#ACACAC");
+      setColor2("#fff");
     }
-  }
+  };
   const changeBackColor = () => {
-    if (backgroundColor2 === '#889175') {
-      setBackColor2('var(--main)')
-      setBackColor('#889175')
+    if (backgroundColor2 === "#889175") {
+      setBackColor2("var(--main)");
+      setBackColor("#889175");
     }
-  }
+  };
   const changeBackColor2 = () => {
-    if (backgroundColor === '#889175') {
-      setBackColor('var(--main)')
-      setBackColor2('#889175')
+    if (backgroundColor === "#889175") {
+      setBackColor("var(--main)");
+      setBackColor2("#889175");
     }
-  }
+  };
 
   return (
     <>
@@ -53,9 +53,7 @@ const ReservationList = () => {
         <div className="innerWrap">
           <div className="bookingWrap">
             <BookingTitle>
-              <div className="bookingTitle">
-                예약 리스트
-              </div>
+              <div className="bookingTitle">예약 리스트</div>
               <div className="bookingSubTitle">Reservation List</div>
             </BookingTitle>
             <TabBox>
@@ -82,23 +80,15 @@ const ReservationList = () => {
                 예약 받은 내역
               </ScCategory2>
             </TabBox>
-            {tab === true &&
+            {tab === true && (
               <>
                 <ListTitle>
                   <div className="bookingInfo">
-                    <div className="userName">
-                      예약상대
-                    </div>
+                    <div className="userName">예약상대</div>
                     <div className="userBookingWrap">
-                      <span className="dayInfo">
-                        날짜
-                      </span>
-                      <span className="timeInfo">
-                        시간
-                      </span>
-                      <span className="start">
-                        채팅입장
-                      </span>
+                      <span className="dayInfo">날짜</span>
+                      <span className="timeInfo">시간</span>
+                      <span className="start">채팅입장</span>
                     </div>
                   </div>
                 </ListTitle>
@@ -118,29 +108,20 @@ const ReservationList = () => {
                   })}
                 </ul>
               </>
-            }
-            {tab === false &&
+            )}
+            {tab === false && (
               <>
                 <ListTitle>
                   <div className="bookingInfo">
-                    <div className="userName">
-                      예약상대
-                    </div>
+                    <div className="userName">예약상대</div>
                     <div className="userBookingWrap">
-                      <span className="dayInfo">
-                        날짜
-                      </span>
-                      <span className="timeInfo">
-                        시간
-                      </span>
-                      <span className="start">
-                        채팅입장
-                      </span>
+                      <span className="dayInfo">날짜</span>
+                      <span className="timeInfo">시간</span>
+                      <span className="start">채팅입장</span>
                     </div>
                   </div>
                 </ListTitle>
                 <ul className="bookingList">
-
                   {bookingList?.hostBookingList.length === 0 && (
                     <li className="noBookingText">예약된 내역이 없습니다!</li>
                   )}
@@ -156,7 +137,7 @@ const ReservationList = () => {
                   })}
                 </ul>
               </>
-            }
+            )}
           </div>
         </div>
       </Wrap>
@@ -167,20 +148,18 @@ const ReservationList = () => {
 
 const Wrap = styled.div`
   width: 100%;
-  min-height: 1800px;
+  min-height: 1500px;
   margin-bottom: 100px;
 
   .innerWrap {
     width: 592px;
     margin: auto;
-    
+
     /* 예약 리스트 Wrap */
     .bookingWrap {
       width: 100%;
       height: auto;
       min-height: 100px;
-      
-      
 
       /* 예약 리스트 */
       .bookingList {
@@ -188,7 +167,7 @@ const Wrap = styled.div`
         margin: auto;
         max-height: 880px;
         min-height: 260px;
-        border: 1px solid #E1E1E1;
+        border: 1px solid #e1e1e1;
         overflow-y: scroll;
         background-color: #fff;
 
@@ -221,7 +200,7 @@ const Wrap = styled.div`
           display: flex;
           justify-content: space-between;
           align-items: center;
-          border-bottom: 1px solid #c7c7c7;  
+          border-bottom: 1px solid #c7c7c7;
 
           /* 예약 정보 */
           .bookingInfo {
@@ -266,8 +245,16 @@ const Wrap = styled.div`
             }
           }
 
+          .btnBox {
+            width: 200px;
+            padding-left: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
           .videoBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -276,6 +263,25 @@ const Wrap = styled.div`
             font-weight: 400;
             color: #000;
             cursor: pointer;
+            margin-right: 8px;
+            background-color: #fff;
+            &:hover {
+              color: #fff;
+              background-color: #153587;
+            }
+          }
+
+          .startBtn {
+            width: 80px;
+            max-width: 80px;
+            height: 34px;
+            border: 1px solid;
+            padding: 10px 8px 9px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+            cursor: pointer;
+            margin-right: 8px;
             background-color: #fff;
             &:hover {
               color: #fff;
@@ -284,7 +290,7 @@ const Wrap = styled.div`
           }
 
           .waitBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -293,11 +299,12 @@ const Wrap = styled.div`
             font-weight: 400;
             color: #000;
             cursor: auto;
+            margin-right: 8px;
             background-color: #969696;
           }
 
           .delBtn {
-            width: 14%;
+            width: 50%;
             max-width: 80px;
             height: 34px;
             border: 1px solid;
@@ -305,14 +312,13 @@ const Wrap = styled.div`
             font-size: 14px;
             font-weight: 400;
             color: #000;
-            margin-right: 8px;
             cursor: pointer;
             background-color: #fff;
             &:hover {
               color: #fff;
               background-color: #981821;
             }
-          }          
+          }
         }
       }
     }
@@ -327,43 +333,42 @@ const BookingTitle = styled.div`
   flex-direction: column;
   padding-bottom: 25px;
   margin-bottom: 40px;
-  border-bottom: 1px solid #ACACAC;
+  border-bottom: 1px solid #acacac;
   /* 예약 리스트 타이틀 */
   .bookingTitle {
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
-    font-weight: bolder;        
+    font-weight: bolder;
   }
-  .bookingSubTitle {     
-    font-family: 'Gmarket Sans';
+  .bookingSubTitle {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;
   }
-`
+`;
 const TabBox = styled.div`
   width: 268px;
   height: 52px;
   padding: 8px;
   gap: 16px;
-  border: 1px solid #ACACAC;
+  border: 1px solid #acacac;
   margin-bottom: 16px;
   display: flsex;
   align-items: center;
   justify-content: center;
-  
-`
+`;
 const ScCategory = styled.div`
-width: 118px;
+  width: 118px;
   height: 36px;
   display: flsex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.color};
-  background-color: ${props => props.backgroundColor};
+  color: ${(props) => props.color};
+  background-color: ${(props) => props.backgroundColor};
   &:hover {
     cursor: pointer;
   }
@@ -374,8 +379,8 @@ const ScCategory2 = styled.div`
   display: flsex;
   align-items: center;
   justify-content: center;
-  color: ${props => props.color};
-  background-color: ${props => props.backgroundColor};
+  color: ${(props) => props.color};
+  background-color: ${(props) => props.backgroundColor};
   &:hover {
     cursor: pointer;
   }
@@ -384,9 +389,9 @@ const ScCategory2 = styled.div`
 const ListTitle = styled.div`
   width: 100%;
   height: 44px;
-  background: #F1F1F1;
-  border: 1px solid #ACACAC;
-  font-family: 'Gmarket Sans';
+  background: #f1f1f1;
+  border: 1px solid #acacac;
+  font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -419,22 +424,21 @@ const ListTitle = styled.div`
       display: flex;
       align-items: center;
       gap: 40px;
-        span {
-          display: inline-block;
-          font-size: 16px;
-        }
-        .dayInfo {
-          min-width: 110px;
-        }
-        .timeInfo {
-          min-width: 110px;
-        }
-        .start {
-          min-width: 130px;
-        }
+      span {
+        display: inline-block;
+        font-size: 16px;
+      }
+      .dayInfo {
+        min-width: 110px;
+      }
+      .timeInfo {
+        min-width: 110px;
+      }
+      .start {
+        min-width: 130px;
+      }
     }
   }
-`
-
+`;
 
 export default ReservationList;

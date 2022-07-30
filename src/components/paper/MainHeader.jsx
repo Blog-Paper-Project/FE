@@ -7,9 +7,9 @@ import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 /* 컴포넌트 */
-import HeadPaperSearch from "./HeadPaperSearch";
+import HeadPaperSearch from "../main/HeadPaperSearch";
 
-const Header = () => {
+const MainHeader = () => {
   const onLogout = () => {
     deleteCookie("token");
     deleteCookie("nickname");
@@ -65,16 +65,7 @@ const Header = () => {
     <>
       <HeaderBox>
         <Svg>
-          <Logo>
-            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-              <img
-                className="paperTitle"
-                src={process.env.PUBLIC_URL + "/Frame.png"}
-                back_size="100% 100%"
-                alt="icon"
-              />
-            </Link>
-          </Logo>
+          <Logo></Logo>
           <Search>
             <HeadPaperSearch />
           </Search>
@@ -82,24 +73,12 @@ const Header = () => {
             {is_cookie ? (
               <>
                 <BtnBox>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/paper/allpapers");
-                      }}
-                    >
-                      전체글
-                    </Btn>
-                  </BtnItem>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/write");
-                      }}
-                    >
-                      작성하기
-                    </Btn>
-                  </BtnItem>
+                  <Link to="/paper/allpapers">
+                    <Btn>전체글</Btn>
+                  </Link>
+                  <Link to="/write">
+                    <Btn>작성하기</Btn>
+                  </Link>
                   <DropDownContainer ref={el}>
                     <ProfileImgBox
                       src={
@@ -150,24 +129,15 @@ const Header = () => {
             ) : (
               <>
                 <BtnBox>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/paper/allpapers");
-                      }}
-                    >
-                      전체글
-                    </Btn>
-                  </BtnItem>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/login");
-                      }}
-                    >
-                      로그인
-                    </Btn>
-                  </BtnItem>
+                  <Link to="/paper/allpapers">
+                    <Btn>전체글</Btn>
+                  </Link>
+                  <Link
+                    to="/login"
+                    style={{ color: "inherit", textDecoration: "none" }}
+                  >
+                    <Btn>로그인</Btn>
+                  </Link>
                 </BtnBox>
               </>
             )}
@@ -225,14 +195,9 @@ const ProfileImgBox = styled.img`
   align-items: center;
 `;
 const BtnBox = styled.div`
-  width: 85%;
   display: flex;
   gap: 24px;
 `;
-const BtnItem = styled.div`
-  width: 80%;
-`;
-
 const Btn = styled.button`
   font-style: normal;
   font-weight: 400;
@@ -244,8 +209,7 @@ const Btn = styled.button`
   text-align: center;
   border: 1px solid;
   outline: 1px solid;
-  width: 100%;
-  min-width: 60px;
+  width: 154px;
   height: 40px;
   background-color: #fffdf7;
 `;
@@ -281,9 +245,6 @@ const NickBox = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 14px;
-  @media screen and (max-width: 1100px) {
-    display: none;
-  }
 `;
 
-export default Header;
+export default MainHeader;

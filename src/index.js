@@ -22,6 +22,7 @@ import { Provider } from "react-redux";
 
 /* socket */
 import { ContextProvider } from "./Context";
+import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,7 +41,9 @@ root.render(
         <GlobalStyle />
         <Provider store={store}>
           <ContextProvider>
-            <App />
+            <HelmetProvider>
+              <App />
+            </HelmetProvider>
           </ContextProvider>
         </Provider>
       </BrowserRouter>

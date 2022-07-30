@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 const SocketContext = createContext();
 
-const socket = io("https://first-sw.shop");
+const socket = io(process.env.REACT_APP_API_URL);
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
-  const [callEnded, setCallEnded] = useState(false);
+  // const [callEnded, setCallEnded] = useState(false);
   const [stream, setStream] = useState();
   const [name, setName] = useState("");
   const [call, setCall] = useState({});
@@ -21,8 +21,8 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  const [videoOn, setVideoOn] = useState(true);
-  const [audioOn, setAudioOn] = useState(true);
+  // const [videoOn, setVideoOn] = useState(true);
+  // const [audioOn, setAudioOn] = useState(true);
 
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
@@ -30,7 +30,9 @@ const ContextProvider = ({ children }) => {
   const boxRef = useRef();
 
   const nickname = getCookie("nickname");
+  const blogId = getCookie("blogId");
   const navigate = useNavigate();
+  // console.log(blogId);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -69,7 +71,6 @@ const ContextProvider = ({ children }) => {
   //화상
   const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
-
     peer.on("signal", (data) => {
       socket.emit("callUser", {
         userToCall: callToUser,
@@ -92,21 +93,21 @@ const ContextProvider = ({ children }) => {
     connectionRef.current = peer;
   };
 
-  // 오디오 온오프
-  const audioHandler = () => {
-    myVideo.current.srcObject
-      .getAudioTracks()
-      .forEach((track) => (track.enabled = !track.enabled));
-    setAudioOn(!audioOn);
-  };
+  // // 오디오 온오프
+  // const audioHandler = () => {
+  //   myVideo.current.srcObject
+  //     .getAudioTracks()
+  //     .forEach((track) => (track.enabled = !track.enabled));
+  //   setAudioOn(!audioOn);
+  // };
 
-  // 비디오 온오프
-  const videoHandler = () => {
-    myVideo.current.srcObject
-      .getVideoTracks()
-      .forEach((track) => (track.enabled = !track.enabled));
-    setVideoOn(!videoOn);
-  };
+  // // 비디오 온오프
+  // const videoHandler = () => {
+  //   myVideo.current.srcObject
+  //     .getVideoTracks()
+  //     .forEach((track) => (track.enabled = !track.enabled));
+  //   setVideoOn(!videoOn);
+  // };
 
   // // 화면 공유
   // const shareScreen = () => {
@@ -155,7 +156,7 @@ const ContextProvider = ({ children }) => {
   //채팅받기
   useEffect(() => {
     socket.on("update", (data) => {
-      console.log(data);
+      // console.log(data);
       setMessageList((list) => [...list, data]);
     });
   }, []);
@@ -171,12 +172,11 @@ const ContextProvider = ({ children }) => {
     scrollToBottom();
   });
 
-  const leaveCall = () => {
-    setCallEnded(true);
-    connectionRef.current.destroy();
+  const leaveCall = (currentStream) => {
+    // setCallEnded(true);
     socket.emit("leaveRoom");
-    window.location.reload();
-    navigate(-1);
+    navigate("/");
+    window.location.replace("/");
   };
 
   return (
@@ -190,7 +190,7 @@ const ContextProvider = ({ children }) => {
         stream,
         name,
         setName,
-        callEnded,
+        // callEnded,
         me,
         callUser,
         leaveCall,
@@ -203,11 +203,11 @@ const ContextProvider = ({ children }) => {
         nickname,
         callToUser,
         setCallToUser,
-        audioHandler,
-        videoHandler,
+        // audioHandler,
+        // videoHandler,
         // shareScreen,
-        audioOn,
-        videoOn,
+        // audioOn,
+        // videoOn,
       }}
     >
       {children}

@@ -2,11 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import Sidebar from "../components/chat/Sidebar";
-import Notifications from "../components/chat/Notifications";
 import VideoPlayer from "../components/chat/VideoPlayer";
 import Chatting from "../components/chat/Chatting";
 
-import Header from "../components/main/Header";
+// import Header from "../components/main/Header";
 import { getCookie } from "../shared/Cookie";
 import { SocketContext } from "../Context";
 import styled from "styled-components";
@@ -39,13 +38,11 @@ const Chat = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <ChatBox>
         <VideoBox>
           <VideoPlayer />
-          <Sidebar>
-            <Notifications />
-          </Sidebar>
+          <Sidebar />
         </VideoBox>
         <Chatting />
       </ChatBox>
@@ -56,8 +53,9 @@ const Chat = () => {
 const ChatBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 42px 202px auto 202px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const VideoBox = styled.div`

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,24 +18,34 @@ const Footer = () => {
         </Footer1>
         <Footer2>
           <Footer2T>
-            <div>Front-end Developer</div>
-            <div>구자덕</div>
-            <div>정대규</div>
-            <div>임운철</div>
+            <div className="title">Front-end Developer</div>
+            <div className="text">
+              <div> • Gu Ja-deok</div>
+              <div> • Jeong Dae-gyu</div>
+              <div> • Im Un-cheol</div>
+            </div>
           </Footer2T>
         </Footer2>
         <Footer3>
           <Footer3T>
-            <div>Back-end Developer</div>
-            <div>문광민</div>
-            <div>김성준</div>
-            <div>송민지</div>
-            <div>박선우</div>
+            <div className="title">Back-end Developer</div>
+            <div className="text">
+              <div> • Moon Kwang-Min</div>
+              <div> • Kim Seong-Jun</div>
+              <div> • Song Min-ji</div>
+              <div> • Park Seon-woo</div>
+            </div>
           </Footer3T>
         </Footer3>
         <Footer4>
           <Footer4T>
-            <div>푸터 4</div>
+            <div className="title">Git-hub Address </div>
+            <div className="text">
+              <div>Front: </div>
+              <a href="https://github.com/Blog-Paper-Project/FE">• https://github.com/Blog-Paper-Project/FE</a>
+              <div>Back: </div>
+              <a href="https://github.com/Blog-Paper-Project/BE">• https://github.com/Blog-Paper-Project/BE</a>
+            </div>
           </Footer4T>
         </Footer4>
       </FooterBox>
@@ -87,6 +98,14 @@ const Footer2 = styled.div`
 const Footer2T = styled.div`
   width: 70%;
   height: 55%;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .text {
+    padding-left: 5px;
+  }
 `;
 
 const Footer3 = styled.div`
@@ -103,12 +122,21 @@ const Footer3 = styled.div`
 const Footer3T = styled.div`
   width: 70%;
   height: 55%;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .text {
+    padding-left: 5px;
+  }
 `;
 
 const Footer4 = styled.div`
   width: 25%;
   height: 220px;
   border: 1px solid #A7ACA1;
+  border-right: none;
   float: left;
   display: flex;
   align-items: center;
@@ -118,6 +146,14 @@ const Footer4 = styled.div`
 const Footer4T = styled.div`
   width: 70%;
   height: 55%;
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .text {
+    padding-left: 5px;
+  }
 `;
 
 const FooterEnd = styled.div`
