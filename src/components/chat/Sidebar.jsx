@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
 
-import styled from "styled-components";
 // import AudioOff from "../../public/images/AudioOff.svg";
 // import AudioOn from "../../public/images/AudioOn.svg";
 // import VideoOff from "../../public/images/VideoOff.svg";
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: "10px 20px",
-    border: "2px solid black",
   },
 }));
 
@@ -59,10 +57,10 @@ const Sidebar = ({ children }) => {
   const classes = useStyles();
   return (
     <Container className={classes.container}>
-      <Paper elevation={10} className={classes.paper}>
-        <form className={classes.root} noValidate autoComplete="off">
-          <Grid container className={classes.gridContainer}>
-            {/* <ButtonList>
+      {/* <Paper elevation={10} className={classes.paper}> */}
+      <form className={classes.root} noValidate autoComplete="off">
+        <Grid container className={classes.gridContainer}>
+          {/* <ButtonList>
               <div>
                 {audioOn ? (
                   <button size={25} onClick={audioHandler}>
@@ -91,43 +89,43 @@ const Sidebar = ({ children }) => {
                 </button>
               </div>
             </ButtonList> */}
-            {callAccepted ? (
-              <Button
-                variant="contained"
-                color="secondary"
-                startIcon={<PhoneDisabled fontSize="large" />}
-                fullWidth
-                onClick={leaveCall}
-                className={classes.margin}
-              >
-                나가기
-              </Button>
-            ) : call.isReceivingCall && !callAccepted ? (
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                onClick={answerCall}
-                className={classes.margin}
-              >
-                Answer
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<Phone fontSize="large" />}
-                fullWidth
-                onClick={() => callUser(idToCall)}
-                className={classes.margin}
-              >
-                화상 연결하기
-              </Button>
-            )}
-          </Grid>
-        </form>
-        {children}
-      </Paper>
+          {callAccepted ? (
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<PhoneDisabled fontSize="large" />}
+              fullWidth
+              onClick={leaveCall}
+              className={classes.margin}
+            >
+              나가기
+            </Button>
+          ) : call.isReceivingCall && !callAccepted ? (
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={answerCall}
+              className={classes.margin}
+            >
+              Answer
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Phone fontSize="large" />}
+              fullWidth
+              onClick={() => callUser(idToCall)}
+              className={classes.margin}
+            >
+              화상 연결하기
+            </Button>
+          )}
+        </Grid>
+      </form>
+      {children}
+      {/* </Paper> */}
     </Container>
   );
 };

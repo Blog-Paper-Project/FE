@@ -601,7 +601,7 @@ const CalendarTemplate = ({
       setSaving(true);
       let onePick1 = [];
       let onePick2 = [];
-      console.log(isLogin);
+      // console.log(isLogin);
       if (
         (isLogin === null && activeDay === null) ||
         (activeDay && isLogin === null)
@@ -662,7 +662,7 @@ const CalendarTemplate = ({
         // console.log('goDB : ', { goDB });
         // console.log({ data });
         dispatch(setBookingDB(goDB, blogId));
-        console.log(blogId);
+        // console.log(blogId);
         setAvailability(data);
       }
     };

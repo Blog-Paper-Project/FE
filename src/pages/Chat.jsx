@@ -53,8 +53,9 @@ const Chat = () => {
 const ChatBox = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin: 42px 202px auto 202px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const VideoBox = styled.div`

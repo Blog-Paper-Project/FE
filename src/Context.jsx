@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const SocketContext = createContext();
 
-const socket = io("https://first-sw.shop");
+const socket = io(process.env.REACT_APP_API_URL);
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
@@ -32,7 +32,7 @@ const ContextProvider = ({ children }) => {
   const nickname = getCookie("nickname");
   const blogId = getCookie("blogId");
   const navigate = useNavigate();
-  console.log(blogId);
+  // console.log(blogId);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -71,7 +71,6 @@ const ContextProvider = ({ children }) => {
   //화상
   const callUser = () => {
     const peer = new Peer({ initiator: true, trickle: false, stream });
-
     peer.on("signal", (data) => {
       socket.emit("callUser", {
         userToCall: callToUser,
@@ -157,7 +156,7 @@ const ContextProvider = ({ children }) => {
   //채팅받기
   useEffect(() => {
     socket.on("update", (data) => {
-      console.log(data);
+      // console.log(data);
       setMessageList((list) => [...list, data]);
     });
   }, []);

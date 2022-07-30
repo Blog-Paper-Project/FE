@@ -401,7 +401,6 @@ const ProfileImg = styled.img`
   width: 100%;
   border: 1px solid #ffffff;
   border-radius: 50%;
-  cursor: default;
 `;
 
 const Nickname = styled.div`

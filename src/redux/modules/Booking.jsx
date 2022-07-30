@@ -4,17 +4,20 @@ import Swal from "sweetalert2";
 
 //액션타입
 const GET_BOOKING = "GET_BOOKING";
-// const DEL_BOOKING = "DEL_BOOKING";
+const GUESTDEL_BOOKING = "DEL_BOOKING";
+const HOSTDEL_BOOKING = "HOSTDEL_BOOKING";
 
 //액션 크리에이터
 const getBooking = (data) => {
   // console.log(data);
   return { type: GET_BOOKING, data };
 };
-// const delBooking =(data) => {
-//   return { type: DEL_BOOKING, data}
-// }
-
+const delBooking = (data) => {
+  return { type: GUESTDEL_BOOKING, data };
+};
+const delBooking2 = (data) => {
+  return { type: HOSTDEL_BOOKING, data };
+};
 
 const initialState = {
   list: [],
@@ -22,13 +25,13 @@ const initialState = {
 
 //---------청크--------------//
 // 예약하기
-const userName = getCookie("blogId");
 export const setBookingDB = (data, blogId) => {
-  return function (dispatch, getCookie) {
-    console.log(blogId);
-    console.log(userName);
-    console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
-    if (!userName) {
+  let userName = getCookie("blogId");
+  return function (dispatch, getCookie, getState) {
+    // console.log(blogId);
+    // console.log(userName);
+    // console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
+    if (userName === null) {
       Swal.fire({
         icon: "error",
         text: `로그인후 예약해주세요~!`,
@@ -63,7 +66,7 @@ export const setBookingDB = (data, blogId) => {
       });
     }
 
-    console.log(data);
+    // console.log(data);
 
     apiToken({
       method: "post",
@@ -81,7 +84,7 @@ export const setBookingDB = (data, blogId) => {
 
         let [week, month, day, year, sTime] = startTime.toString().split(" ");
         let start = sTime.substr(0, 5);
-        let end = endTime.toString().substr(-17, 5);
+        let end = endTime.toString().substr(16, 5);
         let Month = (month) => {
           if (month === "Jan") return "1";
           if (month === "Feb") return "2";
@@ -104,10 +107,15 @@ export const setBookingDB = (data, blogId) => {
           )}월  ${day}일   ${start} - ${end} 예약 되었습니다!!`,
           showConfirmButton: true,
           confirmButtonColor: "#3085d6",
+          confirmButtonText: "확인",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         if (err.response.data.msg === " 보유한 나뭇잎이 부족합니다.") {
           Swal.fire({
             title: "예약에 필요한 나뭇잎이 부족합니다!",
@@ -120,7 +128,9 @@ export const setBookingDB = (data, blogId) => {
             }
           });
         }
-        if (err.response.data.msg === "이미 지나간 시간대에는 예약할 수 없습니다.") {
+        if (
+          err.response.data.msg === "이미 지나간 시간대에는 예약할 수 없습니다."
+        ) {
           Swal.fire({
             title: "이미 지나간 시간에는 예약 하실 수 없습니다!",
             icon: "warning",
@@ -160,19 +170,20 @@ export const getBookingDB = () => {
         dispatch(getBooking(doc.data.totalList));
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
 
 // 예약 수락하기
 export const patchBookingDB = (hostId) => {
-    return function () {
+  return function (dispatch) {
     apiToken({
       method: "patch",
       url: `/api/booking/${hostId.hostId}/${hostId.bookingId}`,
     })
       .then(() => {
+        dispatch(getBooking());
         Swal.fire({
           icon: "success",
           text: `예약을 수락 하셨 습니다!`,
@@ -181,68 +192,88 @@ export const patchBookingDB = (hostId) => {
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 };
 
 // 호스트 예약 취소
 export const deleteHostBookingDB = (hostId) => {
-  console.log(hostId)
-  return function () {
+  // console.log(hostId)
+  return function (dispatch) {
     apiToken({
       method: "delete",
       url: `/api/booking/host/${hostId.hostId}/${hostId.bookingId}`,
     })
-    .then(() => {
-      // dispatch(delBooking())
-      Swal.fire({
-        icon: "success",
-        text: `예약을 취소 하셨 습니다!`,
-        showConfirmButton: true,
-        confirmButtonColor: "#3085d6",
+      .then((hostId) => {
+        dispatch(delBooking2(hostId.bookingId));
+        Swal.fire({
+          icon: "success",
+          text: `예약을 취소 하셨 습니다!`,
+          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+      })
+      .catch((err) => {
+        // console.log(err);
       });
-      
-    })
-    .catch((err) => {
-      console.log(err);
-    });
   };
 };
 
 // 게스트 예약 취소
 export const deleteGuestBookingDB = (Guest, bookingId) => {
-  return function () {
-    console.log(Guest, bookingId)
+  return function (dispatch) {
+    // console.log(Guest, bookingId)
     apiToken({
       method: "delete",
       url: `/api/booking/guest/${Guest}/${bookingId}`,
     })
-    .then((bookingId) => {
-      // dispatch(delBooking(bookingId))
-      Swal.fire({
-        icon: "success",
-        text: `예약을 취소 하셨 습니다!`,
-        showConfirmButton: true,
-        confirmButtonColor: "#3085d6",
+      .then(() => {
+        dispatch(delBooking(bookingId));
+        Swal.fire({
+          icon: "success",
+          text: `예약을 취소 하셨 습니다!`,
+          showConfirmButton: true,
+          confirmButtonColor: "#3085d6",
+        });
+      })
+      .catch((err) => {
+        // console.log(err);
       });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
   };
 };
-
 
 //리듀서
 const bookingReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BOOKING:
       return { data: action.data };
-    // case DEL_BOOKING:
-    //   const newList = state.list.filter((state) => {return state.bookingId !== action.id});
-    //   return {...state,list:[...newList]};
-      default:
+    case GUESTDEL_BOOKING:
+      const newDeletedata = state?.data.guestBookingList.filter((value) => {
+        return value.bookingId !== Number(action.data);
+      });
+      // console.log(newDeletedata)
+      return {
+        ...state,
+        data: {
+          guestBookingList: [...newDeletedata],
+          hostBookingList: [...state.data.hostBookingList],
+        },
+      };
+    case HOSTDEL_BOOKING:
+      const newDeletedata2 = state?.data.hostBookingList.filter((value) => {
+        return value.bookingId !== Number(action.data);
+      });
+      // console.log(newDeletedata2)
+      return {
+        ...state,
+        data: {
+          guestBookingList: [...state.data.guestBookingList],
+          hostBookingList: [...newDeletedata2],
+        },
+      };
+
+    default:
       return state;
   }
 };

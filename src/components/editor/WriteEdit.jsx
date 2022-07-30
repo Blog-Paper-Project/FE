@@ -150,7 +150,7 @@ const WriteEdit = () => {
     formData.append("image", thumbImage);
     // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    console.log(image_data?.data.imageUrl);
+    // console.log(image_data?.data.imageUrl);
 
     const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -383,6 +383,7 @@ const WriteEdit = () => {
               onChange={(e) => {
                 setHead(e.target.value);
               }}
+              maxLength="30"
             ></Title>
             <Line />
             <HashTagInput

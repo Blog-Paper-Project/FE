@@ -23,15 +23,15 @@ const Reservation = () => {
 
     apiToken({
       method: "get",
-      url: `/api/booking/blog/${blogId}`, 
+      url: `/api/booking/blog/${blogId}`,
     })
       .then((doc) => {
-        console.log(doc.data);
+        // console.log(doc.data);
         setAvailability(doc?.data.bookingList);
       })
-      
+
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
 
@@ -57,18 +57,15 @@ const Reservation = () => {
             <div className="english">Reservation</div>
           </TitleBox>
           <HostBox>
-
             <ImgBox>
-              <HostImgBox src={hostProfileImage === null ? defaultUserImage : S3} />
-              <div className="hostNickName">
-                {HostLeafCount?.nickname}
-              </div>
+              <HostImgBox
+                src={hostProfileImage === null ? defaultUserImage : S3}
+              />
+              <div className="hostNickName">{HostLeafCount?.nickname}</div>
             </ImgBox>
             <LeafBox>
               <div className="guestLeaf">
-                <div className="leafTitle">
-                  내가 보유한 나뭇잎 갯수
-                </div>
+                <div className="leafTitle">내가 보유한 나뭇잎 갯수</div>
                 <img
                   className="leafIcon"
                   src={process.env.PUBLIC_URL + "/Group.png"}
@@ -81,17 +78,13 @@ const Reservation = () => {
               </div>
 
               <div className="hostLeaf">
-                <div className="leafTitle">
-                  예약에 필요한 나뭇잎 갯수
-                </div>
+                <div className="leafTitle">예약에 필요한 나뭇잎 갯수</div>
                 <img
                   className="leafIcon"
                   src={process.env.PUBLIC_URL + "/Group.png"}
                   alt="icon"
                 />
-                <div className="leafCount">
-                  {HostLeafCount?.setPoint}개
-                </div>
+                <div className="leafCount">{HostLeafCount?.setPoint}개</div>
               </div>
             </LeafBox>
           </HostBox>
@@ -109,13 +102,13 @@ const Reservation = () => {
 const Wrap = styled.div`
   width: 100%;
   height: 1500px;
-`
+`;
 const InfoBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-`
+`;
 const TitleBox = styled.div`
   width: 640px;
   height: 260px;
@@ -125,35 +118,35 @@ const TitleBox = styled.div`
   padding: 25px;
   margin-bottom: 46px;
   flex-direction: column;
-  border-bottom: 1px solid #ACACAC;
+  border-bottom: 1px solid #acacac;
   .korean {
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
   }
   .english {
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
   }
-`
+`;
 const HostBox = styled.div`
   width: 592px;
   height: 158.4px;
   display: flex;
   align-items: center;
   float: left;
-`
+`;
 
 const ImgBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  .hostNickName{
-    font-family: 'Gmarket Sans';
+  .hostNickName {
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -163,7 +156,7 @@ const ImgBox = styled.div`
     text-align: center;
     padding-top: 16px;
   }
-`
+`;
 const LeafBox = styled.div`
   width: 592px;
   height: 130px;
@@ -174,11 +167,11 @@ const LeafBox = styled.div`
   flex-direction: column;
   gap: 40px;
   float: left;
-  .guestLeaf{
+  .guestLeaf {
     display: flex;
     align-items: center;
-    .leafTitle{
-      font-family: 'Gmarket Sans';
+    .leafTitle {
+      font-family: "Gmarket Sans";
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
@@ -187,11 +180,11 @@ const LeafBox = styled.div`
       display: flex;
       align-items: center;
     }
-    .leafIcon{
+    .leafIcon {
       height: 24.67px;
       margin-left: 28px;
     }
-    .leafCount{
+    .leafCount {
       height: 50px;
       width: 125px;
       margin-left: 16px;
@@ -201,16 +194,16 @@ const LeafBox = styled.div`
       line-height: 20px;
       display: flex;
       align-items: center;
-      color: #ACACAC;
-      background: #FFFFFF;
-      border-bottom: 1px solid #ACACAC;
+      color: #acacac;
+      background: #ffffff;
+      border-bottom: 1px solid #acacac;
     }
   }
-  .hostLeaf{
-    display: flex;    
+  .hostLeaf {
+    display: flex;
     align-items: center;
-    .leafTitle{
-      font-family: 'Gmarket Sans';
+    .leafTitle {
+      font-family: "Gmarket Sans";
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
@@ -219,11 +212,11 @@ const LeafBox = styled.div`
       display: flex;
       align-items: center;
     }
-    .leafIcon{
+    .leafIcon {
       height: 24.67px;
       margin-left: 15px;
     }
-    .leafCount{
+    .leafCount {
       height: 50px;
       width: 125px;
       margin-left: 16px;
@@ -233,24 +226,25 @@ const LeafBox = styled.div`
       line-height: 20px;
       display: flex;
       align-items: center;
-      color: #ACACAC;
-      background: #FFFFFF;
-      border-bottom: 1px solid #ACACAC;
+      color: #acacac;
+      background: #ffffff;
+      border-bottom: 1px solid #acacac;
     }
   }
-`
+`;
 const HostImgBox = styled.img`
   width: 130px;
   height: 130px;
   margin: 0 0 0 0;
   border-radius: 100px;
   align-items: center;
-`
+  cursor: auto;
+`;
 const CalendarBox = styled.div`
-margin-top: 66.6px;
-display: flex;
-justify-content: center;
-align-items: center;
-`
+  margin-top: 66.6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default Reservation;

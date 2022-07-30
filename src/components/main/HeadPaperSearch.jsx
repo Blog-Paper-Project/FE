@@ -14,7 +14,7 @@ const HeadPaperSearch = () => {
 
   return (
     <>
-      <form>
+      
         <SearchBox>
           <BiSearchAlt2 color="black" size="25px" />
           <Search1
@@ -33,13 +33,13 @@ const HeadPaperSearch = () => {
             }}
           />
         </SearchBox>
-      </form>
+      
     </>
   );
 };
 
 const SearchBox = styled.div`
-  width: 592px;
+  width: 60%;
   height: 52px;
   padding-left: 20px;
   display: flex;

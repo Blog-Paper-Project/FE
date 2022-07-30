@@ -37,7 +37,7 @@ const Main = () => {
   });
 
   const BestPapers = paper_query?.data.papers;
-  console.log(BestPapers);
+  // console.log(BestPapers);
 
   return (
     <>
@@ -46,12 +46,12 @@ const Main = () => {
         <MainTop>
           <div className="MainTile">Welcome.</div>
           <div className="MainContent">
-            자신의 생각을 글로 쓰고, 공감가는 글을 읽으면 블로거 주인과
-            소통해보아요, 댓글이 아닌 화상채팅으로 소통 할 수 있습니다, 자신의
-            생각을 글로 쓰고, 공감가는 글을 읽으면 블로거 주인과 소통해보아요,
-            댓글이 아닌 화상채팅으로 소통 할 수 있습니다, 자신의 생각을 글로
-            쓰고, 공감가는 글을 읽으면 블로거 주인과 소통해보아요, 댓글이 아닌
-            화상채팅으로 소통 할 수 있습니다,
+            자신의 생각을 글로 적어보아요.
+            <br />
+            공감 가는 글을 읽고 블로거 주인과 소통하고 싶나요? <br />
+            나의 생각을 공유해 나뭇잎을 모으고 댓글뿐만 아니라 화상채팅으로
+            소통할 수 있습니다. <br />
+            자신만의 이야기로 소통할 수 있는 블로그 PAPER
           </div>
         </MainTop>
         <PostWrap>
@@ -210,7 +210,7 @@ const MainTop = styled.div`
   justify-content: space-between;
   color: #333;
   padding-left: 80px;
-  padding-right: 140px;
+  padding-right: 80px;
   margin-top: 60px;
   .MainTile {
     height: 85px;
@@ -221,8 +221,9 @@ const MainTop = styled.div`
   }
   .MainContent {
     display: flex;
+    justify-content: flex-end;
     align-items: flex-start;
-    width: 700px;
+    width: 770px;
 
     font-size: 15px;
     line-height: 24px;
@@ -231,7 +232,7 @@ const MainTop = styled.div`
     font-family: "Song Myung", serif;
     /* font-style: italic; */
     font-weight: 400;
-    text-align: left;
+    text-align: right;
     opacity: 0.7;
   }
 `;
@@ -255,7 +256,6 @@ const PostBox = styled.div`
 const PopularBloger = styled.div`
   width: 100%;
   height: 260px;
-  /* border: 1px solid #a7aca1; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -337,7 +337,6 @@ const EndBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* border: 1px solid #a7aca1; */
   font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {

@@ -20,7 +20,7 @@ const AllPaper = () => {
   const { data: paper_query } = useQuery("paper_lists", paperLists, {
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(paper_query);
+      // console.log(paper_query);
       return data;
     },
   });
@@ -116,6 +116,7 @@ const Wrap = styled.div`
   display: block;
   height: auto;
   width: 100%;
+  background-color: #fffdf7;
 `;
 const Box = styled.div`
   height: 180px;

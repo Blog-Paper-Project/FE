@@ -82,12 +82,24 @@ const Header = () => {
             {is_cookie ? (
               <>
                 <BtnBox>
-                  <Link to="/paper/allpapers">
-                    <Btn>전체글</Btn>
-                  </Link>
-                  <Link to="/write">
-                    <Btn>작성하기</Btn>
-                  </Link>
+                  <BtnItem>
+                    <Btn
+                      onClick={() => {
+                        navigate("/paper/allpapers");
+                      }}
+                    >
+                      전체글
+                    </Btn>
+                  </BtnItem>
+                  <BtnItem>
+                    <Btn
+                      onClick={() => {
+                        navigate("/write");
+                      }}
+                    >
+                      작성하기
+                    </Btn>
+                  </BtnItem>
                   <DropDownContainer ref={el}>
                     <ProfileImgBox
                       src={
@@ -138,15 +150,24 @@ const Header = () => {
             ) : (
               <>
                 <BtnBox>
-                  <Link to="/paper/allpapers">
-                    <Btn>전체글</Btn>
-                  </Link>
-                  <Link
-                    to="/login"
-                    style={{ color: "inherit", textDecoration: "none" }}
-                  >
-                    <Btn>로그인</Btn>
-                  </Link>
+                  <BtnItem>
+                    <Btn
+                      onClick={() => {
+                        navigate("/paper/allpapers");
+                      }}
+                    >
+                      전체글
+                    </Btn>
+                  </BtnItem>
+                  <BtnItem>
+                    <Btn
+                      onClick={() => {
+                        navigate("/login");
+                      }}
+                    >
+                      로그인
+                    </Btn>
+                  </BtnItem>
                 </BtnBox>
               </>
             )}
@@ -204,9 +225,14 @@ const ProfileImgBox = styled.img`
   align-items: center;
 `;
 const BtnBox = styled.div`
+  width: 85%;
   display: flex;
   gap: 24px;
 `;
+const BtnItem = styled.div`
+  width: 80%;
+`;
+
 const Btn = styled.button`
   font-style: normal;
   font-weight: 400;
@@ -218,7 +244,8 @@ const Btn = styled.button`
   text-align: center;
   border: 1px solid;
   outline: 1px solid;
-  width: 154px;
+  width: 100%;
+  min-width: 60px;
   height: 40px;
   background-color: #fffdf7;
 `;
@@ -254,6 +281,9 @@ const NickBox = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 14px;
+  @media screen and (max-width: 1100px) {
+    display: none;
+  }
 `;
 
 export default Header;
