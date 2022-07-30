@@ -69,7 +69,7 @@ const Login = () => {
           <Input2
             type="email"
             label="이메일"
-            placeholder="아이디"
+            placeholder="이메일"
             value={email || ""}
             onChange={setEmail}
           />
