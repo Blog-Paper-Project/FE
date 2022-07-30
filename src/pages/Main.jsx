@@ -305,7 +305,6 @@ const EndBox = styled.div`
   align-items: center;
   justify-content: center;
   border-top: 1px solid #a7aca1;
-  border-bottom: 1px solid #a7aca1;
   font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
