@@ -346,6 +346,7 @@ const WriteEdit = () => {
                     setImage(e.target.files[0]);
                     encodeFileToBase64(e.target.files[0]);
                   }}
+                  maxLength="20"
                 ></input>
               </div>
               <Thumbmail
@@ -382,6 +383,7 @@ const WriteEdit = () => {
               onChange={(e) => {
                 setHead(e.target.value);
               }}
+              maxLength="30"
             ></Title>
             <Line />
             <HashTagInput

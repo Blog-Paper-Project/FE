@@ -415,6 +415,7 @@ const ModifyEdit = (props) => {
               onChange={(e) => {
                 setHeadData(e.target.value);
               }}
+              maxLength="30"
             ></Title>
             <Line />
             <HashTagInput

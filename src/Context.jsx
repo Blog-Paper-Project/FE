@@ -32,7 +32,7 @@ const ContextProvider = ({ children }) => {
   const nickname = getCookie("nickname");
   const blogId = getCookie("blogId");
   const navigate = useNavigate();
-  console.log(blogId);
+  // console.log(blogId);
 
   useEffect(() => {
     navigator.mediaDevices
@@ -156,7 +156,7 @@ const ContextProvider = ({ children }) => {
   //채팅받기
   useEffect(() => {
     socket.on("update", (data) => {
-      console.log(data);
+      // console.log(data);
       setMessageList((list) => [...list, data]);
     });
   }, []);
