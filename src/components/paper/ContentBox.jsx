@@ -65,6 +65,7 @@ const Title = styled.div`
   color: #333;
   /* opacity: 0.9; */
   padding-left: 14px;
+  overflow: hidden;
 `;
 const CreatedAt = styled.div`
   height: 16px;
