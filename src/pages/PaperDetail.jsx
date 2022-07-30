@@ -281,11 +281,11 @@ const Nickname = styled.span`
   font-size: 18px;
 `;
 const Title = styled.div`
-  height: 75px;
+  min-height: 75px;
   width: 896px;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 600;
-  line-height: 44pt;
+  line-height: 40pt;
   color: #333333;
   margin-bottom: 10px;
   margin-top: 20px;

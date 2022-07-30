@@ -145,7 +145,7 @@ const Header = () => {
                     )}
                   </DropDownContainer>
                 </BtnBox>
-                <NickBox>{nickname}</NickBox>
+                {/* <NickBox>{nickname}</NickBox> */}
               </>
             ) : (
               <>
@@ -218,19 +218,22 @@ const Login = styled.div`
   padding-right: 48px;
 `;
 const ProfileImgBox = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin: 0 0 0 0;
-  border-radius: 50px;
+  border-radius: 50%;
   align-items: center;
+  /* padding-bottom: 2px; */
 `;
 const BtnBox = styled.div`
   width: 85%;
   display: flex;
   gap: 24px;
+  padding-top: 3px;
 `;
 const BtnItem = styled.div`
   width: 80%;
+  padding-top: 7px;
 `;
 
 const Btn = styled.button`
@@ -252,7 +255,10 @@ const Btn = styled.button`
 const DropDownContainer = styled.div`
   width: 50px;
 `;
-const DropDownListContainer = styled.div``;
+const DropDownListContainer = styled.div`
+  margin-top: 4px;
+  margin-right: 20px;
+`;
 const DropDownList = styled.ul`
   position: absolute;
   z-index: 3;
@@ -266,6 +272,7 @@ const DropDownList = styled.ul`
   color: #333;
   font-size: 1.3rem;
   font-weight: 400;
+
   &:first-child {
     padding-top: 0.8em;
   }
