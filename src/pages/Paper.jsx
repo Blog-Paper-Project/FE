@@ -528,7 +528,6 @@ const Tag = styled.div`
 // AllSortWrap wrap - 4 / 각 포스트들 간의 간격 gap
 const AllSortWrap = styled.div`
   width: 1078px;
-  /* min-height: 1200px; */
   display: flex;
   flex-wrap: wrap;
   gap: 30px 40px;
@@ -537,8 +536,7 @@ const AllSortWrap = styled.div`
 const CategoryWrap = styled.div`
   height: 32px;
   width: 154px;
-  position: relative;
-  /* overflow-y: ; */
+
   select {
     -webkit-appearance: none;
 
@@ -564,8 +562,6 @@ const CategoryWrap = styled.div`
   .SelectWrap {
     height: 32px;
     width: 154px;
-
-    z-index: 4;
   }
   .OptionWrap {
     width: 154px;
@@ -576,8 +572,7 @@ const CategoryWrap = styled.div`
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     overflow-y: scroll;
-    position: relative;
-    z-index: 99;
+    position: absolute;
   }
   .OptionWrap::-webkit-scrollbar {
     width: 10px;
