@@ -42,9 +42,9 @@ const Paper = () => {
   // const onCategory = (e) => {
   //   console.log(e.target.value);
   // };
-  const onAll = useCallback(() => {
-    setAllSort(true);
-  }, []);
+  // const onAll = useCallback(() => {
+  //   setAllSort(true);
+  // }, []);
 
   //## 개인 페이지 구독하기 useMutation post
   const PostSubscribeData = async () => {
