@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const SocketContext = createContext();
 
-const socket = io("https://first-sw.shop");
+const socket = io(process.env.REACT_APP_API_URL);
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
