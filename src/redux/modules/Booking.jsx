@@ -26,9 +26,9 @@ const initialState = {
 
 //---------청크--------------//
 // 예약하기
-const userName = getCookie("blogId");
 export const setBookingDB = (data, blogId) => {
-  return function (dispatch, getCookie) {
+  let userName = getCookie("blogId")
+  return function (dispatch, getCookie, getState ) {
     console.log(blogId);
     console.log(userName);
     console.log("DB 저장으로 가는 데이터 : ", { data, blogId });
