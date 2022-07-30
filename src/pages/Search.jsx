@@ -17,9 +17,9 @@ const Search = () => {
   useEffect(() => {
     dispatch(__searchPost(payload));
   }, [dispatch]);
-  console.log(datas);
+  // console.log(datas);
   const SearchPaper = datas.papers;
-  console.log(SearchPaper)
+  // console.log(SearchPaper)
 
   return (
     <>

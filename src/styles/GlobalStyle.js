@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     body{
         /* width:100%; */
         font-family: 'Noto Sans KR', sans-serif;
-        background-color:  #FFFDF7;
+        background-color: #fffdf7;
         /* background-color:  white; */
         overflow-x: hidden;
     };
@@ -38,10 +38,12 @@ const GlobalStyle = createGlobalStyle`
     // toast Edit 
     .toastui-editor-contents p {
         /* font-family: "Noto Sans Light","Malgun Gothic",sans-serif !important; */
-        font-size: 13pt !important;
+        font-size: 11pt !important;
         letter-spacing: .8px !important;
-        line-height: 22pt !important;
+        line-height: 23pt !important;
         color: #333 !important;
+        margin-top: 30px;
+        margin-bottom: 10px !important;
     }
     .toastui-editor-contents h1 {
         font-family: "Noto Sans" !important;

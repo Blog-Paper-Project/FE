@@ -40,7 +40,7 @@ const FindPassword = () => {
       });
     },
     onError: () => {
-      console.log("error");
+      // console.log("error");
     },
   });
 
@@ -121,7 +121,7 @@ const FindPassword = () => {
       navigate("/login");
     },
     onError: (err) => {
-      console.log(err);
+      // console.log(err);
       return;
     },
   });

@@ -92,132 +92,137 @@ const PaperDetail = () => {
   return (
     <Container>
       <Header />
-
-      {/* 아래 글*/}
-      <ContainerContents>
-        <Title>{detail_data?.paper?.title}</Title>
-        <Line />
-        <UserDataWrap>
-          <div className="wrap">
-            {/* 블로거 프로필 이미지 */}
-            <ProfileImgBox
-              src={
-                detail_data?.paper?.Users.profileImage === null
-                  ? defaultUserImage
-                  : S3
-              }
-              onClick={() => {
-                navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
-              }}
-            />
-            <Nickname>{detail_data?.paper?.Users.nickname}</Nickname>
-            <span>·</span>
-            <CreatedAt>{detail_data?.paper?.createdAt}</CreatedAt>
-            <span>·</span>
-            <div className="ViewCountName">
-              조회수 {ViewCountTotal ? ViewCountTotal : null}
-            </div>
-          </div>
-          <div className="EditDeleteBtnWrap">
-            {isHostId === blogId ? (
-              <>
-                {/* 아래 글 수정 버튼*/}
-
-                <button
-                  className="ModfyBtn"
-                  onClick={() => {
-                    navigate(`/modify/${blogId}/${postId}`);
-                  }}
-                >
-                  <img src={ModifyImg} alt="" />
-                  수정하기
-                </button>
-
-                {/* 아래 글 삭제 버튼*/}
-
-                <button
-                  className="ModfyBtn"
-                  onClick={() => {
-                    if (window.confirm("정말 삭제하시겠습니까?")) {
-                      onDelete();
-                    } else {
-                      return;
-                    }
-                  }}
-                >
-                  <img src={DeleteImg} alt="" />
-                  삭제하기
-                </button>
-              </>
-            ) : null}
-          </div>
-        </UserDataWrap>
-        <ViewEditWarp>
-          <ViewEdit contents={detail_data?.paper?.contents} />
-        </ViewEditWarp>
-        {/* 아래 해시태그 */}
-        <TagWrap>
-          {detail_data?.paper?.Tags.map((value, index) => {
-            return <Tag key={index}>{value.name}</Tag>;
-          })}
-        </TagWrap>
-        {/* 아래 댓글 */}
-        <div>
-          {openComment ? (
-            <>
-              <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
-                <CommentButton
-                  onClick={() => {
-                    setOpenComment(!openComment);
-                  }}
-                >
-                  <img src={CommentsImg} alt="comment_image" />
-                  <div> 댓글</div>
-                  <img src={Line_1} alt="Line"></img>
-                  <img src={ArrowDown} alt="Arrow"></img>
-                </CommentButton>
-              </CommentLikeWrap>
-              <Comment
-                postId={postId}
-                Comments={detail_data?.paper?.Comments}
+      <div className="ContainerContentsWrap">
+        {/* 아래 글*/}
+        <ContainerContents>
+          <Title>{detail_data?.paper?.title}</Title>
+          <Line />
+          <UserDataWrap>
+            <div className="wrap">
+              {/* 블로거 프로필 이미지 */}
+              <ProfileImgBox
+                src={
+                  detail_data?.paper?.Users.profileImage === null
+                    ? defaultUserImage
+                    : S3
+                }
+                onClick={() => {
+                  navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
+                }}
               />
-            </>
-          ) : (
-            <>
-              <CommentLikeWrap>
-                <Like postId={postId} Likes={detail_data?.paper?.Likes} />
-                <CommentButton
-                  onClick={() => {
-                    setOpenComment(!openComment);
-                  }}
-                >
-                  <img src={CommentsImg} alt="comment_image" />
-                  <div> 댓글</div>
-                  <img src={Line_1} alt="Line" />
-                  <img src={ArrowUp} alt="Arrow" />
-                </CommentButton>
-              </CommentLikeWrap>
-            </>
-          )}
-        </div>
-      </ContainerContents>
+              <Nickname>{detail_data?.paper?.Users.nickname}</Nickname>
+              <span>·</span>
+              <CreatedAt>{detail_data?.paper?.createdAt}</CreatedAt>
+              <span>·</span>
+              <div className="ViewCountName">
+                조회수 {ViewCountTotal ? ViewCountTotal : null}
+              </div>
+            </div>
+            <div className="EditDeleteBtnWrap">
+              {isHostId === blogId ? (
+                <>
+                  {/* 아래 글 수정 버튼*/}
+
+                  <button
+                    className="ModfyBtn"
+                    onClick={() => {
+                      navigate(`/modify/${blogId}/${postId}`);
+                    }}
+                  >
+                    <img src={ModifyImg} alt="" />
+                    수정하기
+                  </button>
+
+                  {/* 아래 글 삭제 버튼*/}
+
+                  <button
+                    className="ModfyBtn"
+                    onClick={() => {
+                      if (window.confirm("정말 삭제하시겠습니까?")) {
+                        onDelete();
+                      } else {
+                        return;
+                      }
+                    }}
+                  >
+                    <img src={DeleteImg} alt="" />
+                    삭제하기
+                  </button>
+                </>
+              ) : null}
+            </div>
+          </UserDataWrap>
+          <ViewEditWarp>
+            <ViewEdit contents={detail_data?.paper?.contents} />
+          </ViewEditWarp>
+          {/* 아래 해시태그 */}
+          <TagWrap>
+            {detail_data?.paper?.Tags.map((value, index) => {
+              return <Tag key={index}>{value.name}</Tag>;
+            })}
+          </TagWrap>
+          {/* 아래 댓글 */}
+          <div>
+            {openComment ? (
+              <>
+                <CommentLikeWrap>
+                  <Like postId={postId} Likes={detail_data?.paper?.Likes} />
+                  <CommentButton
+                    onClick={() => {
+                      setOpenComment(!openComment);
+                    }}
+                  >
+                    <img src={CommentsImg} alt="comment_image" />
+                    <div> 댓글</div>
+                    <img src={Line_1} alt="Line"></img>
+                    <img src={ArrowDown} alt="Arrow"></img>
+                  </CommentButton>
+                </CommentLikeWrap>
+                <Comment
+                  postId={postId}
+                  Comments={detail_data?.paper?.Comments}
+                />
+              </>
+            ) : (
+              <>
+                <CommentLikeWrap>
+                  <Like postId={postId} Likes={detail_data?.paper?.Likes} />
+                  <CommentButton
+                    onClick={() => {
+                      setOpenComment(!openComment);
+                    }}
+                  >
+                    <img src={CommentsImg} alt="comment_image" />
+                    <div> 댓글</div>
+                    <img src={Line_1} alt="Line" />
+                    <img src={ArrowUp} alt="Arrow" />
+                  </CommentButton>
+                </CommentLikeWrap>
+              </>
+            )}
+          </div>
+        </ContainerContents>
+      </div>
       <Footer />
     </Container>
   );
 };
 
 const Container = styled.div`
-  max-width: 1920px;
-
-  /* background-color: white; */
   margin: 0 auto;
   background-color: #fffdf7;
   overflow-x: hidden;
+  overflow-y: hidden;
+  .ContainerContentsWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const ContainerContents = styled.div`
   width: 900px;
-  padding: 100px 511px 160px 510px;
+  padding-top: 100px;
+  /* padding: 100px 511px 160px 510px; */
 
   /* overflow-x: hidden; */
 `;
@@ -229,7 +234,7 @@ const UserDataWrap = styled.div`
     display: flex;
     align-items: center;
     height: 32px;
-    width: 400px;
+    width: 890px;
   }
   .EditDeleteBtnWrap {
     display: flex;
@@ -252,7 +257,7 @@ const UserDataWrap = styled.div`
   .ViewCountName {
     display: flex;
     justify-content: center;
-    width: 60px;
+    width: 70px;
     font-size: 14px;
   }
 
@@ -276,7 +281,7 @@ const Nickname = styled.span`
   font-size: 18px;
 `;
 const Title = styled.div`
-  height: 75px;
+ min-height: 75px;
   width: 896px;
   font-size: 50px;
   font-weight: 600;

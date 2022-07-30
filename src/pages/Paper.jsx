@@ -42,9 +42,9 @@ const Paper = () => {
   // const onCategory = (e) => {
   //   console.log(e.target.value);
   // };
-  const onAll = useCallback(() => {
-    setAllSort(true);
-  }, []);
+  // const onAll = useCallback(() => {
+  //   setAllSort(true);
+  // }, []);
 
   //## 개인 페이지 구독하기 useMutation post
   const PostSubscribeData = async () => {
@@ -175,70 +175,74 @@ const Paper = () => {
           </>
         )}
       </MyProfile>
-      <SortType>
-        <CategoryWrap>
-          {categoty_Toggle ? (
-            <>
-              <div className="SelectWrap">
-                <button
-                  className="SelectBox"
-                  onClick={() => {
-                    setCategoty_Toggle(!categoty_Toggle);
-                  }}
-                >
-                  카테고리 <img src={ArrowUp} alt="카테고리" />
-                </button>
-              </div>
-              {/* <button
+      <div className="SortTypeWrap">
+        <div className="SortTypeBox">
+          <SortType>
+            <CategoryWrap>
+              {categoty_Toggle ? (
+                <>
+                  <div className="SelectWrap">
+                    <button
+                      className="SelectBox"
+                      onClick={() => {
+                        setCategoty_Toggle(!categoty_Toggle);
+                      }}
+                    >
+                      카테고리 <img src={ArrowUp} alt="카테고리" />
+                    </button>
+                  </div>
+                  {/* <button
                 onClick={() => {
                   setCategoryEdit(!CategoryEdit);
                 }}
               >
                 수정
               </button> */}
-              <div className="OptionWrap">
-                <option
-                  className="AllOption"
-                  onClick={(e) => {
-                    setSelectCategory(e.target.value);
-                  }}
-                >
-                  All
-                </option>
-                {mypaper_data?.categories.map((value, index) => {
-                  return (
-                    <CategoryList
-                      onCategory={onCategory}
-                      key={index}
-                      categories={value}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => {
-                  setCategoty_Toggle(!categoty_Toggle);
-                  setAllSort(true);
-                }}
-              >
-                카테고리
-                <img src={ArrowDown} alt="카테고리" />
-              </button>
-            </>
-          )}
-        </CategoryWrap>
-        <button className="TagBtn" onClick={onTag}>
-          태그 모음{" "}
-          {allSort ? (
-            <img src={ArrowDown} alt="태그모음" />
-          ) : (
-            <img src={ArrowUp} alt="태그모음" />
-          )}
-        </button>
-      </SortType>
+                  <div className="OptionWrap">
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        setSelectCategory(e.target.value);
+                      }}
+                    >
+                      All
+                    </option>
+                    {mypaper_data?.categories.map((value, index) => {
+                      return (
+                        <CategoryList
+                          onCategory={onCategory}
+                          key={index}
+                          categories={value}
+                        />
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      setCategoty_Toggle(!categoty_Toggle);
+                      setAllSort(true);
+                    }}
+                  >
+                    카테고리
+                    <img src={ArrowDown} alt="카테고리" />
+                  </button>
+                </>
+              )}
+            </CategoryWrap>
+            <button className="TagBtn" onClick={onTag}>
+              태그 모음{" "}
+              {allSort ? (
+                <img src={ArrowDown} alt="태그모음" />
+              ) : (
+                <img src={ArrowUp} alt="태그모음" />
+              )}
+            </button>
+          </SortType>
+        </div>
+      </div>
       <ContainerMiddle>
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
@@ -327,12 +331,18 @@ const Paper = () => {
 
 // Container 이 페이지 전체 박스
 const Container = styled.div`
-  max-width: 1920px;
   margin: 0 auto;
   overflow-x: hidden;
+  .SortTypeWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-left: 135px;
+    overflow-y: hidden;
+  }
 `;
 const ContainerMiddle = styled.div`
-  width: 1920px;
+  width: 100%;
   min-height: 1000px;
   display: flex;
   justify-content: center;
@@ -413,7 +423,6 @@ const Nickname = styled.div`
   font-weight: 400;
   font-family: "Gmarket Sans";
   color: #333333;
-  /* opacity: 0.9; */
 `;
 const Introduction = styled.div`
   width: 540px;
@@ -442,19 +451,17 @@ const Subscribe = styled.div`
     font-size: 15px;
     font-family: "Noto Sans";
   }
-
-  /* margin-top: 15px; */
 `;
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
   height: 155px;
-  width: 500px;
+  width: 1080px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 18px;
-  margin-left: 470px;
+
   .TagBtn {
     display: flex;
     justify-content: space-between;
@@ -521,7 +528,6 @@ const Tag = styled.div`
 // AllSortWrap wrap - 4 / 각 포스트들 간의 간격 gap
 const AllSortWrap = styled.div`
   width: 1078px;
-  /* min-height: 1200px; */
   display: flex;
   flex-wrap: wrap;
   gap: 30px 40px;
@@ -530,8 +536,7 @@ const AllSortWrap = styled.div`
 const CategoryWrap = styled.div`
   height: 32px;
   width: 154px;
-  position: relative;
-  /* overflow-y: ; */
+
   select {
     -webkit-appearance: none;
 
@@ -557,8 +562,6 @@ const CategoryWrap = styled.div`
   .SelectWrap {
     height: 32px;
     width: 154px;
-
-    z-index: 4;
   }
   .OptionWrap {
     width: 154px;
@@ -569,8 +572,7 @@ const CategoryWrap = styled.div`
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     overflow-y: scroll;
-    position: relative;
-    z-index: 99;
+    position: absolute;
   }
   .OptionWrap::-webkit-scrollbar {
     width: 10px;

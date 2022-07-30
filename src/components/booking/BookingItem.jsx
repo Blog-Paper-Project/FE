@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
@@ -30,17 +30,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   // 예약 정보
   let startTime = item?.start;
   let endTime = item?.end;
-  console.log(item);
+  // console.log(item);
   if (!item) {
     return null;
   }
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
-
-
-
-
 
   // 게스트일때
   if (Guest === Bloger) {
@@ -142,25 +138,25 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-            <button
-              className="videoBtn"
-              onClick={(e) => {
-                dispatch(patchBookingDB({ hostId, bookingId }));
-                setLeafChange(!leafChange);
-              }}
-            >
-              수락하기
-            </button>
-            <button
-              className="delBtn"
-              onClick={(e) => {
-                dispatch(deleteHostBookingDB({ hostId, bookingId }));
-                setLeafChange(!leafChange);
-              }}
-            >
-              예약취소
-            </button>
-            </div>            
+              <button
+                className="videoBtn"
+                onClick={(e) => {
+                  dispatch(patchBookingDB({ hostId, bookingId }));
+                  setLeafChange(!leafChange);
+                }}
+              >
+                수락하기
+              </button>
+              <button
+                className="delBtn"
+                onClick={(e) => {
+                  dispatch(deleteHostBookingDB({ hostId, bookingId }));
+                  setLeafChange(!leafChange);
+                }}
+              >
+                예약취소
+              </button>
+            </div>
           </li>
         )}
         {item?.accepted === true && (
@@ -185,15 +181,15 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-            <button
-              className="startBtn"
-              onClick={() => {
-                enterChat();
-              }}
-            >
-              Start
-            </button>
-            </div>            
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+            </div>
           </li>
         )}
       </>
