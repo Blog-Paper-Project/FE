@@ -428,7 +428,7 @@ const WriteEdit = () => {
               ["heading", "bold", "italic"],
               ["hr", "quote", "task"],
               ["code", "codeblock"],
-              ["ul", "ol", "image"],
+              ["ul", "ol", "image","link"],
             ]}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
