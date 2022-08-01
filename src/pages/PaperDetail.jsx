@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import { apiToken } from "../shared/apis/Apis";
+import { getCookie } from "../shared/Cookie";
+// Components
 import ViewEdit from "../components/editor/ViewEdit";
 import Header from "../components/main/Header";
 import Comment from "../components/paper/Comment";
 import Like from "../components/paper/Like";
-import { apiToken } from "../shared/apis/Apis";
-import { getCookie } from "../shared/Cookie";
-import defaultUserImage from "../public/images/default_profile.png";
-import styled from "styled-components";
 import Footer from "../components/main/Footer";
-//imgage
+// Imgages
+import defaultUserImage from "../public/images/default_profile.png";
 import CommentsImg from "../public/images/icons/comments.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
@@ -18,27 +19,26 @@ import Line_1 from "../public/images/icons/Line_1.png";
 import ModifyImg from "../public/images/icons/modify.png";
 import DeleteImg from "../public/images/icons/Delete_forever.png";
 
-/*해야할 것*/
-
 const PaperDetail = () => {
+  // React Hooks
   const navigate = useNavigate();
   const { blogId } = useParams();
   const { postId } = useParams();
-  const StringUserId = getCookie("userId");
-  const userId = Number(StringUserId);
   const queryClient = useQueryClient();
+  // Cookies
+  const StringUserId = getCookie("userId");
   const isHostId = getCookie("blogId");
-  // 댓글 state
+  const userId = Number(StringUserId);
+  // States
   const [openComment, setOpenComment] = useState(true);
 
-  // ## useMutation 글 delete 함수
+  // UseMutation 글 delete 함수
   const DeleteDetail = async () => {
     const response = await apiToken.delete(`/api/paper/${postId}`);
-    // console.log(response);
     return response?.data;
   };
 
-  // ## useMutation 글 delete
+  // UseMutation 글 delete
   const { mutate: onDelete } = useMutation(DeleteDetail, {
     onSuccess: () => {
       queryClient.invalidateQueries("paper_data", "detail_data");
@@ -46,32 +46,23 @@ const PaperDetail = () => {
     },
   });
 
-  // console.log("PaperDeTail", detail_data).paper;
-
-  // ## useQuery 글 get 함수
+  // UseQuery 글 get 함수
   const GetDetailtData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}/${postId}`, {
       headers: {
         userId: userId,
       },
     });
-    // console.log("PaperDetail page", response);
     return response.data;
   };
 
-  // ## useQuery 글 get
-
-  //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
-  //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
+  // UseQuery 글 get
   const { data: detail_data, status } = useQuery(
     ["detail_data", postId],
     GetDetailtData,
 
     {
-      onSuccess: () => {
-        // console.log(data);
-        // return data;
-      },
+      onSuccess: () => {},
       staleTime: 0,
       cacheTime: 0,
     }
@@ -87,8 +78,7 @@ const PaperDetail = () => {
     process.env.REACT_APP_S3_URL + `/${detail_data?.paper?.Users.profileImage}`;
 
   const ViewCountTotal = detail_data?.count + detail_data?.paper?.viewCount;
-  // console.log(ViewCountTotal);
-  // console.log("PaperDeTail", detail_data);
+
   return (
     <Container>
       <Header />
@@ -222,9 +212,6 @@ const Container = styled.div`
 const ContainerContents = styled.div`
   width: 900px;
   padding-top: 100px;
-  /* padding: 100px 511px 160px 510px; */
-
-  /* overflow-x: hidden; */
 `;
 const UserDataWrap = styled.div`
   width: 898px;
@@ -234,7 +221,7 @@ const UserDataWrap = styled.div`
     display: flex;
     align-items: center;
     height: 32px;
-    width: 890px;
+    width: 898px;
   }
   .EditDeleteBtnWrap {
     display: flex;
@@ -281,11 +268,11 @@ const Nickname = styled.span`
   font-size: 18px;
 `;
 const Title = styled.div`
- min-height: 75px;
+  min-height: 75px;
   width: 896px;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 600;
-  line-height: 44pt;
+  line-height: 40pt;
   color: #333333;
   margin-bottom: 10px;
   margin-top: 20px;
@@ -306,10 +293,7 @@ const CreatedAt = styled.div`
 `;
 const ViewEditWarp = styled.div`
   width: 898px;
-  min-height: 900px;
-
-  /* font-size: 18px; */
-  /* background-color: #efefef; */
+  min-height: 400px;
 `;
 const TagWrap = styled.div`
   height: 20px;

@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useRef } from "react";
+import React from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
-/* Editor */
-import { Editor } from "@toast-ui/react-editor";
-import "@toast-ui/editor/dist/toastui-editor.css";
-/* Toast ColorSyntax 플러그인 */
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-// import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { useMutation, useQuery } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import styled from "styled-components";
 import { getCookie, setCookie } from "../../shared/Cookie";
-// image
+
+// Editor
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+
+// Images
 import Paper_Logo from "../../public/images/logo_paper.svg";
 import Post_Icon from "../../public/images/icons/post_Icon.png";
 import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const ModifyEdit = (props) => {
+  // React Hooks
+  const navigate = useNavigate();
+  const editorRef = useRef();
   const { postId, blogId } = props;
+  // Cookies
   const userId = getCookie("userId");
   const hostId = Number(userId);
-  const HostIdCheck = getCookie("blogId");
-  const editorRef = useRef();
-  const navigate = useNavigate();
-
-  //## 글 작성 데이터 관련 state
+  // States
   const [markdown_data, setData] = useState("");
   const [head_data, setHeadData] = useState(null);
   const [basicThumbImage, setBasicThumbImage] = useState("");
@@ -39,7 +37,7 @@ const ModifyEdit = (props) => {
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState("etc");
 
-  //## 이미지 미리보기
+  // 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
 
@@ -53,12 +51,12 @@ const ModifyEdit = (props) => {
     });
   };
 
-  //## modal 이벤트
+  // ## Events
+  // modal 이벤트
   const onModal = () => {
     setOpenModal(!openModal);
   };
-
-  //## ModifyEdit의 데이터(text->markdown) 이벤트
+  // ModifyEdit의 데이터(text->markdown) 이벤트
   const onchange = (e) => {
     const write_data = editorRef.current?.getInstance().getMarkdown();
     // console.log("25", abc);
@@ -66,7 +64,7 @@ const ModifyEdit = (props) => {
     // console.log("27", markdown_data);
   };
 
-  //## 붙혀넣기 금지 이벤트 (ctnrl 키 금지)
+  // 붙혀넣기 금지 event (ctnrl 키 금지)
   const onKeyDown = (e) => {
     window.onkeydown = (e) => {
       // console.log(e.key);
@@ -75,7 +73,7 @@ const ModifyEdit = (props) => {
       }
     };
   };
-  //## 'Enter'시 카테고리 추가 이벤트
+  // 'Enter'시 카테고리 추가 event
   const onEnter = (e) => {
     if (
       e.target.value.length !== 0 &&
@@ -93,7 +91,7 @@ const ModifyEdit = (props) => {
       setCategory("");
     }
   };
-  //## 'Click'시 카테고리 추가 이벤트
+  // 'Click'시 카테고리 추가 event
   const onClick_categoty = () => {
     if (
       category.length !== 0 &&
@@ -113,7 +111,7 @@ const ModifyEdit = (props) => {
     }
   };
 
-  //## 'Enter'시 태그 추가 이벤트
+  // 'Enter'시 태그 추가 event
   const onKeyUp = (e) => {
     if (
       e.target.value.length !== 0 &&
@@ -128,7 +126,7 @@ const ModifyEdit = (props) => {
       setTag("");
     }
   };
-  //## 'Click'시 태그 삭제 이벤트
+  // 'Click'시 태그 삭제 event
   const onClcik_tag = (e) => {
     // console.log(e.target.id);
     setTagList(
@@ -137,12 +135,12 @@ const ModifyEdit = (props) => {
       })
     );
   };
-  //## 임시저장 이벤트
+  // 임시저장 event
   const onTemporary = () => {
     setCookie("Temporary_Content", markdown_data, 10);
   };
 
-  //## useMutation write 데이터 patch의 함수
+  // UseMutation write 데이터 patch 의 함수
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
@@ -156,7 +154,7 @@ const ModifyEdit = (props) => {
       category: selectOption,
     });
   };
-  //## useMutation write 데이터 patch
+  // UseMutation write 데이터 patch
   const { mutate: onPost } = useMutation(postfecher, {
     onSuccess: () => {
       navigate(`/paper/${blogId}`);
@@ -166,7 +164,7 @@ const ModifyEdit = (props) => {
       alert("발행하기 실패!");
     },
   });
-  // ## 글 데이터 useQuery  get
+  // UseQuery get 글 데이터
   const GetDetailtData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}/${postId}`);
     return response?.data.paper;
@@ -175,7 +173,6 @@ const ModifyEdit = (props) => {
   const { data: detail_data, status } = useQuery(
     ["detail_data", postId],
     GetDetailtData,
-    // { staleTime: Infinity }
     {
       onSuccess: (data) => {
         const TagAll = data?.Tags.map((value) => {
@@ -199,7 +196,7 @@ const ModifyEdit = (props) => {
     }
   );
 
-  // 카테고리 데이터 useQuery get
+  // UseQuery get 카테고리 데이터
   const GetCategoryData = async () => {
     const response = await apiToken.get(`/api/paper/categories`);
     return response?.data;
@@ -208,7 +205,6 @@ const ModifyEdit = (props) => {
   const { data: category_data } = useQuery(
     ["category_data", blogId],
     GetCategoryData,
-    // { staleTime: Infinity }
     {
       onSuccess: (data) => {
         const CategoriesAll = data?.categories;
@@ -226,10 +222,8 @@ const ModifyEdit = (props) => {
   if (status === "error") {
     return alert("error");
   }
-
+  // 변수 저장
   const S3 = process.env.REACT_APP_S3_URL + `/${detail_data?.thumbnail}`;
-  // console.log("category_data", category_data);
-  // console.log("detail_data", detail_data);
 
   return (
     <Container>
@@ -460,7 +454,7 @@ const ModifyEdit = (props) => {
               ["heading", "bold", "italic"],
               ["hr", "quote", "task"],
               ["code", "codeblock"],
-              ["ul", "ol", "image"],
+              ["ul", "ol", "image", "link"],
             ]}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
@@ -513,7 +507,6 @@ const Head = styled.div`
   align-items: center;
   padding-left: 48px;
   padding-right: 50px;
-  /* border-bottom: 1px solid #a7aca1; */
   outline: 1px solid #a7aca1;
   background-color: white;
   position: fixed;
@@ -556,7 +549,6 @@ const ModalBox = styled.div`
     font-weight: 500;
     font-family: "Noto Sans KR";
     line-height: 20px;
-    /* padding-left: 4px; */
   }
 `;
 const CategorySelectWrap = styled.div`
@@ -626,7 +618,6 @@ const Title = styled.textarea`
   color: #333333;
   font-weight: 700;
   font-size: 40px;
-  /* line-height: 60px; */
   padding-bottom: 10px;
   padding-left: 1px;
   border: none;
@@ -719,7 +710,14 @@ const Tag = styled.div`
   cursor: pointer;
 `;
 
-// 기본 모음
+const Logo = styled.img`
+  height: 28px;
+  width: 153px;
+`;
+const PostImg = styled.img`
+  height: 20px;
+  width: 20px;
+`;
 // Button
 const ButtonWrap = styled.div`
   height: 70px;
@@ -727,10 +725,6 @@ const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-`;
-const PostImg = styled.img`
-  height: 20px;
-  width: 20px;
 `;
 const Button = styled.button`
   height: ${(props) => props.height || "40px"};
@@ -749,10 +743,6 @@ const PostButton = styled(Button)`
   justify-content: center;
   align-items: center;
   gap: 10px;
-`;
-const Logo = styled.img`
-  height: 28px;
-  width: 153px;
 `;
 
 export default ModifyEdit;

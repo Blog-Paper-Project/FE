@@ -154,9 +154,7 @@ const Header = () => {
                     </DropDownListContainer>
                   )}
                 </DropDownContainer>
-
-                <NickBox
-                >{nickname}</NickBox>
+                <NickBox>{nickname}</NickBox>
               </>
             ) : (
               <>
@@ -231,6 +229,7 @@ const ProfileImgBox = styled.img`
   height: 40px;
   border-radius: 50px;
   align-items: center;
+  /* padding-bottom: 2px; */
 `;
 const SearchIcon1 = styled.div`
   display: flex;
@@ -252,6 +251,7 @@ const BtnBox2 = styled.div`
   display: flex;
   justify-content: end;
   gap: 24px;
+  padding-top: 3px;
 `;
 const BtnItem = styled.div`
   width: 70%;
@@ -276,7 +276,10 @@ const Btn = styled.button`
 const DropDownContainer = styled.div`
   width: 50px;
 `;
-const DropDownListContainer = styled.div``;
+const DropDownListContainer = styled.div`
+  margin-top: 4px;
+  margin-right: 20px;
+`;
 const DropDownList = styled.ul`
   position: absolute;
   z-index: 3;
@@ -290,6 +293,7 @@ const DropDownList = styled.ul`
   color: #333;
   font-size: 1.3rem;
   font-weight: 400;
+
   &:first-child {
     padding-top: 0.8em;
   }

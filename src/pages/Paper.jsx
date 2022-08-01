@@ -3,25 +3,25 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getCookie } from "../shared/Cookie";
-/* api */
 import { apiToken } from "../shared/apis/Apis";
-/* 컴포넌트 */
+// Components
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
-/*그외 */
+import Footer from "../components/main/Footer";
+// Images
 import defaultUserImage from "../public/images/default_profile.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
-import Footer from "../components/main/Footer";
 
 const Paper = () => {
+  // React Hooks
   const { blogId } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   // Cookies
   const isHostId = getCookie("blogId");
-  // State
+  // States
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(true);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
@@ -29,8 +29,8 @@ const Paper = () => {
   const [EditButton, setEditButton] = useState(false);
   const [SelectCategory, setSelectCategory] = useState(null);
   const [SubScribe, setSubScribe] = useState(false);
-  // console.log(SelectCategory);
-  //## 이벤트
+
+  // Events
   const onTag = useCallback(() => {
     setAllSort(!allSort);
     setCategoty_Toggle(false);
@@ -46,7 +46,7 @@ const Paper = () => {
   //   setAllSort(true);
   // }, []);
 
-  //## 개인 페이지 구독하기 useMutation post
+  // UseMutation post 개인 페이지 구독하기
   const PostSubscribeData = async () => {
     const response = await apiToken.post(`/api/paper/${blogId}/subscription`);
     return response;
@@ -65,7 +65,7 @@ const Paper = () => {
     },
   });
 
-  //## 개인 페이지 데이터  useQuery get
+  // UseQuery get 개인 페이지 데이터
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}`);
     return response?.data;
@@ -76,7 +76,6 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -100,13 +99,7 @@ const Paper = () => {
   const SelectCategoryData = mypaper_data?.user.Papers.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
-  // console.log("SelectCategoryData", SelectCategoryData);
-  // console.log("isSubscribe", isSubscribe);
-  // console.log(mypaper_data.user.Followers);
-  // console.log("isHostId", isHostId);
-  // console.log("blogId", blogId);
-  // console.log(mypaper_data?.categories);
-  // console.log(mypaper_data?.user.Papers);
+
   return (
     <Container>
       <Header />
@@ -251,8 +244,6 @@ const Paper = () => {
               <>
                 <AllSortWrap>
                   {mypaper_data?.user.Papers.map((value, idx) => {
-                    // console.log(mypaper_data);
-
                     return (
                       <ContentBox
                         key={idx}
@@ -274,8 +265,6 @@ const Paper = () => {
                   {SelectCategoryData.length === 0 ? (
                     <>
                       {mypaper_data?.user.Papers.map((value, idx) => {
-                        // console.log(mypaper_data);
-
                         return (
                           <ContentBox
                             key={idx}
@@ -293,8 +282,6 @@ const Paper = () => {
                   ) : (
                     <>
                       {SelectCategoryData?.map((value, idx) => {
-                        // console.log(mypaper_data);
-
                         return (
                           <ContentBox
                             key={idx}
@@ -390,20 +377,6 @@ const MyProfileWrap = styled.div`
     height: calc(100% - 20px);
     width: calc(100% - 178px);
   }
-`;
-// 기본 모음
-// Button
-const Button = styled.button`
-  height: 40px;
-  width: 100%;
-  color: ${(props) => props.color || "black"};
-  background-color: ${(props) => props.background_color || "black"};
-  border: 1px solid ${(props) => props.border_color || "black"};
-  font-family: Gmarket Sans;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 14px;
-  outline: 1px solid ${(props) => props.outline_color || "black"};
 `;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`
@@ -539,9 +512,7 @@ const CategoryWrap = styled.div`
 
   select {
     -webkit-appearance: none;
-
     -moz-appearance: none;
-
     appearance: none;
   }
   button {
@@ -604,5 +575,18 @@ const CategoryWrap = styled.div`
       background-color: #f8f8f8;
     }
   }
+`;
+// Buttons
+const Button = styled.button`
+  height: 40px;
+  width: 100%;
+  color: ${(props) => props.color || "black"};
+  background-color: ${(props) => props.background_color || "black"};
+  border: 1px solid ${(props) => props.border_color || "black"};
+  font-family: Gmarket Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  outline: 1px solid ${(props) => props.outline_color || "black"};
 `;
 export default Paper;

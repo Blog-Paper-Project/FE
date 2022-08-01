@@ -11,7 +11,7 @@ const HeadPaperSearch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  console.log(search);
+//   console.log(search);
 
   return (
     <>
