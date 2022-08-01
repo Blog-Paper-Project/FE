@@ -11,7 +11,6 @@ const Footer = () => {
             <img
               className="futerTitle"
               src={process.env.PUBLIC_URL + "/logo_paper.png"}
-              back_size="100% 100%"
               alt="logo"
             />
           </Footer1T>
@@ -81,8 +80,14 @@ const Footer1 = styled.div`
 `;
 
 const Footer1T = styled.div`
-  width: 70%;
   height: 55%;
+  width: 70%;
+  .futerTitle{
+    width: 50%;
+    height: auto;
+    max-width:500px;
+    display:block;
+  }  
 `;
 
 const Footer2 = styled.div`
