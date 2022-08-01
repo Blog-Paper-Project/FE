@@ -66,6 +66,7 @@ const FooterBox = styled.div`
   height: 270px;
   border-collapse: collapse;
   padding-top: 50px;
+  border-top: 1px solid #A7ACA1;
 `;
 
 const Footer1 = styled.div`

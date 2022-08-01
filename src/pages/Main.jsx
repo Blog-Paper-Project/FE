@@ -36,110 +36,103 @@ const Main = () => {
     },
   });
 
-  const BestPapers = paper_query?.data.papers;
-  // console.log(BestPapers);
+  const aPapers = paper_query?.data.papers[0];
+  const bPapers = paper_query?.data.papers[1];
+  const cPapers = paper_query?.data.papers[2];
+  const dPapers = paper_query?.data.papers[3];
+  const ePapers = paper_query?.data.papers[4];
+  const fPapers = paper_query?.data.papers[5];
+  const gPapers = paper_query?.data.papers[6];
+
+  console.log(aPapers)
 
   return (
     <>
+      
       <MainBox>
-        <Header />
-        <div className="Title_Wrap">
-          <MainTop>
-            <div className="MainTile">Welcome.</div>
-            <div className="MainContent">
-              자신의 생각을 글로 적어보아요.
-              <br />
-              공감 가는 글을 읽고 블로거 주인과 소통하고 싶나요? <br />
-              나의 생각을 공유해 나뭇잎을 모으고 댓글뿐만 아니라 화상채팅으로
-              소통할 수 있습니다. <br />
-              자신만의 이야기로 소통할 수 있는 블로그 PAPER
-            </div>
-          </MainTop>
-        </div>
-        <div className="MainContents_Wrap">
-          <PostWrap>
-            <PostBox>
-              <Bigbox>
-                {BestPapers?.map((BestPapers, i) => {
-                  return (
-                    <Card key={i}>
-                      <Box
-                        onClick={() => {
-                          navigate(
-                            `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                          );
-                        }}
-                      >
-                        {BestPapers?.thumbnail === null ? (
-                          <img
-                            className="postImg"
-                            src={`https://source.unsplash.com/collection/${i}`}
-                            style={{ width: "100%", height: "100%" }}
-                            alt="back"
-                          />
-                        ) : (
-                          <img
-                            src={
-                              process.env.REACT_APP_S3_URL +
-                              `/${BestPapers?.thumbnail}`
-                            }
-                            alt="img"
-                            style={{ width: "100%", height: "100%" }}
-                          />
-                        )}
-                      </Box>
-                      <Box1
-                        onClick={() => {
-                          navigate(
-                            `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                          );
-                        }}
-                      >
-                        <H4>{BestPapers.title}</H4>
-                        <P>{BestPapers.contents}</P>
-                      </Box1>
-                      <Box2>{BestPapers.createdAt}</Box2>
-                      <Box3
-                        onClick={() => {
-                          navigate(`/paper/${BestPapers?.blogId}`);
-                        }}
-                      >
-                        <div className="by">
-                          {BestPapers?.profileImage === null ? (
-                            <img
-                              className="userProfile"
-                              src={defaultUserImage}
-                              alt="back"
-                            />
-                          ) : (
-                            <img
-                              className="userProfile"
-                              src={
-                                process.env.REACT_APP_S3_URL +
-                                `/${BestPapers?.profileImage}`
-                              }
-                              alt="img"
-                            />
-                          )}{" "}
-                          by <span>{BestPapers.nickname}</span>
-                        </div>
-                        <div>
-                          <img
-                            className="heart"
-                            src={process.env.PUBLIC_URL + "/Vector.png"}
-                            back_size="100% 100%"
-                            alt="icon"
-                          />{" "}
-                          {BestPapers?.likes}
-                        </div>
-                      </Box3>
-                    </Card>
-                  );
-                })}
-              </Bigbox>
-            </PostBox>
-          </PostWrap>
-        </div>
+      <Header />
+        <PostWrap>
+          <PostBox>
+            <PostWrap1>
+              <Post1st>
+                <img
+                  className="postImg"
+                  src={aPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
+                  alt="back"
+                />
+                <div className="postTitle">
+                  {aPapers?.title}
+                </div>
+                <div className="contents">
+                  {aPapers?.contents}
+                </div>
+              </Post1st>
+              <Post2st>
+                <div className="postTitle">
+                  {bPapers?.title}
+                </div>
+                <div className="contents">
+                  {bPapers?.contents}
+                </div>
+              </Post2st>
+              <Post3st>
+                <div className="postTitle">
+                  {cPapers?.title}
+                </div>
+                <div className="contents">
+                  {cPapers?.contents}
+                </div>
+              </Post3st>
+            </PostWrap1>
+
+            <Post4st>
+              <img
+                className="postImg"
+                src={dPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
+                alt="back"
+              />
+              <div className="postTitle">
+                {dPapers?.title}
+              </div>
+              <div className="contents">
+                {dPapers?.contents}
+              </div>
+            </Post4st>
+
+            <PostWrap2>
+              <Post5st>
+                <div className="postTitle">
+                  {ePapers?.title}
+                </div>
+                <div className="contents">
+                  {ePapers?.contents}
+                </div>
+              </Post5st>
+              <Post6st>
+                <div className="postTitle">
+                  {fPapers?.title}
+                </div>
+                <div className="contents">
+                  {fPapers?.contents}
+                </div>
+              </Post6st>
+              <Post7st>
+                <img
+                  className="postImg"
+                  src={gPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`)}
+                  alt="back"
+                />
+                <div className="postTitle">
+                  {gPapers?.title}
+                </div>
+                <div className="contents">
+                  {gPapers?.contents}
+                </div>
+              </Post7st>
+            </PostWrap2>
+          </PostBox>
+        </PostWrap>
+
 
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
@@ -193,81 +186,308 @@ const Main = () => {
           </div>
           <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
         </EndBox>
+        <Footer />
       </MainBox>
-      <Footer />
     </>
   );
 };
 
 const MainBox = styled.div`
   background-color: #fffdf7;
-  height: 3550px;
+  min-height: 3586px;
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  .Title_Wrap {
-    display: flex;
-    justify-content: center;
-    padding: 0 100px;
-  }
-  .MainContents_Wrap {
-    display: flex;
-    justify-content: center;
-    padding: 0 40px;
-  }
+  flex-direction: column;  
 `;
 
-const MainTop = styled.div`
+
+const PostWrap = styled.div` 
+  min-height: 1637px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #333;
-  padding-left: 80px;
-  padding-right: 80px;
-  margin-top: 60px;
-  .MainTile {
-    height: 85px;
-    width: 600px;
-    font-family: Georgia;
-    font-size: 95px;
-    font-weight: bold;
-  }
-  .MainContent {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    width: 770px;
-
-    font-size: 15px;
-    line-height: 24px;
-    color: #333;
-    font-family: "Song Myung", serif;
-    font-weight: 400;
-    text-align: right;
-    opacity: 0.7;
-  }
-`;
-
-const PostWrap = styled.div`
-  width: 95%;
-  height: 1680px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  padding-top: 160px;
 `;
 
 const PostBox = styled.div`
-  width: 1900px;
-  height: 1680px;
+  
+  min-height: 1156px;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 24px;
+  
+`;
+const PostWrap1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 438px;
+  height: 996px;
+  float: left;
+  gap: 24px;
+`;
+const Post1st = styled.div`
+  width: 438px;
+  height: 498px;
+  float: left;
+  border-bottom: 1px solid #A7ACA1;
+  .postImg {
+    width: 438px;
+    height: 282px;
+    object-fit: "cover";
+    margin-bottom: 15px;
+  }
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+const Post2st = styled.div`
+  width: 438px;
+  height: 237px;
+  float: left;
+  border-bottom: 1px solid #A7ACA1;
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-top: 36px;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+const Post3st = styled.div`
+  width: 438px;
+  height: 213px;
+  float: left;
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-top: 36px;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+
+const Post4st = styled.div`
+  width: 592px;
+  height: 996px;
+  border: 1px solid #A7ACA1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  float: left;
+  .postImg {
+    width: 592px;
+    height: 483px;
+    object-fit: "cover";
+    margin-bottom: 20px;
+  }
+  .postTitle {
+    width: 544px;
+    height: 225px;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 150%;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 544px;
+    height: 144px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+
+const PostWrap2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 438px;
+  height: 996px;
+  float: left;
+  gap: 24px;  
+`
+const Post5st = styled.div`
+  width: 438px;
+  height: 237px;
+  float: left;
+  border-bottom: 1px solid #A7ACA1;
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-top: 36px;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+const Post6st = styled.div`
+  width: 438px;
+  height: 237px;
+  float: left;
+  border-bottom: 1px solid #A7ACA1;
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-top: 36px;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
+`;
+const Post7st = styled.div`
+  width: 438px;
+  height: 498px;
+  float: left;
+  .postImg {
+    width: 438px;
+    height: 282px;
+    object-fit: "cover";
+    margin-bottom: 15px;
+  }
+  .postTitle {
+    width: 438px;
+    height: 90px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-bottom: 15px;
+  }
+  .contents {
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: 'Gmarket Sans';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+  }
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+  }
 `;
 
 const PopularBloger = styled.div`
@@ -350,8 +570,8 @@ const PopularImg = styled.img`
 `;
 const EndBox = styled.div`
   width: 100%;
-  height: 15%;
-  display: flex !important;
+  height: 410px;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -366,143 +586,6 @@ const EndBox = styled.div`
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
-  }
-`;
-const Box = styled.div`
-  height: 180px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  background-position: center;
-  background-size: cover;
-`;
-const Box1 = styled.div`
-  font-size: 16px;
-  text-decoration: none solid rgb(33, 37, 41);
-  background-color: #f8f9fa;
-  background-position: 0% 0%;
-  position: color;
-  height: 130px;
-  width: 320px;
-  cursor: pointer;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-top: 10px;
-`;
-const H4 = styled.p`
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 24px;
-  white-space: nowrap;
-  word-spacing: 0px;
-  height: 23%;
-  width: 320px;
-  padding: 0px 15px;
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
-`;
-const P = styled.div`
-  font-size: 14px;
-  line-height: 21px;
-  text-decoration: none solid rgb(73, 80, 87);
-  word-spacing: 0px;
-  height: 68%;
-  width: 320px;
-  margin-top: 10px;
-  padding: 0px 15px;
-  display: -webkit-box;
-  overflow: hidden;
-  cursor: pointer;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
-  white-space: normal;
-  word-wrap: break-word;
-`;
-const Box2 = styled.div`
-  color: gray;
-  height: 40px;
-  line-height: 50px;
-  width: 320px;
-  min-height: auto;
-  min-width: auto;
-  display: block;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
-  padding-left: 20px;
-  font-size: 14px;
-`;
-
-const Box3 = styled.div`
-  height: 13%;
-  width: 100%;
-  border-top: 1px solid #f1f3f5;
-  padding: 10px 16px 10px 16px;
-  min-height: auto;
-  min-width: auto;
-  display: flex;
-  align-items: center;
-  background-color: #f8f9fa;
-  font-size: 12px;
-  text-decoration: none solid rgb(33, 37, 41);
-  word-spacing: 0px;
-  cursor: pointer;
-  justify-content: space-between;
-  box-sizing: border-box;
-  .by {
-    display: flex;
-    align-items: center;
-    color: gray;
-    gap: 5px;
-  }
-  span {
-    color: black;
-    font-weight: 600;
-  }
-
-  .userinfo {
-    display: flex;
-  }
-  .heart {
-    width: 14px;
-  }
-  .userProfile {
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-  }
-`;
-
-const Bigbox = styled.div`
-  gap: 40px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 50px;
-`;
-const Card = styled.div`
-  width: 320px;
-  height: 405px;
-  box-shadow: rgb(0 0 0 / 7%) 0px 3px 5px 0px;
-  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-  overflow: hidden;
-  border-radius: 5px;
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
   }
 `;
 
