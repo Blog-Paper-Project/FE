@@ -11,6 +11,7 @@ import MyProfile from "./pages/MyProfile";
 import SignUp from "./pages/SignUp/SignUp";
 import SocialSignUp from "./pages/SignUp/SocialSignUp";
 import Search from "./pages/Search";
+import SearchDetail from "./pages/SearchDetail";
 import Chat from "./pages/Chat";
 import PaperDetail from "./pages/PaperDetail";
 import Reservation from "./pages/Reservation";
@@ -40,7 +41,8 @@ function App() {
         <Route path="/modify/:blogId/:postId" element={<Modify />} />
         <Route path="/paper/:blogId" element={<Paper />} />
         <Route path="/paper/:blogId/:postId" element={<PaperDetail />} />
-        <Route path="/paper/search/:payload" element={<Search />} />
+        <Route path="/paper/search/" element={<Search />} />
+        <Route path="/paper/search/:payload" element={<SearchDetail />} />
         <Route path="/myprofile" element={<MyProfile />} />
         <Route path="/chat/:hostId/:guestId" element={<Chat />} />
         <Route path="/paper/:blogId/reservation" element={<Reservation />} />
