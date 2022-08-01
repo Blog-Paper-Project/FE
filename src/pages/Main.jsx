@@ -48,13 +48,17 @@ const Main = () => {
 
   return (
     <>
-      
+
       <MainBox>
-      <Header />
+        <Header />
         <PostWrap>
           <PostBox>
             <PostWrap1>
-              <Post1st>
+              <Post1st
+                onClick={() => {
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
+                }}
+              >
                 <img
                   className="postImg"
                   src={aPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
@@ -67,7 +71,11 @@ const Main = () => {
                   {aPapers?.contents}
                 </div>
               </Post1st>
-              <Post2st>
+              <Post2st
+                onClick={() => {
+                  navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
+                }}
+              >
                 <div className="postTitle">
                   {bPapers?.title}
                 </div>
@@ -75,7 +83,11 @@ const Main = () => {
                   {bPapers?.contents}
                 </div>
               </Post2st>
-              <Post3st>
+              <Post3st
+                onClick={() => {
+                  navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
+                }}
+              >
                 <div className="postTitle">
                   {cPapers?.title}
                 </div>
@@ -85,7 +97,11 @@ const Main = () => {
               </Post3st>
             </PostWrap1>
 
-            <Post4st>
+            <Post4st
+              onClick={() => {
+                navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
+              }}
+            >
               <img
                 className="postImg"
                 src={dPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
@@ -100,7 +116,11 @@ const Main = () => {
             </Post4st>
 
             <PostWrap2>
-              <Post5st>
+              <Post5st
+                onClick={() => {
+                  navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
+                }}
+              >
                 <div className="postTitle">
                   {ePapers?.title}
                 </div>
@@ -108,7 +128,10 @@ const Main = () => {
                   {ePapers?.contents}
                 </div>
               </Post5st>
-              <Post6st>
+              <Post6st
+                onClick={() => {
+                  navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
+                }}>
                 <div className="postTitle">
                   {fPapers?.title}
                 </div>
@@ -116,7 +139,11 @@ const Main = () => {
                   {fPapers?.contents}
                 </div>
               </Post6st>
-              <Post7st>
+              <Post7st
+                onClick={() => {
+                  navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
+                }}
+              >
                 <img
                   className="postImg"
                   src={gPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`)}

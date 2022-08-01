@@ -208,9 +208,12 @@ const Svg = styled.div`
   align-items: center;
   justify-content: center;
   .paperTitle {
-    @media screen and (max-width: 800px) {
-    display: none;
-  }
+   
+    width: 50%;
+    height: auto;
+    max-width:332px;
+    display:block;
+  
   }
 `;
 
