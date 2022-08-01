@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 /* 컴포넌트 */
 import Login from "./pages/Login/Login";
@@ -19,7 +20,6 @@ import Kakao from "./pages/Login/Kakao";
 import Google from "./pages/Login/Google";
 import Naver from "./pages/Login/Naver";
 import AllPaper from "./pages/AllPaper";
-import { Helmet } from "react-helmet-async";
 
 function App() {
   return (
