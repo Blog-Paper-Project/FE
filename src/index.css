@@ -4,11 +4,6 @@
       url("#{$asset-path}fonts/#{$file}.ttf") format("truetype");
 }
 
-@font-face {
-  font-family: "Luckiest Guy";
-  src: url("/src/public/fonts/LuckiestGuy-Regular.ttf") ;
- 
-}
 
 @font-face {
   font-family: "Noto Sans KR";
@@ -22,20 +17,7 @@
  
 }
 
-@font-face {
-  font-family: "Dela Gothic One";
-  src: url("/src/public//fonts/DelaGothicOne-Regular.ttf") ;
- 
-}
 
-@font-face {
-  font-family: "Rubik";
-  src: url("/src/public/fonts/RubikMonoOne-Regular.ttf") ;
- 
-}
 
-@font-face {
-  font-family: "DM Serif Display";
-  src: url("/src/public/fonts/DMSerifDisplay-Regular.ttf") ;
- 
-}
+
+
