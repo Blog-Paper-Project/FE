@@ -43,8 +43,6 @@ const Container = styled.div`
   box-shadow: rgb(0 0 0 / 5%) 0px 7px 16px 0px;
   border-radius: 5px;
   padding-bottom: 10px;
-  /* position: relative; */
-  /* z-index: 1; */
 `;
 const Thumbnail = styled.img`
   height: 250px;
@@ -63,8 +61,8 @@ const Title = styled.div`
   font-size: 22px;
   line-height: 50px;
   color: #333;
-  /* opacity: 0.9; */
   padding-left: 14px;
+  overflow: hidden;
 `;
 const CreatedAt = styled.div`
   height: 16px;

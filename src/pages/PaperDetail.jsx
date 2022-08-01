@@ -60,9 +60,6 @@ const PaperDetail = () => {
   };
 
   // ## useQuery 글 get
-
-  //1. isLoding, error 대신에 status로 한 번에 저 두가지 체크 가능
-  //2. isLoding을 안 만들어주면 데이터가 안 왔을 때 처음에 (Undefined를 찍으니)보여지는 값에서 문제가 생길 수 있음
   const { data: detail_data, status } = useQuery(
     ["detail_data", postId],
     GetDetailtData,
@@ -222,9 +219,6 @@ const Container = styled.div`
 const ContainerContents = styled.div`
   width: 900px;
   padding-top: 100px;
-  /* padding: 100px 511px 160px 510px; */
-
-  /* overflow-x: hidden; */
 `;
 const UserDataWrap = styled.div`
   width: 898px;
@@ -257,7 +251,7 @@ const UserDataWrap = styled.div`
   .ViewCountName {
     display: flex;
     justify-content: center;
-    width: 60px;
+    width: 70px;
     font-size: 14px;
   }
 
@@ -307,9 +301,6 @@ const CreatedAt = styled.div`
 const ViewEditWarp = styled.div`
   width: 898px;
   min-height: 900px;
-
-  /* font-size: 18px; */
-  /* background-color: #efefef; */
 `;
 const TagWrap = styled.div`
   height: 20px;
