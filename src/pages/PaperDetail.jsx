@@ -306,7 +306,7 @@ const CreatedAt = styled.div`
 `;
 const ViewEditWarp = styled.div`
   width: 898px;
-  min-height: 900px;
+  min-height: 400px;
 
   /* font-size: 18px; */
   /* background-color: #efefef; */
