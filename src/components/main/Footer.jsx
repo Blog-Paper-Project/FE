@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <FooterBox>
         <Footer1>
           <Footer1T>
             <img
+              onClick={() => {
+                navigate("/");
+              }}
               className="futerTitle"
               src={process.env.PUBLIC_URL + "/logo_paper.png"}
               alt="logo"
