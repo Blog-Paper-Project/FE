@@ -3,25 +3,25 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getCookie } from "../shared/Cookie";
-/* api */
 import { apiToken } from "../shared/apis/Apis";
-/* 컴포넌트 */
+// Components
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
-/*그외 */
+import Footer from "../components/main/Footer";
+// Images
 import defaultUserImage from "../public/images/default_profile.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
-import Footer from "../components/main/Footer";
 
 const Paper = () => {
+  // React Hooks
   const { blogId } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   // Cookies
   const isHostId = getCookie("blogId");
-  // State
+  // States
   const [tagSort, setTagSort] = useState(false);
   const [allSort, setAllSort] = useState(true);
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
@@ -29,8 +29,8 @@ const Paper = () => {
   const [EditButton, setEditButton] = useState(false);
   const [SelectCategory, setSelectCategory] = useState(null);
   const [SubScribe, setSubScribe] = useState(false);
-  // console.log(SelectCategory);
-  //## 이벤트
+
+  // Events
   const onTag = useCallback(() => {
     setAllSort(!allSort);
     setCategoty_Toggle(false);
@@ -42,11 +42,11 @@ const Paper = () => {
   // const onCategory = (e) => {
   //   console.log(e.target.value);
   // };
-  const onAll = useCallback(() => {
-    setAllSort(true);
-  }, []);
+  // const onAll = useCallback(() => {
+  //   setAllSort(true);
+  // }, []);
 
-  //## 개인 페이지 구독하기 useMutation post
+  // UseMutation post 개인 페이지 구독하기
   const PostSubscribeData = async () => {
     const response = await apiToken.post(`/api/paper/${blogId}/subscription`);
     return response;
@@ -65,7 +65,7 @@ const Paper = () => {
     },
   });
 
-  //## 개인 페이지 데이터  useQuery get
+  // UseQuery get 개인 페이지 데이터
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}`);
     return response?.data;
@@ -76,7 +76,6 @@ const Paper = () => {
     GetMyPaperData,
     {
       onSuccess: (data) => {
-        // console.log(data);
         return data;
       },
       staleTime: 0,
@@ -100,13 +99,7 @@ const Paper = () => {
   const SelectCategoryData = mypaper_data?.user.Papers.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
-  // console.log("SelectCategoryData", SelectCategoryData);
-  // console.log("isSubscribe", isSubscribe);
-  // console.log(mypaper_data.user.Followers);
-  // console.log("isHostId", isHostId);
-  // console.log("blogId", blogId);
-  // console.log(mypaper_data?.categories);
-  // console.log(mypaper_data?.user.Papers);
+
   return (
     <Container>
       <Header />
@@ -175,70 +168,74 @@ const Paper = () => {
           </>
         )}
       </MyProfile>
-      <SortType>
-        <CategoryWrap>
-          {categoty_Toggle ? (
-            <>
-              <div className="SelectWrap">
-                <button
-                  className="SelectBox"
-                  onClick={() => {
-                    setCategoty_Toggle(!categoty_Toggle);
-                  }}
-                >
-                  카테고리 <img src={ArrowUp} alt="카테고리" />
-                </button>
-              </div>
-              {/* <button
+      <div className="SortTypeWrap">
+        <div className="SortTypeBox">
+          <SortType>
+            <CategoryWrap>
+              {categoty_Toggle ? (
+                <>
+                  <div className="SelectWrap">
+                    <button
+                      className="SelectBox"
+                      onClick={() => {
+                        setCategoty_Toggle(!categoty_Toggle);
+                      }}
+                    >
+                      카테고리 <img src={ArrowUp} alt="카테고리" />
+                    </button>
+                  </div>
+                  {/* <button
                 onClick={() => {
                   setCategoryEdit(!CategoryEdit);
                 }}
               >
                 수정
               </button> */}
-              <div className="OptionWrap">
-                <option
-                  className="AllOption"
-                  onClick={(e) => {
-                    setSelectCategory(e.target.value);
-                  }}
-                >
-                  All
-                </option>
-                {mypaper_data?.categories.map((value, index) => {
-                  return (
-                    <CategoryList
-                      onCategory={onCategory}
-                      key={index}
-                      categories={value}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => {
-                  setCategoty_Toggle(!categoty_Toggle);
-                  setAllSort(true);
-                }}
-              >
-                카테고리
-                <img src={ArrowDown} alt="카테고리" />
-              </button>
-            </>
-          )}
-        </CategoryWrap>
-        <button className="TagBtn" onClick={onTag}>
-          태그 모음{" "}
-          {allSort ? (
-            <img src={ArrowDown} alt="태그모음" />
-          ) : (
-            <img src={ArrowUp} alt="태그모음" />
-          )}
-        </button>
-      </SortType>
+                  <div className="OptionWrap">
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        setSelectCategory(e.target.value);
+                      }}
+                    >
+                      All
+                    </option>
+                    {mypaper_data?.categories.map((value, index) => {
+                      return (
+                        <CategoryList
+                          onCategory={onCategory}
+                          key={index}
+                          categories={value}
+                        />
+                      );
+                    })}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      setCategoty_Toggle(!categoty_Toggle);
+                      setAllSort(true);
+                    }}
+                  >
+                    카테고리
+                    <img src={ArrowDown} alt="카테고리" />
+                  </button>
+                </>
+              )}
+            </CategoryWrap>
+            <button className="TagBtn" onClick={onTag}>
+              태그 모음{" "}
+              {allSort ? (
+                <img src={ArrowDown} alt="태그모음" />
+              ) : (
+                <img src={ArrowUp} alt="태그모음" />
+              )}
+            </button>
+          </SortType>
+        </div>
+      </div>
       <ContainerMiddle>
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
@@ -247,8 +244,6 @@ const Paper = () => {
               <>
                 <AllSortWrap>
                   {mypaper_data?.user.Papers.map((value, idx) => {
-                    // console.log(mypaper_data);
-
                     return (
                       <ContentBox
                         key={idx}
@@ -270,8 +265,6 @@ const Paper = () => {
                   {SelectCategoryData.length === 0 ? (
                     <>
                       {mypaper_data?.user.Papers.map((value, idx) => {
-                        // console.log(mypaper_data);
-
                         return (
                           <ContentBox
                             key={idx}
@@ -289,8 +282,6 @@ const Paper = () => {
                   ) : (
                     <>
                       {SelectCategoryData?.map((value, idx) => {
-                        // console.log(mypaper_data);
-
                         return (
                           <ContentBox
                             key={idx}
@@ -327,12 +318,18 @@ const Paper = () => {
 
 // Container 이 페이지 전체 박스
 const Container = styled.div`
-  max-width: 1920px;
   margin: 0 auto;
   overflow-x: hidden;
+  .SortTypeWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-left: 135px;
+    overflow-y: hidden;
+  }
 `;
 const ContainerMiddle = styled.div`
-  width: 1920px;
+  width: 100%;
   min-height: 1000px;
   display: flex;
   justify-content: center;
@@ -381,20 +378,6 @@ const MyProfileWrap = styled.div`
     width: calc(100% - 178px);
   }
 `;
-// 기본 모음
-// Button
-const Button = styled.button`
-  height: 40px;
-  width: 100%;
-  color: ${(props) => props.color || "black"};
-  background-color: ${(props) => props.background_color || "black"};
-  border: 1px solid ${(props) => props.border_color || "black"};
-  font-family: Gmarket Sans;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 14px;
-  outline: 1px solid ${(props) => props.outline_color || "black"};
-`;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`
   height: 100%;
@@ -413,7 +396,6 @@ const Nickname = styled.div`
   font-weight: 400;
   font-family: "Gmarket Sans";
   color: #333333;
-  /* opacity: 0.9; */
 `;
 const Introduction = styled.div`
   width: 540px;
@@ -442,19 +424,17 @@ const Subscribe = styled.div`
     font-size: 15px;
     font-family: "Noto Sans";
   }
-
-  /* margin-top: 15px; */
 `;
 
 // SortType 정렬들의 부모 박스
 const SortType = styled.div`
   height: 155px;
-  width: 500px;
+  width: 1080px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 18px;
-  margin-left: 470px;
+
   .TagBtn {
     display: flex;
     justify-content: space-between;
@@ -521,7 +501,6 @@ const Tag = styled.div`
 // AllSortWrap wrap - 4 / 각 포스트들 간의 간격 gap
 const AllSortWrap = styled.div`
   width: 1078px;
-  /* min-height: 1200px; */
   display: flex;
   flex-wrap: wrap;
   gap: 30px 40px;
@@ -530,13 +509,10 @@ const AllSortWrap = styled.div`
 const CategoryWrap = styled.div`
   height: 32px;
   width: 154px;
-  position: relative;
-  /* overflow-y: ; */
+
   select {
     -webkit-appearance: none;
-
     -moz-appearance: none;
-
     appearance: none;
   }
   button {
@@ -557,8 +533,6 @@ const CategoryWrap = styled.div`
   .SelectWrap {
     height: 32px;
     width: 154px;
-
-    z-index: 4;
   }
   .OptionWrap {
     width: 154px;
@@ -569,8 +543,7 @@ const CategoryWrap = styled.div`
     outline: 1px solid #acacac;
     border: 1px solid #acacac;
     overflow-y: scroll;
-    position: relative;
-    z-index: 99;
+    position: absolute;
   }
   .OptionWrap::-webkit-scrollbar {
     width: 10px;
@@ -602,5 +575,18 @@ const CategoryWrap = styled.div`
       background-color: #f8f8f8;
     }
   }
+`;
+// Buttons
+const Button = styled.button`
+  height: 40px;
+  width: 100%;
+  color: ${(props) => props.color || "black"};
+  background-color: ${(props) => props.background_color || "black"};
+  border: 1px solid ${(props) => props.border_color || "black"};
+  font-family: Gmarket Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  outline: 1px solid ${(props) => props.outline_color || "black"};
 `;
 export default Paper;

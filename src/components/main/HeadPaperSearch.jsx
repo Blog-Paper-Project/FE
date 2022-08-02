@@ -11,15 +11,15 @@ const HeadPaperSearch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  console.log(search);
+//   console.log(search);
 
   return (
     <>
       <SearchBox>
-        <BiSearchAlt2 color="black" size="25px" />
+        <BiSearchAlt2 color="black" size="40px" />
         <Search1
           value={search}
-          placeholder="검색하기"
+          placeholder="페이퍼의 제목이나 내용을 검색하실수 있습니다."
           onChange={(e) => {
             setSearch(e.target.value);
           }}
@@ -39,7 +39,7 @@ const HeadPaperSearch = () => {
 
 const SearchBox = styled.div`
   width: 60%;
-  height: 52px;
+  height: 70px;
   padding-left: 20px;
   display: flex;
   align-items: center !important;
