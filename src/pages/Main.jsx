@@ -615,7 +615,7 @@ const CenterPostWrap = styled.div`
 const CenterPostBox = styled.div`
   width: 1516px;
   /* height: 401px; */
-  border: 1px solid;
+//   border: 1px solid;
 `;
 
 const PopularBloger = styled.div`
