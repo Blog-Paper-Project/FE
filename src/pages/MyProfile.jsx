@@ -147,6 +147,7 @@ const ProfileImg = styled.img`
   border-radius: 154px;
   display: block;
   margin: 0px auto 24px auto;
+  cursor: default;
 `;
 
 const ProfileDetailBox = styled.div`
