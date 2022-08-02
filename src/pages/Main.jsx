@@ -44,13 +44,83 @@ const Main = () => {
   const fPapers = paper_query?.data.papers[5];
   const gPapers = paper_query?.data.papers[6];
 
-  console.log(aPapers)
+  // console.log(aPapers);
+  const handleClick = (e) => {
+    console.log(e);
+    navigate("/paper/allpapers", { state: e });
+  };
 
   return (
     <>
-
       <MainBox>
         <Header />
+        <CategoryWrap>
+          <div className="CategoryBox">
+            <Category
+              onClick={() => {
+                handleClick("All");
+              }}
+            >
+              All
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Art");
+              }}
+            >
+              Art
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Sport");
+              }}
+            >
+              Sport
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Daily");
+              }}
+            >
+              Daily
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Food");
+              }}
+            >
+              Food
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Tour");
+              }}
+            >
+              Tour
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Study");
+              }}
+            >
+              Study
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Shopping");
+              }}
+            >
+              Shopping
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Pet");
+              }}
+            >
+              Pet
+            </Category>
+          </div>
+        </CategoryWrap>
         <PostWrap>
           <PostBox>
             <PostWrap1>
@@ -61,39 +131,31 @@ const Main = () => {
               >
                 <img
                   className="postImg"
-                  src={aPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
+                  src={
+                    aPapers?.thumbnail === null
+                      ? "https://source.unsplash.com/collection/1"
+                      : process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`
+                  }
                   alt="back"
                 />
-                <div className="postTitle">
-                  {aPapers?.title}
-                </div>
-                <div className="contents">
-                  {aPapers?.contents}
-                </div>
+                <div className="postTitle">{aPapers?.title}</div>
+                <div className="contents">{aPapers?.contents}</div>
               </Post1st>
               <Post2st
                 onClick={() => {
                   navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
                 }}
               >
-                <div className="postTitle">
-                  {bPapers?.title}
-                </div>
-                <div className="contents">
-                  {bPapers?.contents}
-                </div>
+                <div className="postTitle">{bPapers?.title}</div>
+                <div className="contents">{bPapers?.contents}</div>
               </Post2st>
               <Post3st
                 onClick={() => {
                   navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
                 }}
               >
-                <div className="postTitle">
-                  {cPapers?.title}
-                </div>
-                <div className="contents">
-                  {cPapers?.contents}
-                </div>
+                <div className="postTitle">{cPapers?.title}</div>
+                <div className="contents">{cPapers?.contents}</div>
               </Post3st>
             </PostWrap1>
 
@@ -104,15 +166,15 @@ const Main = () => {
             >
               <img
                 className="postImg"
-                src={dPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`)}
+                src={
+                  dPapers?.thumbnail === null
+                    ? "https://source.unsplash.com/collection/1"
+                    : process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`
+                }
                 alt="back"
               />
-              <div className="postTitle">
-                {dPapers?.title}
-              </div>
-              <div className="contents">
-                {dPapers?.contents}
-              </div>
+              <div className="postTitle">{dPapers?.title}</div>
+              <div className="contents">{dPapers?.contents}</div>
             </Post4st>
 
             <PostWrap2>
@@ -121,23 +183,16 @@ const Main = () => {
                   navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
                 }}
               >
-                <div className="postTitle">
-                  {ePapers?.title}
-                </div>
-                <div className="contents">
-                  {ePapers?.contents}
-                </div>
+                <div className="postTitle">{ePapers?.title}</div>
+                <div className="contents">{ePapers?.contents}</div>
               </Post5st>
               <Post6st
                 onClick={() => {
                   navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
-                }}>
-                <div className="postTitle">
-                  {fPapers?.title}
-                </div>
-                <div className="contents">
-                  {fPapers?.contents}
-                </div>
+                }}
+              >
+                <div className="postTitle">{fPapers?.title}</div>
+                <div className="contents">{fPapers?.contents}</div>
               </Post6st>
               <Post7st
                 onClick={() => {
@@ -146,20 +201,25 @@ const Main = () => {
               >
                 <img
                   className="postImg"
-                  src={gPapers?.thumbnail === null ? ("https://source.unsplash.com/collection/1") : (process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`)}
+                  src={
+                    gPapers?.thumbnail === null
+                      ? "https://source.unsplash.com/collection/1"
+                      : process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`
+                  }
                   alt="back"
                 />
-                <div className="postTitle">
-                  {gPapers?.title}
-                </div>
-                <div className="contents">
-                  {gPapers?.contents}
-                </div>
+                <div className="postTitle">{gPapers?.title}</div>
+                <div className="contents">{gPapers?.contents}</div>
               </Post7st>
             </PostWrap2>
           </PostBox>
+          <CenterPostWrap>
+            <CenterPostBox>
+              <img alt="" />
+              <div className="PostBox"></div>
+            </CenterPostBox>
+          </CenterPostWrap>
         </PostWrap>
-
 
         <PopularBloger>
           <div className="poTitle">인기 블로거</div>
@@ -221,28 +281,63 @@ const Main = () => {
 
 const MainBox = styled.div`
   background-color: #fffdf7;
-  min-height: 3586px;
   display: flex;
   justify-content: center;
-  flex-direction: column;  
+  flex-direction: column;
+`;
+const CategoryWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  border-bottom: 1px solid #a7aca1;
+
+  .CategoryBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 1227px;
+    height: 60px;
+    font-family: "Gmarket Sans Light";
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 27px;
+  }
+`;
+const Category = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  cursor: pointer;
+  :hover {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: auto;
+    font-family: "Gmarket Sans";
+    font-weight: 400;
+    border-bottom: 2px solid;
+    transition: all 0.25s ease-in-out 0s c;
+  }
 `;
 
-
-const PostWrap = styled.div` 
-  min-height: 1637px;
+const PostWrap = styled.div`
+  height: 1577px;
   display: flex;
   justify-content: center;
-  padding-top: 160px;
+  flex-direction: column;
+  /* border-top: 2px solid #a7aca1; */
+  padding-top: 100px;
 `;
 
 const PostBox = styled.div`
-  
-  min-height: 1156px;
+  height: 1020px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 24px;
-  
+  margin-bottom: 56px;
 `;
 const PostWrap1 = styled.div`
   display: flex;
@@ -256,7 +351,7 @@ const Post1st = styled.div`
   width: 438px;
   height: 498px;
   float: left;
-  border-bottom: 1px solid #A7ACA1;
+  border-bottom: 1px solid #a7aca1;
   .postImg {
     width: 438px;
     height: 282px;
@@ -267,44 +362,44 @@ const Post1st = styled.div`
     width: 438px;
     height: 90px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
     margin-bottom: 15px;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
   }
   .contents {
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
   }
 `;
 const Post2st = styled.div`
   width: 438px;
   height: 237px;
   float: left;
-  border-bottom: 1px solid #A7ACA1;
+  border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 438px;
     height: 90px;
-    display: flex;
-    align-items: center;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
     margin-top: 36px;
     margin-bottom: 15px;
   }
@@ -312,15 +407,13 @@ const Post2st = styled.div`
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
   }
 `;
 const Post3st = styled.div`
@@ -329,61 +422,64 @@ const Post3st = styled.div`
   float: left;
   .postTitle {
     width: 438px;
-    height: 90px;
-    display: flex;
-    align-items: center;
+    height: 85px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
-    margin-top: 36px;
     margin-bottom: 15px;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    margin-top: 36px;
   }
   .contents {
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
   }
 `;
 
 const Post4st = styled.div`
   width: 592px;
   height: 996px;
-  border: 1px solid #A7ACA1;
+  border-left: 1px solid #a7aca1;
+  border-right: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
   display: flex;
   align-items: center;
   flex-direction: column;
   float: left;
   .postImg {
     width: 592px;
-    height: 483px;
+    height: 484px;
     object-fit: "cover";
     margin-bottom: 20px;
   }
   .postTitle {
     width: 544px;
-    height: 225px;  
+    height: 225px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 50px;
     line-height: 150%;
     margin-bottom: 15px;
+    letter-spacing: -0.005em;
+    padding: 5px 40px;
+    text-align: center;
   }
   .contents {
     width: 544px;
@@ -392,15 +488,14 @@ const Post4st = styled.div`
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    padding: 0 24px;
+    text-align: center;
+    letter-spacing: -0.005em;
   }
 `;
 
@@ -410,24 +505,24 @@ const PostWrap2 = styled.div`
   width: 438px;
   height: 996px;
   float: left;
-  gap: 24px;  
-`
+  gap: 24px;
+`;
 const Post5st = styled.div`
   width: 438px;
   height: 237px;
   float: left;
-  border-bottom: 1px solid #A7ACA1;
+  border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 438px;
     height: 90px;
-    display: flex;
-    align-items: center;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
     margin-top: 36px;
     margin-bottom: 15px;
   }
@@ -435,33 +530,31 @@ const Post5st = styled.div`
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
   }
 `;
 const Post6st = styled.div`
   width: 438px;
   height: 237px;
   float: left;
-  border-bottom: 1px solid #A7ACA1;
+  border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 438px;
     height: 90px;
-    display: flex;
-    align-items: center;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
     margin-top: 36px;
     margin-bottom: 15px;
   }
@@ -469,20 +562,18 @@ const Post6st = styled.div`
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-  }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    margin-bottom: 24px;
+    letter-spacing: -0.005em;
   }
 `;
 const Post7st = styled.div`
   width: 438px;
-  height: 498px;
+  height: 474px;
   float: left;
   .postImg {
     width: 438px;
@@ -492,29 +583,39 @@ const Post7st = styled.div`
   }
   .postTitle {
     width: 438px;
-    height: 90px;
+    height: 85px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
     margin-bottom: 15px;
   }
   .contents {
     width: 438px;
     height: 72px;
     overflow: hidden;
-    font-family: 'Gmarket Sans';
+    font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
+    padding-bottom: 5px;
+    letter-spacing: -0.005em;
   }
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
-  }
+`;
+const CenterPostWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 401px;
+`;
+const CenterPostBox = styled.div`
+  width: 1516px;
+  /* height: 401px; */
+  border: 1px solid;
 `;
 
 const PopularBloger = styled.div`
@@ -538,35 +639,33 @@ const PopularBloger = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;
-    font-family: "Gmarket Sans";
+    font-family: "Gmarket Sans Light";
   }
 `;
 
 const PopularBox = styled.div`
   display: flex;
-  width: 90%;
-  height: 920px;
-  padding: 45px 0 0 0;
-  float: left;
+  width: 100%;
+  height: 820px;
   flex-wrap: wrap;
+  border-top: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
 `;
 
 const Popular = styled.div`
-  background-color: #f7f5f0f6;
   display: flex;
   align-items: center;
   padding-top: 50px;
-  width: 385px;
+  width: 506px;
   height: 410px;
   flex-direction: column;
   float: left;
-  gap: 10px;
-  border-radius: 6px;
-  margin-top: 30px;
+  border: 1px solid #a7aca1;
+
   .popularNick {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 8px;
-    font-family: "Noto Sans";
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
@@ -574,7 +673,7 @@ const Popular = styled.div`
     color: #333;
   }
   .popularIntro {
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 40px;
     width: 212px;
     height: 76px;
@@ -583,36 +682,39 @@ const Popular = styled.div`
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 19px;
+    line-height: 27px;
+    letter-spacing: 0.3%;
     text-align: center;
     color: #333333;
   }
 `;
 const PopularImg = styled.img`
-  width: 140px;
-  height: 140px;
+  width: 100px;
+  height: 100px;
   margin: 0 0 0 0;
   border-radius: 50%;
   align-items: center;
 `;
 const EndBox = styled.div`
   width: 100%;
-  height: 410px;
+  margin-top: 130px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
+    font-family: "Gmarket Sans Light";
   }
   .enText {
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
+    font-family: "Gmarket Sans";
   }
 `;
 

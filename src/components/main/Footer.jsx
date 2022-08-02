@@ -41,9 +41,13 @@ const Footer = () => {
             <div className="title">Git-hub Address </div>
             <div className="text">
               <div>Front: </div>
-              <a href="https://github.com/Blog-Paper-Project/FE">• https://github.com/Blog-Paper-Project/FE</a>
+              <a href="https://github.com/Blog-Paper-Project/FE">
+                • https://github.com/Blog-Paper-Project/FE
+              </a>
               <div>Back: </div>
-              <a href="https://github.com/Blog-Paper-Project/BE">• https://github.com/Blog-Paper-Project/BE</a>
+              <a href="https://github.com/Blog-Paper-Project/BE">
+                • https://github.com/Blog-Paper-Project/BE
+              </a>
             </div>
           </Footer4T>
         </Footer4>
@@ -56,7 +60,7 @@ const Footer = () => {
 };
 
 const FooterBox = styled.div`
-  font-family: 'Noto Sans KR';
+  font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
@@ -65,13 +69,14 @@ const FooterBox = styled.div`
   height: 270px;
   border-collapse: collapse;
   padding-top: 50px;
-  border-top: 1px solid #A7ACA1;
+  border-top: 1px solid #a7aca1;
+  margin-top: 150px;
 `;
 
 const Footer1 = styled.div`
   width: 25%;
   height: 220px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   border-right: none;
   float: left;
   display: flex;
@@ -82,18 +87,18 @@ const Footer1 = styled.div`
 const Footer1T = styled.div`
   height: 55%;
   width: 70%;
-  .futerTitle{
+  .futerTitle {
     width: 50%;
     height: auto;
-    max-width:500px;
-    display:block;
-  }  
+    max-width: 500px;
+    display: block;
+  }
 `;
 
 const Footer2 = styled.div`
   width: 25%;
   height: 220px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   border-right: none;
   float: left;
   display: flex;
@@ -117,7 +122,7 @@ const Footer2T = styled.div`
 const Footer3 = styled.div`
   width: 25%;
   height: 220px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   border-right: none;
   float: left;
   display: flex;
@@ -141,7 +146,7 @@ const Footer3T = styled.div`
 const Footer4 = styled.div`
   width: 25%;
   height: 220px;
-  border: 1px solid #A7ACA1;
+  border: 1px solid #a7aca1;
   border-right: none;
   float: left;
   display: flex;
