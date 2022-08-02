@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "../shared/apis/Apis";
 
 /* 컴포넌트 */
@@ -11,6 +11,8 @@ import defaultUserImage from "../public/images/default_profile.png";
 
 const AllPaper = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
+  console.log(state);
 
   const paperLists = async () => {
     const res = await api.get("/api/paper/posts");
@@ -25,6 +27,9 @@ const AllPaper = () => {
     },
   });
   const Papers = paper_query?.data.papers;
+  // const SelectCategoryData = paper_query?.user.Papers.filter(
+  //   (PostsData) => PostsData.category === state
+  // );
   return (
     <>
       <Wrap>
