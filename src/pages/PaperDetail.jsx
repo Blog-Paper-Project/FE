@@ -209,7 +209,7 @@ const Container = styled.div`
   }
 `;
 const ContainerContents = styled.div`
-  min-width: 900px;
+  width: 900px;
   padding-top: 100px;
 `;
 const UserDataWrap = styled.div`
