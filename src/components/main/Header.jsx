@@ -114,35 +114,75 @@ const Header = () => {
                             navigate(`/paper/${blogId}`);
                           }}
                         >
-                          내 블로그
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Home.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            내 블로그
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/paper/${blogId}/reservationList`);
                           }}
                         >
-                          예약리스트
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Alarm on.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            예약리스트
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/write`);
                           }}
                         >
-                          글 작성하기
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Edit.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            글 작성하기
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/myprofile`);
                           }}
                         >
-                          회원정보
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Account box.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            회원정보
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             onLogout();
                           }}
                         >
-                          로그아웃
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Exit to app.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            로그아웃
+                          </div>
                         </ListItem>
                       </DropDownList>
                     </DropDownListContainer>
@@ -269,7 +309,7 @@ const Btn = styled.button`
   background-color: #fffdf7;
 `;
 const DropDownContainer = styled.div`
-  width: 50px;
+  width: 65px;
 `;
 const DropDownListContainer = styled.div`
   margin-right: 20px;
@@ -293,9 +333,15 @@ const DropDownList = styled.ul`
   }
 `;
 const ListItem = styled.li`
+  display: flex;
   list-style: none;
   margin-bottom: 0.5em;
   cursor: pointer;
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
 `;
 const NickBox = styled.div`
   display: flex;
