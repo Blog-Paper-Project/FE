@@ -27,7 +27,7 @@ const Paper = () => {
   const [categoty_Toggle, setCategoty_Toggle] = useState(false);
   const [CategoryEdit, setCategoryEdit] = useState(false);
   const [EditButton, setEditButton] = useState(false);
-  const [SelectCategory, setSelectCategory] = useState(null);
+  const [SelectCategory, setSelectCategory] = useState("All");
   const [SubScribe, setSubScribe] = useState(false);
 
   // Events
@@ -37,7 +37,9 @@ const Paper = () => {
   }, [allSort]);
 
   const onCategory = (e) => {
+    setSelectCategory(null);
     setSelectCategory(e);
+    setCategoty_Toggle(false);
   };
   // const onCategory = (e) => {
   //   console.log(e.target.value);
@@ -195,12 +197,76 @@ const Paper = () => {
                     <option
                       className="AllOption"
                       onClick={(e) => {
-                        setSelectCategory(e.target.value);
+                        onCategory(e.target.value);
                       }}
                     >
                       All
                     </option>
-                    {mypaper_data?.categories.map((value, index) => {
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Art
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Sport
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Daily
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Food
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Tour
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Study
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Shopping
+                    </option>
+                    <option
+                      className="AllOption"
+                      onClick={(e) => {
+                        onCategory(e.target.value);
+                      }}
+                    >
+                      Pet
+                    </option>
+                    {/* {mypaper_data?.categories.map((value, index) => {
                       return (
                         <CategoryList
                           onCategory={onCategory}
@@ -208,7 +274,7 @@ const Paper = () => {
                           categories={value}
                         />
                       );
-                    })}
+                    })} */}
                   </div>
                 </>
               ) : (
@@ -219,7 +285,7 @@ const Paper = () => {
                       setAllSort(true);
                     }}
                   >
-                    카테고리
+                    {SelectCategory !== null ? SelectCategory : "카테고리"}{" "}
                     <img src={ArrowDown} alt="카테고리" />
                   </button>
                 </>
@@ -240,7 +306,7 @@ const Paper = () => {
         {/* 아래 전체 정렬 렌더링*/}
         {allSort ? (
           <>
-            {SelectCategory === null ? (
+            {SelectCategory === "All" ? (
               <>
                 <AllSortWrap>
                   {mypaper_data?.user.Papers.map((value, idx) => {
@@ -262,24 +328,7 @@ const Paper = () => {
             ) : (
               <>
                 <AllSortWrap>
-                  {SelectCategoryData.length === 0 ? (
-                    <>
-                      {mypaper_data?.user.Papers.map((value, idx) => {
-                        return (
-                          <ContentBox
-                            key={idx}
-                            title={value.title}
-                            thumbnail={value.thumbnail}
-                            tags={value.tags}
-                            createdAt={value.createdAt}
-                            blogId={blogId}
-                            postId={value.postId}
-                            content={value.contents}
-                          />
-                        );
-                      })}
-                    </>
-                  ) : (
+                  {SelectCategoryData.length === 0 ? null : (
                     <>
                       {SelectCategoryData?.map((value, idx) => {
                         return (
@@ -380,7 +429,7 @@ const MyProfileWrap = styled.div`
 const ProfileImg = styled.img`
   height: 154px;
   width: 154px;
-  border: 1px solid #ffffff;
+  /* border: 1px solid #ffffff; */
   border-radius: 50%;
   cursor: default;
 `;
@@ -405,9 +454,10 @@ const Introduction = styled.div`
   margin-bottom: 25px;
   overflow: hidden;
   font-size: 14px;
-  font-family: "Noto Sans";
-  font-weight: 500;
+  font-family: "Gmarket Sans Light";
+  font-weight: 400;
   line-height: 19px;
+  letter-spacing: -0.01em;
 `;
 const Subscribe = styled.div`
   display: flex;
