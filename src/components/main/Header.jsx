@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
@@ -7,7 +6,6 @@ import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 /* 컴포넌트 */
-import HeadPaperSearch from "./HeadPaperSearch";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 const Header = () => {
