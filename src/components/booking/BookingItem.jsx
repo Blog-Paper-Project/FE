@@ -8,10 +8,16 @@ import {
   getBookingDB,
   patchBookingDB,
 } from "../../redux/modules/Booking";
+import dayjs from "dayjs";
+import Swal from "sweetalert2";
+
+
 
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //시간
+
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
   const Host = item?.hostId;
@@ -37,7 +43,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
-
+  let chatTime = start.substr(0, 2)
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -99,14 +105,30 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              <button
-                className="startBtn"
-                onClick={() => {
-                  enterChat();
-                }}
-              >
-                Start
-              </button>
+              {dayjs().format("HH") >= chatTime ? (
+                <button
+                  className="startBtn"
+                  onClick={() => {
+                    enterChat();
+                  }}
+                >
+                  Start
+                </button>
+              ) : (
+                <button
+                  className="waitBtn"
+                  onClick={() => {
+                    Swal.fire({
+                      title: "아직 예약하신 시간이 아닙니다!",
+                      icon: "warning",
+                      confirmButtonColor: "#3085d6",
+                      confirmButtonText: "확인",
+                    })
+                  }}
+                >
+                  Start
+                </button>
+              )}
             </div>
           </li>
         )}
@@ -181,14 +203,30 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              <button
-                className="startBtn"
-                onClick={() => {
-                  enterChat();
-                }}
-              >
-                Start
-              </button>
+              {dayjs().format("HH") >= chatTime ? (
+                <button
+                  className="startBtn"
+                  onClick={() => {
+                    enterChat();
+                  }}
+                >
+                  Start
+                </button>
+              ) : (
+                <button
+                  className="waitBtn"
+                  onClick={() => {
+                    Swal.fire({
+                      title: "아직 예약하신 시간이 아닙니다!",
+                      icon: "warning",
+                      confirmButtonColor: "#3085d6",
+                      confirmButtonText: "확인",
+                    })
+                  }}
+                >
+                  Start
+                </button>
+              )}
             </div>
           </li>
         )}

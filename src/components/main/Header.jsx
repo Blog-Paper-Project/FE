@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
@@ -7,7 +6,6 @@ import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 /* 컴포넌트 */
-import HeadPaperSearch from "./HeadPaperSearch";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 const Header = () => {
@@ -89,7 +87,7 @@ const Header = () => {
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon1>
 
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -97,7 +95,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                 </BtnBox1>
                 <DropDownContainer ref={el}>
                   <ProfileImgBox
@@ -116,35 +114,75 @@ const Header = () => {
                             navigate(`/paper/${blogId}`);
                           }}
                         >
-                          내 블로그
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Home.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            내 블로그
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/paper/${blogId}/reservationList`);
                           }}
                         >
-                          예약리스트
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Alarm on.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            예약리스트
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/write`);
                           }}
                         >
-                          글 작성하기
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Edit.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            글 작성하기
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             navigate(`/myprofile`);
                           }}
                         >
-                          회원정보
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Account box.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            회원정보
+                          </div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
                             onLogout();
                           }}
                         >
-                          로그아웃
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Exit to app.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">
+                            로그아웃
+                          </div>
                         </ListItem>
                       </DropDownList>
                     </DropDownListContainer>
@@ -162,7 +200,7 @@ const Header = () => {
                   >
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon2>
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -170,7 +208,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                   <BtnItem>
                     <Btn
                       onClick={() => {
@@ -222,8 +260,8 @@ const Login = styled.div`
   justify-content: end;
 `;
 const ProfileImgBox = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   align-items: center;
   /* padding-bottom: 2px; */
@@ -241,7 +279,7 @@ const BtnBox1 = styled.div`
   width: 45%;
   display: flex;
   justify-content: end;
-  margin-right: 5%;
+  margin-right: 1%;
 `;
 const BtnBox2 = styled.div`
   width: 78%;
@@ -251,7 +289,7 @@ const BtnBox2 = styled.div`
   padding-top: 3px;
 `;
 const BtnItem = styled.div`
-  width: 70%;
+  width: 35%;
 `;
 
 const Btn = styled.button`
@@ -271,7 +309,7 @@ const Btn = styled.button`
   background-color: #fffdf7;
 `;
 const DropDownContainer = styled.div`
-  width: 50px;
+  width: 65px;
 `;
 const DropDownListContainer = styled.div`
   margin-right: 20px;
@@ -295,15 +333,21 @@ const DropDownList = styled.ul`
   }
 `;
 const ListItem = styled.li`
+  display: flex;
   list-style: none;
   margin-bottom: 0.5em;
   cursor: pointer;
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
 `;
 const NickBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
+  width: 72px;
   font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;

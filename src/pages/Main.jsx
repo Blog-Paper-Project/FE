@@ -323,7 +323,7 @@ const Category = styled.div`
 `;
 
 const PostWrap = styled.div`
-  height: 1577px;
+  min-height: 1577px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -332,7 +332,7 @@ const PostWrap = styled.div`
 `;
 
 const PostBox = styled.div`
-  height: 1020px;
+  min-height: 1020px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
