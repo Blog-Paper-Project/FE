@@ -29,7 +29,7 @@ const AllPaper = () => {
   const { data: paper_query } = useQuery(["paper_lists", state], paperLists, {
     staleTime: 0,
     onSuccess: (data) => {
-      console.log(paper_query);
+//       console.log(paper_query);
       return data;
     },
   });
@@ -38,7 +38,7 @@ const AllPaper = () => {
   const SelectCategoryData = Papers?.filter(
     (PostsData) => PostsData.category === state
   );
-  console.log(SelectCategoryData);
+//   console.log(SelectCategoryData);
   return (
     <>
       <Wrap>
