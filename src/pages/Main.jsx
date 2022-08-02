@@ -46,7 +46,7 @@ const Main = () => {
 
   // console.log(aPapers);
   const handleClick = (e) => {
-    console.log(e);
+//     console.log(e);
     navigate("/paper/allpapers", { state: e });
   };
 
