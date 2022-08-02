@@ -18,10 +18,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const navigate = useNavigate();
   //시간
 
-
-  console.log(dayjs().format("HH"))
-
-
   // 조건에 필요한 정보
   const Bloger = getCookie("blogId");
   const Host = item?.hostId;
@@ -48,7 +44,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
   let chatTime = start.substr(0, 2)
-  console.log(chatTime)
   // 게스트일때
   if (Guest === Bloger) {
     return (
