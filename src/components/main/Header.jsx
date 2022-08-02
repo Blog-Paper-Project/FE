@@ -89,7 +89,7 @@ const Header = () => {
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon1>
 
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -97,7 +97,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                 </BtnBox1>
                 <DropDownContainer ref={el}>
                   <ProfileImgBox
@@ -162,7 +162,7 @@ const Header = () => {
                   >
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon2>
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -170,7 +170,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                   <BtnItem>
                     <Btn
                       onClick={() => {
@@ -222,8 +222,8 @@ const Login = styled.div`
   justify-content: end;
 `;
 const ProfileImgBox = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   align-items: center;
   /* padding-bottom: 2px; */
@@ -241,7 +241,7 @@ const BtnBox1 = styled.div`
   width: 45%;
   display: flex;
   justify-content: end;
-  margin-right: 5%;
+  margin-right: 1%;
 `;
 const BtnBox2 = styled.div`
   width: 78%;
@@ -251,7 +251,7 @@ const BtnBox2 = styled.div`
   padding-top: 3px;
 `;
 const BtnItem = styled.div`
-  width: 70%;
+  width: 35%;
 `;
 
 const Btn = styled.button`
@@ -303,7 +303,7 @@ const NickBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
+  width: 72px;
   font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;
