@@ -10,7 +10,6 @@ import Swal from "sweetalert2";
 import HeadPaperSearch from "./HeadPaperSearch";
 import { BiSearchAlt2 } from "react-icons/bi";
 
-
 const Header = () => {
   const navigate = useNavigate();
   const onLogout = () => {
@@ -68,8 +67,6 @@ const Header = () => {
     <>
       <HeaderBox>
         <Svg>
-
-
           <img
             onClick={() => {
               navigate("/");
@@ -79,7 +76,6 @@ const Header = () => {
             back_size="100% 100%"
             alt="icon"
           />
-
 
           <Login>
             {is_cookie ? (
@@ -93,7 +89,7 @@ const Header = () => {
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon1>
 
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -101,7 +97,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                 </BtnBox1>
                 <DropDownContainer ref={el}>
                   <ProfileImgBox
@@ -166,7 +162,7 @@ const Header = () => {
                   >
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon2>
-                  <BtnItem>
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -174,7 +170,7 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
+                  </BtnItem> */}
                   <BtnItem>
                     <Btn
                       onClick={() => {
@@ -198,7 +194,7 @@ const HeaderBox = styled.div`
   background-color: #fffdf7;
   width: 100%;
   height: 143px;
-  border-bottom: 1px solid #A7ACA1;
+  /* border-bottom: 1px solid #a7aca1; */
 `;
 const Svg = styled.div`
   display: flex;
@@ -208,12 +204,10 @@ const Svg = styled.div`
   align-items: center;
   justify-content: center;
   .paperTitle {
-   
     width: 50%;
     height: auto;
-    max-width:332px;
-    display:block;
-  
+    max-width: 332px;
+    display: block;
   }
 `;
 
@@ -228,8 +222,8 @@ const Login = styled.div`
   justify-content: end;
 `;
 const ProfileImgBox = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50px;
   align-items: center;
   /* padding-bottom: 2px; */
@@ -238,16 +232,16 @@ const SearchIcon1 = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10%;
-`
+`;
 const SearchIcon2 = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 const BtnBox1 = styled.div`
   width: 45%;
   display: flex;
   justify-content: end;
-  margin-right: 5%;
+  margin-right: 1%;
 `;
 const BtnBox2 = styled.div`
   width: 78%;
@@ -257,19 +251,19 @@ const BtnBox2 = styled.div`
   padding-top: 3px;
 `;
 const BtnItem = styled.div`
-  width: 70%;
+  width: 35%;
 `;
 
 const Btn = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
+  font-family: "Gmarket Sans";
   line-height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid;
   outline: 1px solid;
   width: 100%;
   min-width: 60px;
@@ -280,7 +274,6 @@ const DropDownContainer = styled.div`
   width: 50px;
 `;
 const DropDownListContainer = styled.div`
-  margin-top: 4px;
   margin-right: 20px;
 `;
 const DropDownList = styled.ul`
@@ -310,7 +303,7 @@ const NickBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
+  width: 72px;
   font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;

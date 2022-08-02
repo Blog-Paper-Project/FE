@@ -8,11 +8,11 @@ import { apiToken } from "../shared/apis/Apis";
 import Header from "../components/main/Header";
 import ContentBox from "../components/paper/ContentBox";
 import CategoryList from "../components/paper/CategoryList";
-import Footer from "../components/main/Footer";
 // Images
 import defaultUserImage from "../public/images/default_profile.png";
 import ArrowUp from "../public/images/icons/Keyboard_up.png";
 import ArrowDown from "../public/images/icons/Keyboard_down.png";
+import Footer from "../components/main/Footer";
 
 const Paper = () => {
   // React Hooks
@@ -319,7 +319,6 @@ const Paper = () => {
 // Container 이 페이지 전체 박스
 const Container = styled.div`
   margin: 0 auto;
-  overflow-x: hidden;
   .SortTypeWrap {
     width: 100%;
     display: flex;
@@ -344,8 +343,7 @@ const MyProfile = styled.div`
   align-items: center;
   height: 260px;
   width: 100%;
-  border-top: 1px solid #acacac;
-  border-bottom: 1px solid #acacac;
+
   outline: 1px solid #acacac;
   .MyProfile_div1 {
     display: flex;
@@ -380,10 +378,11 @@ const MyProfileWrap = styled.div`
 `;
 // MyProfile의 ProfileImg
 const ProfileImg = styled.img`
-  height: 100%;
-  width: 100%;
+  height: 154px;
+  width: 154px;
   border: 1px solid #ffffff;
   border-radius: 50%;
+  cursor: default;
 `;
 
 const Nickname = styled.div`
@@ -587,6 +586,6 @@ const Button = styled.button`
   font-size: 14px;
   font-weight: 400;
   line-height: 14px;
-  outline: 1px solid ${(props) => props.outline_color || "black"};
+  /* outline: 1px solid ${(props) => props.outline_color || "black"}; */
 `;
 export default Paper;
