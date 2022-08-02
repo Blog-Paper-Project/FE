@@ -132,6 +132,10 @@ export const setBookingDB = (data, blogId) => {
             icon: "warning",
             confirmButtonColor: "#3085d6",
             confirmButtonText: "확인",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
           });
         }
         if (err.response.data.msg === "예약 가능 횟수를 초과하였습니다.") {
