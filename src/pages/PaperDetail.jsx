@@ -201,8 +201,7 @@ const PaperDetail = () => {
 const Container = styled.div`
   margin: 0 auto;
   background-color: #fffdf7;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   .ContainerContentsWrap {
     display: flex;
     justify-content: center;
@@ -210,7 +209,7 @@ const Container = styled.div`
   }
 `;
 const ContainerContents = styled.div`
-  width: 900px;
+  min-width: 900px;
   padding-top: 100px;
 `;
 const UserDataWrap = styled.div`
@@ -293,7 +292,6 @@ const CreatedAt = styled.div`
 `;
 const ViewEditWarp = styled.div`
   width: 898px;
-  min-height: 400px;
 `;
 const TagWrap = styled.div`
   height: 20px;

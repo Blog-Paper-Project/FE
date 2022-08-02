@@ -17,7 +17,25 @@
  
 }
 
+@font-face {
+  font-family: "Gmarket Sans Light";
+  src: url("/src/public/fonts/GmarketSansTTFLight.ttf") ;
+ 
+}
 
 
+.postTitle {
+  width: 438px;
+  height: 90px;
+  overflow: hidden;
+  font-family: "Gmarket Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 150%;
+  margin-bottom: 15px;
+  padding-right: 80px;
+  letter-spacing: -0.005em;
+}
 
 
