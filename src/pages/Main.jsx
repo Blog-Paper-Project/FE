@@ -361,6 +361,7 @@ const Post1st = styled.div`
   width: 408px;
   height: 498px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postImg {
     width: 408px;
@@ -398,6 +399,7 @@ const Post2st = styled.div`
   width: 408px;
   height: 237px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 408px;
@@ -430,6 +432,7 @@ const Post3st = styled.div`
   width: 408px;
   height: 213px;
   float: left;
+  cursor: pointer;
   .postTitle {
     width: 438px;
     height: 85px;
@@ -465,6 +468,7 @@ const Post4st = styled.div`
   border-right: 1px solid #a7aca1;
   border-bottom: 1px solid #a7aca1;
   display: flex;
+  cursor: pointer;
   align-items: center;
   flex-direction: column;
   float: left;
@@ -521,6 +525,7 @@ const Post5st = styled.div`
   width: 408px;
   height: 237px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 408px;
@@ -553,6 +558,7 @@ const Post6st = styled.div`
   width: 408px;
   height: 237px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 408px;
@@ -584,6 +590,7 @@ const Post6st = styled.div`
 const Post7st = styled.div`
   width: 408px;
   height: 434px;
+  cursor: pointer;
   float: left;
   .postImg {
     width: 408px;

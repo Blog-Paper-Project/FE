@@ -254,7 +254,7 @@ const ModifyEdit = (props) => {
             color="#A7ACA1"
             border_color="white"
             outline_color="white"
-            onClick={onTemporary}
+            onClick={()=>{alert("준비 중인 기능입니다!")}}
           >
             임시저장
           </Button>
