@@ -33,9 +33,9 @@ const ModifyEdit = (props) => {
   const [tagList, setTagList] = useState([]);
   const [openModal, setOpenModal] = useState(false); // # 썸네일, 카테고리 고르는 모달 오픈
   const [editCategory, setEditCategory] = useState(false);
-  const [category, setCategory] = useState("etc");
+  const [category, setCategory] = useState("");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState("etc");
+  const [selectOption, setSelectOption] = useState("");
 
   // 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
@@ -196,24 +196,24 @@ const ModifyEdit = (props) => {
     }
   );
 
-  // UseQuery get 카테고리 데이터
-  const GetCategoryData = async () => {
-    const response = await apiToken.get(`/api/paper/categories`);
-    return response?.data;
-  };
+  // // UseQuery get 카테고리 데이터
+  // const GetCategoryData = async () => {
+  //   const response = await apiToken.get(`/api/paper/categories`);
+  //   return response?.data;
+  // };
 
-  const { data: category_data } = useQuery(
-    ["category_data", blogId],
-    GetCategoryData,
-    {
-      onSuccess: (data) => {
-        const CategoriesAll = data?.categories;
-        setCategoryList([...CategoriesAll]);
-      },
-      staleTime: 0,
-      cacheTime: 0,
-    }
-  );
+  // const { data: category_data } = useQuery(
+  //   ["category_data", blogId],
+  //   GetCategoryData,
+  //   {
+  //     onSuccess: (data) => {
+  //       const CategoriesAll = data?.categories;
+  //       setCategoryList([...CategoriesAll]);
+  //     },
+  //     staleTime: 0,
+  //     cacheTime: 0,
+  //   }
+  // );
 
   if (status === "loading") {
     return <>loading...</>;
@@ -254,7 +254,9 @@ const ModifyEdit = (props) => {
             color="#A7ACA1"
             border_color="white"
             outline_color="white"
-            onClick={()=>{alert("준비 중인 기능입니다!")}}
+            onClick={() => {
+              alert("준비 중인 기능입니다!");
+            }}
           >
             임시저장
           </Button>
@@ -308,7 +310,16 @@ const ModifyEdit = (props) => {
                     autoFocus
                     required
                   >
-                    {category_data?.categories.length === 0 ? (
+                    <option value={selectOption}>"{selectOption}"</option>
+                    <option value="Art">Art</option>{" "}
+                    <option value="Sport">Sport</option>{" "}
+                    <option value="Daily">Daily</option>{" "}
+                    <option value="Food">Food</option>{" "}
+                    <option value="Tour">Tour</option>{" "}
+                    <option value="Study">Study</option>{" "}
+                    <option value="Shopping">Shopping</option>{" "}
+                    <option value="Pet">Pet</option>
+                    {/* {category_data?.categories.length === 0 ? (
                       <>
                         <>
                           <option value="etc">etc</option>
@@ -334,16 +345,14 @@ const ModifyEdit = (props) => {
                           );
                         })}
                       </>
-                    )}
+                    )} */}
                   </select>
                 </CategoryWarp>
                 <button
-                  onClick={() => {
-                    setEditCategory(!editCategory);
-                  }}
-                >
-                  카테고리 추가
-                </button>
+                // onClick={() => {
+                //   setEditCategory(!editCategory);
+                // }}
+                ></button>
               </CategorySelectWrap>
             )}
 

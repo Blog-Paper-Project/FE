@@ -47,6 +47,8 @@ const Main = () => {
   const fPapers = paper_query?.data.papers[4];
   const gPapers = paper_query?.data.papers[6];
 
+  const Post4_Contents = dPapers?.contents.slice(0, 175);
+  console.log(Post4_Contents);
   // console.log(aPapers);
   const handleClick = (e) => {
     //     console.log(e);
@@ -177,7 +179,7 @@ const Main = () => {
                 alt="back"
               />
               <div className="postTitle">{dPapers?.title}</div>
-              <div className="contents">{dPapers?.contents}</div>
+              <div className="contents">{Post4_Contents} ...</div>
             </Post4st>
 
             <PostWrap2>
@@ -352,25 +354,25 @@ const PostBox = styled.div`
 const PostWrap1 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 408px;
-  height: 956px;
+  width: 438px;
+  height: 1020px;
   float: left;
   gap: 24px;
 `;
 const Post1st = styled.div`
-  width: 408px;
+  width: 438px;
   height: 498px;
   float: left;
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postImg {
-    width: 408px;
+    width: 438px;
     height: 282px;
     object-fit: "cover";
     margin-bottom: 15px;
   }
   .postTitle {
-    width: 408px;
+    width: 438px;
     height: 90px;
     overflow: hidden;
     font-family: "Gmarket Sans";
@@ -383,7 +385,7 @@ const Post1st = styled.div`
     letter-spacing: -0.005em;
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -391,18 +393,18 @@ const Post1st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const Post2st = styled.div`
-  width: 408px;
-  height: 237px;
-  float: left;
+  width: 438px;
+  height: 227px;
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
-    width: 408px;
+    width: 438px;
     height: 90px;
     overflow: hidden;
     font-family: "Gmarket Sans";
@@ -412,11 +414,11 @@ const Post2st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
     margin-bottom: 15px;
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -424,12 +426,13 @@ const Post2st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const Post3st = styled.div`
-  width: 408px;
+  width: 438px;
   height: 213px;
   float: left;
   cursor: pointer;
@@ -445,10 +448,10 @@ const Post3st = styled.div`
     margin-bottom: 15px;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -456,13 +459,14 @@ const Post3st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 50px;
   }
 `;
 
 const Post4st = styled.div`
-  width: 562px;
+  width: 592px;
   height: 996px;
   border-left: 1px solid #a7aca1;
   border-right: 1px solid #a7aca1;
@@ -471,12 +475,11 @@ const Post4st = styled.div`
   cursor: pointer;
   align-items: center;
   flex-direction: column;
-  float: left;
   .postImg {
-    width: 562px;
-    height: 484px;
+    width: 592px;
+    height: 438px;
     object-fit: "cover";
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
   }
   .postTitle {
     width: 514px;
@@ -488,7 +491,7 @@ const Post4st = styled.div`
     font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
-    font-size: 45px;
+    font-size: 50px;
     line-height: 150%;
     margin-bottom: 20px;
     letter-spacing: -0.005em;
@@ -507,42 +510,44 @@ const Post4st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    padding: 0 24px;
+    padding: 5px 24px 0 24px;
     text-align: center;
     letter-spacing: -0.005em;
+    margin-top: 30px;
+    text-overflow: ellipsis;
   }
 `;
 
 const PostWrap2 = styled.div`
   display: flex;
   flex-direction: column;
-  width: 408px;
-  height: 996px;
+  width: 438px;
+  height: 1020px;
   float: left;
   gap: 24px;
 `;
 const Post5st = styled.div`
-  width: 408px;
+  width: 438px;
   height: 237px;
   float: left;
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
-    width: 408px;
+    width: 438px;
     height: 90px;
     overflow: hidden;
     font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
-    font-size: 28px;
+    font-size: 30px;
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    margin-top: 5px;
     margin-bottom: 15px;
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -550,14 +555,14 @@ const Post5st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 30px;
   }
 `;
 const Post6st = styled.div`
-  width: 408px;
-  height: 237px;
-  float: left;
+  width: 438px;
+  height: 227px;
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
@@ -571,11 +576,11 @@ const Post6st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
     margin-bottom: 15px;
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -583,12 +588,13 @@ const Post6st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 30px;
   }
 `;
 const Post7st = styled.div`
-  width: 408px;
+  width: 438px;
   height: 434px;
   cursor: pointer;
   float: left;
@@ -599,7 +605,7 @@ const Post7st = styled.div`
     margin-bottom: 15px;
   }
   .postTitle {
-    width: 408px;
+    width: 438px;
     height: 85px;
     overflow: hidden;
     font-family: "Gmarket Sans";
@@ -612,7 +618,7 @@ const Post7st = styled.div`
     margin-bottom: 15px;
   }
   .contents {
-    width: 408px;
+    width: 438px;
     height: 72px;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -622,6 +628,7 @@ const Post7st = styled.div`
     line-height: 120%;
     padding-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const CenterPostWrap = styled.div`
