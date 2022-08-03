@@ -15,7 +15,7 @@ const AllPaper = () => {
   const { state } = useLocation();
   const [category, setCategory] = useState(state);
 
-  console.log(category);
+//   console.log(category);
 
   const handleClick = (e) => {
     setCategory(e);
@@ -42,7 +42,7 @@ const AllPaper = () => {
   const SelectCategoryData = Papers?.filter(
     (PostsData) => PostsData.category === category
   );
-  console.log(SelectCategoryData);
+//   console.log(SelectCategoryData);
   return (
     <>
       <Wrap>
