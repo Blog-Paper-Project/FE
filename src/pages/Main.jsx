@@ -48,7 +48,8 @@ const Main = () => {
   const gPapers = paper_query?.data.papers[6];
 
   const Post4_Contents = dPapers?.contents.slice(0, 175);
-//   console.log(Post4_Contents);
+
+  //   console.log(Post4_Contents);
   // console.log(aPapers);
   const handleClick = (e) => {
     //     console.log(e);
