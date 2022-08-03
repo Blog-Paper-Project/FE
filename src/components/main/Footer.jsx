@@ -22,7 +22,7 @@ const Footer = () => {
         </Footer1>
         <Footer2>
           <Footer2T>
-            <div className="title">FrontEnd Developer / Designer</div>
+            <div className="title">Frontend Developer / Designer</div>
             <div className="text">
               <div> • Koo Ja-deok</div>
               <div> • Jeong Dae-gyu</div>
