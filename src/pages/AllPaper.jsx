@@ -13,37 +13,41 @@ import { useState } from "react";
 const AllPaper = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  // const [category, setCategory] = useState(state);
+  const [category, setCategory] = useState(state);
 
-  // console.log(category);
+  console.log(category);
 
-  // const handleClick = (e) => {
-  //   setCategory(e)
-  // };
+  const handleClick = (e) => {
+    setCategory(e);
+  };
 
   const paperLists = async () => {
     const res = await api.get("/api/paper/posts");
     return res;
   };
 
-  const { data: paper_query } = useQuery(["paper_lists", state], paperLists, {
-    staleTime: 0,
-    onSuccess: (data) => {
-//       console.log(paper_query);
-      return data;
-    },
-  });
+  const { data: paper_query } = useQuery(
+    ["paper_lists", { state }, category],
+    paperLists,
+    {
+      staleTime: 0,
+      onSuccess: (data) => {
+        //       console.log(paper_query);
+        return data;
+      },
+    }
+  );
   const Papers = paper_query?.data.papers;
   // console.log(Papers);
   const SelectCategoryData = Papers?.filter(
-    (PostsData) => PostsData.category === state
+    (PostsData) => PostsData.category === category
   );
-//   console.log(SelectCategoryData);
+  console.log(SelectCategoryData);
   return (
     <>
       <Wrap>
         <Header />
-        {/* <CategoryWrap>
+        <CategoryWrap>
           <div className="CategoryBox">
             <Category
               onClick={() => {
@@ -109,8 +113,8 @@ const AllPaper = () => {
               Pet
             </Category>
           </div>
-        </CategoryWrap> */}
-        {Papers && state === "All" ? (
+        </CategoryWrap>
+        {category === "All" ? (
           <>
             <Bigbox>
               {Papers?.map((Papers, i) => {
