@@ -120,9 +120,7 @@ const Header = () => {
                             back_size="100% 100%"
                             alt="icon"
                           />
-                          <div className="text">
-                            내 블로그
-                          </div>
+                          <div className="text">내 블로그</div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
@@ -135,9 +133,7 @@ const Header = () => {
                             back_size="100% 100%"
                             alt="icon"
                           />
-                          <div className="text">
-                            예약리스트
-                          </div>
+                          <div className="text">예약리스트</div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
@@ -150,9 +146,7 @@ const Header = () => {
                             back_size="100% 100%"
                             alt="icon"
                           />
-                          <div className="text">
-                            글 작성하기
-                          </div>
+                          <div className="text">글 작성하기</div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
@@ -165,9 +159,7 @@ const Header = () => {
                             back_size="100% 100%"
                             alt="icon"
                           />
-                          <div className="text">
-                            회원정보
-                          </div>
+                          <div className="text">회원정보</div>
                         </ListItem>
                         <ListItem
                           onClick={() => {
@@ -180,15 +172,13 @@ const Header = () => {
                             back_size="100% 100%"
                             alt="icon"
                           />
-                          <div className="text">
-                            로그아웃
-                          </div>
+                          <div className="text">로그아웃</div>
                         </ListItem>
                       </DropDownList>
                     </DropDownListContainer>
                   )}
                 </DropDownContainer>
-                <NickBox>{nickname}</NickBox>
+                <NickBox></NickBox>
               </>
             ) : (
               <>
@@ -232,7 +222,7 @@ const HeaderBox = styled.div`
   background-color: #fffdf7;
   width: 100%;
   height: 143px;
-  /* border-bottom: 1px solid #a7aca1; */
+  border-bottom: 1px solid #a7aca1;
 `;
 const Svg = styled.div`
   display: flex;
@@ -337,7 +327,7 @@ const ListItem = styled.li`
   list-style: none;
   margin-bottom: 0.5em;
   cursor: pointer;
-  
+
   .icon {
     width: 24px;
     height: 24px;
