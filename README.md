@@ -84,8 +84,8 @@
 ## 🛠 Tools 🛠
 
 ## 🔥 Trouble Shooting 🔥
-<details> <summary> **`문제상황`** input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
-
+<details> <summary> **문제상황** input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
+<br/>
 **`해결방안`**
 1. react-query에 key를 넣어 refetch가 필요한 값이 변화했을 때만 get 요청을 할 수 있게 하였다.
 2. onChange를 쓴 부분을 리렌더링을 막기 위해 useRef로 간단히 해결하였다.
