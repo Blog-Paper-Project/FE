@@ -100,6 +100,15 @@
   <img src="https://img.shields.io/badge/AWS Amplify-FF9900?style=for-the-badge&logo=AWS Amplify&logoColor=black">
   <img src="https://img.shields.io/badge/WebRTC-333333?style=for-the-badge&logo=WebRTC&logoColor=black">
 </div>
+<br>
+<br>
+
+| Library | Appliance |
+| --- | --- |
+| socket.io, WebRTC | WebRTC는 HTML5에 내장된 API지원으로 최신브라우저에서 재생가능하고 대표적인 화상채팅 기술이어서 선택, peer간의 초기 연결 및 room을 통한 실시간 채팅기능 구현을 위해 WebSocket보다 유연한 socket.io를 선택 |  
+| Reqct-Query | store에 전역에서 사용하지 않는 서버 데이터가 쌓이는 게 비효율적이라고 판단하여 React-Query로 서버로 부터 받은 데이터를 관리하였습니다. 추가로 React-Query를 사용할 시 코드가 단순화 되고, option을 사용한다면 다양한 기능들을 간단히 추가시킬 수 있기에 다른 기술이 아닌 React-Query를 사용하게 됐습니다.| 
+
+
 
 
 ## 🔥 Trouble Shooting 🔥
@@ -125,5 +134,15 @@ context provider로 socket 연결 후 사용하는 컴포넌트에 import를 해
 
 **`결과`**
   * 소켓이 한번만 연결되어 채팅이 여러번 출력되는 현상이 사라졌다.
+  </div>
+  </details>
+
+ <details> <summary>➡️ 예약 수락, 취소 버튼 클릭시 상태값 변화에 따른 렌더링이 바로 일어나지 않았다.</summary> <div markdown="1">
+  <br/>
+  
+**`해결방안`**
+  * 부킹리스트에서 상태값에 따른 렌더링을 할수가 없어서 부킹리스트 안의 부킹 아이템 컴퍼넌트 안에서 useEffect를 통해 상태값 변화에 따른 리렌더링을 시켜 주었다.
+**`결과`**
+  * 버튼 클릭시 새로고침이 필요 없이 바로 상태값 변화에 따른 화면을 렌더링 해주었다.
   </div>
   </details>
