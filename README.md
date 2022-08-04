@@ -41,3 +41,17 @@
     <td align="center"><b>Backend</b></td>
   </tr>
 </table>
+
+<br/>
+<br/>
+
+## Architecture
+
+![Paper_architecture](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/05cdad92-0c62-4308-9802-745e96f3037a/%EC%BA%A1%EC%B2%98_2022_07_14_17_00_617.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T053328Z&X-Amz-Expires=86400&X-Amz-Signature=72598256663ec5071f20e94941ee875b612a444f92577c057f6c1970a5067662&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_2022_07_14_17_00_617.png%22&x-id=GetObject)
+
+<br/>
+<br/>
+
+## 🛠 Tools 🛠
+
+## 🔥 Trouble Shooting 🔥
