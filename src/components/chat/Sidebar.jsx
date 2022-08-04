@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { Button, Grid, Container, Paper } from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 // import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Phone, PhoneDisabled } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { SocketContext } from "../../Context";
+import styled from "styled-components";
+import { useState } from "react";
 
 // import AudioOff from "../../public/images/AudioOff.svg";
 // import AudioOn from "../../public/images/AudioOn.svg";
@@ -90,37 +92,19 @@ const Sidebar = ({ children }) => {
               </div>
             </ButtonList> */}
           {callAccepted ? (
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<PhoneDisabled fontSize="large" />}
-              fullWidth
-              onClick={leaveCall}
-              className={classes.margin}
-            >
-              나가기
-            </Button>
+            <ButtonWrap>
+              <ButtonOut onClick={leaveCall}>나가기</ButtonOut>
+            </ButtonWrap>
           ) : call.isReceivingCall && !callAccepted ? (
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={answerCall}
-              className={classes.margin}
-            >
-              Answer
-            </Button>
+            <ButtonWrap>
+              <Button onClick={answerCall}>연결 수락하기</Button>
+            </ButtonWrap>
           ) : (
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<Phone fontSize="large" />}
-              fullWidth
-              onClick={() => callUser(idToCall)}
-              className={classes.margin}
-            >
-              화상 연결하기
-            </Button>
+            <ButtonWrap>
+              <Button onClick={() => callUser(idToCall)}>
+                상대방에게 연결하기
+              </Button>
+            </ButtonWrap>
           )}
         </Grid>
       </form>
@@ -130,15 +114,32 @@ const Sidebar = ({ children }) => {
   );
 };
 
-// const ButtonList = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   margin: 50px;
-//   border-top: 1px solid gray;
-//   gap: 50px;
-//   padding-top: 30px;
-// `;
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const Button = styled.button`
+  width: 300px;
+  height: 50px;
+  font-size: 15px;
+  border: 1px solid #333;
+  &:hover {
+    color: #fff;
+    background-color: #153587;
+  }
+`;
+
+const ButtonOut = styled(Button)`
+  width: 300px;
+  height: 50px;
+  font-size: 15px;
+  border: 1px solid #333;
+  &:hover {
+    color: #fff;
+    background-color: #981821;
+  }
+`;
 
 export default Sidebar;

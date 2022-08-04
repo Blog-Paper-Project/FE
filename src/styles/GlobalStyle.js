@@ -22,6 +22,8 @@ const GlobalStyle = createGlobalStyle`
         border: none;
         font-family: "Gmarket Sans";
         background-color: white;
+        transform: skew(-0.1deg);
+
     };
     img{
         cursor: pointer;
