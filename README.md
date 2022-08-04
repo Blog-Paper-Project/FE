@@ -85,7 +85,7 @@
 
 ## 🔥 Trouble Shooting 🔥
 <details> <summary>input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
-  
+  <br/>
 **`해결방안`**
 1. react-query에 key를 넣어 refetch가 필요한 값이 변화했을 때만 get 요청을 할 수 있게 하였다.
 2. onChange를 쓴 부분을 리렌더링을 막기 위해 useRef로 간단히 해결하였다.
@@ -95,7 +95,7 @@
   </details>
   
  <details> <summary>채팅을 보낼때 여러번 출력되는 현상이 발생하였다.</summary> <div markdown="1">
-  
+  <br/>
 **`해결방안`**
 채팅에서의 소켓연결과 화상채팅에서의 소켓연결을 따로 하다보니 
 socket이 중복으로 연결되어 메세지가 여러번 찍히는 현상이 발생,
