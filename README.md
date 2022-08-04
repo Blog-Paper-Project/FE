@@ -65,6 +65,9 @@
   <img width='50%' src='https://ifh.cc/g/oQYS01.jpg'> 
   </div>
   </details>
+  
+  <br/>
+  <br/>
 
 ### Members
 
@@ -169,6 +172,7 @@ context provider로 socket 연결 후 사용하는 컴포넌트에 import를 해
   
 **`해결방안`**
   * 부킹리스트에서 상태값에 따른 렌더링을 할수가 없어서 부킹리스트 안의 부킹 아이템 컴퍼넌트 안에서 useEffect를 통해 상태값 변화에 따른 리렌더링을 시켜 주었다.
+  
 **`결과`**
   * 버튼 클릭시 새로고침이 필요 없이 바로 상태값 변화에 따른 화면을 렌더링 해주었다.
   </div>
