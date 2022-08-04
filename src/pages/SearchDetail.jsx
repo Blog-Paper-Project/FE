@@ -26,7 +26,9 @@ const SearchDetail = () => {
     <>
       <Wrap>
         <Header />
-        <HeadPaperSearch />
+        <SearchBox>
+          <HeadPaperSearch />
+        </SearchBox>
         <HeadTitle>"{payload}"로 검색한 결과</HeadTitle>
         <Bigbox>
           {SearchPaper?.map((SearchPaper, i) => {
@@ -126,6 +128,11 @@ const Wrap = styled.div`
   width: 100%;
   background-color: #fffdf7;
 `;
+const SearchBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;  
+`
 const Box = styled.div`
   height: 180px;
   cursor: pointer;
