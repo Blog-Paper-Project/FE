@@ -2,7 +2,15 @@
 
 # 📝[Paper](https://www.paper-daily.com/)📝
 
+자신의 생각을 글로 적어보아요.
+
 <br />
+
+## Paper의 사용목적
+
+### 자신의 글로 유명 해지고 싶나요?
+
+
 
 ## 📆개발기간
 
@@ -49,7 +57,7 @@
 
 ## Architecture
 
-![Paper_architecture](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/05cdad92-0c62-4308-9802-745e96f3037a/%EC%BA%A1%EC%B2%98_2022_07_14_17_00_617.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T053328Z&X-Amz-Expires=86400&X-Amz-Signature=72598256663ec5071f20e94941ee875b612a444f92577c057f6c1970a5067662&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_2022_07_14_17_00_617.png%22&x-id=GetObject)
+![Paper_architecture](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/60f3e113-9324-4814-91db-64b735115b4d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T054636Z&X-Amz-Expires=86400&X-Amz-Signature=49cd18bb5817dbe79f7f47c2409f11bf9dd186fb8375206d5dd9140b4dc7b610&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 <br/>
 <br/>
