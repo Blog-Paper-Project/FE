@@ -315,6 +315,7 @@ const CategoryWrap = styled.div`
     font-size: 18px;
     font-weight: 300;
     line-height: 27px;
+    transform: skew(-0.1deg);
   }
 `;
 const Category = styled.div`
@@ -332,6 +333,7 @@ const Category = styled.div`
     font-weight: 400;
     border-bottom: 2px solid;
     transition: all 0.25s ease-in-out 0s c;
+    transform: skew(-0.1deg);
   }
 `;
 
@@ -340,7 +342,6 @@ const PostWrap = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  /* border-top: 2px solid #a7aca1; */
   padding-top: 100px;
 `;
 
@@ -384,6 +385,7 @@ const Post1st = styled.div`
     margin-bottom: 15px;
     padding-right: 80px;
     letter-spacing: -0.005em;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -394,9 +396,9 @@ const Post1st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    /* margin-bottom: 24px; */
     letter-spacing: -0.005em;
     margin-top: 20px;
+    transform: skew(-0.1deg);
   }
 `;
 const Post2st = styled.div`
@@ -415,8 +417,8 @@ const Post2st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    /* margin-top: 5px; */
     margin-bottom: 15px;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -430,6 +432,7 @@ const Post2st = styled.div`
     margin-bottom: 5px;
     letter-spacing: -0.005em;
     margin-top: 20px;
+    transform: skew(-0.1deg);
   }
 `;
 const Post3st = styled.div`
@@ -449,7 +452,7 @@ const Post3st = styled.div`
     margin-bottom: 15px;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    /* margin-top: 5px; */
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -463,6 +466,7 @@ const Post3st = styled.div`
     margin-bottom: 5px;
     letter-spacing: -0.005em;
     margin-top: 50px;
+    transform: skew(-0.1deg);
   }
 `;
 
@@ -480,7 +484,6 @@ const Post4st = styled.div`
     width: 592px;
     height: 438px;
     object-fit: "cover";
-    /* margin-bottom: 25px; */
   }
   .postTitle {
     width: 514px;
@@ -498,6 +501,7 @@ const Post4st = styled.div`
     letter-spacing: -0.005em;
     padding: 5px 40px;
     text-align: center;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 514px;
@@ -516,6 +520,7 @@ const Post4st = styled.div`
     letter-spacing: -0.005em;
     margin-top: 30px;
     text-overflow: ellipsis;
+    transform: skew(-0.1deg);
   }
 `;
 
@@ -546,6 +551,7 @@ const Post5st = styled.div`
     letter-spacing: -0.005em;
     margin-top: 5px;
     margin-bottom: 15px;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -559,6 +565,7 @@ const Post5st = styled.div`
     margin-bottom: 5px;
     letter-spacing: -0.005em;
     margin-top: 30px;
+    transform: skew(-0.1deg);
   }
 `;
 const Post6st = styled.div`
@@ -577,8 +584,8 @@ const Post6st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    /* margin-top: 5px; */
     margin-bottom: 15px;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -592,6 +599,7 @@ const Post6st = styled.div`
     margin-bottom: 5px;
     letter-spacing: -0.005em;
     margin-top: 30px;
+    transform: skew(-0.1deg);
   }
 `;
 const Post7st = styled.div`
@@ -617,6 +625,7 @@ const Post7st = styled.div`
     padding-right: 80px;
     letter-spacing: -0.005em;
     margin-bottom: 15px;
+    transform: skew(-0.1deg);
   }
   .contents {
     width: 438px;
@@ -630,6 +639,7 @@ const Post7st = styled.div`
     padding-bottom: 5px;
     letter-spacing: -0.005em;
     margin-top: 20px;
+    transform: skew(-0.1deg);
   }
 `;
 const CenterPostWrap = styled.div`
@@ -657,12 +667,14 @@ const PopularBloger = styled.div`
     font-size: 35px;
     line-height: 170%;
     font-family: "Gmarket Sans";
+    transform: skew(-0.1deg);
   }
   .poText {
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;
     font-family: "Gmarket Sans Light";
+    transform: skew(-0.1deg);
   }
 `;
 
@@ -694,6 +706,7 @@ const Popular = styled.div`
     font-size: 23px;
     line-height: 35px;
     color: #333;
+    transform: skew(-0.1deg);
   }
   .popularIntro {
     margin-top: 25px;
@@ -712,8 +725,8 @@ const Popular = styled.div`
   }
 `;
 const PopularImg = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   margin: 0 0 0 0;
   border-radius: 50%;
   align-items: center;
@@ -732,12 +745,14 @@ const EndBox = styled.div`
     font-size: 30px;
     line-height: 150%;
     font-family: "Gmarket Sans Light";
+    transform: skew(-0.1deg);
   }
   .enText {
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
     font-family: "Gmarket Sans";
+    transform: skew(-0.1deg);
   }
 `;
 

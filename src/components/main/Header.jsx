@@ -190,15 +190,6 @@ const Header = () => {
                   >
                     <BiSearchAlt2 color="black" size="25px" />
                   </SearchIcon2>
-                  {/* <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/paper/allpapers");
-                      }}
-                    >
-                      전체글
-                    </Btn>
-                  </BtnItem> */}
                   <BtnItem>
                     <Btn
                       onClick={() => {
@@ -250,20 +241,21 @@ const Login = styled.div`
   justify-content: end;
 `;
 const ProfileImgBox = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   align-items: center;
-  /* padding-bottom: 2px; */
 `;
 const SearchIcon1 = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10%;
+  cursor: pointer;
 `;
 const SearchIcon2 = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 const BtnBox1 = styled.div`
   width: 45%;
@@ -299,24 +291,26 @@ const Btn = styled.button`
   background-color: #fffdf7;
 `;
 const DropDownContainer = styled.div`
-  width: 65px;
+  width: 45px;
 `;
 const DropDownListContainer = styled.div`
-  margin-right: 20px;
+  margin-right: 40px;
 `;
 const DropDownList = styled.ul`
   position: absolute;
+  width: 145px;
   z-index: 3;
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
   padding: 5px;
   background: #fffdf7;
-  outline: 1px solid #333;
-  border: 1px solid #333;
+  outline: 1px solid #a7aca1;
+  border: 1px solid #a7aca1;
   box-sizing: border-box;
   color: #333;
   font-size: 1.3rem;
   font-weight: 400;
+  transform: skew(-0.1deg);
 
   &:first-child {
     padding-top: 0.8em;
@@ -331,6 +325,9 @@ const ListItem = styled.li`
   .icon {
     width: 24px;
     height: 24px;
+  }
+  .text {
+    transform: skew(-0.1deg);
   }
 `;
 const NickBox = styled.div`
