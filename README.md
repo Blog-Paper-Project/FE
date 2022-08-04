@@ -10,6 +10,9 @@
 
 ### 자신의 글로 유명 해지고 싶나요?
 
+현시대 우리들은 인스타나 유튜브등에서 사진이나 영상등을 이용해 연예인이 아닌 일반인들도 충분한 명성과 유명세를 얻을수 있었습니다.
+하지만 사람의생각을 가지고 유명세를 얻는 것은 구시대와 동일하게 책을 통해서만 가능한 현대의 구조에 아쉽다고 생각을 하였습니다.
+그렇기에 이러한 잘 표출된 개인의 생각만으로 흔히 말하는 인플루엔서가 될수 있는 방법을 찾기 위해 이번 프로젝트를 기획하게 되었습니다!
 
 
 ## 📆개발기간
@@ -19,6 +22,22 @@
 <br />
 
 ## 내용
+
+### 1. ✅ 글 작성, 수정, 삭제 ( + 댓글 )
+  <details> <summary>자신의 생각이나 지식을 마크다운 형식으로 자신의 Paper에 작성 가능합니다!</summary> <div markdown="1"> 
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c81b6c1c-c9ce-407e-92ea-a03cf37ed763/_08-01_17_01.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T061622Z&X-Amz-Expires=86400&X-Amz-Signature=dedae71eb81c11835ac0564f0fe67513c6a791c5222b0e756670deca1ba1773b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_01.png%22&x-id=GetObject'>
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f7c4b6c7-64da-480f-ab02-35cee474ce93/_08-01_17_12.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T061713Z&X-Amz-Expires=86400&X-Amz-Signature=b8ef649649f4ea6aa2e6e824b35921a950e24fccbbc37298dad243e7cc997a76&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_12.png%22&x-id=GetObject'> 
+  </div>
+  </details>
+
+  ### 2. ✅ 타 블로거에게 화상 채팅 예약하기
+  <details> <summary>블로거가 쓴 글에 궁금한점이나 알고 싶은 것에 대한 질문에 답변이 달리는걸 더이상 기다리지 마십쇼!</summary> <div markdown="1"> 
+  1.A블로그의 개인 페이지에 들어가서 채팅 예약하기를 누른다.
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bc9ed97c-bb98-499e-951a-61f8825967cd/_08-01_17_17.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T062114Z&X-Amz-Expires=86400&X-Amz-Signature=1fe3a9b9948f253c2e334dbaa87b2563d5ede369163482f09321a5db8fc08d01&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_17.png%22&x-id=GetObject'>
+  2. 예약 페이지에서 원하는 시간대에 예약을 한다.
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2000a798-5727-46d0-b19c-3b3fd923abd1/_08-01_17_02.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T062304Z&X-Amz-Expires=86400&X-Amz-Signature=f3c315f64e573ec410f8bc1d93651395008407b5c26271e87434444ded4fbd16&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_02.png%22&x-id=GetObject'> 
+  </div>
+  </details>
 
 ### Members
 
