@@ -22,7 +22,7 @@ const Footer = () => {
         </Footer1>
         <Footer2>
           <Footer2T>
-            <div className="title">Front-end Developer / Designer</div>
+            <div className="title">Frontend Developer / Designer</div>
             <div className="text">
               <div> • Koo Ja-deok</div>
               <div> • Jeong Dae-gyu</div>
@@ -33,7 +33,7 @@ const Footer = () => {
         </Footer2>
         <Footer3>
           <Footer3T>
-            <div className="title">Back-end Developer</div>
+            <div className="title">Backend Developer</div>
             <div className="text">
               <div> • Moon Kwang-Min</div>
               <div> • Kim Sung-Jun</div>
@@ -44,7 +44,7 @@ const Footer = () => {
         </Footer3>
         <Footer4>
           <Footer4T>
-            <div className="title">Git-hub Address </div>
+            <div className="title">GitHub Address </div>
             <div className="text">
               <div>Front: </div>
               <a href="https://github.com/Blog-Paper-Project/FE">

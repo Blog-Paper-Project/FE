@@ -94,7 +94,14 @@ const CommentList = (props) => {
                 />
               </div>
               <div className="NicknameCreateWrap">
-                <div className="UserNickname">{nickname}</div>
+                <div
+                  className="UserNickname"
+                  onClick={() => {
+                    navigate(`/paper/${blogId}`);
+                  }}
+                >
+                  {nickname}
+                </div>
                 <div className="CreatedAt">{createdAt}</div>
               </div>
             </div>
@@ -177,7 +184,14 @@ const CommentList = (props) => {
               />
             </div>
             <div className="NicknameCreateWrap">
-              <div className="UserNickname">{nickname}</div>
+              <div
+                className="UserNickname"
+                onClick={() => {
+                  navigate(`/paper/${blogId}`);
+                }}
+              >
+                {nickname}
+              </div>
               <div className="CreatedAt">{createdAt}</div>
             </div>
           </div>
@@ -213,6 +227,7 @@ const CommentWrap = styled.div`
     font-weight: 600;
     line-height: 14px;
     font-family: "Noto Sans KR";
+    cursor: pointer;
   }
   .NicknameCreateWrap {
     display: flex;

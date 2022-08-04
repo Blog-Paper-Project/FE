@@ -100,7 +100,13 @@ const PaperDetail = () => {
                   navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
                 }}
               />
-              <Nickname>{detail_data?.paper?.Users.nickname}</Nickname>
+              <Nickname
+                onClick={() => {
+                  navigate(`/paper/${detail_data?.paper?.Users.blogId}`);
+                }}
+              >
+                {detail_data?.paper?.Users.nickname}
+              </Nickname>
               <span>·</span>
               <CreatedAt>{detail_data?.paper?.createdAt}</CreatedAt>
               <span>·</span>
@@ -265,6 +271,7 @@ const Nickname = styled.span`
   margin-right: 8px;
   font-family: "Noto Sans KR";
   font-size: 18px;
+  cursor: pointer;
 `;
 const Title = styled.div`
   min-height: 75px;
