@@ -301,14 +301,13 @@ const DropDownList = styled.ul`
   width: 145px;
   z-index: 3;
   padding: 0;
-  /* margin: 0; */
   padding: 5px;
   background: #fffdf7;
   outline: 1px solid #a7aca1;
   border: 1px solid #a7aca1;
   box-sizing: border-box;
   color: #333;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
   transform: skew(-0.1deg);
 
