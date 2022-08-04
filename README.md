@@ -84,14 +84,14 @@
 ## 🛠 Tools 🛠
 
 ## 🔥 Trouble Shooting 🔥
-<details> <summary>input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
+<details> <summary>➡️input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
   <br/>
   
-**`해결방안`**
+**`➡️해결방안`**
   1. react-query에 key를 넣어 refetch가 필요한 값이 변화했을 때만 get 요청을 할 수 있게 하였다.
   2. onChange를 쓴 부분을 리렌더링을 막기 위해 useRef로 간단히 해결하였다.
 
-**`결과`**
+**`➡️결과`**
   불 필요한 리랜더링이 없어지니 글 작성 시 가끔 생겼던 에러가 없어졌고, 각 페이지에서 불필요한 get 요청이 사라졌다.
   </div>
   </details>
@@ -108,4 +108,8 @@ context provider로 socket 연결 후 사용하는 컴포넌트에 import를 해
   소켓이 한번만 연결되어 채팅이 여러번 출력되는 현상이 사라졌다.
   </div>
   </details>
+  
+➡️ CloudFront 배포 관련 문제
+문제 : S3 버킷의 내용을 변경했다고 하더라도 캐시가 유지되는 시간내에서는 해당 변경 내용이 CloudFront에 즉시 반영되지 않는 문제
 
+해결 : CloudFront의 Invalidations(무효화)를 진행하여 Edge Location에 저장된 캐시를 삭제했다.
