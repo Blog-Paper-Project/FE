@@ -226,7 +226,9 @@ const WriteEdit = () => {
             color="#A7ACA1"
             border_color="white"
             outline_color="white"
-            onClick={onTemporary}
+            onClick={() => {
+              alert("준비 중인 기능입니다!");
+            }}
           >
             임시저장
           </Button>
@@ -298,24 +300,23 @@ const WriteEdit = () => {
                       </>
                     ) : (
                       <>
-                        {categoryList?.map((value, idx) => {
-                          return (
-                            <option key={idx} value={value}>
-                              {value}
-                            </option>
-                          );
-                        })}
+                        <option value="Art">Art</option>{" "}
+                        <option value="Sport">Sport</option>{" "}
+                        <option value="Daily">Daily</option>{" "}
+                        <option value="Food">Food</option>{" "}
+                        <option value="Tour">Tour</option>{" "}
+                        <option value="Study">Study</option>{" "}
+                        <option value="Shopping">Shopping</option>{" "}
+                        <option value="Pet">Pet</option>
                       </>
                     )}
                   </select>
                 </CategoryWarp>
                 <button
-                  onClick={() => {
-                    setEditCategory(!editCategory);
-                  }}
-                >
-                  카테고리 추가
-                </button>
+                // onClick={() => {
+                //   setEditCategory(!editCategory);
+                // }}
+                ></button>
               </CategorySelectWrap>
             )}
 

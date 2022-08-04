@@ -16,6 +16,9 @@ import "./Main.css";
 // import required modules
 import { Grid, Pagination } from "swiper";
 
+//
+import Paper3Img from "../public/images/Paper3.png";
+
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
@@ -36,17 +39,20 @@ const Main = () => {
     },
   });
 
-  const aPapers = paper_query?.data.papers[0];
-  const bPapers = paper_query?.data.papers[1];
-  const cPapers = paper_query?.data.papers[2];
-  const dPapers = paper_query?.data.papers[3];
-  const ePapers = paper_query?.data.papers[4];
-  const fPapers = paper_query?.data.papers[5];
+  const aPapers = paper_query?.data.papers[1];
+  const bPapers = paper_query?.data.papers[3];
+  const cPapers = paper_query?.data.papers[5];
+  const dPapers = paper_query?.data.papers[0];
+  const ePapers = paper_query?.data.papers[2];
+  const fPapers = paper_query?.data.papers[4];
   const gPapers = paper_query?.data.papers[6];
 
+  const Post4_Contents = dPapers?.contents.slice(0, 175);
+
+  //   console.log(Post4_Contents);
   // console.log(aPapers);
   const handleClick = (e) => {
-//     console.log(e);
+    //     console.log(e);
     navigate("/paper/allpapers", { state: e });
   };
 
@@ -174,7 +180,7 @@ const Main = () => {
                 alt="back"
               />
               <div className="postTitle">{dPapers?.title}</div>
-              <div className="contents">{dPapers?.contents}</div>
+              <div className="contents">{Post4_Contents} ...</div>
             </Post4st>
 
             <PostWrap2>
@@ -215,7 +221,14 @@ const Main = () => {
           </PostBox>
           <CenterPostWrap>
             <CenterPostBox>
-              <img alt="" />
+              <img
+                src={Paper3Img}
+                alt="img"
+                onClick={() => {
+                  navigate("/paper/paper/51");
+                }}
+              />
+
               <div className="PostBox"></div>
             </CenterPostBox>
           </CenterPostWrap>
@@ -343,7 +356,7 @@ const PostWrap1 = styled.div`
   display: flex;
   flex-direction: column;
   width: 438px;
-  height: 996px;
+  height: 1020px;
   float: left;
   gap: 24px;
 `;
@@ -351,6 +364,7 @@ const Post1st = styled.div`
   width: 438px;
   height: 498px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postImg {
     width: 438px;
@@ -380,14 +394,15 @@ const Post1st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const Post2st = styled.div`
   width: 438px;
-  height: 237px;
-  float: left;
+  height: 227px;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 438px;
@@ -400,7 +415,7 @@ const Post2st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
     margin-bottom: 15px;
   }
   .contents {
@@ -412,14 +427,16 @@ const Post2st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const Post3st = styled.div`
   width: 438px;
   height: 213px;
   float: left;
+  cursor: pointer;
   .postTitle {
     width: 438px;
     height: 85px;
@@ -432,7 +449,7 @@ const Post3st = styled.div`
     margin-bottom: 15px;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
   }
   .contents {
     width: 438px;
@@ -443,8 +460,9 @@ const Post3st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 50px;
   }
 `;
 
@@ -455,17 +473,17 @@ const Post4st = styled.div`
   border-right: 1px solid #a7aca1;
   border-bottom: 1px solid #a7aca1;
   display: flex;
+  cursor: pointer;
   align-items: center;
   flex-direction: column;
-  float: left;
   .postImg {
     width: 592px;
-    height: 484px;
+    height: 438px;
     object-fit: "cover";
-    margin-bottom: 20px;
+    /* margin-bottom: 25px; */
   }
   .postTitle {
-    width: 544px;
+    width: 514px;
     height: 225px;
     display: flex;
     align-items: center;
@@ -476,16 +494,16 @@ const Post4st = styled.div`
     font-weight: 400;
     font-size: 50px;
     line-height: 150%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     letter-spacing: -0.005em;
     padding: 5px 40px;
     text-align: center;
   }
   .contents {
-    width: 544px;
-    height: 144px;
+    width: 514px;
+    height: 180px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     overflow: hidden;
     font-family: "Gmarket Sans Light";
@@ -493,9 +511,11 @@ const Post4st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    padding: 0 24px;
+    padding: 5px 24px 0 24px;
     text-align: center;
     letter-spacing: -0.005em;
+    margin-top: 30px;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -503,7 +523,7 @@ const PostWrap2 = styled.div`
   display: flex;
   flex-direction: column;
   width: 438px;
-  height: 996px;
+  height: 1020px;
   float: left;
   gap: 24px;
 `;
@@ -511,6 +531,7 @@ const Post5st = styled.div`
   width: 438px;
   height: 237px;
   float: left;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
     width: 438px;
@@ -523,7 +544,7 @@ const Post5st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    margin-top: 5px;
     margin-bottom: 15px;
   }
   .contents {
@@ -535,17 +556,18 @@ const Post5st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 30px;
   }
 `;
 const Post6st = styled.div`
   width: 438px;
-  height: 237px;
-  float: left;
+  height: 227px;
+  cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
-    width: 438px;
+    width: 408px;
     height: 90px;
     overflow: hidden;
     font-family: "Gmarket Sans";
@@ -555,7 +577,7 @@ const Post6st = styled.div`
     line-height: 150%;
     padding-right: 80px;
     letter-spacing: -0.005em;
-    margin-top: 36px;
+    /* margin-top: 5px; */
     margin-bottom: 15px;
   }
   .contents {
@@ -567,16 +589,18 @@ const Post6st = styled.div`
     font-weight: 300;
     font-size: 20px;
     line-height: 120%;
-    margin-bottom: 24px;
+    margin-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 30px;
   }
 `;
 const Post7st = styled.div`
   width: 438px;
-  height: 474px;
+  height: 434px;
+  cursor: pointer;
   float: left;
   .postImg {
-    width: 438px;
+    width: 408px;
     height: 282px;
     object-fit: "cover";
     margin-bottom: 15px;
@@ -605,18 +629,17 @@ const Post7st = styled.div`
     line-height: 120%;
     padding-bottom: 5px;
     letter-spacing: -0.005em;
+    margin-top: 20px;
   }
 `;
 const CenterPostWrap = styled.div`
   display: flex;
   justify-content: center;
-  height: 401px;
+  align-items: center;
+  width: 100%;
+  height: 700px;
 `;
-const CenterPostBox = styled.div`
-  width: 1516px;
-  /* height: 401px; */
-//   border: 1px solid;
-`;
+const CenterPostBox = styled.div``;
 
 const PopularBloger = styled.div`
   width: 100%;
@@ -655,7 +678,7 @@ const PopularBox = styled.div`
 const Popular = styled.div`
   display: flex;
   align-items: center;
-  padding-top: 50px;
+  padding-top: 60px;
   width: 506px;
   height: 410px;
   flex-direction: column;
@@ -663,19 +686,19 @@ const Popular = styled.div`
   border: 1px solid #a7aca1;
 
   .popularNick {
-    margin-top: 30px;
+    margin-top: 35px;
     margin-bottom: 8px;
     font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 23px;
     line-height: 35px;
     color: #333;
   }
   .popularIntro {
     margin-top: 25px;
     margin-bottom: 40px;
-    width: 212px;
+    width: 225px;
     height: 76px;
     overflow: hidden;
     font-family: "Noto Sans";

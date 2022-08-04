@@ -22,28 +22,29 @@ const Footer = () => {
         </Footer1>
         <Footer2>
           <Footer2T>
-            <div className="title">Front-end Developer</div>
+            <div className="title">Frontend Developer / Designer</div>
             <div className="text">
-              <div> • Gu Ja-deok</div>
+              <div> • Koo Ja-deok</div>
               <div> • Jeong Dae-gyu</div>
               <div> • Im Un-cheol</div>
+              <div> • Park Sin-Young / Designer</div>
             </div>
           </Footer2T>
         </Footer2>
         <Footer3>
           <Footer3T>
-            <div className="title">Back-end Developer</div>
+            <div className="title">Backend Developer</div>
             <div className="text">
               <div> • Moon Kwang-Min</div>
-              <div> • Kim Seong-Jun</div>
+              <div> • Kim Sung-Jun</div>
               <div> • Song Min-ji</div>
-              <div> • Park Seon-woo</div>
+              <div> • Park Soun-woo </div>
             </div>
           </Footer3T>
         </Footer3>
         <Footer4>
           <Footer4T>
-            <div className="title">Git-hub Address </div>
+            <div className="title">GitHub Address </div>
             <div className="text">
               <div>Front: </div>
               <a href="https://github.com/Blog-Paper-Project/FE">
@@ -115,12 +116,15 @@ const Footer2T = styled.div`
   width: 70%;
   height: 55%;
   .title {
-    font-size: 20px;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
   }
   .text {
     padding-left: 5px;
+    font-size: 14px;
+    font-family: "Gmarket Sans";
   }
 `;
 
@@ -139,12 +143,15 @@ const Footer3T = styled.div`
   width: 70%;
   height: 55%;
   .title {
-    font-size: 20px;
+    font-family: "Gmarket Sans";
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
   }
   .text {
     padding-left: 5px;
+    font-size: 14px;
+    font-family: "Gmarket Sans";
   }
 `;
 
@@ -163,12 +170,15 @@ const Footer4T = styled.div`
   width: 70%;
   height: 55%;
   .title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
+    font-family: "Gmarket Sans";
   }
   .text {
     padding-left: 5px;
+    font-size: 13px;
+    font-family: "Gmarket Sans";
   }
 `;
 
