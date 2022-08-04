@@ -92,17 +92,19 @@ const Sidebar = ({ children }) => {
               </div>
             </ButtonList> */}
           {callAccepted ? (
-            <ButtonOut>나가기</ButtonOut>
+            <ButtonWrap>
+              <ButtonOut onClick={leaveCall}>나가기</ButtonOut>
+            </ButtonWrap>
           ) : call.isReceivingCall && !callAccepted ? (
-            <Button>연결 수락하기</Button>
+            <ButtonWrap>
+              <Button onClick={answerCall}>연결 수락하기</Button>
+            </ButtonWrap>
           ) : (
-            <>
-              <ButtonWrap>
-                <Button onClick={() => callUser(idToCall)}>
-                  상대방에게 연결하기
-                </Button>
-              </ButtonWrap>
-            </>
+            <ButtonWrap>
+              <Button onClick={() => callUser(idToCall)}>
+                상대방에게 연결하기
+              </Button>
+            </ButtonWrap>
           )}
         </Grid>
       </form>
