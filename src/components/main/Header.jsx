@@ -308,7 +308,7 @@ const DropDownList = styled.ul`
   border: 1px solid #a7aca1;
   box-sizing: border-box;
   color: #333;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
   transform: skew(-0.1deg);
 
