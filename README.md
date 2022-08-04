@@ -10,9 +10,9 @@
 
 ### 자신의 글로 유명 해지고 싶나요?
 
-현시대 우리들은 인스타나 유튜브등에서 사진이나 영상등을 이용해 연예인이 아닌 일반인들도 충분한 명성과 유명세를 얻을수 있었습니다.
-하지만 사람의생각을 가지고 유명세를 얻는 것은 구시대와 동일하게 책을 통해서만 가능한 현대의 구조에 아쉽다고 생각을 하였습니다.
-그렇기에 이러한 잘 표출된 개인의 생각만으로 흔히 말하는 인플루엔서가 될수 있는 방법을 찾기 위해 이번 프로젝트를 기획하게 되었습니다!
+저희는, 이전에 저희가 소비자로써 네이버나 벨로그 등의 다양한 블로그에서 감명 깊을 글을 읽었을 때,
+그 블로거와 단순히 댓글, 혹은 상대방이 적어둔 Email이나 insta등을 통해 간접적인 메세지로 연락을 할수 밖에 없다는 것을 아쉽다고 생각하여
+2차적으로 다른 사이트나 어플등을 거치지 않고 직접적인 형태(실시간화상채팅)을 사용해 블로거와 소통할수 있는 블로그 플랫폼을 만들었습니다.
 
 
 ## 📆개발기간
@@ -31,11 +31,38 @@
   </details>
 
   ### 2. ✅ 타 블로거에게 화상 채팅 예약하기
-  <details> <summary>블로거가 쓴 글에 궁금한점이나 알고 싶은 것에 대한 질문에 답변이 달리는걸 더이상 기다리지 마십쇼!</summary> <div markdown="1"> 
-  1.A블로그의 개인 페이지에 들어가서 채팅 예약하기를 누른다.
-  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bc9ed97c-bb98-499e-951a-61f8825967cd/_08-01_17_17.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T062114Z&X-Amz-Expires=86400&X-Amz-Signature=1fe3a9b9948f253c2e334dbaa87b2563d5ede369163482f09321a5db8fc08d01&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_17.png%22&x-id=GetObject'>
+  <details> <summary>블로거가 쓴 글에 궁금한점이나 알고 싶은 것에 대한 질문에 답변이 달리는걸 더이상 기다리지 마십쇼!</summary> <div markdown="1">
+   
+  1. A블로그의 개인 페이지에 들어가서 채팅 예약하기를 누른다.
   2. 예약 페이지에서 원하는 시간대에 예약을 한다.
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bc9ed97c-bb98-499e-951a-61f8825967cd/_08-01_17_17.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T062114Z&X-Amz-Expires=86400&X-Amz-Signature=1fe3a9b9948f253c2e334dbaa87b2563d5ede369163482f09321a5db8fc08d01&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_17.png%22&x-id=GetObject'>
   <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/2000a798-5727-46d0-b19c-3b3fd923abd1/_08-01_17_02.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T062304Z&X-Amz-Expires=86400&X-Amz-Signature=f3c315f64e573ec410f8bc1d93651395008407b5c26271e87434444ded4fbd16&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_02.png%22&x-id=GetObject'> 
+  </div>
+  </details>
+
+  ### 3. ✅ 화상채팅
+  <details> <summary>블로거와 집적 대화를 하며 의사소통하며 서로의 의견을 주고 받을수 있는 기회가 이곳에 있습니다!</summary> <div markdown="1"> 
+
+  1. 오른쪽 위 자신의 사진을 눌러 ‘예약 리스트’로 들어와 타 블로거가 예약을 수락하면 양쪽에서 Start라는 화상 채팅이 가능해지는 버튼으로 바뀐다. 
+  2. start를 눌러 채팅방에 들어온 후 ‘화상채팅 연결’을 누르면 상대방에게 연결 신호가 가고 ‘화상채팅 연결’ 버튼은 ‘Answer’로 바뀐다. 그 후 ‘Answer’ 버튼을 누르고 입장한다.
+  3. 둘만의 채팅룸에서  화상 대화 or 채팅을 한다.
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/0ec8a2d6-85e0-4deb-be7b-505e6cc52832/_08-01_17_24.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T063550Z&X-Amz-Expires=86400&X-Amz-Signature=6716aa2cc50c45f2135ebdcd1ec6c25c56ad6615e13f4396e6de34dddeea8c3c&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_24.png%22&x-id=GetObject'>  
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/12f06c81-9eac-4932-b495-5f7d829f7ed7/_08-01_17_07.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T063610Z&X-Amz-Expires=86400&X-Amz-Signature=356ad078e45e59dc5c472d21d69839df5bc92b44c5896b20327198d6848e1ae4&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_07.png%22&x-id=GetObject'> 
+  <img width='50%' src='https://s3.us-west-2.amazonaws.com/secure.notion-static.com/cecc96a0-efa0-4a8e-b22a-987f7f0a7508/_08-01_17_08.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220804%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220804T063625Z&X-Amz-Expires=86400&X-Amz-Signature=254384b5d5c3d01db907540bee7b5e994180c6ee2ea38c4fe57dc972a5309fb7&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22%25EC%25BA%25A1%25EC%25B2%2598_%255B08-01%255D_17_08.png%22&x-id=GetObject'> 
+  </div>
+  </details>
+
+   ### 4. ✅ 금주의 인기Paper와 인기 블로거를 확인
+  <details> <summary>좋아요를 가장 많이 받은 Paper와 가장 인기가 좋은 블로거를 메인페이지에서 확인 가능합니다!</summary> <div markdown="1"> 
+
+  1. 메인 페이지 상단의 카테고리란에서 카테고리에 맞는 글들을 모아 볼수 있습니다.
+  2. 검색으로 원하는 글을 찾으실수 있습니다.
+  3. 좋아요 순으로 메인 페이지의 상단에 금주의 best Paper가 기재 됩니다.
+  4. 화상채팅을 통해 인기도가 오른 순으로 인기 블로그란에 기재 됩니다.
+  <img width='50%' src='https://ifh.cc/g/qkbV3a.jpg'>  
+  <img width='50%' src='https://ifh.cc/g/A0t4Oy.jpg'> 
+  <img width='50%' src='https://ifh.cc/g/XPaxFJ.jpg'> 
+  <img width='50%' src='https://ifh.cc/g/oQYS01.jpg'> 
   </div>
   </details>
 
