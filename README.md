@@ -121,15 +121,16 @@
   <br>
    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
    <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=purple">
+   <img src="https://img.shields.io/badge/reactQuery-FF4154?style=for-the-badge&logo=React Query&logoColor=white">
+
+
    <br>
-   <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=pink">
-   <img src="https://img.shields.io/badge/toastui-D40E14?style=for-the-badge&logo=TUI&logoColor=white">
+   <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styled-components&logoColor=pink">   
   <br>
    <img src="https://img.shields.io/badge/socket.io-010101?style=for-the-badge&logo=socket.io&logoColor=white">
-   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-   <img src="https://img.shields.io/badge/kakao map-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
+   <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">   
    <img src="https://img.shields.io/badge/kakao login-FFCD00?style=for-the-badge&logo=kakao&logoColor=black">
-   <img src="https://img.shields.io/badge/google login-4285F4?style=for-the-badge&logo=google&logoColor=white">
+   
 
 ## 🔥 Trouble Shooting 🔥
 <details> <summary>input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
