@@ -1,6 +1,6 @@
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F48a2bf33-bbb6-4e1c-ba45-9f04e920d53a%2FPAPER.jpeg?table=block&id=a934e6cc-b99a-4024-a857-1cff6619333b&spaceId=45af053f-84a5-4fa9-b5c7-de7e57b65827&width=2000&userId=e4ec6b27-fdb8-48dd-9fe0-06b3dd4d8123&cache=v2"/>
 
-📝[Paper](https://www.paper-daily.com/)
+## 📝[Paper](https://www.paper-daily.com/)
 
 <br />
 
