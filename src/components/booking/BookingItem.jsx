@@ -45,6 +45,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
   let chatTime = start.substr(0, 2);
+
+
   let Month = (month) => {
     if (month === "Jan") return "01";
     if (month === "Feb") return "02";
@@ -68,7 +70,9 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     if (week === "Sat") return "토";
     if (week === "Sun") return "일";
   }
-  console.log(dayjs().format("YYYY. MM. DD. ddd"))
+
+  const chatday = (`${year}.${Month(month)}.${day}.${week}`);
+
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -130,17 +134,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-
-              <button
-                className="startBtn"
-                onClick={() => {
-                  enterChat();
-                }}
-              >
-                Start
-              </button>
-
-              {/* {dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday && dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -167,7 +161,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 >
                   Start
                 </button>
-              )} */}
+              )}
             </div>
           </li>
         )}
@@ -242,17 +236,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-
-              <button
-                className="startBtn"
-                onClick={() => {
-                  enterChat();
-                }}
-              >
-                Start
-              </button>
-
-              {/* {dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday && dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -264,7 +248,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               ) : (
                 <button
                   className="waitBtn"
-                  onClick={() => {                    
+                  onClick={() => {
                     Swal.fire({
                       title: "원래는 예약시간에만 입장 가능합니다.",
                       icon: "warning",
@@ -279,7 +263,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 >
                   Start
                 </button>
-              )} */}
+              )}
             </div>
           </li>
         )}
