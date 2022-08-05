@@ -119,11 +119,15 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                   className="waitBtn"
                   onClick={() => {
                     Swal.fire({
-                      title: "아직 예약하신 시간이 아닙니다!",
+                      title: "원래는 예약시간에만 입장 가능합니다.",
                       icon: "warning",
                       confirmButtonColor: "#3085d6",
                       confirmButtonText: "확인",
-                    })
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        enterChat();
+                      }
+                    });
                   }}
                 >
                   Start
@@ -215,13 +219,17 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               ) : (
                 <button
                   className="waitBtn"
-                  onClick={() => {
+                  onClick={() => {                    
                     Swal.fire({
-                      title: "아직 예약하신 시간이 아닙니다!",
+                      title: "원래는 예약시간에만 입장 가능합니다.",
                       icon: "warning",
                       confirmButtonColor: "#3085d6",
                       confirmButtonText: "확인",
-                    })
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        enterChat();
+                      }
+                    });
                   }}
                 >
                   Start
