@@ -1,14 +1,22 @@
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F48a2bf33-bbb6-4e1c-ba45-9f04e920d53a%2FPAPER.jpeg?table=block&id=a934e6cc-b99a-4024-a857-1cff6619333b&spaceId=45af053f-84a5-4fa9-b5c7-de7e57b65827&width=2000&userId=e4ec6b27-fdb8-48dd-9fe0-06b3dd4d8123&cache=v2"/>
 
+<<<<<<< HEAD
 # 📝[Paper](https://www.paper-daily.com/)📝
+=======
+# 📝[Paper](https://www.paper-daily.com/)
+>>>>>>> f8846afb5b028f0b56db135e2047b8432aedb9fa
 
 자신의 생각을 글로 적어보아요.
 
 <br />
 
+<<<<<<< HEAD
 ## Paper의 사용목적
 
 ### 자신의 글로 유명 해지고 싶나요?
+=======
+## Paper 
+>>>>>>> f8846afb5b028f0b56db135e2047b8432aedb9fa
 
 저희는, 이전에 저희가 소비자로써 네이버나 벨로그 등의 다양한 블로그에서 감명 깊을 글을 읽었을 때,
 그 블로거와 단순히 댓글, 혹은 상대방이 적어둔 Email이나 insta등을 통해 간접적인 메세지로 연락을 할수 밖에 없다는 것을 아쉽다고 생각하여
@@ -137,8 +145,11 @@
 | --- | --- |
 | socket.io, WebRTC | WebRTC는 HTML5에 내장된 API지원으로 최신브라우저에서 재생가능하고 대표적인 화상채팅 기술이어서 선택, peer간의 초기 연결 및 room을 통한 실시간 채팅기능 구현을 위해 WebSocket보다 유연한 socket.io를 선택 |  
 | Reqct-Query | store에 전역에서 사용하지 않는 서버 데이터가 쌓이는 게 비효율적이라고 판단하여 React-Query로 서버로 부터 받은 데이터를 관리하였습니다. 추가로 React-Query를 사용할 시 코드가 단순화 되고, option을 사용한다면 다양한 기능들을 간단히 추가시킬 수 있기에 다른 기술이 아닌 React-Query를 사용하게 됐습니다.| 
+<<<<<<< HEAD
 | React | Component 단위의 작성을 통해 UI를 구성하는 개별적인 뷰단위의 개발을 하여 하나의 컴포넌트를 여러 부분에 다중 사용할수 있게 만들거 생산성과 유지 보수를 용이하게 하고 JSX를 사용해 컴포넌트를 쉽게 구성할수 있도록 해주며 Vitual DOM을 이용해 연산 비용을 줄일수 있기에 React 라이브러리를 사용하게 되었습니다. |
 | Axios | 우선 Fetch 같은 경우 호환성이 떨어져 웹브라우저가 구버전일 경우 지원하지 않는 경우가 있으며, Fetch에 비해 객체의 형태로 Param이나 Query를 성정할수 있어 가독성이 뛰어나며, 따로 JSON형태의 변환이 필요없이 자동 변환이 되고 개선된 error handling의 성능을 가지고 있기에 Axios를 사용하게 되었습니다. |
+=======
+>>>>>>> f8846afb5b028f0b56db135e2047b8432aedb9fa
 
 
 
