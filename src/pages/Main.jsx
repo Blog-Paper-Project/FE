@@ -374,6 +374,9 @@ const Post1st = styled.div`
     margin-bottom: 15px;
   }
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 438px;
     height: 90px;
     overflow: hidden;
@@ -388,9 +391,14 @@ const Post1st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 438px;
     height: 72px;
-    overflow: hidden;
+    text-overflow: eclipse;
     font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
@@ -407,6 +415,9 @@ const Post2st = styled.div`
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 438px;
     height: 90px;
     overflow: hidden;
@@ -421,9 +432,13 @@ const Post2st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
-    width: 438px;
-    height: 72px;
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;    
     font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
@@ -441,6 +456,9 @@ const Post3st = styled.div`
   float: left;
   cursor: pointer;
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 438px;
     height: 85px;
     overflow: hidden;
@@ -455,6 +473,11 @@ const Post3st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 438px;
     height: 72px;
     overflow: hidden;
@@ -486,6 +509,9 @@ const Post4st = styled.div`
     object-fit: "cover";
   }
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 514px;
     height: 225px;
     display: flex;
@@ -504,12 +530,16 @@ const Post4st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 514px;
     height: 180px;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    overflow: hidden;
     font-family: "Gmarket Sans Light";
     font-style: normal;
     font-weight: 300;
@@ -519,7 +549,6 @@ const Post4st = styled.div`
     text-align: center;
     letter-spacing: -0.005em;
     margin-top: 30px;
-    text-overflow: ellipsis;
     transform: skew(-0.1deg);
   }
 `;
@@ -539,6 +568,9 @@ const Post5st = styled.div`
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 438px;
     height: 90px;
     overflow: hidden;
@@ -554,6 +586,11 @@ const Post5st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 438px;
     height: 72px;
     overflow: hidden;
@@ -574,6 +611,9 @@ const Post6st = styled.div`
   cursor: pointer;
   border-bottom: 1px solid #a7aca1;
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 408px;
     height: 90px;
     overflow: hidden;
@@ -588,6 +628,11 @@ const Post6st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 438px;
     height: 72px;
     overflow: hidden;
@@ -614,9 +659,11 @@ const Post7st = styled.div`
     margin-bottom: 15px;
   }
   .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
     width: 438px;
     height: 85px;
-    overflow: hidden;
     font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 400;
@@ -628,6 +675,11 @@ const Post7st = styled.div`
     transform: skew(-0.1deg);
   }
   .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     width: 438px;
     height: 72px;
     overflow: hidden;
