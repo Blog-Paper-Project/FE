@@ -33,6 +33,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     navigate(`/chat/${Host}/${Guest}`);
   };
 
+
   // 예약 정보
   let startTime = item?.start;
   let endTime = item?.end;
@@ -43,7 +44,31 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
-  let chatTime = start.substr(0, 2)
+  let chatTime = start.substr(0, 2);
+  let Month = (month) => {
+    if (month === "Jan") return "01";
+    if (month === "Feb") return "02";
+    if (month === "Mar") return "03";
+    if (month === "Apr") return "04";
+    if (month === "May") return "05";
+    if (month === "Jun") return "06";
+    if (month === "Jul") return "07";
+    if (month === "Aug") return "08";
+    if (month === "Sep") return "09";
+    if (month === "Oct") return "10";
+    if (month === "Nov") return "11";
+    if (month === "Dec") return "12";
+  };
+  let Week = (week) => {
+    if (week === "Mon") return "월";
+    if (week === "Tue") return "화";
+    if (week === "Wed") return "수";
+    if (week === "Thu") return "목";
+    if (week === "Fri") return "금";
+    if (week === "Sat") return "토";
+    if (week === "Sun") return "일";
+  }
+  console.log(dayjs().format("YYYY. MM. DD. ddd"))
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -62,7 +87,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -97,7 +122,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -105,7 +130,17 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("HH") >= chatTime ? (
+
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+
+              {/* {dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -132,7 +167,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 >
                   Start
                 </button>
-              )}
+              )} */}
             </div>
           </li>
         )}
@@ -156,7 +191,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -199,7 +234,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -207,7 +242,17 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("HH") >= chatTime ? (
+
+              <button
+                className="startBtn"
+                onClick={() => {
+                  enterChat();
+                }}
+              >
+                Start
+              </button>
+
+              {/* {dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -234,7 +279,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 >
                   Start
                 </button>
-              )}
+              )} */}
             </div>
           </li>
         )}
