@@ -16,6 +16,9 @@ import "./Main.css";
 // import required modules
 import { Grid, Pagination } from "swiper";
 
+//
+import Paper3Img from "../public/images/Paper3.png";
+
 /* 컴포넌트 */
 import Header from "../components/main/Header";
 import Footer from "../components/main/Footer";
@@ -36,105 +39,199 @@ const Main = () => {
     },
   });
 
-  const BestPapers = paper_query?.data.papers;
-  // console.log(BestPapers);
+  const aPapers = paper_query?.data.papers[1];
+  const bPapers = paper_query?.data.papers[3];
+  const cPapers = paper_query?.data.papers[5];
+  const dPapers = paper_query?.data.papers[0];
+  const ePapers = paper_query?.data.papers[2];
+  const fPapers = paper_query?.data.papers[4];
+  const gPapers = paper_query?.data.papers[6];
+
+  const Post4_Contents = dPapers?.contents.slice(0, 175);
+
+  //   console.log(Post4_Contents);
+  // console.log(aPapers);
+  const handleClick = (e) => {
+    //     console.log(e);
+    navigate("/paper/allpapers", { state: e });
+  };
 
   return (
     <>
       <MainBox>
         <Header />
-        <MainTop>
-          <div className="MainTile">Welcome.</div>
-          <div className="MainContent">
-            자신의 생각을 글로 적어보아요.
-            <br />
-            공감 가는 글을 읽고 블로거 주인과 소통하고 싶나요? <br />
-            나의 생각을 공유해 나뭇잎을 모으고 댓글뿐만 아니라 화상채팅으로
-            소통할 수 있습니다. <br />
-            자신만의 이야기로 소통할 수 있는 블로그 PAPER
+        <CategoryWrap>
+          <div className="CategoryBox">
+            <Category
+              onClick={() => {
+                handleClick("All");
+              }}
+            >
+              All
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Art");
+              }}
+            >
+              Art
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Sport");
+              }}
+            >
+              Sport
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Daily");
+              }}
+            >
+              Daily
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Food");
+              }}
+            >
+              Food
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Tour");
+              }}
+            >
+              Tour
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Study");
+              }}
+            >
+              Study
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Shopping");
+              }}
+            >
+              Shopping
+            </Category>
+            <Category
+              onClick={() => {
+                handleClick("Pet");
+              }}
+            >
+              Pet
+            </Category>
           </div>
-        </MainTop>
+        </CategoryWrap>
         <PostWrap>
           <PostBox>
-            <Bigbox>
-              {BestPapers?.map((BestPapers, i) => {
-                return (
-                  <Card key={i}>
-                    <Box
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      {BestPapers?.thumbnail === null ? (
-                        <img
-                          className="postImg"
-                          src={`https://source.unsplash.com/collection/${i}`}
-                          style={{ width: "100%", height: "100%" }}
-                          alt="back"
-                        />
-                      ) : (
-                        <img
-                          src={
-                            process.env.REACT_APP_S3_URL +
-                            `/${BestPapers?.thumbnail}`
-                          }
-                          alt="img"
-                          style={{ width: "100%", height: "100%" }}
-                        />
-                      )}
-                    </Box>
-                    <Box1
-                      onClick={() => {
-                        navigate(
-                          `/paper/${BestPapers?.blogId}/${BestPapers?.postId}`
-                        );
-                      }}
-                    >
-                      <H4>{BestPapers.title}</H4>
-                      <P>{BestPapers.contents}</P>
-                    </Box1>
-                    <Box2>{BestPapers.createdAt}</Box2>
-                    <Box3
-                      onClick={() => {
-                        navigate(`/paper/${BestPapers?.blogId}`);
-                      }}
-                    >
-                      <div className="by">
-                        {BestPapers?.profileImage === null ? (
-                          <img
-                            className="userProfile"
-                            src={defaultUserImage}
-                            alt="back"
-                          />
-                        ) : (
-                          <img
-                            className="userProfile"
-                            src={
-                              process.env.REACT_APP_S3_URL +
-                              `/${BestPapers?.profileImage}`
-                            }
-                            alt="img"
-                          />
-                        )}{" "}
-                        by <span>{BestPapers.nickname}</span>
-                      </div>
-                      <div>
-                        <img
-                          className="heart"
-                          src={process.env.PUBLIC_URL + "/Vector.png"}
-                          back_size="100% 100%"
-                          alt="icon"
-                        />{" "}
-                        {BestPapers?.likes}
-                      </div>
-                    </Box3>
-                  </Card>
-                );
-              })}
-            </Bigbox>
+            <PostWrap1>
+              <Post1st
+                onClick={() => {
+                  navigate(`/paper/${aPapers?.blogId}/${aPapers?.postId}`);
+                }}
+              >
+                <img
+                  className="postImg"
+                  src={
+                    aPapers?.thumbnail === null
+                      ? "https://source.unsplash.com/collection/1"
+                      : process.env.REACT_APP_S3_URL + `/${aPapers?.thumbnail}`
+                  }
+                  alt="back"
+                />
+                <div className="postTitle">{aPapers?.title}</div>
+                <div className="contents">{aPapers?.contents}</div>
+              </Post1st>
+              <Post2st
+                onClick={() => {
+                  navigate(`/paper/${bPapers?.blogId}/${bPapers?.postId}`);
+                }}
+              >
+                <div className="postTitle">{bPapers?.title}</div>
+                <div className="contents">{bPapers?.contents}</div>
+              </Post2st>
+              <Post3st
+                onClick={() => {
+                  navigate(`/paper/${cPapers?.blogId}/${cPapers?.postId}`);
+                }}
+              >
+                <div className="postTitle">{cPapers?.title}</div>
+                <div className="contents">{cPapers?.contents}</div>
+              </Post3st>
+            </PostWrap1>
+
+            <Post4st
+              onClick={() => {
+                navigate(`/paper/${dPapers?.blogId}/${dPapers?.postId}`);
+              }}
+            >
+              <img
+                className="postImg"
+                src={
+                  dPapers?.thumbnail === null
+                    ? "https://source.unsplash.com/collection/1"
+                    : process.env.REACT_APP_S3_URL + `/${dPapers?.thumbnail}`
+                }
+                alt="back"
+              />
+              <div className="postTitle">{dPapers?.title}</div>
+              <div className="contents">{Post4_Contents} ...</div>
+            </Post4st>
+
+            <PostWrap2>
+              <Post5st
+                onClick={() => {
+                  navigate(`/paper/${ePapers?.blogId}/${ePapers?.postId}`);
+                }}
+              >
+                <div className="postTitle">{ePapers?.title}</div>
+                <div className="contents">{ePapers?.contents}</div>
+              </Post5st>
+              <Post6st
+                onClick={() => {
+                  navigate(`/paper/${fPapers?.blogId}/${fPapers?.postId}`);
+                }}
+              >
+                <div className="postTitle">{fPapers?.title}</div>
+                <div className="contents">{fPapers?.contents}</div>
+              </Post6st>
+              <Post7st
+                onClick={() => {
+                  navigate(`/paper/${gPapers?.blogId}/${gPapers?.postId}`);
+                }}
+              >
+                <img
+                  className="postImg"
+                  src={
+                    gPapers?.thumbnail === null
+                      ? "https://source.unsplash.com/collection/1"
+                      : process.env.REACT_APP_S3_URL + `/${gPapers?.thumbnail}`
+                  }
+                  alt="back"
+                />
+                <div className="postTitle">{gPapers?.title}</div>
+                <div className="contents">{gPapers?.contents}</div>
+              </Post7st>
+            </PostWrap2>
           </PostBox>
+          <CenterPostWrap>
+            <CenterPostBox>
+              <img
+                src={Paper3Img}
+                alt="img"
+                onClick={() => {
+                  navigate("/paper/paper/51");
+                }}
+              />
+
+              <div className="PostBox"></div>
+            </CenterPostBox>
+          </CenterPostWrap>
         </PostWrap>
 
         <PopularBloger>
@@ -189,69 +286,422 @@ const Main = () => {
           </div>
           <div className="enText">글을 써서 나뭇잎을 모아 나무로 만드세요</div>
         </EndBox>
+        <Footer />
       </MainBox>
-      <Footer />
     </>
   );
 };
 
 const MainBox = styled.div`
   background-color: #fffdf7;
-  height: 3550px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
-
-const MainTop = styled.div`
+const CategoryWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1904px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #333;
-  padding-left: 80px;
-  padding-right: 80px;
-  margin-top: 60px;
-  .MainTile {
-    height: 85px;
-    width: 600px;
-    font-family: Georgia;
-    font-size: 95px;
-    font-weight: bold;
-  }
-  .MainContent {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    width: 770px;
+  height: 60px;
+  border-bottom: 1px solid #a7aca1;
 
-    font-size: 15px;
-    line-height: 24px;
-    /* color: #4c4c4c; */
-    color: #333;
-    font-family: "Song Myung", serif;
-    /* font-style: italic; */
+  .CategoryBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 1227px;
+    height: 60px;
+    font-family: "Gmarket Sans Light";
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 27px;
+    transform: skew(-0.1deg);
+  }
+`;
+const Category = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  cursor: pointer;
+  :hover {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: auto;
+    font-family: "Gmarket Sans";
     font-weight: 400;
-    text-align: right;
-    opacity: 0.7;
+    border-bottom: 2px solid;
+    transition: all 0.25s ease-in-out 0s c;
+    transform: skew(-0.1deg);
   }
 `;
 
 const PostWrap = styled.div`
-  height: 1680px;
+  min-height: 1577px;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 100px;
 `;
 
 const PostBox = styled.div`
-  width: 1900px;
-  height: 1680px;
+  min-height: 1020px;
   display: flex;
-  align-items: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 56px;
 `;
+const PostWrap1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 438px;
+  height: 1020px;
+  float: left;
+  gap: 24px;
+`;
+const Post1st = styled.div`
+  width: 438px;
+  height: 498px;
+  float: left;
+  cursor: pointer;
+  border-bottom: 1px solid #a7aca1;
+  .postImg {
+    width: 438px;
+    height: 282px;
+    object-fit: "cover";
+    margin-bottom: 15px;
+  }
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 438px;
+    height: 90px;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-bottom: 15px;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;
+    text-overflow: eclipse;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: -0.005em;
+    margin-top: 20px;
+    transform: skew(-0.1deg);
+  }
+`;
+const Post2st = styled.div`
+  width: 438px;
+  height: 227px;
+  cursor: pointer;
+  border-bottom: 1px solid #a7aca1;
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 438px;
+    height: 90px;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    margin-bottom: 15px;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;    
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    margin-bottom: 5px;
+    letter-spacing: -0.005em;
+    margin-top: 20px;
+    transform: skew(-0.1deg);
+  }
+`;
+const Post3st = styled.div`
+  width: 438px;
+  height: 213px;
+  float: left;
+  cursor: pointer;
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 438px;
+    height: 85px;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    margin-bottom: 15px;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    margin-bottom: 5px;
+    letter-spacing: -0.005em;
+    margin-top: 50px;
+    transform: skew(-0.1deg);
+  }
+`;
+
+const Post4st = styled.div`
+  width: 592px;
+  height: 996px;
+  border-left: 1px solid #a7aca1;
+  border-right: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  flex-direction: column;
+  .postImg {
+    width: 592px;
+    height: 438px;
+    object-fit: "cover";
+  }
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 514px;
+    height: 225px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 150%;
+    margin-bottom: 20px;
+    letter-spacing: -0.005em;
+    padding: 5px 40px;
+    text-align: center;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 514px;
+    height: 180px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    padding: 5px 24px 0 24px;
+    text-align: center;
+    letter-spacing: -0.005em;
+    margin-top: 30px;
+    transform: skew(-0.1deg);
+  }
+`;
+
+const PostWrap2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 438px;
+  height: 1020px;
+  float: left;
+  gap: 24px;
+`;
+const Post5st = styled.div`
+  width: 438px;
+  height: 237px;
+  float: left;
+  cursor: pointer;
+  border-bottom: 1px solid #a7aca1;
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 438px;
+    height: 90px;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    margin-bottom: 5px;
+    letter-spacing: -0.005em;
+    margin-top: 30px;
+    transform: skew(-0.1deg);
+  }
+`;
+const Post6st = styled.div`
+  width: 438px;
+  height: 227px;
+  cursor: pointer;
+  border-bottom: 1px solid #a7aca1;
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 408px;
+    height: 90px;
+    overflow: hidden;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    margin-bottom: 15px;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    margin-bottom: 5px;
+    letter-spacing: -0.005em;
+    margin-top: 30px;
+    transform: skew(-0.1deg);
+  }
+`;
+const Post7st = styled.div`
+  width: 438px;
+  height: 434px;
+  cursor: pointer;
+  float: left;
+  .postImg {
+    width: 408px;
+    height: 282px;
+    object-fit: "cover";
+    margin-bottom: 15px;
+  }
+  .postTitle {
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    width: 438px;
+    height: 85px;
+    font-family: "Gmarket Sans";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 150%;
+    padding-right: 80px;
+    letter-spacing: -0.005em;
+    margin-bottom: 15px;
+    transform: skew(-0.1deg);
+  }
+  .contents {
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 438px;
+    height: 72px;
+    overflow: hidden;
+    font-family: "Gmarket Sans Light";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 120%;
+    padding-bottom: 5px;
+    letter-spacing: -0.005em;
+    margin-top: 20px;
+    transform: skew(-0.1deg);
+  }
+`;
+const CenterPostWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 700px;
+`;
+const CenterPostBox = styled.div``;
 
 const PopularBloger = styled.div`
   width: 100%;
@@ -269,222 +719,92 @@ const PopularBloger = styled.div`
     font-size: 35px;
     line-height: 170%;
     font-family: "Gmarket Sans";
+    transform: skew(-0.1deg);
   }
   .poText {
     font-weight: 300;
     font-size: 20px;
     line-height: 150%;
-    font-family: "Gmarket Sans";
+    font-family: "Gmarket Sans Light";
+    transform: skew(-0.1deg);
   }
 `;
 
 const PopularBox = styled.div`
   display: flex;
-  width: 90%;
-  height: 920px;
-  padding: 45px 0 0 0;
-  float: left;
+  width: 100%;
+  height: 820px;
   flex-wrap: wrap;
+  border-top: 1px solid #a7aca1;
+  border-bottom: 1px solid #a7aca1;
 `;
 
 const Popular = styled.div`
-  background-color: #f7f5f0f6;
   display: flex;
   align-items: center;
-  padding-top: 50px;
-  width: 385px;
+  padding-top: 60px;
+  width: 506px;
   height: 410px;
   flex-direction: column;
   float: left;
-  gap: 10px;
-  border-radius: 6px;
+  border: 1px solid #a7aca1;
+
   .popularNick {
-    margin-top: 20px;
+    margin-top: 35px;
     margin-bottom: 8px;
-    font-family: "Noto Sans";
+    font-family: "Gmarket Sans";
     font-style: normal;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 23px;
     line-height: 35px;
     color: #333;
+    transform: skew(-0.1deg);
   }
   .popularIntro {
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 40px;
-    width: 212px;
+    width: 225px;
     height: 76px;
     overflow: hidden;
     font-family: "Noto Sans";
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
-    line-height: 19px;
+    line-height: 27px;
+    letter-spacing: 0.3%;
     text-align: center;
     color: #333333;
   }
 `;
 const PopularImg = styled.img`
-  width: 140px;
-  height: 140px;
+  width: 110px;
+  height: 110px;
   margin: 0 0 0 0;
   border-radius: 50%;
   align-items: center;
 `;
 const EndBox = styled.div`
   width: 100%;
-  height: 15%;
-  display: flex !important;
+  margin-top: 130px;
+  height: 150px;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: "Gmarket Sans";
   font-style: normal;
   .enTitle {
     font-weight: 300;
     font-size: 30px;
     line-height: 150%;
+    font-family: "Gmarket Sans Light";
+    transform: skew(-0.1deg);
   }
   .enText {
     font-weight: 400;
     font-size: 30px;
     line-height: 150%;
-  }
-`;
-const Box = styled.div`
-  height: 180px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  background-position: center;
-  background-size: cover;
-`;
-const Box1 = styled.div`
-  font-size: 16px;
-  text-decoration: none solid rgb(33, 37, 41);
-  background-color: #f8f9fa;
-  background-position: 0% 0%;
-  position: color;
-  height: 130px;
-  width: 320px;
-  cursor: pointer;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-top: 10px;
-`;
-const H4 = styled.p`
-  font-size: 19px;
-  font-weight: 700;
-  line-height: 24px;
-  white-space: nowrap;
-  word-spacing: 0px;
-  height: 23%;
-  width: 320px;
-  padding: 0px 15px;
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
-`;
-const P = styled.div`
-  font-size: 14px;
-  line-height: 21px;
-  text-decoration: none solid rgb(73, 80, 87);
-  word-spacing: 0px;
-  height: 68%;
-  width: 320px;
-  margin-top: 10px;
-  padding: 0px 15px;
-  display: -webkit-box;
-  overflow: hidden;
-  cursor: pointer;
-  transform: none;
-  transition: all 0s ease 0s;
-  box-sizing: border-box;
-  text-overflow: ellipsis;
-  white-space: normal;
-  word-wrap: break-word;
-`;
-const Box2 = styled.div`
-  color: gray;
-  height: 40px;
-  line-height: 50px;
-  width: 320px;
-  min-height: auto;
-  min-width: auto;
-  display: block;
-  background-color: #f8f9fa;
-  box-sizing: border-box;
-  padding-left: 20px;
-  font-size: 14px;
-`;
-
-const Box3 = styled.div`
-  height: 13%;
-  width: 100%;
-  border-top: 1px solid #f1f3f5;
-  padding: 10px 16px 10px 16px;
-  min-height: auto;
-  min-width: auto;
-  display: flex;
-  align-items: center;
-  background-color: #f8f9fa;
-  font-size: 12px;
-  text-decoration: none solid rgb(33, 37, 41);
-  word-spacing: 0px;
-  cursor: pointer;
-  justify-content: space-between;
-  box-sizing: border-box;
-  .by {
-    display: flex;
-    align-items: center;
-    color: gray;
-    gap: 5px;
-  }
-  span {
-    color: black;
-    font-weight: 600;
-  }
-
-  .userinfo {
-    display: flex;
-  }
-  .heart {
-    width: 14px;
-  }
-  .userProfile {
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-  }
-`;
-
-const Bigbox = styled.div`
-  gap: 40px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 50px;
-`;
-const Card = styled.div`
-  width: 320px;
-  height: 405px;
-  box-shadow: rgb(0 0 0 / 7%) 0px 3px 5px 0px;
-  transition: box-shadow 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-  overflow: hidden;
-  border-radius: 5px;
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: rgb(0 0 0 / 11%) 0px 12px 20px 0px;
+    font-family: "Gmarket Sans";
+    transform: skew(-0.1deg);
   }
 `;
 

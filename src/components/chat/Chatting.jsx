@@ -12,76 +12,89 @@ const Chatting = () => {
 
   return (
     <>
-      <ChatBox>
-        <ChatBack>
-          <ChatList ref={boxRef}>
-            {messageList.map((messageContent, index) => {
-              return (
-                <div key={index}>
-                  {messageContent.nick === nickname ? (
-                    <div>
-                      <Mynick>{messageContent.nick}</Mynick>
-                      <MessageBox2>
-                        <Message2>{messageContent.message}</Message2>
-                        <p id="time">
-                          {messageContent.time.split(":")[0].padStart(2, "0")} :
-                          {messageContent.time.split(":")[1].padStart(2, "0")}
-                        </p>
-                      </MessageBox2>
-                    </div>
-                  ) : messageContent.type === "connect" ? (
-                    <p>{messageContent.name} 님이 입장하였습니다</p>
-                  ) : messageContent.type === "disconnect" ? (
-                    <p>{messageContent.name} 님이 퇴장하였습니다</p>
-                  ) : (
-                    <div>
-                      <Othernick>{messageContent.nick}</Othernick>
-                      <MessageBox>
-                        <Message>{messageContent.message}</Message>
-                        <p id="time">
-                          {messageContent.time.split(":")[0].padStart(2, "0")} :
-                          {messageContent.time.split(":")[1].padStart(2, "0")}
-                        </p>
-                      </MessageBox>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </ChatList>
-          <InputWrap>
-            <Input1
-              type="text"
-              placeholder="대화를 입력하세요."
-              onChange={(e) => setCurrentMessage(e.target.value)}
-              onKeyDown={(e) => {
-                e.key === "Enter" && sendMessage();
-              }}
-              ref={inputRef}
-            />
-            <SendButton onClick={sendMessage}>전송</SendButton>
-          </InputWrap>
-        </ChatBack>
-      </ChatBox>
+      <ChatWrap>
+        <ChatBox>
+          <ChatBack>
+            <ChatList ref={boxRef}>
+              {messageList.map((messageContent, index) => {
+                return (
+                  <div key={index}>
+                    {messageContent.nick === nickname ? (
+                      <div>
+                        <Mynick>{messageContent.nick}</Mynick>
+                        <MessageBox2>
+                          <Message2>{messageContent.message}</Message2>
+                          <p id="time">
+                            {messageContent.time.split(":")[0].padStart(2, "0")}{" "}
+                            :
+                            {messageContent.time.split(":")[1].padStart(2, "0")}
+                          </p>
+                        </MessageBox2>
+                      </div>
+                    ) : messageContent.type === "connect" ? (
+                      <p>{messageContent.name} 님이 입장하였습니다</p>
+                    ) : messageContent.type === "disconnect" ? (
+                      <p>{messageContent.name} 님이 퇴장하였습니다</p>
+                    ) : (
+                      <div>
+                        <Othernick>{messageContent.nick}</Othernick>
+                        <MessageBox>
+                          <Message>{messageContent.message}</Message>
+                          <p id="time">
+                            {messageContent.time.split(":")[0].padStart(2, "0")}{" "}
+                            :
+                            {messageContent.time.split(":")[1].padStart(2, "0")}
+                          </p>
+                        </MessageBox>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </ChatList>
+            <InputWrap>
+              <Input1
+                type="text"
+                placeholder="대화를 입력하세요."
+                onChange={(e) => setCurrentMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  e.key === "Enter" && sendMessage();
+                }}
+                ref={inputRef}
+              />
+              <SendButton onClick={sendMessage}>전송</SendButton>
+            </InputWrap>
+          </ChatBack>
+        </ChatBox>
+      </ChatWrap>
     </>
   );
 };
 
+const ChatWrap = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+  padding-left: 50px;
+`;
+
 const ChatBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  /* height: 100vh; */
+  height: 705px;
 `;
 
 const ChatBack = styled.div`
-  background-color: #889175;
   border-radius: 5px;
-  height: 710px;
+  height: 708px;
   flex-direction: column;
   position: relative;
   width: 300px;
   padding: 2px;
+  border-left: 1px solid #acacac;
+  border-right: 1px solid #acacac;
+  border-top: 1px solid #acacac;
 `;
 
 const ChatList = styled.div`
@@ -133,16 +146,12 @@ const SendButton = styled.button`
 
 const Mynick = styled.p`
   display: flex;
-  /* justify-content: flex-end; */
-  /* color: #08a9ff; */
   margin-bottom: 8px;
   font-weight: bold;
 `;
 
 const Othernick = styled.p`
   display: flex;
-  /* justify-content: flex-end; */
-  /* color: #ff1512; */
   margin-bottom: 8px;
   font-weight: bold;
 `;

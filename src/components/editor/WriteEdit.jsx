@@ -1,25 +1,27 @@
 import React, { useState } from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router";
-import styled from "styled-components";
-/* Editor */
-import { Editor } from "@toast-ui/react-editor";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import "@toast-ui/editor/dist/i18n/ko-kr";
-/* Toast ColorSyntax 플러그인 */
-import "tui-color-picker/dist/tui-color-picker.css";
-import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
-// import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { apiToken } from "../../shared/apis/Apis";
 import { getCookie, setCookie } from "../../shared/Cookie";
-// image
+import styled from "styled-components";
+// Editor
+import { Editor } from "@toast-ui/react-editor";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import "@toast-ui/editor/dist/i18n/ko-kr";
+// Images
 import Paper_Logo from "../../public/images/logo_paper.svg";
 import Post_Icon from "../../public/images/icons/post_Icon.png";
 import Meiyou_thumnail from "../../public/images/meiyou_thumnail.png";
 
 const WriteEdit = () => {
-  //## 글 작성 데이터 관련 state
+  // React Hooks
+  const editorRef = useRef();
+  const navigate = useNavigate();
+  // Cookies
+  const LoginIdCheck = getCookie("blogId");
+  const blogId = getCookie("blogId");
+  // States
   const [markdown_data, setData] = useState("");
   const [head_data, setHead] = useState(null);
   const [thumbImage, setImage] = useState(null);
@@ -31,18 +33,11 @@ const WriteEdit = () => {
   const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
   const [selectOption, setSelectOption] = useState("etc");
-  // console.log(selectOption);
-  // console.log(categoryList);
-  // console.log(category);
-  const editorRef = useRef();
-  const navigate = useNavigate();
-  const LoginIdCheck = getCookie("blogId");
   if (LoginIdCheck == undefined) {
     alert("로그인 후 이용 가능한 기능입니다.");
     navigate("/login");
   }
-  const blogId = getCookie("blogId");
-  //## 이미지 미리보기
+  // 이미지 미리보기
   const encodeFileToBase64 = (fileBlob) => {
     const reader = new FileReader();
 
@@ -56,12 +51,12 @@ const WriteEdit = () => {
     });
   };
 
-  //## modal 이벤트
+  // ## Events
+  // modal event
   const onModal = () => {
     setOpenModal(!openModal);
   };
-
-  //## writeEdit의 데이터(text->markdown) 이벤트
+  // ModifyEdit의 데이터(text->markdown) event
   const onchange = (e) => {
     const write_data = editorRef.current?.getInstance().getMarkdown();
     // console.log("25", abc);
@@ -69,7 +64,7 @@ const WriteEdit = () => {
     // console.log("27", markdown_data);
   };
 
-  //## 붙혀넣기 금지 이벤트 (ctnrl 키 금지)
+  // 붙혀넣기 금지 event (ctnrl 키 금지)
   const onKeyDown = (e) => {
     window.onkeydown = (e) => {
       // console.log(e.key);
@@ -78,7 +73,7 @@ const WriteEdit = () => {
       }
     };
   };
-  //## 'Enter'시 카테고리 추가 이벤트
+  // 'Enter'시 카테고리 추가 event
   const onEnter = (e) => {
     if (
       e.target.value.length !== 0 &&
@@ -96,7 +91,7 @@ const WriteEdit = () => {
       setCategory("");
     }
   };
-  //## 'Click'시 카테고리 추가 이벤트
+  // 'Click'시 카테고리 추가 event
   const onClick_categoty = () => {
     if (
       category.length !== 0 &&
@@ -115,7 +110,7 @@ const WriteEdit = () => {
       setCategory("");
     }
   };
-  //## 'Enter'시 태그 추가 이벤트
+  // 'Enter'시 태그 추가 event
   const onKeyUp = (e) => {
     if (
       e.target.value.length !== 0 &&
@@ -130,7 +125,7 @@ const WriteEdit = () => {
       setTag("");
     }
   };
-  //## 'Click'시 태그 삭제 이벤트
+  // 'Click'시 태그 삭제 event
   const onClcik_tag = (e) => {
     // console.log(e.target.id);
     setTagList(
@@ -139,18 +134,16 @@ const WriteEdit = () => {
       })
     );
   };
-  //## 임시저장 이벤트
+  // 임시저장 event
   const onTemporary = () => {
     setCookie("Temporary_Content", markdown_data, 10);
   };
 
-  //## useMutation write 데이터 post의 함수
+  // UseMutation write 데이터 post의 함수
   const postfecher = async () => {
     let formData = new FormData();
     formData.append("image", thumbImage);
-    // console.log(formData.get("image"));
     const image_data = await apiToken.post("/api/paper/image", formData);
-    // console.log(image_data?.data.imageUrl);
 
     const response = await apiToken.post("/api/paper", {
       contents: markdown_data,
@@ -161,15 +154,13 @@ const WriteEdit = () => {
     });
     setTag("");
     setTagList([]);
-    // console.log(response?.data);
     return response?.data.paper;
   };
-  //## useMutation write 데이터 post
+  // UseMutation write 데이터 post
   const queryClient = useQueryClient();
   const { data: res, mutate: onPost } = useMutation(postfecher, {
     onSuccess: (res) => {
       queryClient.invalidateQueries("paper_data");
-      // console.log(res?.blogId);
 
       navigate(`/paper/${blogId}`);
       alert("post 성공!");
@@ -178,13 +169,13 @@ const WriteEdit = () => {
       alert("제목은 2글자, 내용은 6글자 이상시 발행 가능합니다.");
     },
   });
-  // ## useQuery 카테고리 데이터 get 함수
+  // UseQuery 카테고리 데이터 get 함수
   const GetMyPaperData = async () => {
     const response = await apiToken.get(`/api/paper/${blogId}`);
     // console.log(response);
     return response?.data;
   };
-  // ## useQuery 카테고리 데이터 get
+  // UseQuery 카테고리 데이터 get
   const { data: mypaper_data, status } = useQuery(
     "paper_data",
     GetMyPaperData,
@@ -205,10 +196,6 @@ const WriteEdit = () => {
   if (status === "error") {
     return alert("error");
   }
-  // console.log(mypaper_data);
-  // 변수
-  // const isSameTag = tagList.find((value) => value === tag);
-  // console.log(isSameTag);
 
   return (
     <Container>
@@ -239,7 +226,9 @@ const WriteEdit = () => {
             color="#A7ACA1"
             border_color="white"
             outline_color="white"
-            onClick={onTemporary}
+            onClick={() => {
+              alert("준비 중인 기능입니다!");
+            }}
           >
             임시저장
           </Button>
@@ -311,24 +300,23 @@ const WriteEdit = () => {
                       </>
                     ) : (
                       <>
-                        {categoryList?.map((value, idx) => {
-                          return (
-                            <option key={idx} value={value}>
-                              {value}
-                            </option>
-                          );
-                        })}
+                        <option value="Art">Art</option>{" "}
+                        <option value="Sport">Sport</option>{" "}
+                        <option value="Daily">Daily</option>{" "}
+                        <option value="Food">Food</option>{" "}
+                        <option value="Tour">Tour</option>{" "}
+                        <option value="Study">Study</option>{" "}
+                        <option value="Shopping">Shopping</option>{" "}
+                        <option value="Pet">Pet</option>
                       </>
                     )}
                   </select>
                 </CategoryWarp>
                 <button
-                  onClick={() => {
-                    setEditCategory(!editCategory);
-                  }}
-                >
-                  카테고리 추가
-                </button>
+                // onClick={() => {
+                //   setEditCategory(!editCategory);
+                // }}
+                ></button>
               </CategorySelectWrap>
             )}
 
@@ -428,7 +416,7 @@ const WriteEdit = () => {
               ["heading", "bold", "italic"],
               ["hr", "quote", "task"],
               ["code", "codeblock"],
-              ["ul", "ol", "image"],
+              ["ul", "ol", "image", "link"],
             ]}
             hooks={{
               addImageBlobHook: async (blob, callback) => {
@@ -456,7 +444,6 @@ const WriteEdit = () => {
 };
 const Container = styled.div`
   width: 100%;
-  /* min-height: 2000px; */
   background-color: white;
 `;
 const SpaceWrap = styled.div`
@@ -473,7 +460,7 @@ const EditWrap = styled.div`
   padding-left: 40px;
   padding-right: 40px;
 `;
-// 헤더 관련 - 2
+// 헤더 관련
 const Head = styled.div`
   width: 100%;
   height: 72px;
@@ -482,7 +469,6 @@ const Head = styled.div`
   align-items: center;
   padding-left: 48px;
   padding-right: 50px;
-  /* border-bottom: 1px solid #a7aca1; */
   outline: 1px solid #a7aca1;
   background-color: white;
   position: fixed;
@@ -688,7 +674,14 @@ const Tag = styled.div`
   cursor: pointer;
 `;
 
-// 기본 모음
+const Logo = styled.img`
+  height: 28px;
+  width: 153px;
+`;
+const PostImg = styled.img`
+  height: 20px;
+  width: 20px;
+`;
 // Button
 const ButtonWrap = styled.div`
   height: 70px;
@@ -696,10 +689,6 @@ const ButtonWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-`;
-const PostImg = styled.img`
-  height: 20px;
-  width: 20px;
 `;
 const Button = styled.button`
   height: ${(props) => props.height || "40px"};
@@ -718,9 +707,5 @@ const PostButton = styled(Button)`
   justify-content: center;
   align-items: center;
   gap: 10px;
-`;
-const Logo = styled.img`
-  height: 28px;
-  width: 153px;
 `;
 export default WriteEdit;

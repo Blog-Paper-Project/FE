@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getCookie } from "../../shared/Cookie";
 import styled from "styled-components";
@@ -7,9 +6,10 @@ import { deleteCookie } from "../../shared/Cookie";
 import defaultUserImage from "../../public/images/default_profile.png";
 import Swal from "sweetalert2";
 /* 컴포넌트 */
-import HeadPaperSearch from "./HeadPaperSearch";
+import { BiSearchAlt2 } from "react-icons/bi";
 
 const Header = () => {
+  const navigate = useNavigate();
   const onLogout = () => {
     deleteCookie("token");
     deleteCookie("nickname");
@@ -27,7 +27,7 @@ const Header = () => {
     });
     navigate("/");
   };
-  const navigate = useNavigate();
+
   /* 쿠키 */
   const cookie = getCookie("token");
   const blogId = getCookie("blogId");
@@ -65,24 +65,29 @@ const Header = () => {
     <>
       <HeaderBox>
         <Svg>
-          <Logo>
-            <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-              <img
-                className="paperTitle"
-                src={process.env.PUBLIC_URL + "/Frame.png"}
-                back_size="100% 100%"
-                alt="icon"
-              />
-            </Link>
-          </Logo>
-          <Search>
-            <HeadPaperSearch />
-          </Search>
+          <img
+            onClick={() => {
+              navigate("/");
+            }}
+            className="paperTitle"
+            src={process.env.PUBLIC_URL + "/logo_paper.png"}
+            back_size="100% 100%"
+            alt="icon"
+          />
+
           <Login>
             {is_cookie ? (
               <>
-                <BtnBox>
-                  <BtnItem>
+                <BtnBox1>
+                  <SearchIcon1
+                    onClick={() => {
+                      navigate(`/paper/search`);
+                    }}
+                  >
+                    <BiSearchAlt2 color="black" size="25px" />
+                  </SearchIcon1>
+
+                  {/* <BtnItem>
                     <Btn
                       onClick={() => {
                         navigate("/paper/allpapers");
@@ -90,75 +95,101 @@ const Header = () => {
                     >
                       전체글
                     </Btn>
-                  </BtnItem>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/write");
-                      }}
-                    >
-                      작성하기
-                    </Btn>
-                  </BtnItem>
-                  <DropDownContainer ref={el}>
-                    <ProfileImgBox
-                      src={
-                        profileImage === "null" || profileImage === "undefined"
-                          ? defaultUserImage
-                          : S3
-                      }
-                      onClick={toggling}
-                    />
-                    {isOpen && (
-                      <DropDownListContainer>
-                        <DropDownList>
-                          <ListItem
-                            onClick={() => {
-                              navigate(`/paper/${blogId}`);
-                            }}
-                          >
-                            내 블로그
-                          </ListItem>
-                          <ListItem
-                            onClick={() => {
-                              navigate(`/myprofile`);
-                            }}
-                          >
-                            회원정보
-                          </ListItem>
-                          <ListItem
-                            onClick={() => {
-                              navigate(`/paper/${blogId}/reservationList`);
-                            }}
-                          >
-                            예약리스트
-                          </ListItem>
-                          <ListItem
-                            onClick={() => {
-                              onLogout();
-                            }}
-                          >
-                            로그아웃
-                          </ListItem>
-                        </DropDownList>
-                      </DropDownListContainer>
-                    )}
-                  </DropDownContainer>
-                </BtnBox>
-                <NickBox>{nickname}</NickBox>
+                  </BtnItem> */}
+                </BtnBox1>
+                <DropDownContainer ref={el}>
+                  <ProfileImgBox
+                    src={
+                      profileImage === "null" || profileImage === "undefined"
+                        ? defaultUserImage
+                        : S3
+                    }
+                    onClick={toggling}
+                  />
+                  {isOpen && (
+                    <DropDownListContainer>
+                      <DropDownList>
+                        <ListItem
+                          onClick={() => {
+                            navigate(`/paper/${blogId}`);
+                          }}
+                        >
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Home.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">내 블로그</div>
+                        </ListItem>
+                        <ListItem
+                          onClick={() => {
+                            navigate(`/paper/${blogId}/reservationList`);
+                          }}
+                        >
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Alarm on.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">예약리스트</div>
+                        </ListItem>
+                        <ListItem
+                          onClick={() => {
+                            navigate(`/write`);
+                          }}
+                        >
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Edit.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">글 작성하기</div>
+                        </ListItem>
+                        <ListItem
+                          onClick={() => {
+                            navigate(`/myprofile`);
+                          }}
+                        >
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Account box.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">회원정보</div>
+                        </ListItem>
+                        <ListItem
+                          onClick={() => {
+                            onLogout();
+                          }}
+                        >
+                          <img
+                            className="icon"
+                            src={process.env.PUBLIC_URL + "/Exit to app.png"}
+                            back_size="100% 100%"
+                            alt="icon"
+                          />
+                          <div className="text">로그아웃</div>
+                        </ListItem>
+                      </DropDownList>
+                    </DropDownListContainer>
+                  )}
+                </DropDownContainer>
+                <NickBox></NickBox>
               </>
             ) : (
               <>
-                <BtnBox>
-                  <BtnItem>
-                    <Btn
-                      onClick={() => {
-                        navigate("/paper/allpapers");
-                      }}
-                    >
-                      전체글
-                    </Btn>
-                  </BtnItem>
+                <BtnBox2>
+                  <SearchIcon2
+                    onClick={() => {
+                      navigate(`/paper/search`);
+                    }}
+                  >
+                    <BiSearchAlt2 color="black" size="25px" />
+                  </SearchIcon2>
                   <BtnItem>
                     <Btn
                       onClick={() => {
@@ -168,7 +199,7 @@ const Header = () => {
                       로그인
                     </Btn>
                   </BtnItem>
-                </BtnBox>
+                </BtnBox2>
               </>
             )}
           </Login>
@@ -180,69 +211,79 @@ const Header = () => {
 
 const HeaderBox = styled.div`
   background-color: #fffdf7;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 90px;
+  height: 143px;
+  border-bottom: 1px solid #a7aca1;
 `;
 const Svg = styled.div`
   display: flex;
-  flex-direction: row;
+  width: 100%;
+  height: 143px;
+  position: relative;
   align-items: center;
-  margin: auto;
-`;
-const Logo = styled.div`
-  padding-left: 2%;
-  width: 27%;
-  height: 90px;
-  padding-left: 2%;
-  display: flex;
-  align-items: center;
-  background-color: #fffdf7;
-`;
-const Search = styled.div`
-  display: flex;
-  align-items: center !important;
   justify-content: center;
-  background-color: #fffdf7;
-  width: 46%;
-  height: 90px;
+  .paperTitle {
+    width: 50%;
+    height: auto;
+    max-width: 332px;
+    display: block;
+  }
 `;
+
 const Login = styled.div`
-  width: 27%;
-  height: 85px;
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+  width: 26%;
+  margin-right: 2.2%;
   display: flex;
   align-items: center;
   justify-content: end;
-  padding-right: 48px;
 `;
 const ProfileImgBox = styled.img`
-  width: 40px;
-  height: 40px;
-  margin: 0 0 0 0;
-  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   align-items: center;
 `;
-const BtnBox = styled.div`
-  width: 85%;
+const SearchIcon1 = styled.div`
   display: flex;
+  align-items: center;
+  margin-right: 10%;
+  cursor: pointer;
+`;
+const SearchIcon2 = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+const BtnBox1 = styled.div`
+  width: 45%;
+  display: flex;
+  justify-content: end;
+  margin-right: 1%;
+`;
+const BtnBox2 = styled.div`
+  width: 78%;
+  display: flex;
+  justify-content: end;
   gap: 24px;
+  padding-top: 3px;
 `;
 const BtnItem = styled.div`
-  width: 80%;
+  width: 35%;
 `;
 
 const Btn = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
+  font-family: "Gmarket Sans";
   line-height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border: 1px solid;
   outline: 1px solid;
   width: 100%;
   min-width: 60px;
@@ -250,32 +291,50 @@ const Btn = styled.button`
   background-color: #fffdf7;
 `;
 const DropDownContainer = styled.div`
-  width: 50px;
+  width: 45px;
 `;
-const DropDownListContainer = styled.div``;
+const DropDownListContainer = styled.div`
+  margin-right: 40px;
+`;
 const DropDownList = styled.ul`
   position: absolute;
+  width: 145px;
   z-index: 3;
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
   padding: 5px;
   background: #fffdf7;
-  outline: 1px solid #333;
-  border: 1px solid #333;
+  outline: 1px solid #a7aca1;
+  border: 1px solid #a7aca1;
   box-sizing: border-box;
   color: #333;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
+  transform: skew(-0.1deg);
+
   &:first-child {
     padding-top: 0.8em;
   }
 `;
 const ListItem = styled.li`
+  display: flex;
   list-style: none;
   margin-bottom: 0.5em;
   cursor: pointer;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .text {
+    transform: skew(-0.1deg);
+  }
 `;
 const NickBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
   font-family: "Gmarket Sans";
   font-style: normal;
   font-weight: 400;

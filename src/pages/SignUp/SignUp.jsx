@@ -336,7 +336,7 @@ const SignUp = () => {
           <Input2
             type="text"
             label="닉네임"
-            placeholder="닉네임 :       영어/한글/숫자 3~15자"
+            placeholder="닉네임 :               (영어/한글/숫자 3~15자)"
             value={nickname || ""}
             onChange={setNickname}
             nicknameCHK={nicknameCHK}
@@ -356,7 +356,7 @@ const SignUp = () => {
           <Input2
             type="text"
             label="블로그주소"
-            placeholder="블로그주소 :       영어/숫자 3~15자"
+            placeholder="블로그 이름 :     도메인으로 사용할 이름 (영어/숫자 3~15자)"
             value={blogId || ""}
             onChange={setBlogId}
             blogIdCHK={blogIdCHK}
@@ -377,7 +377,7 @@ const SignUp = () => {
             type="password"
             label="비밀번호"
             value={password || ""}
-            placeholder="비밀번호 :   영어/숫자/특수문자 8자 이상 "
+            placeholder="비밀번호 :           (영어/숫자/특수문자 8자 이상)"
             onChange={setPassword}
             password={password}
             confirmPassword={confirmPassword}

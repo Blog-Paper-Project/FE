@@ -32,9 +32,6 @@ const VideoPlayer = () => {
       {callAccepted && stream ? (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              Me
-            </Typography>
             <video
               playsInline
               muted
@@ -47,9 +44,6 @@ const VideoPlayer = () => {
       ) : (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              Me
-            </Typography>
             <img src={default_profile} className={classes.video} />
           </Grid>
         </Paper>
@@ -57,9 +51,6 @@ const VideoPlayer = () => {
       {callAccepted && !callEnded ? (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              You
-            </Typography>
             <video
               playsInline
               ref={userVideo}
@@ -71,9 +62,6 @@ const VideoPlayer = () => {
       ) : (
         <Paper className={classes.paper}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>
-              You
-            </Typography>
             <img src={default_profile} className={classes.video} />
           </Grid>
         </Paper>

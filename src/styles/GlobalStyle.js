@@ -22,6 +22,8 @@ const GlobalStyle = createGlobalStyle`
         border: none;
         font-family: "Gmarket Sans";
         background-color: white;
+        transform: skew(-0.1deg);
+
     };
     img{
         cursor: pointer;
@@ -38,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     // toast Edit 
     .toastui-editor-contents p {
         /* font-family: "Noto Sans Light","Malgun Gothic",sans-serif !important; */
-        font-size: 11pt !important;
+        font-size: 13pt !important;
         letter-spacing: .8px !important;
         line-height: 23pt !important;
         color: #333 !important;

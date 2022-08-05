@@ -1,5 +1,6 @@
 .calendarTitle {
     margin: 10px;
+
   }
   
   .saveBtn {
@@ -13,10 +14,11 @@
     font-family: 'Gmarket Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 16px;
-    width: 384px;
+    width: 304px;
     height: 50px;
+    transform: skew(-0.1deg);
   }
   
   .resetBtn {
@@ -32,8 +34,7 @@
     margin-left: 10px;
     margin-top: 10px;
     font-size: 34px;
-    font-size: 12px;
-    font-weight: 600;
+    font-weight: 400;
     position: absolute;
     border-radius: 4px;
     color: #fff;
@@ -74,6 +75,8 @@
     font-weight: 350;
     font-size: 14px;
     line-height: 20px;
+    transform: skew(-0.1deg);
+
   }
   
   .blueColor {
@@ -96,6 +99,8 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
+    transform: skew(-0.1deg);
+
   }
   
   .btnWrap {

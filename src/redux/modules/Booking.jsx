@@ -108,10 +108,6 @@ export const setBookingDB = (data, blogId) => {
           showConfirmButton: true,
           confirmButtonColor: "#3085d6",
           confirmButtonText: "확인",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
         });
       })
       .catch((err) => {
