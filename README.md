@@ -136,7 +136,7 @@
 | React | Component 단위의 작성을 통해 UI를 구성하는 개별적인 뷰단위의 개발을 하여 하나의 컴포넌트를 여러 부분에 다중 사용할수 있게 만들거 생산성과 유지 보수를 용이하게 하고 JSX를 사용해 컴포넌트를 쉽게 구성할수 있도록 해주며 Vitual DOM을 이용해 연산 비용을 줄일수 있기에 React 라이브러리를 사용하게 되었습니다. |
 | Axios | 우선 Fetch 같은 경우 호환성이 떨어져 웹브라우저가 구버전일 경우 지원하지 않는 경우가 있으며, Fetch에 비해 객체의 형태로 Param이나 Query를 성정할수 있어 가독성이 뛰어나며, 따로 JSON형태의 변환이 필요없이 자동 변환이 되고 개선된 error handling의 성능을 가지고 있기에 Axios를 사용하게 되었습니다. |
 
-
+<br>
 
 ## 🔥 Trouble Shooting 🔥
 <details> <summary>➡️ input이 있는 곳에서 onChange로 바뀌는 데이터를 state에 보관하고 있었는데,  한 글자 한 글자 작성 시에 onChange로 인해 계속 리랜더링 되어 속도를 저하시키고, 불필요하게 추가로 api 요청이 생겼다.</summary> <div markdown="1">
