@@ -1,14 +1,12 @@
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F48a2bf33-bbb6-4e1c-ba45-9f04e920d53a%2FPAPER.jpeg?table=block&id=a934e6cc-b99a-4024-a857-1cff6619333b&spaceId=45af053f-84a5-4fa9-b5c7-de7e57b65827&width=2000&userId=e4ec6b27-fdb8-48dd-9fe0-06b3dd4d8123&cache=v2"/>
 
-# 📝[Paper](https://www.paper-daily.com/)📝
+# 📝[Paper](https://www.paper-daily.com/)
 
 자신의 생각을 글로 적어보아요.
 
 <br />
 
-## Paper의 사용목적
-
-### 자신의 글로 유명 해지고 싶나요?
+## Paper 
 
 저희는, 이전에 저희가 소비자로써 네이버나 벨로그 등의 다양한 블로그에서 감명 깊을 글을 읽었을 때,
 그 블로거와 단순히 댓글, 혹은 상대방이 적어둔 Email이나 insta등을 통해 간접적인 메세지로 연락을 할수 밖에 없다는 것을 아쉽다고 생각하여
