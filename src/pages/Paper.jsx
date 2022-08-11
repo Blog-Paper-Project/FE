@@ -95,10 +95,10 @@ const Paper = () => {
   const S3 =
     process.env.REACT_APP_S3_URL + `/${mypaper_data?.user.profileImage}`;
 
-  const isSubscribe = mypaper_data.user.Followers.find((value) => {
+  const isSubscribe = mypaper_data.user.Followers?.find((value) => {
     return value.blogId === isHostId;
   });
-  const SelectCategoryData = mypaper_data?.user.Papers.filter(
+  const SelectCategoryData = mypaper_data?.user.Papers?.filter(
     (PostsData) => PostsData.category === SelectCategory
   );
 
@@ -118,7 +118,7 @@ const Paper = () => {
             <Nickname>{mypaper_data?.user.nickname}</Nickname>
             <Introduction>{mypaper_data?.user.introduction}</Introduction>
             <Subscribe>
-              구독자<span>{mypaper_data?.user.Followers.length}</span>
+              구독자<span>{mypaper_data?.user.Followers?.length}</span>
             </Subscribe>
           </div>
         </MyProfileWrap>
@@ -309,7 +309,7 @@ const Paper = () => {
             {SelectCategory === "All" ? (
               <>
                 <AllSortWrap>
-                  {mypaper_data?.user.Papers.map((value, idx) => {
+                  {mypaper_data?.user.Papers?.map((value, idx) => {
                     return (
                       <ContentBox
                         key={idx}
@@ -328,7 +328,7 @@ const Paper = () => {
             ) : (
               <>
                 <AllSortWrap>
-                  {SelectCategoryData.length === 0 ? null : (
+                  {SelectCategoryData?.length === 0 ? null : (
                     <>
                       {SelectCategoryData?.map((value, idx) => {
                         return (

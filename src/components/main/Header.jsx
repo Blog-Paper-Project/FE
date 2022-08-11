@@ -301,7 +301,6 @@ const DropDownList = styled.ul`
   width: 145px;
   z-index: 3;
   padding: 0;
-  /* margin: 0; */
   padding: 5px;
   background: #fffdf7;
   outline: 1px solid #a7aca1;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -10,7 +11,6 @@ const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
   const queryClient = useQueryClient();
-
   const navigate = useNavigate("");
   // console.log(props.Comments);
   // ## useMutation 댓글 post 함수

@@ -11,8 +11,6 @@ import {
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
-
-
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,7 +31,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     navigate(`/chat/${Host}/${Guest}`);
   };
 
-
   // 예약 정보
   let startTime = item?.start;
   let endTime = item?.end;
@@ -45,7 +42,6 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
   let chatTime = start.substr(0, 2);
-
 
   let Month = (month) => {
     if (month === "Jan") return "01";
@@ -69,9 +65,9 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
     if (week === "Fri") return "금";
     if (week === "Sat") return "토";
     if (week === "Sun") return "일";
-  }
+  };
 
-  const chatday = (`${year}.${Month(month)}.${day}.${week}`);
+  const chatday = `${year}.${Month(month)}.${day}.${week}`;
 
   // 게스트일때
   if (Guest === Bloger) {
@@ -134,7 +130,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("YYYY.MM.DD.ddd") === chatday && dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday &&
+              dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -236,7 +233,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("YYYY.MM.DD.ddd") === chatday && dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday &&
+              dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
