@@ -42,6 +42,33 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
   let chatTime = start.substr(0, 2);
+
+  let Month = (month) => {
+    if (month === "Jan") return "01";
+    if (month === "Feb") return "02";
+    if (month === "Mar") return "03";
+    if (month === "Apr") return "04";
+    if (month === "May") return "05";
+    if (month === "Jun") return "06";
+    if (month === "Jul") return "07";
+    if (month === "Aug") return "08";
+    if (month === "Sep") return "09";
+    if (month === "Oct") return "10";
+    if (month === "Nov") return "11";
+    if (month === "Dec") return "12";
+  };
+  let Week = (week) => {
+    if (week === "Mon") return "월";
+    if (week === "Tue") return "화";
+    if (week === "Wed") return "수";
+    if (week === "Thu") return "목";
+    if (week === "Fri") return "금";
+    if (week === "Sat") return "토";
+    if (week === "Sun") return "일";
+  };
+
+  const chatday = `${year}.${Month(month)}.${day}.${week}`;
+
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -60,7 +87,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -95,7 +122,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -103,7 +130,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday &&
+              dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -116,13 +144,16 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 <button
                   className="waitBtn"
                   onClick={() => {
-                    // Swal.fire({
-                    //   title: "아직 예약하신 시간이 아닙니다!",
-                    //   icon: "warning",
-                    //   confirmButtonColor: "#3085d6",
-                    //   confirmButtonText: "확인",
-                    // })
-                    enterChat();
+                    Swal.fire({
+                      title: "원래는 예약시간에만 입장 가능합니다.",
+                      icon: "warning",
+                      confirmButtonColor: "#3085d6",
+                      confirmButtonText: "확인",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        enterChat();
+                      }
+                    });
                   }}
                 >
                   Start
@@ -151,7 +182,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -194,7 +225,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
               <div className="userBookingWrap">
                 <span className="dayInfo">
-                  {year}.{month}.{day}.{week}
+                  {year}.{Month(month)}.{day}.{Week(week)}
                 </span>
                 <span className="timeInfo">
                   {start} - {end}
@@ -202,7 +233,8 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
               </div>
             </div>
             <div className="btnBox">
-              {dayjs().format("HH") >= chatTime ? (
+              {dayjs().format("YYYY.MM.DD.ddd") === chatday &&
+              dayjs().format("HH") >= chatTime ? (
                 <button
                   className="startBtn"
                   onClick={() => {
@@ -215,13 +247,16 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 <button
                   className="waitBtn"
                   onClick={() => {
-                    // Swal.fire({
-                    //   title: "아직 예약하신 시간이 아닙니다!",
-                    //   icon: "warning",
-                    //   confirmButtonColor: "#3085d6",
-                    //   confirmButtonText: "확인",
-                    // })
-                    enterChat();
+                    Swal.fire({
+                      title: "원래는 예약시간에만 입장 가능합니다.",
+                      icon: "warning",
+                      confirmButtonColor: "#3085d6",
+                      confirmButtonText: "확인",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        enterChat();
+                      }
+                    });
                   }}
                 >
                   Start
