@@ -74,6 +74,7 @@ const PaperDetail = () => {
   if (status === "error") {
     return alert("error");
   }
+  // 변수 저장
   const S3 =
     process.env.REACT_APP_S3_URL + `/${detail_data?.paper.Users?.profileImage}`;
 
