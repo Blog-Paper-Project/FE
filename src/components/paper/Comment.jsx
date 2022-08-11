@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -9,8 +10,13 @@ import CommentList from "./CommentList";
 const Comment = (props) => {
   const { postId, Comments } = props;
   const [comment, setComment] = useState("");
+  console.log(comment);
   const queryClient = useQueryClient();
-
+  // const CommentRef = useRef(null);
+  // const CommentOnchage = () => {
+  //   const Comment_data = CommentRef.current?.value;
+  //   setComment(Comment_data);
+  // };
   const navigate = useNavigate("");
   // console.log(props.Comments);
   // ## useMutation 댓글 post 함수
@@ -43,6 +49,7 @@ const Comment = (props) => {
             onChange={(e) => {
               setComment(e.target.value);
             }}
+            // ref={CommentRef}
           />
         </div>
         <button

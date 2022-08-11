@@ -11,8 +11,6 @@ import {
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 
-
-
 const BookingItem = ({ item, leafChange, setLeafChange }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,7 +41,7 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
   let [week, month, day, year, sTime] = startTime?.split(" ");
   let start = sTime.substr(0, 5);
   let end = endTime.substr(16, 5);
-  let chatTime = start.substr(0, 2)
+  let chatTime = start.substr(0, 2);
   // 게스트일때
   if (Guest === Bloger) {
     return (
@@ -118,12 +116,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 <button
                   className="waitBtn"
                   onClick={() => {
-                    Swal.fire({
-                      title: "아직 예약하신 시간이 아닙니다!",
-                      icon: "warning",
-                      confirmButtonColor: "#3085d6",
-                      confirmButtonText: "확인",
-                    })
+                    // Swal.fire({
+                    //   title: "아직 예약하신 시간이 아닙니다!",
+                    //   icon: "warning",
+                    //   confirmButtonColor: "#3085d6",
+                    //   confirmButtonText: "확인",
+                    // })
+                    enterChat();
                   }}
                 >
                   Start
@@ -216,12 +215,13 @@ const BookingItem = ({ item, leafChange, setLeafChange }) => {
                 <button
                   className="waitBtn"
                   onClick={() => {
-                    Swal.fire({
-                      title: "아직 예약하신 시간이 아닙니다!",
-                      icon: "warning",
-                      confirmButtonColor: "#3085d6",
-                      confirmButtonText: "확인",
-                    })
+                    // Swal.fire({
+                    //   title: "아직 예약하신 시간이 아닙니다!",
+                    //   icon: "warning",
+                    //   confirmButtonColor: "#3085d6",
+                    //   confirmButtonText: "확인",
+                    // })
+                    enterChat();
                   }}
                 >
                   Start

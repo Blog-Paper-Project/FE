@@ -32,7 +32,7 @@ const WriteEdit = () => {
   const [editCategory, setEditCategory] = useState(false);
   const [category, setCategory] = useState("etc");
   const [categoryList, setCategoryList] = useState([]);
-  const [selectOption, setSelectOption] = useState("etc");
+  const [selectOption, setSelectOption] = useState("Art");
   if (LoginIdCheck == undefined) {
     alert("로그인 후 이용 가능한 기능입니다.");
     navigate("/login");
